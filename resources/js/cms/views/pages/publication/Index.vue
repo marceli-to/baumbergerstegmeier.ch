@@ -3,8 +3,8 @@
   <loading-indicator v-if="isLoading"></loading-indicator>
   <div v-if="isFetched" class="is-loaded">
     <page-header>
-      <h2>Auszeichnungen</h2>
-      <router-link :to="{ name: 'award-create'}" class="btn-add has-icon">
+      <h2>Publikationen</h2>
+      <router-link :to="{ name: 'publication-create'}" class="btn-add has-icon">
         <plus-icon size="16"></plus-icon>
         <span>Hinzufügen</span>
       </router-link>
@@ -32,7 +32,7 @@
           <list-actions 
             :id="d.id" 
             :record="d"
-            :routes="{edit: 'award-edit'}"
+            :routes="{edit: 'publication-edit'}"
             @toggle="toggle($event)"
             @destroy="destroy($event)">
           </list-actions>
@@ -81,11 +81,11 @@ export default {
 
       // Routes
       routes: {
-        get: '/api/awards',
-        store: '/api/award',
-        delete: '/api/award',
-        order: '/api/award/order',
-        toggle: '/api/award/state',
+        get: '/api/publications',
+        store: '/api/publication',
+        delete: '/api/publication',
+        order: '/api/publication/order',
+        toggle: '/api/publication/state',
       },
 
       // States
@@ -137,18 +137,18 @@ export default {
     },
 
     order() {
-      let awards = this.data.map(function(award, idx) {
-        award.order = idx;
-        return award;
+      let publications = this.data.map(function(publication, idx) {
+        publication.order = idx;
+        return publication;
       });
 
       if (this.debounce) return;
       this.debounce = setTimeout(function() {
         this.debounce = false 
-        this.axios.post(`${this.routes.order}`, {awards: awards}).then((response) => {
+        this.axios.post(`${this.routes.order}`, {publications: publications}).then((response) => {
           this.$notify({type: 'success', text: 'Reihenfolge angepasst'});
         });
-      }.bind(this, awards), 500);
+      }.bind(this, publications), 500);
     },
   }
 }

@@ -19,10 +19,17 @@
         </router-link>
       </div>
 
-      <div class="card">
+      <!-- <div class="card">
         <router-link :to="{name: 'diaries'}">
           <h2>Tagebuch</h2>
           <p>Verwaltung des Tagebuchs</p>
+        </router-link>
+      </div> -->
+
+      <div class="card">
+        <router-link :to="{name: 'publications-index'}">
+          <h2>Publikationen</h2>
+          <p>Verwaltung der Publikationen</p>
         </router-link>
       </div>
 

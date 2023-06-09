@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\JobController;
 use App\Http\Controllers\Api\JobArticleController;
 use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\AwardController;
+use App\Http\Controllers\Api\PublicationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,7 +81,7 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::delete('job-article/{jobArticle}', 'destroy');
   });
 
-  // Job articles
+  // Awards
   Route::controller(AwardController::class)->group(function () {
     Route::get('awards', 'get');
     Route::get('award/{award}', 'find');
@@ -89,6 +90,16 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('award/state/{award}', 'toggle');
     Route::post('award/order', 'order');
     Route::delete('award/{award}', 'destroy');
+  });
+
+  Route::controller(PublicationController::class)->group(function () {
+    Route::get('publications', 'get');
+    Route::get('publication/{publication}', 'find');
+    Route::post('publication', 'store');
+    Route::put('publication/{publication}', 'update');
+    Route::get('publication/state/{publication}', 'toggle');
+    Route::post('publication/order', 'order');
+    Route::delete('publication/{publication}', 'destroy');
   });
 
 });
