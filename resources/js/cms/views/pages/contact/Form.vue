@@ -37,6 +37,14 @@
             v-model="data.imprint"
           ></tinymce-editor>
         </div>
+        <div class="form-row">
+          <label>Datenschutz</label>
+          <tinymce-editor
+            :api-key="tinyApiKey"
+            :init="tinyConfig"
+            v-model="data.privacy"
+          ></tinymce-editor>
+        </div>
       </div>
     </div>
 
@@ -44,8 +52,8 @@
       <images 
         :allowRatioSwitch="true"
         :imageRatioW="3" 
-        :imageRatioH="4"
-        :ratioFormats="[{label: 'Hoch', w: 3, h: 4}, {label: 'Quer', w: 16, h: 10}]"
+        :imageRatioH="2"
+        :ratioFormats="[{label: 'Hoch', w: 3, h: 2}]"
         :images="data.images">
       </images>
     </div>
@@ -64,7 +72,7 @@
     </div>
 
     <page-footer>
-      <button-back :route="'contacts'">Zurück</button-back>
+      <button-back :route="'contact-index'">Zurück</button-back>
       <button-submit>Speichern</button-submit>
     </page-footer>
   </form>
@@ -115,6 +123,7 @@ export default {
         description: null,
         maps_uri: null,
         imprint: null,
+        privacy: null,
         publish: 1,
         images: [],
       },
@@ -155,6 +164,12 @@ export default {
     if (this.$props.type == "edit") {
       this.fetch();
     }
+
+    this.tinyConfig.link_list = [
+      {title: 'Jobs', value: window.location.origin + '/jobs'},
+      {title: 'Team', value: window.location.origin + '/team'},
+      {title: 'Kontakt', value: window.location.origin + '/kontakt'},
+    ];
   },
 
   methods: {
@@ -181,7 +196,7 @@ export default {
     store() {
       this.isLoading = true;
       this.axios.post(this.routes.store, this.data).then(response => {
-        this.$router.push({ name: "contacts"});
+        this.$router.push({ name: "contact-index"});
         this.$notify({ type: "success", text: this.messages.stored });
         this.isLoading = false;
       });
@@ -190,7 +205,7 @@ export default {
     update() {
       this.isLoading = true;
       this.axios.put(`${this.routes.update}/${this.$route.params.id}`, this.data).then(response => {
-        this.$router.push({ name: "contacts"});
+        this.$router.push({ name: "contact-index"});
         this.$notify({ type: "success", text: this.messages.updated });
         this.isLoading = false;
       });

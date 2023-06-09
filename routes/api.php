@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\ImageController;
 use App\Http\Controllers\Api\FileController;
 use App\Http\Controllers\Api\JobController;
 use App\Http\Controllers\Api\JobArticleController;
+use App\Http\Controllers\Api\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,10 +48,19 @@ Route::middleware('auth:sanctum')->group(function() {
   Route::get('file/state/{file}', [FileController::class, 'toggle']);
   Route::delete('file/{file}', [FileController::class, 'destroy']);
 
+  // Contact
+  Route::controller(ContactController::class)->group(function () {
+    Route::get('contact', 'get');
+    Route::get('contact/{contact}', 'find');
+    Route::post('contact', 'store');
+    Route::put('contact/{contact}', 'update');
+    Route::get('contact/state/{contact}', 'toggle');
+    Route::delete('contact/{contact}', 'destroy');
+  });
+
   // Job page
   Route::controller(JobController::class)->group(function () {
     Route::get('job', 'get');
-    Route::get('job/images', 'getImages');
     Route::get('job/{job}', 'find');
     Route::post('job', 'store');
     Route::put('job/{job}', 'update');

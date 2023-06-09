@@ -3,11 +3,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\ModelFlags\Models\Concerns\HasFlags;
 
-class Job extends Model
+class Contact extends Model
 {
   use HasFlags;
-  
-  protected $table = 'job';
+
+  protected $table = 'contact';
 
   /**
    * The attributes that are mass assignable.
@@ -16,7 +16,11 @@ class Job extends Model
    */
    
 	protected $fillable = [
-    'text',
+    'address',
+    'description',
+    'maps_uri',
+    'imprint',
+    'privacy'
   ];
 
   /**
@@ -25,9 +29,17 @@ class Job extends Model
    * @var array
    */
 
-   protected $appends = [
+  protected $appends = [
     'publish',
   ];
+
+  /*
+  |--------------------------------------------------------------------------
+  | Relationships
+  |--------------------------------------------------------------------------
+  |
+  |
+  */
 
   /**
    * The images that belong to this model.
@@ -52,4 +64,5 @@ class Job extends Model
   {
     return $this->hasFlag('isPublish') ? 1 : 0;    
   }
+
 }

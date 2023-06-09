@@ -54,7 +54,7 @@
         </router-link>
       </li>
       <li>
-        <router-link :to="{name: 'contacts'}">
+        <router-link :to="{name: 'contact-index'}">
           <span>Kontakt</span>
         </router-link>
       </li>

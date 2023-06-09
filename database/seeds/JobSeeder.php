@@ -14,7 +14,6 @@ class JobSeeder extends Seeder
   {
     Job::create([
       'text' => 'Zur Zeit sind alle unsere Stellen besetzt.',
-      'description' => 'Jobs @ Baumberger Stegmeier Architektur',
     ]);
   }
 }

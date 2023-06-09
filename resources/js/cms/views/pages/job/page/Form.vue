@@ -9,16 +9,12 @@
     <div v-show="tabs.data.active">
       <div>
         <div :class="[this.errors.text ? 'has-error' : '', 'form-row']">
-          <label>Text (keine Inserate vorhanden)</label>
+          <label>Text (falls keine Inserate vorhanden sind)</label>
           <tinymce-editor
             :api-key="tinyApiKey"
             :init="tinyConfig"
             v-model="data.text"
           ></tinymce-editor>
-        </div>
-        <div class="form-row">
-          <label>Beschreibung (SEO)</label>
-          <textarea v-model="data.description"></textarea>
         </div>
       </div>
     </div>
@@ -96,7 +92,6 @@ export default {
       data: {
         id: null,
         text: null,
-        description: null,
         publish: 1,
         images: [],
       },
@@ -182,8 +177,8 @@ export default {
   computed: {
     title() {
       return this.$props.type == "edit" 
-        ? "Über uns bearbeiten" 
-        : "Über uns hinzufügen";
+        ? "Job-Seite bearbeiten" 
+        : "Job-Seite hinzufügen";
     }
   }
 };

@@ -7,6 +7,7 @@ export default {
   external_plugins: {
     link: '/assets/js/cms/tinymce/plugins/link/plugin.min.js',
   },
+  relative_urls: false,
   plugins: ['lists', 'code', 'link', 'paste'],
   toolbar: 'undo redo | bold | bullist | link | superscript | removeformat | styleselect | code',
   paste_as_text: true,
@@ -15,12 +16,16 @@ export default {
   style_formats: [{
     title: 'Text',
     items: [
-      { title: 'Unterstrichen', inline: 'span', classes : 'underline-static' },
       { title: 'Überschrift 1', block : 'h1'},
       { title: 'Überschrift 2', block : 'h2'},
       { title: 'Trennung verhindern', inline : 'span', classes : 'no-word-break'},
     ],
   }],
 
-  link_list: '/filelist',
+  link_class_list: [
+    {title: 'None', value: ''},
+    {title: 'Icon ↗', value: 'icon-arrow-right-up'},
+  ],
+
+  link_list: '/page-links',
 };

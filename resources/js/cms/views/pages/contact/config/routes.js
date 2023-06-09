@@ -4,7 +4,7 @@ import ContactEdit from '@/views/pages/contact/partials/Edit.vue';
 
 const routes = [
   {
-    name: 'contacts',
+    name: 'contact-index',
     path: '/administration/contact/index',
     component: ContactIndex,
   },

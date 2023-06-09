@@ -20,26 +20,6 @@ class JobController extends Controller
   }
 
   /**
-   * Get the job images
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function getImages()
-  {
-    $job = Job::with('images')->get();
-    $images = [];
-    foreach ($job as $j)
-    {
-      foreach ($j->images as $image)
-      {
-        $images[] = $image;
-      }
-    }
-    return response()->json(['data' => $images]);
-  }
-
-
-  /**
    * Display the specified resource.
    *
    * @param  Job $job
@@ -60,7 +40,6 @@ class JobController extends Controller
   {
     $job = Job::create([
       'text' => $request->input('text'),
-      'description' => $request->input('description'),
     ]);
     $this->handleFlag($job, 'isPublish', $request->input('publish'));
     $this->handleImages($job, $request->input('images'));
@@ -78,7 +57,6 @@ class JobController extends Controller
   {
     $job = Job::findOrFail($job->id);
     $job->text = $request->input('text');
-    $job->description = $request->input('description');
     $job->save();
     $this->handleFlag($job, 'isPublish', $request->input('publish'));
     $this->handleImages($job, $request->input('images'));

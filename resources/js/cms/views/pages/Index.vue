@@ -41,7 +41,7 @@
       </div>
 
       <div class="card">
-        <router-link :to="{name: 'contacts'}">
+        <router-link :to="{name: 'contact-index'}">
           <h2>Kontakt</h2>
           <p>Verwaltung der Kontaktseite</p>
         </router-link>

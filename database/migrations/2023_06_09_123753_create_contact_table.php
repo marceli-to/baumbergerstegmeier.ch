@@ -13,11 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('job', function (Blueprint $table) {
-          $table->id();
-          $table->text('text');
-          $table->timestamps();
-        });
+      Schema::create('contact', function (Blueprint $table) {
+        $table->id();
+        $table->text('address');
+        $table->text('description')->nullable();
+        $table->string('maps_uri')->nullable();
+        $table->text('imprint')->nullable();
+        $table->text('privacy')->nullable();
+        $table->timestamps();
+      });
     }
 
     /**
@@ -27,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-      Schema::dropIfExists('job');
+      Schema::dropIfExists('contact');
     }
 };

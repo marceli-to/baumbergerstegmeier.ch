@@ -4,7 +4,7 @@
   <div v-if="isFetched" class="is-loaded">
     <page-header>
       <h1>Kontakt</h1>
-      <router-link :to="{ name: 'contact-create'}" class="btn-add has-icon">
+      <router-link :to="{ name: 'contact-create'}" class="btn-add has-icon" v-if="data.length < 1">
         <plus-icon size="16"></plus-icon>
         <span>Hinzufügen</span>
       </router-link>
@@ -67,7 +67,7 @@ export default {
 
       // Routes
       routes: {
-        get: '/api/contacts',
+        get: '/api/contact',
         store: '/api/contact',
         delete: '/api/contact',
         toggle: '/api/contact/state',
