@@ -1,0 +1,28 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: layout/base
+ * -----------------------------------------------------------------------------
+ */
+
+html {
+  height: -webkit-fill-available;
+	overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
+body {
+  @extend %word-break;
+	background-color: $color-white;
+	color: $color-black;
+  @include font-smoothing();
+	@include font-regular();
+  max-width: 1366px;
+	position: relative;
+}
+
+// Scrollbars
+@include scrollbar(7px, #bbb);
+
+// * {
+//   background: rgb(0 100 0 / 0.05) !important;
+// }

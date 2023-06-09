@@ -1,0 +1,16 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: component/blocks
+ * -----------------------------------------------------------------------------
+ *
+ */
+
+%inner-block,
+.inner-block {
+  @extend %mx-auto;
+  @extend %px-11x;
+  @extend %sm\:px-22x;
+  @extend %md\:px-44x;
+  max-width: $page-max-width;
+  width: 100%;
+}

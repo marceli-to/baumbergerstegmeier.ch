@@ -1,0 +1,105 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: typo/sizes
+ * -----------------------------------------------------------------------------
+ *
+ */
+
+$fs-sm: (
+  null: (12px,1.33),
+  sm:   (15px,1.33),
+  md:   (15px,1.33),
+  lg:   (15px,1.33),
+  xl:   (15px,1.33),
+);
+
+$fs-base: (
+  null: (16px,1.25),
+  sm:   (18px,1.25),
+  md:   (18px,1.33),
+  lg:   (18px,1.33),
+  xl:   (18px,1.33),
+);
+
+// Menu
+$fs-menu: (
+  null: (25px,1.22),
+  sm:   (18px,1.22),
+  md:   (24px,1.22),
+  lg:   (24px,1.22),
+  xl:   (24px,1.22),
+);
+
+$fs-sub-menu: (
+  null: (20px,1.22),
+  sm:   (18px,1.22),
+  md:   (18px,1.22),
+  lg:   (18px,1.22),
+  xl:   (18px,1.22),
+);
+
+// Auth / Buttons
+$fs-btn: (
+  null: (15px,1.33),
+  sm:   (15px,1.33),
+  md:   (16px,1.33),
+  lg:   (16px,1.33),
+  xl:   (16px,1.33),
+);
+
+
+// 18px, body sm
+.text-md {
+  font-size: 1.125rem;
+}
+
+// 20px, body xl
+.text-lg {
+  font-size: 1.25rem;
+}
+
+// 25px, heading sm
+.text-xl {
+  font-size: 1.6rem;
+}
+
+// 35px, heading xl
+.text-2xl {
+  font-size: 2.1875rem;
+}
+
+@each $bp, $width in $breakpoints {
+  %#{$bp}\:text-md, 
+  .#{$bp}\:text-md {
+    @media (min-width: $width) {
+      font-size: 1.125rem;
+    }
+  }
+}
+
+@each $bp, $width in $breakpoints {
+  %#{$bp}\:text-lg, 
+  .#{$bp}\:text-lg {
+    @media (min-width: $width) {
+      font-size: 1.25rem;
+    }
+  }
+}
+
+@each $bp, $width in $breakpoints {
+  %#{$bp}\:text-xl, 
+  .#{$bp}\:text-xl {
+    @media (min-width: $width) {
+      font-size: 1.6rem;
+    }
+  }
+}
+
+@each $bp, $width in $breakpoints {
+  %#{$bp}\:text-2xl, 
+  .#{$bp}\:text-2xl {
+    @media (min-width: $width) {
+      font-size: 2.1875rem;
+    }
+  }
+}

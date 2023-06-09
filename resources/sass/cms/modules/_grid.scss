@@ -1,0 +1,336 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: modules/grid
+ * -----------------------------------------------------------------------------
+ */
+
+.grid-gallery {
+  @extend %mb-8x;
+  
+  .btn-delete {
+    @extend %mb-3x;
+    background-color: $color-red;
+    &:hover {
+      background-color: $color-secondary;
+    }
+  }
+
+  .btn-select,
+  .btn-delete-item {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+
+  .btn-select {
+    min-width: 164px;
+  }
+
+  .btn-select + .btn-select {
+    top: 60px;
+  }
+}
+
+.grid-gallery > div {
+  @extend %mb-4x;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.grid-gallery-1 > div {
+  grid-template-areas: 
+  "a a a a a a"
+  "a a a a a a";
+}
+
+.grid-gallery-2-1 > div {
+  grid-template-areas:
+    "a a a a b b"
+    "a a a a b b";
+}
+
+.grid-gallery-1-2 > div {
+  grid-template-areas:
+    "a a b b b b"
+    "a a b b b b";
+}
+
+.grid-gallery-1-1_1 > div {
+  grid-template-areas:
+    "a a a b b b"
+    "a a a c c c";
+}
+
+.grid-gallery-1_1-1 > div {
+  grid-template-areas:
+    "a a a c c c"
+    "b b b c c c";
+}
+
+.grid-gallery-1s-1s-1s > div {
+  grid-template-areas:
+    "a a b b c c"
+}
+
+.grid-gallery-1-1-1 > div,
+.grid-gallery-1w-1w-1w > div {
+  grid-template-areas:
+    "a a b b c c"
+    "a a b b c c";
+}
+
+.grid-gallery-1w-1w > div {
+  grid-template-areas:
+    "a a a b b b";
+}
+
+.grid-gallery-1-1 > div {
+  grid-template-areas:
+    "a a a b b b"
+    "a a a b b b";
+}
+
+
+.grid-gallery-1_1-2 > div {
+  grid-template-areas:
+    "a a c c c c"
+    "b b c c c c";
+}
+
+.grid-gallery-2-1_1 > div {
+  grid-template-areas:
+    "a a a a b b"
+    "a a a a c c";
+}
+
+.grid-gallery-1-1_1-1 > div {
+  grid-template-areas:
+    "a a b b d d"
+    "a a c c d d";
+}
+
+.grid-gallery-1-1-1_1 > div {
+  grid-template-areas:
+    "a a b b c c"
+    "a a b b d d";
+}
+
+.grid-gallery-1_1-1-1 > div {
+  grid-template-areas:
+    "a a c c d d"
+    "b b c c d d";
+}
+
+.grid-gallery-1_1-1-1_1 > div {
+  grid-template-areas:
+    "a a c c d d"
+    "b b c c e e";
+}
+
+.grid-gallery-1_1-1_1-1 > div {
+  grid-template-areas:
+    "a a c c e e"
+    "b b d d e e";
+}
+
+.grid-gallery-1-1_1-1_1 > div {
+  grid-template-areas:
+    "a a b b d d"
+    "a a c c e e";
+}
+
+.grid-gallery-1t_1-1_1-1 > div {
+  grid-template-areas:
+    "a a c c e e"
+    "b b d d e e";
+}
+
+.grid-gallery > div > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #eee;
+}
+
+.grid-gallery .grid-area-a {
+  grid-area: a;
+}
+
+.grid-gallery .grid-area-b {
+  grid-area: b;
+}
+
+.grid-gallery .grid-area-c {
+  grid-area: c;
+}
+
+.grid-gallery .grid-area-d {
+  grid-area: d;
+}
+
+.grid-gallery .grid-area-e {
+  grid-area: e;
+}
+
+.grid-gallery figure {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid-gallery img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+[class*="aspect-ratio-"],
+[class^="aspect-ratio-"] {
+  position: relative;
+}
+
+[class*="aspect-ratio-"] > div,
+[class^="aspect-ratio-"] > div {
+  height: 100%;
+  width: 100%;
+}
+
+[class*="aspect-ratio-"] > article,
+[class^="aspect-ratio-"] > article {
+  @extend %p-4x;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+
+.aspect-ratio-a > figure,
+.aspect-ratio-a > article,
+.aspect-ratio-a > div {
+  aspect-ratio: 1.48;
+}
+
+.aspect-ratio-b > figure,
+.aspect-ratio-b > article,
+.aspect-ratio-b > div {
+  aspect-ratio: 0.73;
+}
+
+.aspect-ratio-c > figure,
+.aspect-ratio-c > article,
+.aspect-ratio-c > div {
+  aspect-ratio: 1.5;
+}
+
+.aspect-ratio-e > figure,
+.aspect-ratio-e > article,
+.aspect-ratio-e > div {
+  aspect-ratio: 1.48;
+}
+
+.aspect-ratio-f > figure,
+.aspect-ratio-f > article,
+.aspect-ratio-f > div {
+  aspect-ratio: 0.72;
+}
+
+.aspect-ratio-g > figure,
+.aspect-ratio-g > article,
+.aspect-ratio-g > div {
+  aspect-ratio: 1.5;
+}
+
+.grid-gallery-selector {
+  @extend %mb-4x;
+  @extend %py-3x;
+  border-bottom: 1px dashed $color-light-grey;
+  border-top: 1px dashed $color-light-grey;
+  display: flex;
+  overflow-x: auto;
+  width: 100%;
+
+  div {
+    @extend %ml-4x;
+    &:first-child {
+      @extend %ml-0;
+    }
+  }
+
+  a {
+    display: block;
+
+    &:hover {
+      svg {
+        color: $color-black;
+      }
+    }
+  }
+
+  svg {
+    display: block;
+    height: auto;
+    color: $color-light-grey;
+    width: 82px;
+    transition: color .1s ease-in;
+  }
+}
+
+.grid-asset-selector {
+  align-items: center;
+  background-color: rgba(0, 0, 0, .6);
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1001;
+
+  > div {
+    @extend %page-block;
+    @extend %p-3x;
+    @extend %py-4x;
+    @extend %pb-6x;
+    background-color: $color-white;
+    box-shadow: $box-shadow-lg;
+    border-radius: 6px;
+    min-width: 480px;
+    max-width: 720px !important;
+    position: relative;
+  }
+
+  .grid-asset-selector__images {
+    @extend %mt-5x;
+    display: flex;
+    flex-flow: wrap;
+  }
+
+  h2 {
+    @include font-size($fs-md);
+  }
+
+  img {
+    @extend %m-1x;
+    cursor: pointer;
+    display: block;
+    height: 100px;
+    flex: 0 0 auto;
+    opacity: 1;
+    transition: opacity .1s ease-in;
+    width: auto;
+
+    &:hover {
+      opacity: .7;
+    }
+  }
+}

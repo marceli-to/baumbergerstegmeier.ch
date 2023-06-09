@@ -1,0 +1,101 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: layout/menu/site
+ * -----------------------------------------------------------------------------
+ */
+
+nav.site {
+  @extend %px-11x;
+  @extend %py-11x;
+  @extend %sm\:px-22x;
+  @extend %md\:px-44x;
+  background-color: $color-white;
+  height: 100%;
+  left: 0;
+  opacity: 0;
+  overflow-y: auto;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: -1;
+
+  @include bp-sm() {
+    left: auto;
+    right: 0;
+    padding-top: 18px;
+    max-width: 350px;
+  }
+
+  @include bp-md() {
+    padding-top: 40px;
+    max-width: calc(33% + 24px);
+  }
+  
+  @include bp-xl() {
+    right: calc((100% - 1440px)/2);
+    max-width: calc(1440px / 100 * 33 + 24px);
+  }
+
+  &.is-visible {
+    opacity: 1;
+    pointer-events: all;
+    z-index: 300;
+  }
+
+  .logo {
+    left: $space-11x;
+    position: fixed;
+    top: $space-11x;
+
+    @include bp-sm() {
+      display: none;
+    }
+  }
+
+  > div {
+    margin-top: calc(#{$header-height} - #{$space-17x});
+    @include bp-sm() {
+      margin-top: 0;
+    }
+  }
+
+  ul a {
+    @extend %py-2x;
+    @extend %md\:py-0;
+    color: $color-black;
+    display: block;
+    @include font-size($fs-menu);
+    transition: color .12s ease-in;
+  
+    &.is-active,
+    &.is-current,
+    &:hover {
+      color: $color-blue;
+    }
+
+    &.is-current {
+      + ul {
+        display: block;
+      }
+    }
+
+  }
+
+  ul ul {
+    @extend %mb-29x;
+    display: none;
+    &.is-block {
+      display: block;
+    }
+    
+    li {
+      @extend %ml-16x;
+    }
+    
+    a {
+      @extend %py-1x;
+      @include font-size($fs-sub-menu);
+    }
+  }
+}

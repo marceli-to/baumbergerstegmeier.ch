@@ -1,0 +1,138 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: views/auth
+ * -----------------------------------------------------------------------------
+ */
+
+body.auth {
+  background-color: #f9f9f9;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: none !important;
+
+  main.site-auth {
+    min-height: 100vh;
+    padding-top: 0 !important;
+  
+    > div {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      height: inherit;
+      min-height: inherit;
+      width: 100%;
+    }
+  }
+
+  section {
+    @extend %pb-24x;
+    @extend %pt-24x;
+    @extend %pl-20x;
+    @extend %pr-20x;
+    background-color: $color-white;
+    border-radius: 5px;
+    max-width: 480px;
+    width: 100%;
+    
+    > svg {
+      @extend %mb-50x;
+      display: block;
+      height: auto;
+      max-width: 200px;
+      width: 100%;
+    }
+
+    h1 {
+      @include font-bold();
+      @include font-size($fs-base);
+      @extend %mb-20x;
+    }
+    
+    .form-group {
+      @extend %mb-30x;
+    }
+  
+    .form-action {
+      @extend %mt-44x;
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    label {
+      @extend %mb-10x;
+      display: block;
+      color: $color-black;
+    }
+
+    // Helpers
+    .form-helper {
+      @extend %ml-10x;
+      color: $color-black;
+      @include font-size($fs-sm);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+
+      &:hover {
+        text-decoration: none;
+      }
+    }
+
+   
+    input[type=text],
+    input[type=email],
+    input[type=password] {
+      @extend %pt-4x;
+      @extend %pb-10x;
+      padding-left: 0;
+      padding-right: 0;
+      background-color: $color-white;
+      border: none;
+      border-bottom: 2px solid $color-grey-medium;
+      border-radius: 0 !important;
+      color: $color-black;
+      display: block;
+      @include font-size($fs-base);
+      width: 100%;
+      -webkit-appearance: none;
+
+      &:focus {
+        border-bottom: 2px solid $color-black;
+      }
+    }
+    
+    input[type=email]::-webkit-input-placeholder,
+    input[type=password]::-webkit-input-placeholder {
+      color: $color-white;
+      padding: 0;
+      line-height: 1;
+    }
+    
+    input[type=email]::-moz-placeholder,
+    input[type=password]::-moz-placeholder {
+      color: $color-black;
+      padding: 0;
+      opacity: 1 !important;
+      line-height: 1;
+    }
+    
+    input[type=email]:-ms-input-placeholder,
+    input[type=password]:-ms-input-placeholder {
+      color: $color-black;
+      padding: 0;
+      line-height: 1;
+    }
+    
+    input[type=email]:-moz-placeholder,
+    input[type=password]:-moz-placeholder {
+      color: $color-black;
+      padding: 0;
+      opacity: 1 !important;
+      line-height: 1;
+    }
+  }
+}
+

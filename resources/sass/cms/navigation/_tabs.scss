@@ -1,0 +1,53 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: layout/navigation/tabs
+ * -----------------------------------------------------------------------------
+ */
+
+nav.tabs {
+  @include responsive-prop('margin-bottom', $space-md);
+  @include responsive-prop('margin-top', $space-md);
+
+  &.is-widget {
+    margin-top: -20px !important;
+  }
+
+  ul {
+    align-items: stretch;
+    display: flex;
+    justify-content: flex-start;        
+  }
+
+  li {
+    flex: 1; 
+    //max-width: 300px;
+    padding-right: 20px;
+    text-align: center;
+    &:last-of-type {
+      padding-right: 0;
+    }
+  }
+
+  a {
+    border-bottom: 2px solid $color-light-grey;
+    color: $color-grey;
+    display: block;
+    @include font-mono();
+    @include font-size($fs-xs);
+    padding: 10px 0;
+    text-decoration: none;
+    transition: all .1s ease-out;
+    width: 100%;
+
+    &:hover,
+    &.is-active {
+      border-bottom: 2px solid $color-primary;
+      color: $color-primary;
+    }
+
+    &.has-error {
+      color: $color-danger;
+      border-bottom: 2px solid $color-danger;
+    }
+  }
+}
