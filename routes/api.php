@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\JobArticleController;
 use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\AwardController;
 use App\Http\Controllers\Api\PublicationController;
+use App\Http\Controllers\Api\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -100,6 +101,16 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('publication/state/{publication}', 'toggle');
     Route::post('publication/order', 'order');
     Route::delete('publication/{publication}', 'destroy');
+  });
+
+  // Profile page
+  Route::controller(ProfileController::class)->group(function () {
+    Route::get('profile', 'get');
+    Route::get('profile/{profile}', 'find');
+    Route::post('profile', 'store');
+    Route::put('profile/{profile}', 'update');
+    Route::get('profile/state/{profile}', 'toggle');
+    Route::delete('profile/{profile}', 'destroy');
   });
 
 });
