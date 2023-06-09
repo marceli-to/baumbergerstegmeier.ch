@@ -115,6 +115,7 @@ class JobController extends Controller
     }
     return $job->hasFlag($flag);
   }
+  
   /**
    * Handle associated images
    *

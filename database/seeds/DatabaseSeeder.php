@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
       \Database\Seeders\JobSeeder::class,
       \Database\Seeders\JobArticleSeeder::class,
       \Database\Seeders\ContactSeeder::class,
+      \Database\Seeders\AwardSeeder::class,
     ]);
   }
 }

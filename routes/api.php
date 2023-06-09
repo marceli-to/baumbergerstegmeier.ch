@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\FileController;
 use App\Http\Controllers\Api\JobController;
 use App\Http\Controllers\Api\JobArticleController;
 use App\Http\Controllers\Api\ContactController;
+use App\Http\Controllers\Api\AwardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,6 +78,17 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('job-article/state/{jobArticle}', 'toggle');
     Route::post('job-article/order', 'order');
     Route::delete('job-article/{jobArticle}', 'destroy');
+  });
+
+  // Job articles
+  Route::controller(AwardController::class)->group(function () {
+    Route::get('awards', 'get');
+    Route::get('award/{award}', 'find');
+    Route::post('award', 'store');
+    Route::put('award/{award}', 'update');
+    Route::get('award/state/{award}', 'toggle');
+    Route::post('award/order', 'order');
+    Route::delete('award/{award}', 'destroy');
   });
 
 });

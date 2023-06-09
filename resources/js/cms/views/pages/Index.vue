@@ -27,9 +27,9 @@
       </div>
 
       <div class="card">
-        <router-link :to="{name: 'services'}">
-          <h2>Leistungen</h2>
-          <p>Verwaltung von Leistungen</p>
+        <router-link :to="{name: 'awards-index'}">
+          <h2>Auszeichnungen</h2>
+          <p>Verwaltung der Auszeichnungen</p>
         </router-link>
       </div>
       

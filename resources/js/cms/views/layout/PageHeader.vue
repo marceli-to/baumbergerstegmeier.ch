@@ -28,7 +28,7 @@
       </a>
     </header>
     <ul>
-      <li>
+      <!-- <li>
         <router-link :to="{name: 'home'}">
           <span>Startseite</span>
         </router-link>
@@ -42,10 +42,10 @@
         <router-link :to="{name: 'diaries'}">
           <span>Tagebuch</span>
         </router-link>
-      </li>
+      </li> -->
       <li>
-        <router-link :to="{name: 'services'}">
-          <span>Leistungen</span>
+        <router-link :to="{name: 'awards-index'}">
+          <span>Auszeichnungen</span>
         </router-link>
       </li>
       <li>

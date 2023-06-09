@@ -40,13 +40,13 @@ import store from '@/config/store';
 // Routes
 import baseRoutes from '@/config/routes';
 import jobRoutes from '@/views/pages/job/config/routes';
-
+import contactRoutes from '@/views/pages/contact/config/routes';
+import awardRoutes from '@/views/pages/award/config/routes';
 
 import homeRoutes from '@/views/pages/home/config/routes';
 import projectRoutes from '@/views/pages/project/config/routes';
 import diaryRoutes from '@/views/pages/diary/config/routes';
 import serviceRoutes from '@/views/pages/service/config/routes';
-import contactRoutes from '@/views/pages/contact/config/routes';
 import resumeRoutes from '@/views/pages/resume/config/routes';
 import articleRoutes from '@/views/pages/home/article/config/routes';
 import imageRoutes from '@/modules/images/config/routes';
@@ -57,13 +57,12 @@ const router = new VueRouter(
     routes: [
       ...baseRoutes,
       ...jobRoutes,
-
-
+      ...awardRoutes,
+      ...contactRoutes,
 
       ...homeRoutes,
       ...projectRoutes,
       ...serviceRoutes,
-      ...contactRoutes,
       ...resumeRoutes,
       ...diaryRoutes,   
       ...articleRoutes,   
