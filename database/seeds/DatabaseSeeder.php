@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
       \Database\Seeders\AwardSeeder::class,
       \Database\Seeders\PublicationSeeder::class,
       \Database\Seeders\ProfileSeeder::class,
+      \Database\Seeders\TeamSeeder::class,
+      \Database\Seeders\EmployeeCategorySeeder::class,
     ]);
   }
 }

@@ -10,6 +10,8 @@ use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\AwardController;
 use App\Http\Controllers\Api\PublicationController;
 use App\Http\Controllers\Api\ProfileController;
+use App\Http\Controllers\Api\TeamController;
+use App\Http\Controllers\Api\EmployeeCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -93,6 +95,7 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::delete('award/{award}', 'destroy');
   });
 
+  // Publications
   Route::controller(PublicationController::class)->group(function () {
     Route::get('publications', 'get');
     Route::get('publication/{publication}', 'find');
@@ -111,6 +114,27 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::put('profile/{profile}', 'update');
     Route::get('profile/state/{profile}', 'toggle');
     Route::delete('profile/{profile}', 'destroy');
+  });
+
+  // Teams
+  Route::controller(TeamController::class)->group(function () {
+    Route::get('teams', 'get');
+    Route::get('team/{team}', 'find');
+    Route::post('team', 'store');
+    Route::put('team/{team}', 'update');
+    Route::get('team/state/{team}', 'toggle');
+    Route::post('team/order', 'order');
+    Route::delete('team/{team}', 'destroy');
+  });
+
+  // Employee categories
+  Route::controller(EmployeeCategoryController::class)->group(function () {
+    Route::get('employee/categories', 'get');
+    Route::get('employee/category/{employeeCategory}', 'find');
+    Route::post('employee/category', 'store');
+    Route::put('employee/category/{employeeCategory}', 'update');
+    Route::get('employee/category/state/{employeeCategory}', 'toggle');
+    Route::delete('employee/category/{employeeCategory}', 'destroy');
   });
 
 });

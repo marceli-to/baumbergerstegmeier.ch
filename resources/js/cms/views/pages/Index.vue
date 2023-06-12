@@ -27,6 +27,13 @@
       </div> -->
 
       <div class="card">
+        <router-link :to="{name: 'team-dashboard'}">
+          <h2>Teams</h2>
+          <p>Verwaltung der Teams und Mitarbeiter</p>
+        </router-link>
+      </div>
+
+      <div class="card">
         <router-link :to="{name: 'profile-index'}">
           <h2>Profil</h2>
           <p>Verwaltung des Profils</p>

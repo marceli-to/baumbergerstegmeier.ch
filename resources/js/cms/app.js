@@ -44,6 +44,7 @@ import contactRoutes from '@/views/pages/contact/config/routes';
 import profileRoutes from '@/views/pages/profile/config/routes';
 import awardRoutes from '@/views/pages/award/config/routes';
 import publicationRoutes from '@/views/pages/publication/config/routes';
+import teamRoutes from '@/views/pages/team/config/routes';
 
 import homeRoutes from '@/views/pages/home/config/routes';
 import projectRoutes from '@/views/pages/project/config/routes';
@@ -63,6 +64,7 @@ const router = new VueRouter(
       ...contactRoutes,
       ...publicationRoutes,
       ...profileRoutes,
+      ...teamRoutes,
 
       ...homeRoutes,
       ...projectRoutes,
