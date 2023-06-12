@@ -3,44 +3,35 @@
   <loading-indicator v-if="isLoading"></loading-indicator>
   <div v-if="isFetched" class="is-loaded">
     <page-header>
-      <h2>Jobs – Inserate</h2>
-      <router-link :to="{ name: 'job-article-create'}" class="btn-add has-icon">
+      <h1>Profil</h1>
+      <router-link :to="{ name: 'profile-create'}" class="btn-add has-icon" v-if="data.length < 1">
         <plus-icon size="16"></plus-icon>
         <span>Hinzufügen</span>
       </router-link>
     </page-header>
     <div class="listing is-grouped" v-if="data.length">
-      <draggable 
-        :disabled="false"
-        v-model="data" 
-        @end="order(data)"
-        ghost-class="draggable-ghost"
-        draggable=".listing__item"
-        class="listing"
-        v-if="data.length">
-        <div
-          :class="[d.publish == 0 ? 'is-disabled' : '', 'listing__item is-draggable']"
-          v-for="d in data"
-          :key="d.id"
-          >
-          <div class="listing__item-body">
-            {{ d.title }}
-          </div>
-          <list-actions 
-            :id="d.id" 
-            :record="d"
-            :routes="{edit: 'job-article-edit'}"
-            @toggle="toggle($event)"
-            @destroy="destroy($event)">
-          </list-actions>
+      <div
+        :class="[d.publish == 0 ? 'is-disabled' : '', 'listing__item']"
+        v-for="d in data"
+        :key="d.id"
+        >
+        <div class="listing__item-body">
+          Profil
         </div>
-      </draggable>
+        <list-actions 
+          :id="d.id" 
+          :record="d"
+          :routes="{edit: 'profile-edit'}"
+          @toggle="toggle($event)"
+          @destroy="destroy($event)">
+        </list-actions>
+      </div>
     </div>
     <div v-else>
       <p class="no-records">{{messages.emptyData}}</p>
     </div>
     <page-footer>
-      <button-back :route="'job-dashboard'">Zurück</button-back>
+      <button-back :route="'dashboard'">Zurück</button-back>
     </page-footer>
   </div>
 </div>
@@ -53,7 +44,6 @@ import ListActions from "@/components/ui/ListActions.vue";
 import Separator from "@/components/ui/Separator.vue";
 import PageFooter from "@/components/ui/PageFooter.vue";
 import PageHeader from "@/components/ui/PageHeader.vue";
-import draggable from 'vuedraggable';
 
 export default {
 
@@ -66,7 +56,6 @@ export default {
     ButtonBack,
     PageFooter,
     PageHeader,
-    draggable
   },
 
   mixins: [Helpers],
@@ -78,11 +67,10 @@ export default {
 
       // Routes
       routes: {
-        get: '/api/job-articles',
-        store: '/api/job-article',
-        delete: '/api/job-article',
-        order: '/api/job-article/order',
-        toggle: '/api/job-article/state',
+        get: '/api/profile',
+        store: '/api/profile',
+        delete: '/api/profile',
+        toggle: '/api/profile/state',
       },
 
       // States
@@ -131,21 +119,6 @@ export default {
           this.isLoading = false;
         });
       }
-    },
-
-    order() {
-      let jobArticles = this.data.map(function(jobArticle, idx) {
-        jobArticle.order = idx;
-        return jobArticle;
-      });
-
-      if (this.debounce) return;
-      this.debounce = setTimeout(function() {
-        this.debounce = false 
-        this.axios.post(`${this.routes.order}`, {jobArticles: jobArticles}).then((response) => {
-          this.$notify({type: 'success', text: 'Reihenfolge angepasst'});
-        });
-      }.bind(this, jobArticles), 500);
     },
   }
 }

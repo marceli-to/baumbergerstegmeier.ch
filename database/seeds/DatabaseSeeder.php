@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
       \Database\Seeders\ContactSeeder::class,
       \Database\Seeders\AwardSeeder::class,
       \Database\Seeders\PublicationSeeder::class,
+      \Database\Seeders\ProfileSeeder::class,
     ]);
   }
 }

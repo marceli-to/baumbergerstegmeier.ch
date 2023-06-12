@@ -40,6 +40,11 @@
       </li>
 
       <li>
+        <router-link :to="{name: 'profile-index'}">
+          <span>Profil</span>
+        </router-link>
+      </li>
+      <li>
         <router-link :to="{name: 'publications-index'}">
           <span>Publikationen</span>
         </router-link>

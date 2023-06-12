@@ -23,7 +23,12 @@
           <input type="text" v-model="data.subtitle">
         </div>
         <div class="form-row">
-          <label>Link</label>
+          <div class="flex justify-between">
+            <label>Link</label>
+            <a :href="data.link" target="_blank" v-if="validUrl(data.link)">
+              <link-2-icon />
+            </a>
+          </div>
           <input type="text" v-model="data.link">
         </div>
       </div>
@@ -59,10 +64,11 @@
 </div>
 </template>
 <script>
-import { PlusIcon } from 'vue-feather-icons';
+import { PlusIcon, Link2Icon } from 'vue-feather-icons';
 import TinymceEditor from "@tinymce/tinymce-vue";
 import tinyConfig from "@/config/tiny.js";
 import ErrorHandling from "@/mixins/ErrorHandling";
+import Helpers from "@/mixins/Helpers";
 import RadioButton from "@/components/ui/RadioButton.vue";
 import ButtonBack from "@/components/ui/ButtonBack.vue";
 import ButtonSubmit from "@/components/ui/ButtonSubmit.vue";
@@ -77,6 +83,7 @@ import Images from "@/modules/images/Index.vue";
 export default {
   components: {
     PlusIcon,
+    Link2Icon,
     RadioButton,
     ButtonBack,
     ButtonSubmit,
@@ -89,7 +96,7 @@ export default {
     TinymceEditor,
   },
 
-  mixins: [ErrorHandling],
+  mixins: [ErrorHandling, Helpers],
 
   props: {
     type: String

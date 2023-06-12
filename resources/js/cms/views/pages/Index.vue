@@ -27,6 +27,13 @@
       </div> -->
 
       <div class="card">
+        <router-link :to="{name: 'profile-index'}">
+          <h2>Profil</h2>
+          <p>Verwaltung des Profils</p>
+        </router-link>
+      </div>
+
+      <div class="card">
         <router-link :to="{name: 'publications-index'}">
           <h2>Publikationen</h2>
           <p>Verwaltung der Publikationen</p>

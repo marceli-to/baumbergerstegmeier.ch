@@ -6,35 +6,34 @@
       <h1>{{title}}</h1>
     </header>
     <tabs :tabs="tabs" :errors="errors"></tabs>
+    
     <div v-show="tabs.data.active">
       <div>
-        <div :class="[this.errors.year ? 'has-error' : '', 'form-row']">
-          <label>Jahr</label>
-          <input type="text" v-model="data.year" maxlength="4">
-          <label-required />
-        </div>
-        <div :class="[this.errors.title ? 'has-error' : '', 'form-row']">
-          <label>Titel</label>
-          <textarea v-model="data.title"></textarea>
-          <label-required />
+        <div :class="[this.errors.title_bsa ? 'has-error' : '', 'form-row']">
+          <label>Titel BSA</label>
+          <input type="text" v-model="data.title_bsa">
         </div>
         <div class="form-row">
-          <label>Subtitel</label>
-          <input type="text" v-model="data.subtitle">
+          <label>Beschreibung BSA</label>
+          <tinymce-editor
+            :api-key="tinyApiKey"
+            :init="tinyConfig"
+            v-model="data.text_bsa"
+          ></tinymce-editor>
+        </div>
+        <div :class="[this.errors.title_bsemi ? 'has-error' : '', 'form-row']">
+          <label>Titel BS+EMI</label>
+          <input type="text" v-model="data.title_bsemi">
         </div>
         <div class="form-row">
-          <label>Beschreibung</label>
-          <textarea v-model="data.description"></textarea>
+          <label>Beschreibung BS+EMI</label>
+          <tinymce-editor
+            :api-key="tinyApiKey"
+            :init="tinyConfig"
+            v-model="data.text_bsemi"
+          ></tinymce-editor>
         </div>
-        <div class="form-row">
-          <div class="flex justify-between">
-            <label>Link</label>
-            <a :href="data.link" target="_blank" v-if="validUrl(data.link)">
-              <link-2-icon />
-            </a>
-          </div>
-          <input type="text" v-model="data.link">
-        </div>
+
       </div>
     </div>
 
@@ -43,7 +42,7 @@
         :allowRatioSwitch="true"
         :imageRatioW="3" 
         :imageRatioH="2"
-        :ratioFormats="[{label: 'Quer', w: 3, h: 2}]"
+        :ratioFormats="[{label: 'Hoch', w: 3, h: 2}]"
         :images="data.images">
       </images>
     </div>
@@ -60,26 +59,25 @@
         </div>
       </div>
     </div>
+
     <page-footer>
-      <button-back :route="'publications-index'">Zurück</button-back>
+      <button-back :route="'profile-index'">Zurück</button-back>
       <button-submit>Speichern</button-submit>
     </page-footer>
   </form>
 </div>
 </template>
 <script>
-import { PlusIcon, Link2Icon } from 'vue-feather-icons';
+import { PlusIcon } from 'vue-feather-icons';
 import TinymceEditor from "@tinymce/tinymce-vue";
 import tinyConfig from "@/config/tiny.js";
 import ErrorHandling from "@/mixins/ErrorHandling";
-import Helpers from "@/mixins/Helpers";
 import RadioButton from "@/components/ui/RadioButton.vue";
 import ButtonBack from "@/components/ui/ButtonBack.vue";
 import ButtonSubmit from "@/components/ui/ButtonSubmit.vue";
 import LabelRequired from "@/components/ui/LabelRequired.vue";
-import LabelInfo from "@/components/ui/LabelInfo.vue";
 import Tabs from "@/components/ui/Tabs.vue";
-import tabsConfig from "@/views/pages/publication/config/tabs.js";
+import tabsConfig from "@/views/pages/profile/config/tabs.js";
 import PageFooter from "@/components/ui/PageFooter.vue";
 import PageHeader from "@/components/ui/PageHeader.vue";
 import Images from "@/modules/images/Index.vue";
@@ -87,7 +85,6 @@ import Images from "@/modules/images/Index.vue";
 export default {
   components: {
     PlusIcon,
-    Link2Icon,
     RadioButton,
     ButtonBack,
     ButtonSubmit,
@@ -96,11 +93,10 @@ export default {
     PageFooter,
     PageHeader,
     Images,
-    LabelInfo,
-    TinymceEditor,
+    TinymceEditor
   },
 
-  mixins: [ErrorHandling, Helpers],
+  mixins: [ErrorHandling],
 
   props: {
     type: String
@@ -112,26 +108,24 @@ export default {
       // Model
       data: {
         id: null,
-        year: null,
-        title: null,
-        subtitle: null,
-        description: null,
-        link: null,
+        title_bsa: null,
+        title_bsemi: null,
+        text_bsa: null,
+        text_bsemi: null,
         publish: 1,
         images: [],
       },
 
       // Validation
       errors: {
-        year: false,
-        title: false,
+        address: false,
       },
 
       // Routes
       routes: {
-        find: '/api/publication',
-        store: '/api/publication',
-        update: '/api/publication',
+        find: '/api/profile',
+        store: '/api/profile',
+        update: '/api/profile',
       },
 
       // States
@@ -158,6 +152,12 @@ export default {
     if (this.$props.type == "edit") {
       this.fetch();
     }
+
+    this.tinyConfig.link_list = [
+      {title: 'Jobs', value: window.location.origin + '/jobs'},
+      {title: 'Team', value: window.location.origin + '/team'},
+      {title: 'Kontakt', value: window.location.origin + '/kontakt'},
+    ];
   },
 
   methods: {
@@ -166,7 +166,7 @@ export default {
       this.isFetched = false;
       this.isLoading = true;
       this.axios.get(`${this.routes.find}/${this.$route.params.id}`).then(response => {
-        this.data = response.data.publication;
+        this.data = response.data.profile;
         this.isFetched = true;
         this.isLoading = false;
       });
@@ -184,7 +184,7 @@ export default {
     store() {
       this.isLoading = true;
       this.axios.post(this.routes.store, this.data).then(response => {
-        this.$router.push({ name: "publications-index" });
+        this.$router.push({ name: "profile-index"});
         this.$notify({ type: "success", text: this.messages.stored });
         this.isLoading = false;
       });
@@ -193,7 +193,7 @@ export default {
     update() {
       this.isLoading = true;
       this.axios.put(`${this.routes.update}/${this.$route.params.id}`, this.data).then(response => {
-        this.$router.push({ name: "publications-index" });
+        this.$router.push({ name: "profile-index"});
         this.$notify({ type: "success", text: this.messages.updated });
         this.isLoading = false;
       });
@@ -203,8 +203,8 @@ export default {
   computed: {
     title() {
       return this.$props.type == "edit" 
-        ? "Publikation bearbeiten" 
-        : "Publikation hinzufügen";
+        ? "Kontakt bearbeiten" 
+        : "Kontakt hinzufügen";
     }
   }
 };

@@ -21,5 +21,12 @@ export default {
       }
       return `/img/${template}/${image.name}/${size}/${coords}/3x2`;
     },
+
+    validUrl(url) {
+      if (!url) return false;
+      const pattern = /^https?:\/\/((([a-z\d]([a-z\d-]*[a-z\d])*)\.)+[a-z]{2,}|((\d{1,3}\.){3}\d{1,3}))(:\d+)?(\/[-a-z\d%_.~+]*)*(\?[;&a-z\d%_.~+=-]*)?(\#[-a-z\d_]*)?$/i;
+      return pattern.test(url);
+    }
+
   }
 };
