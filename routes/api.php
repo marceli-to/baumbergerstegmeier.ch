@@ -11,7 +11,9 @@ use App\Http\Controllers\Api\AwardController;
 use App\Http\Controllers\Api\PublicationController;
 use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\TeamController;
+use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\EmployeeCategoryController;
+use App\Http\Controllers\Api\CvCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -135,6 +137,28 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::put('employee/category/{employeeCategory}', 'update');
     Route::get('employee/category/state/{employeeCategory}', 'toggle');
     Route::delete('employee/category/{employeeCategory}', 'destroy');
+  });
+
+  // Employees
+  Route::controller(EmployeeController::class)->group(function () {
+    Route::get('employees', 'get');
+    Route::get('employee/{employee}', 'find');
+    Route::post('employee', 'store');
+    Route::put('employee/{employee}', 'update');
+    Route::get('employee/state/{employee}', 'toggle');
+    Route::post('employee/order', 'order');
+    Route::delete('employee/{employee}', 'destroy');
+  });
+
+  // CV Categories
+  Route::controller(CvCategoryController::class)->group(function () {
+    Route::get('cv/categories', 'get');
+    Route::get('cv/category/{cvCategory}', 'find');
+    Route::post('cv/category', 'store');
+    Route::put('cv/category/{cvCategory}', 'update');
+    Route::get('cv/category/state/{cvCategory}', 'toggle');
+    Route::post('cv/category/order', 'order');
+    Route::delete('cv/category/{cvCategory}', 'destroy');
   });
 
 });

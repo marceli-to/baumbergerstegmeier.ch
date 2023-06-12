@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
       \Database\Seeders\ProfileSeeder::class,
       \Database\Seeders\TeamSeeder::class,
       \Database\Seeders\EmployeeCategorySeeder::class,
+      \Database\Seeders\EmployeeSeeder::class,
+      \Database\Seeders\CvCategorySeeder::class,
     ]);
   }
 }

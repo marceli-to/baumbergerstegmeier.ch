@@ -28,7 +28,7 @@
       </a>
     </header>
     <ul>
-      <li>
+      <!-- <li>
         <router-link :to="{name: 'home'}">
           <span>Startseite</span>
         </router-link>
@@ -37,7 +37,7 @@
         <router-link :to="{name: 'project-overview'}">
           <span>Projekte</span>
         </router-link>
-      </li>
+      </li> -->
 
       <li>
         <router-link :to="{name: 'team-dashboard'}">

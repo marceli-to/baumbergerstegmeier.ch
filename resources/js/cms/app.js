@@ -39,19 +39,12 @@ import store from '@/config/store';
 
 // Routes
 import baseRoutes from '@/config/routes';
-import jobRoutes from '@/views/pages/job/config/routes';
-import contactRoutes from '@/views/pages/contact/config/routes';
-import profileRoutes from '@/views/pages/profile/config/routes';
 import awardRoutes from '@/views/pages/award/config/routes';
+import contactRoutes from '@/views/pages/contact/config/routes';
+import jobRoutes from '@/views/pages/job/config/routes';
+import profileRoutes from '@/views/pages/profile/config/routes';
 import publicationRoutes from '@/views/pages/publication/config/routes';
 import teamRoutes from '@/views/pages/team/config/routes';
-
-import homeRoutes from '@/views/pages/home/config/routes';
-import projectRoutes from '@/views/pages/project/config/routes';
-import diaryRoutes from '@/views/pages/diary/config/routes';
-import serviceRoutes from '@/views/pages/service/config/routes';
-import resumeRoutes from '@/views/pages/resume/config/routes';
-import articleRoutes from '@/views/pages/home/article/config/routes';
 import imageRoutes from '@/modules/images/config/routes';
 
 const router = new VueRouter(
@@ -59,19 +52,12 @@ const router = new VueRouter(
     mode: 'history', 
     routes: [
       ...baseRoutes,
-      ...jobRoutes,
       ...awardRoutes,
       ...contactRoutes,
+      ...jobRoutes,
       ...publicationRoutes,
       ...profileRoutes,
       ...teamRoutes,
-
-      ...homeRoutes,
-      ...projectRoutes,
-      ...serviceRoutes,
-      ...resumeRoutes,
-      ...diaryRoutes,   
-      ...articleRoutes,   
       ...imageRoutes,
     ]
   }

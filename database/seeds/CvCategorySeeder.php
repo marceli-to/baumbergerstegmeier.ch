@@ -1,9 +1,9 @@
 <?php
 namespace Database\Seeders;
-use App\Models\Team;
+use App\Models\CvCategory;
 use Illuminate\Database\Seeder;
 
-class TeamSeeder extends Seeder
+class CvCategorySeeder extends Seeder
 {
   /**
    * Run the database seeds.
@@ -12,13 +12,13 @@ class TeamSeeder extends Seeder
    */
   public function run()
   {
-    $record = Team::create([
-      'name' => 'Baumberger Stegmeier Architektur',
+    $record = CvCategory::create([
+      'description' => 'Firma',
     ]);
     $record->flag('isPublish', 1);
 
-    $record = Team::create([
-      'name' => 'BS+EMI Architektenpartner',
+    $record = CvCategory::create([
+      'description' => 'Mitgliedschaften',
     ]);
     $record->flag('isPublish', 1);
 

@@ -1,17 +1,33 @@
 import TeamDashboard from '@/views/pages/team/Index.vue';
+import TeamSettings from '@/views/pages/team/Settings.vue';
+
 import TeamIndex from '@/views/pages/team/team/Index.vue';
 import TeamCreate from '@/views/pages/team/team/partials/Create.vue';
 import TeamEdit from '@/views/pages/team/team/partials/Edit.vue';
 
+import EmployeeIndex from '@/views/pages/team/employee/Index.vue';
+import EmployeeCreate from '@/views/pages/team/employee/partials/Create.vue';
+import EmployeeEdit from '@/views/pages/team/employee/partials/Edit.vue';
+
 import EmployeeCategoryIndex from '@/views/pages/team/employeeCategory/Index.vue';
 import EmployeeCategoryCreate from '@/views/pages/team/employeeCategory/partials/Create.vue';
 import EmployeeCategoryEdit from '@/views/pages/team/employeeCategory/partials/Edit.vue';
+
+import CvCategoryIndex from '@/views/pages/team/cvCategory/Index.vue';
+import CvCategoryCreate from '@/views/pages/team/cvCategory/partials/Create.vue';
+import CvCategoryEdit from '@/views/pages/team/cvCategory/partials/Edit.vue';
 
 const routes = [
   {
     name: 'team-dashboard',
     path: '/administration/team/dashboard',
     component: TeamDashboard,
+  },
+
+  {
+    name: 'team-settings',
+    path: '/administration/team/settings',
+    component: TeamSettings,
   },
 
   {
@@ -31,6 +47,22 @@ const routes = [
   },
 
   {
+    name: 'employee-index',
+    path: '/administration/employee/index',
+    component: EmployeeIndex,
+  },
+  {
+    name: 'employee-create',
+    path: '/administration/employee/create',
+    component: EmployeeCreate,
+  },
+  {
+    name: 'employee-edit',
+    path: '/administration/employee/edit/:id',
+    component: EmployeeEdit,
+  },
+
+  {
     name: 'employee-category-index',
     path: '/administration/team/employeeCategory/index',
     component: EmployeeCategoryIndex,
@@ -46,21 +78,22 @@ const routes = [
     component: EmployeeCategoryEdit,
   },
 
-  // {
-  //   name: 'team-article-index',
-  //   path: '/administration/team/article/index',
-  //   component: TeamArticleIndex,
-  // },
-  // {
-  //   name: 'team-article-create',
-  //   path: '/administration/team/article/create',
-  //   component: TeamArticleCreate,
-  // },
-  // {
-  //   name: 'team-article-edit',
-  //   path: '/administration/team/article/edit/:id',
-  //   component: TeamArticleEdit,
-  // },
+  {
+    name: 'cv-category-index',
+    path: '/administration/team/cvCategory/index',
+    component: CvCategoryIndex,
+  },
+  {
+    name: 'cv-category-create',
+    path: '/administration/team/cvCategory/create',
+    component: CvCategoryCreate,
+  },
+  {
+    name: 'cv-category-edit',
+    path: '/administration/team/cvCategory/edit/:id',
+    component: CvCategoryEdit,
+  },
+
 ];
 
 export default routes;

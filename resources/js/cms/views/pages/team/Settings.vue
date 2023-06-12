@@ -1,30 +1,24 @@
 <template>
   <div class="is-loaded">
     <page-header>
-      <h1>Teams und Mitarbeitende</h1>
+      <h1>Kategorien für Mitarbeiter und CV</h1>
     </page-header>
     <div class="content content--wide cards">
       <div class="card">
-        <router-link :to="{name: 'team-index'}">
-          <h2>Teams</h2>
-          <p>Verwaltung der Teams</p>
-        </router-link>
-      </div>
-      <div class="card">
-        <router-link :to="{name: 'employee-index'}">
+        <router-link :to="{name: 'employee-category-index'}">
           <h2>Mitarbeitende</h2>
-          <p>Verwaltung der Mitarbeitenden</p>
+          <p>Verwaltung der Mitarbeitenden-Kategorien</p>
         </router-link>
       </div>
       <div class="card">
-        <router-link :to="{name: 'team-settings'}">
-          <h2>Einstellungen</h2>
-          <p>Kategorien für Mitarbeiter und CV</p>
+        <router-link :to="{name: 'cv-category-index'}">
+          <h2>CV</h2>
+          <p>Verwaltung der CV-Kategorien</p>
         </router-link>
       </div>
     </div>
     <page-footer>
-      <button-back :route="'dashboard'">Zurück</button-back>
+      <button-back :route="'team-dashboard'">Zurück</button-back>
     </page-footer>
   </div>
 </template>

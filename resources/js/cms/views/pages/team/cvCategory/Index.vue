@@ -3,8 +3,8 @@
   <loading-indicator v-if="isLoading"></loading-indicator>
   <div v-if="isFetched" class="is-loaded">
     <page-header>
-      <h2>Mitarbeiter-Kategorien</h2>
-      <router-link :to="{ name: 'employee-category-create'}" class="btn-add has-icon">
+      <h2>CV-Kategorien</h2>
+      <router-link :to="{ name: 'cv-category-create'}" class="btn-add has-icon">
         <plus-icon size="16"></plus-icon>
         <span>Hinzufügen</span>
       </router-link>
@@ -16,12 +16,12 @@
         :key="d.id"
         >
         <div class="listing__item-body">
-          {{ d.name }}
+          {{ d.description }}
         </div>
         <list-actions 
           :id="d.id" 
           :record="d"
-          :routes="{edit: 'employee-category-edit'}"
+          :routes="{edit: 'cv-category-edit'}"
           @toggle="toggle($event)"
           @destroy="destroy($event)">
         </list-actions>
@@ -67,10 +67,10 @@ export default {
 
       // Routes
       routes: {
-        get: '/api/employee/categories',
-        store: '/api/employee/category',
-        delete: '/api/employee/category',
-        toggle: '/api/employee/category/state',
+        get: '/api/cv/categories',
+        store: '/api/cv/category',
+        delete: '/api/cv/category',
+        toggle: '/api/cv/category/state',
       },
 
       // States

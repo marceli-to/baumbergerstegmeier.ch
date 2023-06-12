@@ -11,9 +11,38 @@
 
     <div v-show="tabs.data.active">
       <div>
+        <div :class="[this.errors.firstname ? 'has-error' : '', 'form-row']">
+          <label>Vorname</label>
+          <input v-model="data.firstname" type="text" name="firstname">
+          <label-required />
+        </div>
         <div :class="[this.errors.name ? 'has-error' : '', 'form-row']">
           <label>Name</label>
           <input v-model="data.name" type="text" name="name">
+          <label-required />
+        </div>
+        <div class="form-row">
+          <label>Titel</label>
+          <input v-model="data.title" type="text" name="title">
+        </div>
+        <div :class="[this.errors.team_id ? 'has-error' : '', 'form-row']">
+          <label>Team</label>
+          <div class="select-wrapper">
+            <select v-model="data.team_id">
+              <option :value="null">Bitte wählen...</option>
+              <option v-for="t in teams" :key="t.id" :value="t.id">{{ t.name }}</option>
+            </select>
+          </div>
+          <label-required />
+        </div>
+        <div :class="[this.errors.employee_category_id ? 'has-error' : '', 'form-row']">
+          <label>Position</label>
+          <div class="select-wrapper">
+            <select v-model="data.employee_category_id">
+              <option :value="null">Bitte wählen...</option>
+              <option v-for="ec in employeeCategories" :key="ec.id" :value="ec.id">{{ ec.name }}</option>
+            </select>
+          </div>
           <label-required />
         </div>
       </div>
@@ -33,7 +62,7 @@
     </div>
 
     <page-footer>
-      <button-back :route="'employee-category-index'">Zurück</button-back>
+      <button-back :route="'employee-index'">Zurück</button-back>
       <button-submit>Speichern</button-submit>
     </page-footer>
     
@@ -83,20 +112,38 @@ export default {
       // Model
       data: {
         id: null,
+        firstname: null,
         name: null,
+        title: null,
+        team_id: null,
+        employee_category_id: null,
         publish: 1,
       },
 
+      employeeCategories: [],
+      teams: [],
+
       // Validation
       errors: {
+        firstname: false,
         name: false,
+        team_id: false,
+        employee_category_id: false,
       },
 
       // Routes
       routes: {
-        find: '/api/employee/category',
-        store: '/api/employee/category',
-        update: '/api/employee/category',
+        find: '/api/employee',
+        store: '/api/employee',
+        update: '/api/employee',
+
+        team: {
+          get: '/api/teams',
+        },
+
+        employeeCategory: {
+          get: '/api/employee/categories',
+        },
       },
 
       // States
@@ -123,6 +170,10 @@ export default {
     if (this.$props.type == "edit") {
       this.fetch();
     }
+
+    if (this.$props.type == "create") {
+      this.fetchTeamsAndCategories();
+    }
   },
 
   methods: {
@@ -131,10 +182,25 @@ export default {
       this.isFetched = false;
       this.isLoading = true;
       this.axios.get(`${this.routes.find}/${this.$route.params.id}`).then(response => {
-        this.data = response.data.employeeCategory;
+        this.data = response.data.employee;
+        this.teams = response.data.teams;
+        this.employeeCategories = response.data.employeeCategories;
         this.isFetched = true;
         this.isLoading = false;
       });
+    },
+
+    fetchTeamsAndCategories() {
+      this.isLoading = true;
+      this.axios.all([
+        this.axios.get(`${this.routes.team.get}`),
+        this.axios.get(`${this.routes.employeeCategory.get}`),
+      ]).then(this.axios.spread((...responses) => {
+        this.teams = responses[0].data.data;
+        this.employeeCategories = responses[1].data.data;
+        this.isFetched = true;
+        this.isLoading = false;
+      }));
     },
 
     submit() {
@@ -149,7 +215,7 @@ export default {
     store() {
       this.isLoading = true;
       this.axios.post(this.routes.store, this.data).then(response => {
-        this.$router.push({ name: "employee-category-index"});
+        this.$router.push({ name: "employee-index"});
         this.$notify({ type: "success", text: this.messages.stored });
         this.isLoading = false;
       });
@@ -158,7 +224,7 @@ export default {
     update() {
       this.isLoading = true;
       this.axios.put(`${this.routes.update}/${this.$route.params.id}`, this.data).then(response => {
-        this.$router.push({ name: "employee-category-index"});
+        this.$router.push({ name: "employee-index"});
         this.$notify({ type: "success", text: this.messages.updated });
         this.isLoading = false;
       });
@@ -168,8 +234,8 @@ export default {
   computed: {
     title() {
       return this.$props.type == "edit" 
-        ? "Mitarbeiter-Kategorie bearbeiten" 
-        : "Mitarbeiter-Kategorie hinzufügen";
+        ? "Mitarbeiter bearbeiten" 
+        : "Mitarbeiter hinzufügen";
     }
   }
 };

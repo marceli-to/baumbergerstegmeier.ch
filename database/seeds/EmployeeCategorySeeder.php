@@ -12,17 +12,21 @@ class EmployeeCategorySeeder extends Seeder
    */
   public function run()
   {
-    EmployeeCategory::create([
+    $record = EmployeeCategory::create([
       'name' => 'Partner:in/Geschäftsleitung',
     ]);
+    $record->flag('isPublish', 1);
 
-    EmployeeCategory::create([
+    $record = EmployeeCategory::create([
       'name' => 'Mitarbeitende',
     ]);
+    $record->flag('isPublish', 1);
 
-    EmployeeCategory::create([
+    $record = EmployeeCategory::create([
       'name' => 'Ehemalige',
     ]);
+    $record->flag('isPublish', 1);
+
 
   }
 }

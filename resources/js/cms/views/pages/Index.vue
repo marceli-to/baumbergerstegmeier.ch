@@ -5,7 +5,7 @@
     </page-header>
     <div class="content content--wide cards">
 
-      <div class="card">
+      <!-- <div class="card">
         <router-link :to="{name: 'home'}">
           <h2>Startseite</h2>
           <p>Verwaltung der Startseite</p>
@@ -17,14 +17,9 @@
           <h2>Projekte</h2>
           <p>Verwaltung von Projekten und Kategorien</p>
         </router-link>
-      </div>
-
-      <!-- <div class="card">
-        <router-link :to="{name: 'diaries'}">
-          <h2>Tagebuch</h2>
-          <p>Verwaltung des Tagebuchs</p>
-        </router-link>
       </div> -->
+
+
 
       <div class="card">
         <router-link :to="{name: 'team-dashboard'}">

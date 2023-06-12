@@ -11,9 +11,9 @@
 
     <div v-show="tabs.data.active">
       <div>
-        <div :class="[this.errors.name ? 'has-error' : '', 'form-row']">
-          <label>Name</label>
-          <input v-model="data.name" type="text" name="name">
+        <div :class="[this.errors.description ? 'has-error' : '', 'form-row']">
+          <label>Bezeichnung</label>
+          <input v-model="data.description" type="text" name="name">
           <label-required />
         </div>
       </div>
@@ -33,7 +33,7 @@
     </div>
 
     <page-footer>
-      <button-back :route="'employee-category-index'">Zurück</button-back>
+      <button-back :route="'cv-category-index'">Zurück</button-back>
       <button-submit>Speichern</button-submit>
     </page-footer>
     
@@ -51,7 +51,7 @@ import ButtonSubmit from "@/components/ui/ButtonSubmit.vue";
 import LabelRequired from "@/components/ui/LabelRequired.vue";
 import LabelInfo from "@/components/ui/LabelInfo.vue";
 import Tabs from "@/components/ui/Tabs.vue";
-import tabsConfig from "@/views/pages/team/employeeCategory/config/tabs.js";
+import tabsConfig from "@/views/pages/team/cvCategory/config/tabs.js";
 import PageFooter from "@/components/ui/PageFooter.vue";
 import PageHeader from "@/components/ui/PageHeader.vue";
 import Images from "@/modules/images/Index.vue";
@@ -83,20 +83,20 @@ export default {
       // Model
       data: {
         id: null,
-        name: null,
+        description: null,
         publish: 1,
       },
 
       // Validation
       errors: {
-        name: false,
+        description: false,
       },
 
       // Routes
       routes: {
-        find: '/api/employee/category',
-        store: '/api/employee/category',
-        update: '/api/employee/category',
+        find: '/api/cv/category',
+        store: '/api/cv/category',
+        update: '/api/cv/category',
       },
 
       // States
@@ -131,7 +131,7 @@ export default {
       this.isFetched = false;
       this.isLoading = true;
       this.axios.get(`${this.routes.find}/${this.$route.params.id}`).then(response => {
-        this.data = response.data.employeeCategory;
+        this.data = response.data.cvCategory;
         this.isFetched = true;
         this.isLoading = false;
       });
@@ -149,7 +149,7 @@ export default {
     store() {
       this.isLoading = true;
       this.axios.post(this.routes.store, this.data).then(response => {
-        this.$router.push({ name: "employee-category-index"});
+        this.$router.push({ name: "cv-category-index"});
         this.$notify({ type: "success", text: this.messages.stored });
         this.isLoading = false;
       });
@@ -158,7 +158,7 @@ export default {
     update() {
       this.isLoading = true;
       this.axios.put(`${this.routes.update}/${this.$route.params.id}`, this.data).then(response => {
-        this.$router.push({ name: "employee-category-index"});
+        this.$router.push({ name: "cv-category-index"});
         this.$notify({ type: "success", text: this.messages.updated });
         this.isLoading = false;
       });
@@ -168,8 +168,8 @@ export default {
   computed: {
     title() {
       return this.$props.type == "edit" 
-        ? "Mitarbeiter-Kategorie bearbeiten" 
-        : "Mitarbeiter-Kategorie hinzufügen";
+        ? "CV-Kategorie bearbeiten" 
+        : "CV-Kategorie hinzufügen";
     }
   }
 };
