@@ -17,6 +17,7 @@ class Employee extends Model
     'firstname',
     'name',
     'title',
+    'email',
     'order',
     'team_id',
     'employee_category_id'
@@ -54,10 +55,19 @@ class Employee extends Model
    * The employeeCategory that belong to this model.
    */
 
-   public function employeeCategory()
-   {
-     return $this->belongsTo(EmployeeCategory::class);
-   }
+  public function employeeCategory()
+  {
+    return $this->belongsTo(EmployeeCategory::class);
+  }
+
+  /**
+   * The cvs that belong to this model.
+   */
+
+  public function cv()
+  {
+    return $this->hasMany(Cv::class);
+  }
 
   /**
    * Get the publish attribute

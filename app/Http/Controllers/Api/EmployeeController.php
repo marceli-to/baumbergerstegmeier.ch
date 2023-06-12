@@ -57,6 +57,7 @@ class EmployeeController extends Controller
       'firstname' => $request->input('firstname'),
       'name' => $request->input('name'),
       'title' => $request->input('title'),
+      'email' => $request->input('email'),
       'team_id' => $request->input('team_id'),
       'employee_category_id' => $request->input('employee_category_id'),
     ]);
@@ -77,6 +78,7 @@ class EmployeeController extends Controller
     $employee->firstname = $request->input('firstname');
     $employee->name = $request->input('name');
     $employee->title = $request->input('title');
+    $employee->email = $request->input('email');
     $employee->team_id = $request->input('team_id');
     $employee->employee_category_id = $request->input('employee_category_id');
     $employee->save();

@@ -32,7 +32,8 @@
             <list-actions 
               :id="d.id" 
               :record="d"
-              :routes="{edit: 'employee-edit'}"
+              :hasList="true"
+              :routes="{edit: 'employee-edit', list: `cv-index`}"
               @toggle="toggle($event)"
               @destroy="destroy($event)">
             </list-actions>

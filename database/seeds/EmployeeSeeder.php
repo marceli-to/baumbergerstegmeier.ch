@@ -30,10 +30,15 @@ class EmployeeSeeder extends Seeder
     // BSA, Leadership
     for($i = 0; $i < 6; $i++)
     {
+      $firstname = $firstnames[random_int(0, count($firstnames) - 1)];
+      $name = $names[random_int(0, count($names) - 1)];
+      $email = strtolower($firstname) . '.' . strtolower($name) . '@bsa.ch';
+
       $employee = Employee::create([
-        'firstname' => $firstnames[random_int(0, count($firstnames) - 1)],
-        'name' => $names[random_int(0, count($names) - 1)],
+        'firstname' => $firstname,
+        'name' => $name,
         'title' => $titles[random_int(0, count($titles) - 1)] . ' / ' . $leadership_titles[random_int(0, count($leadership_titles) - 1)],
+        'email' => str_replace(['ä', 'ö', 'ü'], ['ae', 'oe', 'ue'], $email),
         'team_id' => 1,
         'employee_category_id' => 1,
         'order' => $i

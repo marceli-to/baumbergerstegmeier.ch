@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\TeamController;
 use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\EmployeeCategoryController;
 use App\Http\Controllers\Api\CvCategoryController;
+use App\Http\Controllers\Api\CvController;
 
 /*
 |--------------------------------------------------------------------------
@@ -159,6 +160,17 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('cv/category/state/{cvCategory}', 'toggle');
     Route::post('cv/category/order', 'order');
     Route::delete('cv/category/{cvCategory}', 'destroy');
+  });
+
+  // CV
+  Route::controller(CvController::class)->group(function () {
+    Route::get('cv/{employee}', 'get');
+    Route::get('cvs/{cv}', 'find');
+    Route::post('cv', 'store');
+    Route::put('cv/{cv}', 'update');
+    Route::get('cv/state/{cv}', 'toggle');
+    Route::post('cv/order', 'order');
+    Route::delete('cv/{cv}', 'destroy');
   });
 
 });

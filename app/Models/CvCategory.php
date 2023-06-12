@@ -28,6 +28,15 @@ class CvCategory extends Model
   ];
 
   /**
+   * The cvs (many) that belong to this model.
+   */
+
+  public function cvs()
+  {
+    return $this->belongsToMany(Cv::class);
+  }
+
+  /**
    * Get the publish attribute
    * 
    */

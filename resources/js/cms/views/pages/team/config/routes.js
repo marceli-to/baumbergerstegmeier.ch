@@ -17,6 +17,10 @@ import CvCategoryIndex from '@/views/pages/team/cvCategory/Index.vue';
 import CvCategoryCreate from '@/views/pages/team/cvCategory/partials/Create.vue';
 import CvCategoryEdit from '@/views/pages/team/cvCategory/partials/Edit.vue';
 
+import CvIndex from '@/views/pages/team/cv/Index.vue';
+import CvCreate from '@/views/pages/team/cv/partials/Create.vue';
+import CvEdit from '@/views/pages/team/cv/partials/Edit.vue';
+
 const routes = [
   {
     name: 'team-dashboard',
@@ -92,6 +96,22 @@ const routes = [
     name: 'cv-category-edit',
     path: '/administration/team/cvCategory/edit/:id',
     component: CvCategoryEdit,
+  },
+
+  {
+    name: 'cv-index',
+    path: '/administration/team/cv/index/:id',
+    component: CvIndex,
+  },
+  {
+    name: 'cv-create',
+    path: '/administration/team/cv/create/:employee_id',
+    component: CvCreate,
+  },
+  {
+    name: 'cv-edit',
+    path: '/administration/team/cv/edit/:id',
+    component: CvEdit,
   },
 
 ];
