@@ -216,7 +216,7 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('project/{project}', 'find');
     Route::post('project', 'store');
     Route::put('project/{project}', 'update');
-    Route::get('project/state/{project}', 'toggle');
+    Route::get('project/toggle/{project}', 'toggle');
     Route::post('project/order', 'order');
     Route::delete('project/{project}', 'destroy');
   });

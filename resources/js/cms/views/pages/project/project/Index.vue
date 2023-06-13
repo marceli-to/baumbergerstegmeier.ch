@@ -86,7 +86,7 @@
           store: '/api/project',
           delete: '/api/project',
           order: '/api/project/order',
-          toggle: '/api/project/state',
+          toggle: '/api/project/toggle',
         },
   
         // States
