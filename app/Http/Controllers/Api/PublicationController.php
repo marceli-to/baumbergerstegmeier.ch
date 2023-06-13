@@ -45,7 +45,7 @@ class PublicationController extends Controller
       'description' => $request->input('description'),
       'link' => $request->input('link')
     ]);
-    $this->handleFlag($publication, 'isPublish', $request->input('publish'));
+    $this->handleFlag($publication, 'isPublished', $request->input('publish'));
     $this->handleImages($publication, $request->input('images'));
     return response()->json(['publicationId' => $publication->id]);
   }
@@ -66,7 +66,7 @@ class PublicationController extends Controller
     $publication->link = $request->input('link');
     $publication->description = $request->input('description');
     $publication->save();
-    $this->handleFlag($publication, 'isPublish', $request->input('publish'));
+    $this->handleFlag($publication, 'isPublished', $request->input('publish'));
     $this->handleImages($publication, $request->input('images'));
     return response()->json('successfully updated');
   }
@@ -79,15 +79,15 @@ class PublicationController extends Controller
    */
   public function toggle(Publication $publication)
   {
-    if ($publication->hasFlag('isPublish'))
+    if ($publication->hasFlag('isPublished'))
     {
-      $publication->unflag('isPublish');
+      $publication->unflag('isPublished');
     }
     else
     {
-      $publication->flag('isPublish');
+      $publication->flag('isPublished');
     } 
-    return response()->json($publication->hasFlag('isPublish'));
+    return response()->json($publication->hasFlag('isPublished'));
   }
 
 

@@ -66,7 +66,7 @@ class CvController extends Controller
       'cv_category_id' => $request->input('cv_category_id'),
       'employee_id' => $request->input('employee_id'),
     ]);
-    $this->handleFlag($cv, 'isPublish', $request->input('publish'));
+    $this->handleFlag($cv, 'isPublished', $request->input('publish'));
     return response()->json(['cvId' => $cv->id]);
   }
 
@@ -84,7 +84,7 @@ class CvController extends Controller
     $cv->description = $request->input('description');
     $cv->cv_category_id = $request->input('cv_category_id');
     $cv->save();
-    $this->handleFlag($cv, 'isPublish', $request->input('publish'));
+    $this->handleFlag($cv, 'isPublished', $request->input('publish'));
     return response()->json('successfully updated');
   }
 
@@ -96,15 +96,15 @@ class CvController extends Controller
    */
   public function toggle(Cv $cv)
   {
-    if ($cv->hasFlag('isPublish'))
+    if ($cv->hasFlag('isPublished'))
     {
-      $cv->unflag('isPublish');
+      $cv->unflag('isPublished');
     }
     else
     {
-      $cv->flag('isPublish');
+      $cv->flag('isPublished');
     } 
-    return response()->json($cv->hasFlag('isPublish'));
+    return response()->json($cv->hasFlag('isPublished'));
   }
 
 

@@ -40,7 +40,7 @@ class CvCategoryController extends Controller
     $cvCategory = CvCategory::create([
       'description' => $request->input('description'),
     ]);
-    $this->handleFlag($cvCategory, 'isPublish', $request->input('publish'));
+    $this->handleFlag($cvCategory, 'isPublished', $request->input('publish'));
     return response()->json(['cvCategory' => $cvCategory]);
   }
 
@@ -56,7 +56,7 @@ class CvCategoryController extends Controller
     $cvCategory = CvCategory::findOrFail($cvCategory->id);
     $cvCategory->description = $request->input('description');
     $cvCategory->save();
-    $this->handleFlag($cvCategory, 'isPublish', $request->input('publish'));
+    $this->handleFlag($cvCategory, 'isPublished', $request->input('publish'));
     return response()->json('successfully updated');
   }
 
@@ -68,15 +68,15 @@ class CvCategoryController extends Controller
    */
   public function toggle(CvCategory $cvCategory)
   {
-    if ($cvCategory->hasFlag('isPublish'))
+    if ($cvCategory->hasFlag('isPublished'))
     {
-      $cvCategory->unflag('isPublish');
+      $cvCategory->unflag('isPublished');
     }
     else
     {
-      $cvCategory->flag('isPublish');
+      $cvCategory->flag('isPublished');
     } 
-    return response()->json($cvCategory->hasFlag('isPublish'));
+    return response()->json($cvCategory->hasFlag('isPublished'));
   }
 
   /**

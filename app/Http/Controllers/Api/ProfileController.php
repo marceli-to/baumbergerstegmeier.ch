@@ -44,7 +44,7 @@ class ProfileController extends Controller
       'title_bsemi' => $request->input('title_bsemi'),
       'text_bsemi' => $request->input('text_bsemi'),
     ]);
-    $this->handleFlag($profile, 'isPublish', $request->input('publish'));
+    $this->handleFlag($profile, 'isPublished', $request->input('publish'));
     $this->handleImages($profile, $request->input('images'));
     return response()->json(['profileId' => $profile->id]);
   }
@@ -64,7 +64,7 @@ class ProfileController extends Controller
     $profile->title_bsemi = $request->input('title_bsemi');
     $profile->text_bsemi = $request->input('text_bsemi');
     $profile->save();
-    $this->handleFlag($profile, 'isPublish', $request->input('publish'));
+    $this->handleFlag($profile, 'isPublished', $request->input('publish'));
     $this->handleImages($profile, $request->input('images'));
     return response()->json('successfully updated');
   }
@@ -77,15 +77,15 @@ class ProfileController extends Controller
    */
   public function toggle(Profile $profile)
   {
-    if ($profile->hasFlag('isPublish'))
+    if ($profile->hasFlag('isPublished'))
     {
-      $profile->unflag('isPublish');
+      $profile->unflag('isPublished');
     }
     else
     {
-      $profile->flag('isPublish');
+      $profile->flag('isPublished');
     } 
-    return response()->json($profile->hasFlag('isPublish'));
+    return response()->json($profile->hasFlag('isPublished'));
   }
 
 

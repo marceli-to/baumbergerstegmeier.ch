@@ -15,6 +15,13 @@ class Project extends Model
    
   protected $fillable = [
     'title',
+    'text',
+    'info',
+    'periode',
+    'year',
+    'location',
+    'order',
+    'type_id',
   ];
 
   /**
@@ -26,6 +33,15 @@ class Project extends Model
   protected $appends = [
     'publish',
   ];
+
+  /**
+   * The type that belong to this project.
+   */
+  
+  public function type()
+  {
+    return $this->belongsTo(Type::class);
+  }
 
   /**
    * The states that belong to this project.
@@ -51,6 +67,6 @@ class Project extends Model
 
    public function getPublishAttribute()
    {
-     return $this->hasFlag('isPublish') ? 1 : 0;    
+     return $this->hasFlag('isPublished') ? 1 : 0;    
    }
 }

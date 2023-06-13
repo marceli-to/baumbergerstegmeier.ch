@@ -45,7 +45,7 @@ class ContactController extends Controller
       'imprint' => $request->input('imprint'),
       'privacy' => $request->input('privacy'),
     ]);
-    $this->handleFlag($contact, 'isPublish', $request->input('publish'));
+    $this->handleFlag($contact, 'isPublished', $request->input('publish'));
     $this->handleImages($contact, $request->input('images'));
     return response()->json(['contactId' => $contact->id]);
   }
@@ -66,7 +66,7 @@ class ContactController extends Controller
     $contact->imprint = $request->input('imprint');
     $contact->privacy = $request->input('privacy');
     $contact->save();
-    $this->handleFlag($contact, 'isPublish', $request->input('publish'));
+    $this->handleFlag($contact, 'isPublished', $request->input('publish'));
     $this->handleImages($contact, $request->input('images'));
     return response()->json('successfully updated');
   }
@@ -79,15 +79,15 @@ class ContactController extends Controller
    */
   public function toggle(Contact $contact)
   {
-    if ($contact->hasFlag('isPublish'))
+    if ($contact->hasFlag('isPublished'))
     {
-      $contact->unflag('isPublish');
+      $contact->unflag('isPublished');
     }
     else
     {
-      $contact->flag('isPublish');
+      $contact->flag('isPublished');
     } 
-    return response()->json($contact->hasFlag('isPublish'));
+    return response()->json($contact->hasFlag('isPublished'));
   }
 
 

@@ -61,7 +61,7 @@ class EmployeeController extends Controller
       'team_id' => $request->input('team_id'),
       'employee_category_id' => $request->input('employee_category_id'),
     ]);
-    $this->handleFlag($employee, 'isPublish', $request->input('publish'));
+    $this->handleFlag($employee, 'isPublished', $request->input('publish'));
     return response()->json(['employeeId' => $employee->id]);
   }
 
@@ -82,7 +82,7 @@ class EmployeeController extends Controller
     $employee->team_id = $request->input('team_id');
     $employee->employee_category_id = $request->input('employee_category_id');
     $employee->save();
-    $this->handleFlag($employee, 'isPublish', $request->input('publish'));
+    $this->handleFlag($employee, 'isPublished', $request->input('publish'));
     return response()->json('successfully updated');
   }
 
@@ -94,15 +94,15 @@ class EmployeeController extends Controller
    */
   public function toggle(Employee $employee)
   {
-    if ($employee->hasFlag('isPublish'))
+    if ($employee->hasFlag('isPublished'))
     {
-      $employee->unflag('isPublish');
+      $employee->unflag('isPublished');
     }
     else
     {
-      $employee->flag('isPublish');
+      $employee->flag('isPublished');
     } 
-    return response()->json($employee->hasFlag('isPublish'));
+    return response()->json($employee->hasFlag('isPublished'));
   }
 
   /**

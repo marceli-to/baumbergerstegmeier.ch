@@ -61,7 +61,7 @@ class Profile extends Model
 
   public function getPublishAttribute()
   {
-    return $this->hasFlag('isPublish') ? 1 : 0;    
+    return $this->hasFlag('isPublished') ? 1 : 0;    
   }
 
 }

@@ -1,9 +1,9 @@
 <?php
 namespace Database\Seeders;
-use App\Models\State;
+use App\Models\Type;
 use Illuminate\Database\Seeder;
 
-class StateSeeder extends Seeder
+class TypeSeeder extends Seeder
 {
   /**
    * Run the database seeds.
@@ -12,19 +12,20 @@ class StateSeeder extends Seeder
    */
   public function run()
   {
-    $record = State::create([
-      'description' => 'Gebaut',
+    $record = Type::create([
+      'description' => 'Neubau',
     ]);
     $record->flag('isPublished', 1);
 
-    $record = State::create([
-      'description' => 'In Planung',
+    $record = Type::create([
+      'description' => 'Sanierung',
     ]);
     $record->flag('isPublished', 1);
 
-    $record = State::create([
-      'description' => 'Wettbewerbe',
+    $record = Type::create([
+      'description' => 'Umbau',
     ]);
     $record->flag('isPublished', 1);
+
   }
 }

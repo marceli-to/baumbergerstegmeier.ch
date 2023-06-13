@@ -41,7 +41,7 @@ class TeamController extends Controller
     $team = Team::create([
       'name' => $request->input('name'),
     ]);
-    $this->handleFlag($team, 'isPublish', $request->input('publish'));
+    $this->handleFlag($team, 'isPublished', $request->input('publish'));
     $this->handleImages($team, $request->input('images'));
     return response()->json(['teamId' => $team->id]);
   }
@@ -58,7 +58,7 @@ class TeamController extends Controller
     $team = Team::findOrFail($team->id);
     $team->name = $request->input('name');
     $team->save();
-    $this->handleFlag($team, 'isPublish', $request->input('publish'));
+    $this->handleFlag($team, 'isPublished', $request->input('publish'));
     $this->handleImages($team, $request->input('images'));
     return response()->json('successfully updated');
   }
@@ -71,15 +71,15 @@ class TeamController extends Controller
    */
   public function toggle(Team $team)
   {
-    if ($team->hasFlag('isPublish'))
+    if ($team->hasFlag('isPublished'))
     {
-      $team->unflag('isPublish');
+      $team->unflag('isPublished');
     }
     else
     {
-      $team->flag('isPublish');
+      $team->flag('isPublished');
     } 
-    return response()->json($team->hasFlag('isPublish'));
+    return response()->json($team->hasFlag('isPublished'));
   }
 
 

@@ -41,7 +41,7 @@ class JobController extends Controller
     $job = Job::create([
       'text' => $request->input('text'),
     ]);
-    $this->handleFlag($job, 'isPublish', $request->input('publish'));
+    $this->handleFlag($job, 'isPublished', $request->input('publish'));
     $this->handleImages($job, $request->input('images'));
     return response()->json(['jobId' => $job->id]);
   }
@@ -58,7 +58,7 @@ class JobController extends Controller
     $job = Job::findOrFail($job->id);
     $job->text = $request->input('text');
     $job->save();
-    $this->handleFlag($job, 'isPublish', $request->input('publish'));
+    $this->handleFlag($job, 'isPublished', $request->input('publish'));
     $this->handleImages($job, $request->input('images'));
     return response()->json('successfully updated');
   }
@@ -71,15 +71,15 @@ class JobController extends Controller
    */
   public function toggle(Job $job)
   {
-    if ($job->hasFlag('isPublish'))
+    if ($job->hasFlag('isPublished'))
     {
-      $job->unflag('isPublish');
+      $job->unflag('isPublished');
     }
     else
     {
-      $job->flag('isPublish');
+      $job->flag('isPublished');
     } 
-    return response()->json($job->hasFlag('isPublish'));
+    return response()->json($job->hasFlag('isPublished'));
   }
 
 

@@ -40,7 +40,7 @@ class CategoryController extends Controller
     $category = Category::create([
       'description' => $request->input('description'),
     ]);
-    $this->handleFlag($category, 'isPublish', $request->input('publish'));
+    $this->handleFlag($category, 'isPublished', $request->input('publish'));
     return response()->json(['categoryId' => $category->id]);
   }
 
@@ -56,7 +56,7 @@ class CategoryController extends Controller
     $category = Category::findOrFail($category->id);
     $category->description = $request->input('description');
     $category->save();
-    $this->handleFlag($category, 'isPublish', $request->input('publish'));
+    $this->handleFlag($category, 'isPublished', $request->input('publish'));
     return response()->json('successfully updated');
   }
 
@@ -68,15 +68,15 @@ class CategoryController extends Controller
    */
   public function toggle(Category $category)
   {
-    if ($category->hasFlag('isPublish'))
+    if ($category->hasFlag('isPublished'))
     {
-      $category->unflag('isPublish');
+      $category->unflag('isPublished');
     }
     else
     {
-      $category->flag('isPublish');
+      $category->flag('isPublished');
     } 
-    return response()->json($category->hasFlag('isPublish'));
+    return response()->json($category->hasFlag('isPublished'));
   }
 
   /**

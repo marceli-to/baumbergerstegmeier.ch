@@ -44,7 +44,7 @@ class AwardController extends Controller
       'subtitle' => $request->input('subtitle'),
       'link' => $request->input('link')
     ]);
-    $this->handleFlag($award, 'isPublish', $request->input('publish'));
+    $this->handleFlag($award, 'isPublished', $request->input('publish'));
     $this->handleImages($award, $request->input('images'));
     return response()->json(['awardId' => $award->id]);
   }
@@ -64,7 +64,7 @@ class AwardController extends Controller
     $award->subtitle = $request->input('subtitle');
     $award->link = $request->input('link');
     $award->save();
-    $this->handleFlag($award, 'isPublish', $request->input('publish'));
+    $this->handleFlag($award, 'isPublished', $request->input('publish'));
     $this->handleImages($award, $request->input('images'));
     return response()->json('successfully updated');
   }
@@ -77,15 +77,15 @@ class AwardController extends Controller
    */
   public function toggle(Award $award)
   {
-    if ($award->hasFlag('isPublish'))
+    if ($award->hasFlag('isPublished'))
     {
-      $award->unflag('isPublish');
+      $award->unflag('isPublished');
     }
     else
     {
-      $award->flag('isPublish');
+      $award->flag('isPublished');
     } 
-    return response()->json($award->hasFlag('isPublish'));
+    return response()->json($award->hasFlag('isPublished'));
   }
 
 

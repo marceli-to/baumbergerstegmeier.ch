@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
       \Database\Seeders\CvCategorySeeder::class,
       \Database\Seeders\StateSeeder::class,
       \Database\Seeders\CategorySeeder::class,
+      \Database\Seeders\TypeSeeder::class,
+      \Database\Seeders\ProjectSeeder::class,
     ]);
   }
 }

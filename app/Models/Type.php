@@ -3,10 +3,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\ModelFlags\Models\Concerns\HasFlags;
 
-class JobArticle extends Model
+class Type extends Model
 {
   use HasFlags;
- 
+
   /**
    * The attributes that are mass assignable.
    *
@@ -14,10 +14,7 @@ class JobArticle extends Model
    */
    
 	protected $fillable = [
-    'title',
     'description',
-    'teaser_title',
-    'teaser_description',
     'order'
   ];
 
@@ -27,9 +24,18 @@ class JobArticle extends Model
    * @var array
    */
 
-   protected $appends = [
+  protected $appends = [
     'publish',
   ];
+
+  /**
+   * The projects that belong to this type
+   */
+  
+  public function projects()
+  {
+    return $this->belongsToMany(Project::class);
+  }
 
   /**
    * Get the publish attribute

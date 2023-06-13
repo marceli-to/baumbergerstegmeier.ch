@@ -40,7 +40,7 @@ class StateController extends Controller
     $state = State::create([
       'description' => $request->input('description'),
     ]);
-    $this->handleFlag($state, 'isPublish', $request->input('publish'));
+    $this->handleFlag($state, 'isPublished', $request->input('publish'));
     return response()->json(['stateId' => $state->id]);
   }
 
@@ -56,7 +56,7 @@ class StateController extends Controller
     $state = State::findOrFail($state->id);
     $state->description = $request->input('description');
     $state->save();
-    $this->handleFlag($state, 'isPublish', $request->input('publish'));
+    $this->handleFlag($state, 'isPublished', $request->input('publish'));
     return response()->json('successfully updated');
   }
 
@@ -68,15 +68,15 @@ class StateController extends Controller
    */
   public function toggle(State $state)
   {
-    if ($state->hasFlag('isPublish'))
+    if ($state->hasFlag('isPublished'))
     {
-      $state->unflag('isPublish');
+      $state->unflag('isPublished');
     }
     else
     {
-      $state->flag('isPublish');
+      $state->flag('isPublished');
     } 
-    return response()->json($state->hasFlag('isPublish'));
+    return response()->json($state->hasFlag('isPublished'));
   }
 
   /**

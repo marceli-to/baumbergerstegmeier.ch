@@ -17,6 +17,7 @@ use App\Http\Controllers\Api\CvCategoryController;
 use App\Http\Controllers\Api\CvController;
 use App\Http\Controllers\Api\StateController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\TypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -173,6 +174,17 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('cv/state/{cv}', 'toggle');
     Route::post('cv/order', 'order');
     Route::delete('cv/{cv}', 'destroy');
+  });
+
+  // Project type
+  Route::controller(TypeController::class)->group(function () {
+    Route::get('project/types', 'get');
+    Route::get('project/type/{type}', 'find');
+    Route::post('project/type', 'store');
+    Route::put('project/type/{type}', 'update');
+    Route::get('project/type/state/{type}', 'toggle');
+    Route::post('project/type/order', 'order');
+    Route::delete('project/type/{type}', 'destroy');
   });
 
   // Project state

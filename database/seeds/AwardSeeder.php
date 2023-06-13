@@ -17,91 +17,91 @@ class AwardSeeder extends Seeder
       'title' => 'best architects 22, Auszeichnung',
       'subtitle' => 'Wohnhaus in Zürich',
     ]);
-    $award->flag('isPublish', 1);
+    $award->flag('isPublished', 1);
 
     $award = Award::create([
       'year' => '2021',
       'title' => 'best architects 21, Auszeichnung',
       'subtitle' => 'Wohnsiedlung am Katzenbach IV/V',
     ]);
-    $award->flag('isPublish', 1);
+    $award->flag('isPublished', 1);
 
     $award = Award::create([
       'year' => '2021',
       'title' => 'best architects 21, Auszeichnung',
       'subtitle' => 'Wohnhaus Ottikerstrasse',
     ]);
-    $award->flag('isPublish', 1);
+    $award->flag('isPublished', 1);
 
     $award = Award::create([
       'year' => '2020',
       'title' => 'best architects 22, Auszeichnung',
       'subtitle' => 'Wohnhaus in Zürich',
     ]);
-    $award->flag('isPublish', 1);
+    $award->flag('isPublished', 1);
 
     $award = Award::create([
       'year' => '2020',
       'title' => 'best architects 21, Auszeichnung',
       'subtitle' => 'Wohnsiedlung am Katzenbach I',
     ]);
-    $award->flag('isPublish', 1);
+    $award->flag('isPublished', 1);
 
     $award = Award::create([
       'year' => '2019',
       'title' => 'best architects 21, Auszeichnung',
       'subtitle' => 'Wohnhaus Ottikerstrasse',
     ]);
-    $award->flag('isPublish', 1);
+    $award->flag('isPublished', 1);
 
     $award = Award::create([
       'year' => '2018',
       'title' => 'best architects 19, Auszeichnung',
       'subtitle' => 'Wohnhaus in Zürich',
     ]);
-    $award->flag('isPublish', 1);
+    $award->flag('isPublished', 1);
 
     $award = Award::create([
       'year' => '2018',
       'title' => 'best architects 19, Auszeichnung',
       'subtitle' => 'Wohnsiedlung am Katzenbach IV',
     ]);
-    $award->flag('isPublish', 1);
+    $award->flag('isPublished', 1);
 
     $award = Award::create([
       'year' => '2017',
       'title' => 'best architects 21, Auszeichnung',
       'subtitle' => 'Wohnhaus Ottikerstrasse',
     ]);
-    $award->flag('isPublish', 1);
+    $award->flag('isPublished', 1);
 
     $award = Award::create([
       'year' => '2019',
       'title' => 'best architects 18, Auszeichnung',
       'subtitle' => 'Wohnhaus Pfungen',
     ]);
-    $award->flag('isPublish', 1);
+    $award->flag('isPublished', 1);
 
     $award = Award::create([
       'year' => '2016',
       'title' => 'best architects 15, Auszeichnung',
       'subtitle' => 'Primarschulhaus Neftenbach',
     ]);
-    $award->flag('isPublish', 1);
+    $award->flag('isPublished', 1);
 
     $award = Award::create([
       'year' => '2015',
       'title' => 'Arc-Award 13 Sieger Sonderpreis Ingenieurleistung',
       'subtitle' => 'Wohnsiedlung am Katzenbach IV/V',
     ]);
-    $award->flag('isPublish', 1);
+    $award->flag('isPublished', 1);
 
     $award = Award::create([
       'year' => '2015',
       'title' => 'Die Besten 2012/Hochparterre, Nomination',
       'subtitle' => 'Mehrfamilienhaus Segantinistrasse',
     ]);
-    $award->flag('isPublish', 1);
+    $award->flag('isPublished', 1);
 
   }
 }

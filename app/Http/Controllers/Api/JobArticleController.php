@@ -43,7 +43,7 @@ class JobArticleController extends Controller
       'teaser_title' => $request->input('teaser_title'),
       'teaser_description' => $request->input('teaser_description')
     ]);
-    $this->handleFlag($jobArticle, 'isPublish', $request->input('publish'));
+    $this->handleFlag($jobArticle, 'isPublished', $request->input('publish'));
     return response()->json(['jobArticleId' => $jobArticle->id]);
   }
 
@@ -62,7 +62,7 @@ class JobArticleController extends Controller
     $jobArticle->teaser_title = $request->input('teaser_title');
     $jobArticle->teaser_description = $request->input('teaser_description');
     $jobArticle->save();
-    $this->handleFlag($jobArticle, 'isPublish', $request->input('publish'));
+    $this->handleFlag($jobArticle, 'isPublished', $request->input('publish'));
     return response()->json('successfully updated');
   }
 
@@ -74,15 +74,15 @@ class JobArticleController extends Controller
    */
   public function toggle(JobArticle $jobArticle)
   {
-    if ($jobArticle->hasFlag('isPublish'))
+    if ($jobArticle->hasFlag('isPublished'))
     {
-      $jobArticle->unflag('isPublish');
+      $jobArticle->unflag('isPublished');
     }
     else
     {
-      $jobArticle->flag('isPublish');
+      $jobArticle->flag('isPublished');
     } 
-    return response()->json($jobArticle->hasFlag('isPublish'));
+    return response()->json($jobArticle->hasFlag('isPublished'));
   }
 
 

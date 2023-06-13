@@ -18,6 +18,6 @@ class ProfileSeeder extends Seeder
       'title_bsemi' => 'BS+EMI Architektenpartner',
       'text_bsemi' => '<p>Die kontinuierliche Zusammenarbeit mit Edelaar Mosayebi Inderbitzin Architekten hat 2011 zur Gründung der BS+EMI Architektenpartner AG geführt. In dieser Zusammensetzung beschäftigen sich die sechs Partnerinnen und Partner, Peter Baumberger, Karin Stegmeier, Ron Edelaar, Elli Mosayebi, Christian Inderbitzin und seit 2017 Phillip Türich, mit grossmassstäblichen Projekten, Projektwettbewerben und städtebaulichen Studien. Die beiden Partnerbüros behalten weiterhin ihre Eigenständigkeit.</p>',
     ]);
-    $record->flag('isPublish', 1);
+    $record->flag('isPublished', 1);
   }
 }

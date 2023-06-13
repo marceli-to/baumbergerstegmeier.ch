@@ -40,7 +40,7 @@ class EmployeeCategoryController extends Controller
     $employeeCategory = EmployeeCategory::create([
       'name' => $request->input('name'),
     ]);
-    $this->handleFlag($employeeCategory, 'isPublish', $request->input('publish'));
+    $this->handleFlag($employeeCategory, 'isPublished', $request->input('publish'));
     return response()->json(['employeeCategory' => $employeeCategory]);
   }
 
@@ -56,7 +56,7 @@ class EmployeeCategoryController extends Controller
     $employeeCategory = EmployeeCategory::findOrFail($employeeCategory->id);
     $employeeCategory->name = $request->input('name');
     $employeeCategory->save();
-    $this->handleFlag($employeeCategory, 'isPublish', $request->input('publish'));
+    $this->handleFlag($employeeCategory, 'isPublished', $request->input('publish'));
     return response()->json('successfully updated');
   }
 
@@ -68,15 +68,15 @@ class EmployeeCategoryController extends Controller
    */
   public function toggle(EmployeeCategory $employeeCategory)
   {
-    if ($employeeCategory->hasFlag('isPublish'))
+    if ($employeeCategory->hasFlag('isPublished'))
     {
-      $employeeCategory->unflag('isPublish');
+      $employeeCategory->unflag('isPublished');
     }
     else
     {
-      $employeeCategory->flag('isPublish');
+      $employeeCategory->flag('isPublished');
     } 
-    return response()->json($employeeCategory->hasFlag('isPublish'));
+    return response()->json($employeeCategory->hasFlag('isPublished'));
   }
 
   /**
