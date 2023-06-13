@@ -20,6 +20,12 @@
       </div> -->
 
 
+      <div class="card">
+        <router-link :to="{name: 'project-dashboard'}">
+          <h2>Projekte</h2>
+          <p>Verwaltung der Projekte und Einstellungen</p>
+        </router-link>
+      </div>
 
       <div class="card">
         <router-link :to="{name: 'team-dashboard'}">

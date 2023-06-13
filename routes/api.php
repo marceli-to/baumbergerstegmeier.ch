@@ -15,6 +15,8 @@ use App\Http\Controllers\Api\EmployeeController;
 use App\Http\Controllers\Api\EmployeeCategoryController;
 use App\Http\Controllers\Api\CvCategoryController;
 use App\Http\Controllers\Api\CvController;
+use App\Http\Controllers\Api\StateController;
+use App\Http\Controllers\Api\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -171,6 +173,28 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('cv/state/{cv}', 'toggle');
     Route::post('cv/order', 'order');
     Route::delete('cv/{cv}', 'destroy');
+  });
+
+  // Project state
+  Route::controller(StateController::class)->group(function () {
+    Route::get('project/states', 'get');
+    Route::get('project/state/{state}', 'find');
+    Route::post('project/state', 'store');
+    Route::put('project/state/{state}', 'update');
+    Route::get('project/state/state/{state}', 'toggle');
+    Route::post('project/state/order', 'order');
+    Route::delete('project/state/{state}', 'destroy');
+  });
+
+  // Project category
+  Route::controller(CategoryController::class)->group(function () {
+    Route::get('project/categories', 'get');
+    Route::get('project/category/{category}', 'find');
+    Route::post('project/category', 'store');
+    Route::put('project/category/{category}', 'update');
+    Route::get('project/category/state/{category}', 'toggle');
+    Route::post('project/category/order', 'order');
+    Route::delete('project/category/{category}', 'destroy');
   });
 
 });

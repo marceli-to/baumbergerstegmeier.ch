@@ -45,6 +45,7 @@ import jobRoutes from '@/views/pages/job/config/routes';
 import profileRoutes from '@/views/pages/profile/config/routes';
 import publicationRoutes from '@/views/pages/publication/config/routes';
 import teamRoutes from '@/views/pages/team/config/routes';
+import projectRoutes from '@/views/pages/project/config/routes';
 import imageRoutes from '@/modules/images/config/routes';
 
 const router = new VueRouter(
@@ -58,6 +59,7 @@ const router = new VueRouter(
       ...publicationRoutes,
       ...profileRoutes,
       ...teamRoutes,
+      ...projectRoutes,
       ...imageRoutes,
     ]
   }

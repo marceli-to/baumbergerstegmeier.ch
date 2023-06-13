@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
       \Database\Seeders\EmployeeCategorySeeder::class,
       \Database\Seeders\EmployeeSeeder::class,
       \Database\Seeders\CvCategorySeeder::class,
+      \Database\Seeders\StateSeeder::class,
+      \Database\Seeders\CategorySeeder::class,
     ]);
   }
 }

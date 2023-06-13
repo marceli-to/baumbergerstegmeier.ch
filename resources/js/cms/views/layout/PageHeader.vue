@@ -40,6 +40,12 @@
       </li> -->
 
       <li>
+        <router-link :to="{name: 'project-dashboard'}">
+          <span>Projekte</span>
+        </router-link>
+      </li>
+
+      <li>
         <router-link :to="{name: 'team-dashboard'}">
           <span>Teams</span>
         </router-link>
