@@ -41,7 +41,7 @@ class EmployeeCategoryController extends Controller
       'name' => $request->input('name'),
     ]);
     $this->handleFlag($employeeCategory, 'isPublish', $request->input('publish'));
-    return response()->json(['employeeCategoryId' => $employeeCategory->id]);
+    return response()->json(['employeeCategory' => $employeeCategory]);
   }
 
   /**

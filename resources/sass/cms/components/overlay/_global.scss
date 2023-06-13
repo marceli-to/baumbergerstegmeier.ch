@@ -6,7 +6,7 @@
  */
 
 html.has-overlay {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 %overlay,
@@ -42,6 +42,7 @@ html.has-overlay {
       right: 10px;
       position: absolute;
       top: 10px;
+      z-index: 500;
     }
 
     a.btn-close {
@@ -67,8 +68,14 @@ html.has-overlay {
     align-items: center;
     display: flex;
 
-    > div {
-      max-width: 480px;
+    .overlay__inner {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+
+      > div {
+        max-width: 480px;
+        padding: 20px !important;
+      }
     }
   }
 }

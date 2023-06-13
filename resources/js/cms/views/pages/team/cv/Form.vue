@@ -18,7 +18,12 @@
           <textarea name="description" v-model="data.description"></textarea>
         </div>
         <div class="form-row">
-          <label>Kategorie (optional)</label>
+          <div class="flex justify-between">
+            <label>Kategorie (optional)</label>
+            <a href="" @click.prevent="$refs.categoryWidget.show()">
+              <plus-icon />
+            </a>
+          </div>
           <div class="select-wrapper">
             <select v-model="data.cv_category_id">
               <option :value="null">Bitte wählen...</option>
@@ -41,6 +46,10 @@
         </div>
       </div>
     </div>
+
+    <modal ref="categoryWidget">
+      <category-widget @saved="addCategory" />
+    </modal>
 
     <page-footer>
       <router-link :to="{name: 'cv-index', params: { id: this.data.employee_id }}" class="btn-secondary has-icon">
@@ -66,6 +75,8 @@ import tabsConfig from "@/views/pages/team/cv/config/tabs.js";
 import PageFooter from "@/components/ui/PageFooter.vue";
 import PageHeader from "@/components/ui/PageHeader.vue";
 import Images from "@/modules/images/Index.vue";
+import CategoryWidget from "@/views/pages/team/cvCategory/components/CategoryWidget.vue";
+import Modal from "@/components/ui/Modal.vue";
 
 export default {
   components: {
@@ -80,6 +91,8 @@ export default {
     PageHeader,
     Images,
     TinymceEditor,
+    CategoryWidget,
+    Modal
   },
 
   mixins: [ErrorHandling],
@@ -96,7 +109,7 @@ export default {
         id: null,
         periode: null,
         description: null,
-        membership: null,
+        cv_category_id: null,
         employee_id: null,
         publish: 1,
       },
@@ -147,8 +160,6 @@ export default {
 
     }
     this.data.employee_id = this.$route.params.employee_id;
-
-
   },
 
   methods: {
@@ -199,6 +210,11 @@ export default {
         this.$notify({ type: "success", text: this.messages.updated });
         this.isLoading = false;
       });
+    },
+
+    addCategory(category) {
+      this.categories.push(category);
+      this.data.cv_category_id = category.id;
     },
   },
 

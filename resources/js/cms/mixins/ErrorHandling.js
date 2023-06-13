@@ -52,7 +52,7 @@ export default {
       });
       this.errors = errors;
       this.isLoading = false;
-      this.$notify({ type: "error", text: `Bitte alle mit * markierten Felder prüfen!`});
+      this.$notify({ type: "error", text: `Bitte alle markierten Felder prüfen!`});
     },
 
     serverError(data) {

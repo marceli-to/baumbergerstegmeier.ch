@@ -41,7 +41,7 @@ class CvCategoryController extends Controller
       'description' => $request->input('description'),
     ]);
     $this->handleFlag($cvCategory, 'isPublish', $request->input('publish'));
-    return response()->json(['cvCategoryId' => $cvCategory->id]);
+    return response()->json(['cvCategory' => $cvCategory]);
   }
 
   /**

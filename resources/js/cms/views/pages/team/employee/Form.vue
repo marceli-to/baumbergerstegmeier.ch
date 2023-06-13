@@ -39,7 +39,7 @@
           </div>
           <label-required />
         </div>
-        <div :class="[this.errors.employee_category_id ? 'has-error' : '', 'form-row']">
+        <div :class="[this.errors.employee_category_id ? 'has-error' : '', 'form-row mt-8x']">
           <label>Position</label>
           <div class="select-wrapper">
             <select v-model="data.employee_category_id">
@@ -69,7 +69,7 @@
       <button-back :route="'employee-index'">Zurück</button-back>
       <button-submit>Speichern</button-submit>
     </page-footer>
-    
+   
   </form>
 </div>
 </template>
@@ -88,6 +88,7 @@ import tabsConfig from "@/views/pages/team/employeeCategory/config/tabs.js";
 import PageFooter from "@/components/ui/PageFooter.vue";
 import PageHeader from "@/components/ui/PageHeader.vue";
 import Images from "@/modules/images/Index.vue";
+
 
 export default {
   components: {

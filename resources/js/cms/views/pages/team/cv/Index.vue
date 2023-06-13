@@ -35,7 +35,7 @@
         </list-actions>
       </div>
     </draggable>
-    <div v-else>
+    <div v-else-if="dataCategorized.length == 0">
       <p class="no-records">{{messages.emptyData}}</p>
     </div>
 
