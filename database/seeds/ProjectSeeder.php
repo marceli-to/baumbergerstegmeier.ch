@@ -106,6 +106,7 @@ class ProjectSeeder extends Seeder
         'title' => $titles[$i],
         'text'  => $texts[random_int(0, 4)],
         'info'  => $info,
+        'location' => $locations[random_int(0, count($locations) - 1)],
         'year'  => rand(2010, 2023),
         'periode' => rand(2010, 2023) . ' – ' . rand(2010, 2023),
         'type_id' => $types->random()->id,
