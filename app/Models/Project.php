@@ -31,7 +31,7 @@ class Project extends Model
    */
 
   protected $appends = [
-    'publish',
+    'publish', 'feature', 'category_ids', 'state_ids',
   ];
 
   /**
@@ -84,4 +84,35 @@ class Project extends Model
   {
     return $this->hasFlag('isPublished') ? 1 : 0;    
   }
+
+  /**
+   * Get the feature attribute
+   * 
+   */
+
+  public function getFeatureAttribute()
+  {
+    return $this->hasFlag('isFeatured') ? 1 : 0;    
+  }
+
+  /**
+   * Get array of ids from the m:n category relationship
+   *
+   */
+
+  public function getCategoryIdsAttribute()
+  {
+    return $this->categories->pluck('id');
+  }
+
+  /**
+   * Get array of ids from the m:n state relationship
+   *
+   */
+
+  public function getStateIdsAttribute()
+  {
+    return $this->states->pluck('id');
+  }
+ 
 }

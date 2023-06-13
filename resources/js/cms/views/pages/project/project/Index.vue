@@ -24,10 +24,7 @@
             :key="d.id"
             >
             <div class="listing__item-body">
-              {{ d.title }}
-              <template v-if="d.location">
-                {{ d.location }}
-              </template>
+              {{ d.title }}<template v-if="d.location">, {{ d.location }}</template>
               <separator /> 
               {{ d.year }}
             </div>
@@ -58,6 +55,7 @@
   import Separator from "@/components/ui/Separator.vue";
   import PageFooter from "@/components/ui/PageFooter.vue";
   import PageHeader from "@/components/ui/PageHeader.vue";
+  import Pill from "@/components/ui/Pill.vue";
   import draggable from 'vuedraggable';
   
   export default {
@@ -71,7 +69,8 @@
       ButtonBack,
       PageFooter,
       PageHeader,
-      draggable
+      draggable,
+      Pill
     },
   
     mixins: [Helpers],

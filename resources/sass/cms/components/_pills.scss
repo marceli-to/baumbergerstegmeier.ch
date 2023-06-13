@@ -10,14 +10,12 @@
   @extend %items-center;
   @extend %justify-center;
   border-radius: 12px;
-  background-color: $color-dark;
+  background-color: $color-blue;
   color: $color-white !important;
-  @include font-regular();
-  font-size: 11px !important;
-  margin-left: 16px;
+  @include font-mono();
+  font-size: 12px !important;
   padding: 0 8px;
   height: 20px;
-  min-width: 60px;
 
   &.is-danger {
     background-color: $color-red;

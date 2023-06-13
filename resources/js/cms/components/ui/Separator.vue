@@ -3,7 +3,7 @@
 </template>
 <style>
 .separator {
-  color: #999999;
+  color: #ddd;
   font-size: 16px;
   display: inline-block;
   margin-left: 12px;

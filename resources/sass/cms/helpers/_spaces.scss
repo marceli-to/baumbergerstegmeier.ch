@@ -100,6 +100,7 @@ $space-25x: 25 * $step;
 %lg\:mr-0, .lg\:mr-0 { @include bp-lg() { margin-left: 0; } }
 
 %mb-0, .mb-0 { margin-bottom: 0; }
+%\!mb-0, .\!mb-0 { margin-bottom: 0 !important; }
 %sm\:mb-0, .sm\:mb-0 { @include bp-sm() { margin-bottom: 0; } }
 %md\:mb-0, .md\:mb-0 { @include bp-md() { margin-bottom: 0; } }
 %lg\:mb-0, .lg\:mb-0 { @include bp-lg() { margin-bottom: 0; } }

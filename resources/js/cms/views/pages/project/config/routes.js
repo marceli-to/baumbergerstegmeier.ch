@@ -1,8 +1,8 @@
 import ProjectDashboard from '@/views/pages/project/Index.vue';
 
 import ProjectIndex from '@/views/pages/project/project/Index.vue';
-// import ProjectCreate from '@/views/pages/project/project/partials/Create.vue';
-// import ProjectEdit from '@/views/pages/project/project/partials/Edit.vue';
+import ProjectCreate from '@/views/pages/project/project/partials/Create.vue';
+import ProjectEdit from '@/views/pages/project/project/partials/Edit.vue';
 
 import CategoryIndex from '@/views/pages/project/category/Index.vue';
 import CategoryCreate from '@/views/pages/project/category/partials/Create.vue';
@@ -28,16 +28,16 @@ const routes = [
     path: '/administration/project/index',
     component: ProjectIndex,
   },
-  // {
-  //   name: 'project-create',
-  //   path: '/administration/project/create',
-  //   component: ProjectCreate,
-  // },
-  // {
-  //   name: 'project-edit',
-  //   path: '/administration/project/edit/:id',
-  //   component: ProjectEdit,
-  // },
+  {
+    name: 'project-create',
+    path: '/administration/project/create',
+    component: ProjectCreate,
+  },
+  {
+    name: 'project-edit',
+    path: '/administration/project/edit/:id',
+    component: ProjectEdit,
+  },
 
   {
     name: 'project-category-index',

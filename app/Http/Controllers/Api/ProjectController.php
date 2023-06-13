@@ -2,6 +2,9 @@
 namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Type;
+use App\Models\State;
+use App\Models\Category;
 use App\Models\Image;
 use App\Http\Resources\DataCollection;
 use App\Http\Requests\ProjectStoreRequest;
@@ -27,7 +30,14 @@ class ProjectController extends Controller
    */
   public function find(Project $project)
   {
-    return response()->json(['project' => Project::with('images')->find($project->id)]);
+    return response()->json(
+      [
+        'project' => Project::with('images', 'categories', 'states')->find($project->id),
+        'types' => Type::orderBy('order')->get(),
+        'states' => State::orderBy('order')->get(),
+        'categories' => Category::get(),
+      ]
+    );
   }
 
   /**
@@ -40,8 +50,17 @@ class ProjectController extends Controller
   {
     $project = Project::create([
       'title' => $request->input('title'),
+      'text' => $request->input('text'),
+      'info' => $request->input('info'),
+      'periode' => $request->input('periode'),
+      'year' => $request->input('year'),
+      'location' => $request->input('location'),
+      'type_id' => $request->input('type_id'),
     ]);
+    $project->categories()->attach($request->input('category_ids'));
+    $project->states()->attach($request->input('state_ids'));
     $this->handleFlag($project, 'isPublished', $request->input('publish'));
+    $this->handleFlag($project, 'isFeatured', $request->input('feature'));
     $this->handleImages($project, $request->input('images'));
     return response()->json(['projectId' => $project->id]);
   }
@@ -57,8 +76,17 @@ class ProjectController extends Controller
   {
     $project = Project::findOrFail($project->id);
     $project->title = $request->input('title');
+    $project->text = $request->input('text');
+    $project->info = $request->input('info');
+    $project->periode = $request->input('periode');
+    $project->year = $request->input('year');
+    $project->location = $request->input('location');
+    $project->type_id = $request->input('type_id');
     $project->save();
+    $project->categories()->sync($request->input('category_ids'));
+    $project->states()->sync($request->input('state_ids'));
     $this->handleFlag($project, 'isPublished', $request->input('publish'));
+    $this->handleFlag($project, 'isFeatured', $request->input('feature'));
     $this->handleImages($project, $request->input('images'));
     return response()->json('successfully updated');
   }
