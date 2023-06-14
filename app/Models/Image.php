@@ -30,6 +30,8 @@ class Image extends Model
     'order',
     'preview',
     'publish',
+    'cover',
+    'worklist',
     'locked',
     'imageable_id',
     'imageable_type'
@@ -42,7 +44,7 @@ class Image extends Model
    */
 
   protected $appends = [
-    'coords', 'worklist', 'cover'
+    'coords'
   ];
 
   /**
@@ -96,26 +98,6 @@ class Image extends Model
       $coords = floor($this->coords_w) . ',' .  floor($this->coords_h) . ',' .  floor($this->coords_x) . ',' .  floor($this->coords_y);
     }
     return $coords;
-  }
-
-  /**
-   * Get the worklist attribute
-   * 
-   */
-
-  public function getWorklistAttribute()
-  {
-    return $this->hasFlag('isWorklist') ? 1 : 0;    
-  }
-
-  /**
-   * Get the cover attribute
-   * 
-   */
-
-  public function getCoverAttribute()
-  {
-    return $this->hasFlag('isCover') ? 1 : 0;    
   }
 
 }

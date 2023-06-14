@@ -124,20 +124,27 @@ class ImageController extends Controller
    */
   public function cover(Image $image)
   {
-    if ($image->hasFlag('isCover'))
+    if ($image->cover)
     {
-      $image->unflag('isCover');
+      $image->cover = 0;
+      $image->save();
     }
     else
     {
       // remove flags from all other images
-      $model = $image->imageable_type::with('images')->findOrFail($image->imageable_id);
-      foreach($model->images as $i)
+      if ($image->imageable_type)
       {
-        $i->unflag('isCover');
+        $model = $image->imageable_type::with('images')->findOrFail($image->imageable_id);
+        foreach($model->images as $i)
+        {
+          $i->cover = 0;
+          $i->save();
+        }
       }
-      $image->flag('isCover');
-    } 
+
+      $image->cover = 1;
+      $image->save();
+    }
     return response()->json($image->cover);
   }
 
@@ -149,21 +156,27 @@ class ImageController extends Controller
    */
   public function worklist(Image $image)
   {
-    if ($image->hasFlag('isWorklist'))
+    if ($image->worklist)
     {
-      $image->unflag('isWorklist');
+      $image->worklist = 0;
+      $image->save();
     }
     else
     {
       // remove flags from all other images
-      $model = $image->imageable_type::with('images')->findOrFail($image->imageable_id);
-      foreach($model->images as $i)
+      if ($image->imageable_type)
       {
-        $i->unflag('isWorklist');
+        $model = $image->imageable_type::with('images')->findOrFail($image->imageable_id);
+        foreach($model->images as $i)
+        {
+          $i->worklist = 0;
+          $i->save();
+        }
       }
-      $image->flag('isWorklist');
-    } 
-    return response()->json($image->cover);
+      $image->worklist = 1;
+      $image->save();
+    }
+    return response()->json($image->worklist);
   }
 
   /**
