@@ -39,8 +39,8 @@ class TypeController extends Controller
   {
     $type = Type::create([
       'description' => $request->input('description'),
+      'publish' => $request->input('publish')
     ]);
-    $this->handleFlag($type, 'isPublished', $request->input('publish'));
     return response()->json(['typeId' => $type->id]);
   }
 
@@ -55,8 +55,8 @@ class TypeController extends Controller
   {
     $type = Type::findOrFail($type->id);
     $type->description = $request->input('description');
+    $type->publish = $request->input('publish');
     $type->save();
-    $this->handleFlag($type, 'isPublished', $request->input('publish'));
     return response()->json('successfully updated');
   }
 
@@ -68,15 +68,9 @@ class TypeController extends Controller
    */
   public function toggle(Type $type)
   {
-    if ($type->hasFlag('isPublished'))
-    {
-      $type->unflag('isPublished');
-    }
-    else
-    {
-      $type->flag('isPublished');
-    } 
-    return response()->json($type->hasFlag('isPublished'));
+    $type->publish = !$type->publish;
+    $type->save();
+    return response()->json($type->publish);
   }
 
   /**
@@ -98,37 +92,15 @@ class TypeController extends Controller
    * @return \Illuminate\Http\Response
    */
 
-   public function order(Request $request)
-   {
-     $types = $request->get('types');
-     foreach($types as $type)
-     {
-       $c = Type::find($type['id']);
-       $c->order = $type['order'];
-       $c->save(); 
-     }
-     return response()->json('successfully updated');
-   }
-
-  /**
-   * Handle flags of a type
-   *
-   * @param Type $type
-   * @param String $flag
-   * @param Integer $value
-   * @return Boolean
-   */  
-  protected function handleFlag(Type $type, $flag, $value)
+  public function order(Request $request)
   {
-    if ($value == 1)
+    $types = $request->get('types');
+    foreach($types as $type)
     {
-      $type->flag($flag);
+      $c = Type::find($type['id']);
+      $c->order = $type['order'];
+      $c->save(); 
     }
-    else
-    {
-      $type->unflag($flag);
-    }
-    return $type->hasFlag($flag);
+    return response()->json('successfully updated');
   }
-
 }

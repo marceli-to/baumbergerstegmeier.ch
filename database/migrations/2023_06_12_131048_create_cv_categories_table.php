@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('cv_categories', function (Blueprint $table) {
           $table->id();
           $table->string('description');
+          $table->tinyInteger('publish')->default(1);
           $table->timestamps();
         });
     }

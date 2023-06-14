@@ -1,12 +1,9 @@
 <?php
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\ModelFlags\Models\Concerns\HasFlags;
 
 class Employee extends Model
 {
-  use HasFlags;
-
   /**
    * The attributes that are mass assignable.
    *
@@ -19,18 +16,9 @@ class Employee extends Model
     'title',
     'email',
     'order',
+    'publish',
     'team_id',
     'employee_category_id'
-  ];
-
-  /**
-   * The accessors to append to the model's array form.
-   *
-   * @var array
-   */
-
-  protected $appends = [
-    'publish',
   ];
 
 
@@ -69,13 +57,4 @@ class Employee extends Model
     return $this->hasMany(Cv::class);
   }
 
-  /**
-   * Get the publish attribute
-   * 
-   */
-
-  public function getPublishAttribute()
-  {
-    return $this->hasFlag('isPublished') ? 1 : 0;    
-  }
 }

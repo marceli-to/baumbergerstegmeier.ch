@@ -40,16 +40,6 @@
     </div>
 
     <div v-show="tabs.worklist.active">
-      <div :class="[this.errors.type_id ? 'has-error' : '', 'form-row mt-8x']">
-        <label>Position</label>
-        <div class="select-wrapper">
-          <select v-model="data.type_id">
-            <option v-for="t in types" :key="t.id" :value="t.id">{{ t.description }}</option>
-          </select>
-        </div>
-        <label-required />
-      </div>
-
       <div class="form-row">
         <label>Ort</label>
         <input type="text" v-model="data.location">
@@ -65,51 +55,55 @@
         :allowRatioSwitch="true"
         :imageRatioW="3" 
         :imageRatioH="2"
+        :imageStates="[{ label: 'Werkliste', key: 'worklist'}, { label: 'Cover', key: 'cover'}]"
         :ratioFormats="[{label: 'Quer', w: 3, h: 2}]"
         :images="data.images">
       </images>
     </div>
 
     <div v-show="tabs.settings.active">
-      <div>
-        <div class="form-row">
-          <radio-button 
-            :label="'Publizieren?'"
-            v-bind:publish.sync="data.publish"
-            :model="data.publish"
-            :name="'publish'">
-          </radio-button>
+      <div :class="[this.errors.type_id ? 'has-error' : '', 'form-row mt-8x']">
+        <label>Typ</label>
+        <div class="select-wrapper">
+          <select v-model="data.type_id">
+            <option v-for="t in types" :key="t.id" :value="t.id">{{ t.description }}</option>
+          </select>
         </div>
-        <div class="form-row">
-          <radio-button 
-            :label="'Detailseite?'"
-            v-bind:feature.sync="data.feature"
-            :model="data.feature"
-            :name="'feature'">
-          </radio-button>
+        <label-required />
+      </div>
+      <div :class="[this.errors.category_ids ? 'has-error' : '', 'form-row']">
+        <label>Kategorie </label>
+        <div v-for="category in categories" :key="category.id" class="flex items-center mb-2x">
+          <input type="checkbox" :id="`category-${category.id}`" :name="`category-${category.id}`" :value="category.id" v-model="data.category_ids">
+          <label :for="`category-${category.id}`" class="ml-3x !mb-0">
+            {{category.description}}
+          </label>
         </div>
-
-        <div :class="[this.errors.category_ids ? 'has-error' : '', 'form-row']">
-          <label>Kategorie </label>
-          <div v-for="category in categories" :key="category.id" class="flex items-center mb-2x">
-            <input type="checkbox" :id="`category-${category.id}`" :name="`category-${category.id}`" :value="category.id" v-model="data.category_ids">
-            <label :for="`category-${category.id}`" class="ml-3x !mb-0">
-              {{category.description}}
-            </label>
-          </div>
+      </div>
+      <div :class="[this.errors.state_ids ? 'has-error' : '', 'form-row']">
+        <label>Status</label>
+        <div v-for="(state, index) in states" :key="index" class="flex items-center mb-2x">
+          <input type="checkbox" :id="`state-${state.id}`" :name="`state-${state.id}`" :value="state.id" v-model="data.state_ids">
+          <label :for="`state-${state.id}`" class="ml-3x !mb-0">
+            {{state.description}}
+          </label>
         </div>
-
-        <div :class="[this.errors.state_ids ? 'has-error' : '', 'form-row']">
-          <label>Status</label>
-          <div v-for="(state, index) in states" :key="index" class="flex items-center mb-2x">
-            <input type="checkbox" :id="`state-${state.id}`" :name="`state-${state.id}`" :value="state.id" v-model="data.state_ids">
-            <label :for="`state-${state.id}`" class="ml-3x !mb-0">
-              {{state.description}}
-            </label>
-          </div>
-        </div>
-
-
+      </div>
+      <div class="form-row">
+        <radio-button 
+          :label="'Publizieren?'"
+          v-bind:publish.sync="data.publish"
+          :model="data.publish"
+          :name="'publish'">
+        </radio-button>
+      </div>
+      <div class="form-row">
+        <radio-button 
+          :label="'Detailseite?'"
+          v-bind:feature.sync="data.feature"
+          :model="data.feature"
+          :name="'feature'">
+        </radio-button>
       </div>
     </div>
 
@@ -202,6 +196,9 @@ export default {
         states: {
           get: '/api/project/states',
         },
+        types: {
+          get: '/api/project/types',
+        }
       },
 
       // States
@@ -228,6 +225,9 @@ export default {
     if (this.$props.type == "edit") {
       this.fetch();
     }
+    if (this.$props.type == "create") {
+      this.fetchSettings();
+    }
   },
 
   methods: {
@@ -245,15 +245,17 @@ export default {
       });
     },
 
-    fetchCategoriesAndStates() {
+    fetchSettings() {
       this.isFetched = false;
       this.isLoading = true;
       this.axios.all([
         this.axios.get(`${this.routes.categories.get}`),
         this.axios.get(`${this.routes.states.get}`),
+        this.axios.get(`${this.routes.types.get}`),
       ]).then(this.axios.spread((...responses) => {
         this.categories = responses[0].data.data;
         this.states = responses[1].data.data;
+        this.types = responses[2].data.data;
         this.isFetched = true;
         this.isLoading = false;
       }));

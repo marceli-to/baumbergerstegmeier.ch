@@ -20,6 +20,7 @@ return new class extends Migration
         $table->string('teaser_title')->nullable();
         $table->text('teaser_description')->nullable();
         $table->tinyInteger('order')->default(-1);
+        $table->tinyInteger('publish')->default(1);
         $table->timestamps();
       });
     }

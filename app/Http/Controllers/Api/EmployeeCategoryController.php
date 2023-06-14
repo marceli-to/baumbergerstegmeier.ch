@@ -39,8 +39,8 @@ class EmployeeCategoryController extends Controller
   {
     $employeeCategory = EmployeeCategory::create([
       'name' => $request->input('name'),
+      'publish' => $request->input('publish')
     ]);
-    $this->handleFlag($employeeCategory, 'isPublished', $request->input('publish'));
     return response()->json(['employeeCategory' => $employeeCategory]);
   }
 
@@ -55,8 +55,8 @@ class EmployeeCategoryController extends Controller
   {
     $employeeCategory = EmployeeCategory::findOrFail($employeeCategory->id);
     $employeeCategory->name = $request->input('name');
+    $employeeCategory->publish = $request->input('publish');
     $employeeCategory->save();
-    $this->handleFlag($employeeCategory, 'isPublished', $request->input('publish'));
     return response()->json('successfully updated');
   }
 
@@ -68,15 +68,9 @@ class EmployeeCategoryController extends Controller
    */
   public function toggle(EmployeeCategory $employeeCategory)
   {
-    if ($employeeCategory->hasFlag('isPublished'))
-    {
-      $employeeCategory->unflag('isPublished');
-    }
-    else
-    {
-      $employeeCategory->flag('isPublished');
-    } 
-    return response()->json($employeeCategory->hasFlag('isPublished'));
+    $employeeCategory->publish = !$employeeCategory->publish;
+    $employeeCategory->save();
+    return response()->json($employeeCategory->publish);
   }
 
   /**
@@ -91,24 +85,4 @@ class EmployeeCategoryController extends Controller
     return response()->json('successfully deleted');
   }
 
-  /**
-   * Handle flags of a employeeCategory
-   *
-   * @param EmployeeCategory $employeeCategory
-   * @param String $flag
-   * @param Integer $value
-   * @return Boolean
-   */  
-  protected function handleFlag(EmployeeCategory $employeeCategory, $flag, $value)
-  {
-    if ($value == 1)
-    {
-      $employeeCategory->flag($flag);
-    }
-    else
-    {
-      $employeeCategory->unflag($flag);
-    }
-    return $employeeCategory->hasFlag($flag);
-  }
 }

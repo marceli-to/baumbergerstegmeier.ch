@@ -39,8 +39,8 @@ class CvCategoryController extends Controller
   {
     $cvCategory = CvCategory::create([
       'description' => $request->input('description'),
+      'publish' => $request->input('publish')
     ]);
-    $this->handleFlag($cvCategory, 'isPublished', $request->input('publish'));
     return response()->json(['cvCategory' => $cvCategory]);
   }
 
@@ -55,8 +55,8 @@ class CvCategoryController extends Controller
   {
     $cvCategory = CvCategory::findOrFail($cvCategory->id);
     $cvCategory->description = $request->input('description');
+    $cvCategory->publish = $request->input('publish');
     $cvCategory->save();
-    $this->handleFlag($cvCategory, 'isPublished', $request->input('publish'));
     return response()->json('successfully updated');
   }
 
@@ -68,15 +68,9 @@ class CvCategoryController extends Controller
    */
   public function toggle(CvCategory $cvCategory)
   {
-    if ($cvCategory->hasFlag('isPublished'))
-    {
-      $cvCategory->unflag('isPublished');
-    }
-    else
-    {
-      $cvCategory->flag('isPublished');
-    } 
-    return response()->json($cvCategory->hasFlag('isPublished'));
+    $cvCategory->publish = !$cvCategory->publish;
+    $cvCategory->save();
+    return response()->json($cvCategory->publish);
   }
 
   /**
@@ -89,27 +83,6 @@ class CvCategoryController extends Controller
   {
     $cvCategory->delete();
     return response()->json('successfully deleted');
-  }
-
-  /**
-   * Handle flags of a cvCategory
-   *
-   * @param CvCategory $cvCategory
-   * @param String $flag
-   * @param Integer $value
-   * @return Boolean
-   */  
-  protected function handleFlag(CvCategory $cvCategory, $flag, $value)
-  {
-    if ($value == 1)
-    {
-      $cvCategory->flag($flag);
-    }
-    else
-    {
-      $cvCategory->unflag($flag);
-    }
-    return $cvCategory->hasFlag($flag);
   }
 
 }

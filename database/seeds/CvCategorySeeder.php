@@ -15,12 +15,10 @@ class CvCategorySeeder extends Seeder
     $record = CvCategory::create([
       'description' => 'Firma',
     ]);
-    $record->flag('isPublished', 1);
 
     $record = CvCategory::create([
       'description' => 'Mitgliedschaften',
     ]);
-    $record->flag('isPublished', 1);
 
   }
 }

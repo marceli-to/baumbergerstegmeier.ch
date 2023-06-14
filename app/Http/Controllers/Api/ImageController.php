@@ -117,6 +117,56 @@ class ImageController extends Controller
   }
 
   /**
+   * Toggle the cover state a given image
+   *
+   * @param  Image $image
+   * @return \Illuminate\Http\Response
+   */
+  public function cover(Image $image)
+  {
+    if ($image->hasFlag('isCover'))
+    {
+      $image->unflag('isCover');
+    }
+    else
+    {
+      // remove flags from all other images
+      $model = $image->imageable_type::with('images')->findOrFail($image->imageable_id);
+      foreach($model->images as $i)
+      {
+        $i->unflag('isCover');
+      }
+      $image->flag('isCover');
+    } 
+    return response()->json($image->cover);
+  }
+
+  /**
+   * Toggle the worklist state a given image
+   *
+   * @param  Image $image
+   * @return \Illuminate\Http\Response
+   */
+  public function worklist(Image $image)
+  {
+    if ($image->hasFlag('isWorklist'))
+    {
+      $image->unflag('isWorklist');
+    }
+    else
+    {
+      // remove flags from all other images
+      $model = $image->imageable_type::with('images')->findOrFail($image->imageable_id);
+      foreach($model->images as $i)
+      {
+        $i->unflag('isWorklist');
+      }
+      $image->flag('isWorklist');
+    } 
+    return response()->json($image->cover);
+  }
+
+  /**
    * Update the cropping coords of the specified image
    *
    * @param Image $image

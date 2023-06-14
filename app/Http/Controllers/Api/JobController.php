@@ -40,8 +40,8 @@ class JobController extends Controller
   {
     $job = Job::create([
       'text' => $request->input('text'),
+      'publish' => $request->input('publish')
     ]);
-    $this->handleFlag($job, 'isPublished', $request->input('publish'));
     $this->handleImages($job, $request->input('images'));
     return response()->json(['jobId' => $job->id]);
   }
@@ -57,8 +57,8 @@ class JobController extends Controller
   {
     $job = Job::findOrFail($job->id);
     $job->text = $request->input('text');
+    $job->publish = $request->input('publish');
     $job->save();
-    $this->handleFlag($job, 'isPublished', $request->input('publish'));
     $this->handleImages($job, $request->input('images'));
     return response()->json('successfully updated');
   }
@@ -71,17 +71,10 @@ class JobController extends Controller
    */
   public function toggle(Job $job)
   {
-    if ($job->hasFlag('isPublished'))
-    {
-      $job->unflag('isPublished');
-    }
-    else
-    {
-      $job->flag('isPublished');
-    } 
-    return response()->json($job->hasFlag('isPublished'));
+    $job->publish = !$job->publish;
+    $job->save();
+    return response()->json($job->publish);
   }
-
 
   /**
    * Remove the specified resource from storage.
@@ -93,27 +86,6 @@ class JobController extends Controller
   {
     $job->delete();
     return response()->json('successfully deleted');
-  }
-
-  /**
-   * Handle flags of a job
-   *
-   * @param Job $job
-   * @param String $flag
-   * @param Integer $value
-   * @return Boolean
-   */  
-  protected function handleFlag(Job $job, $flag, $value)
-  {
-    if ($value == 1)
-    {
-      $job->flag($flag);
-    }
-    else
-    {
-      $job->unflag($flag);
-    }
-    return $job->hasFlag($flag);
   }
   
   /**

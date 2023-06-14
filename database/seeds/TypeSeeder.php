@@ -15,17 +15,14 @@ class TypeSeeder extends Seeder
     $record = Type::create([
       'description' => 'Neubau',
     ]);
-    $record->flag('isPublished', 1);
 
     $record = Type::create([
       'description' => 'Sanierung',
     ]);
-    $record->flag('isPublished', 1);
 
     $record = Type::create([
       'description' => 'Umbau',
     ]);
-    $record->flag('isPublished', 1);
 
   }
 }

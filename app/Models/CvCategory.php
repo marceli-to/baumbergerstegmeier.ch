@@ -1,12 +1,9 @@
 <?php
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\ModelFlags\Models\Concerns\HasFlags;
 
 class CvCategory extends Model
 {
-  use HasFlags;
-
   /**
    * The attributes that are mass assignable.
    *
@@ -15,15 +12,6 @@ class CvCategory extends Model
    
 	protected $fillable = [
     'description',
-  ];
-
-  /**
-   * The accessors to append to the model's array form.
-   *
-   * @var array
-   */
-
-  protected $appends = [
     'publish',
   ];
 
@@ -36,13 +24,4 @@ class CvCategory extends Model
     return $this->belongsToMany(Cv::class);
   }
 
-  /**
-   * Get the publish attribute
-   * 
-   */
-
-  public function getPublishAttribute()
-  {
-    return $this->hasFlag('isPublished') ? 1 : 0;    
-  }
 }

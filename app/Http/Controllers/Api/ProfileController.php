@@ -43,8 +43,8 @@ class ProfileController extends Controller
       'text_bsa' => $request->input('text_bsa'),
       'title_bsemi' => $request->input('title_bsemi'),
       'text_bsemi' => $request->input('text_bsemi'),
+      'publish' => $request->input('publish')
     ]);
-    $this->handleFlag($profile, 'isPublished', $request->input('publish'));
     $this->handleImages($profile, $request->input('images'));
     return response()->json(['profileId' => $profile->id]);
   }
@@ -63,8 +63,8 @@ class ProfileController extends Controller
     $profile->text_bsa = $request->input('text_bsa');
     $profile->title_bsemi = $request->input('title_bsemi');
     $profile->text_bsemi = $request->input('text_bsemi');
+    $profile->publish = $request->input('publish');
     $profile->save();
-    $this->handleFlag($profile, 'isPublished', $request->input('publish'));
     $this->handleImages($profile, $request->input('images'));
     return response()->json('successfully updated');
   }
@@ -77,15 +77,9 @@ class ProfileController extends Controller
    */
   public function toggle(Profile $profile)
   {
-    if ($profile->hasFlag('isPublished'))
-    {
-      $profile->unflag('isPublished');
-    }
-    else
-    {
-      $profile->flag('isPublished');
-    } 
-    return response()->json($profile->hasFlag('isPublished'));
+    $profile->publish = !$profile->publish;
+    $profile->save();
+    return response()->json($profile->publish);
   }
 
 
@@ -99,27 +93,6 @@ class ProfileController extends Controller
   {
     $profile->delete();
     return response()->json('successfully deleted');
-  }
-
-  /**
-   * Handle flags of a profile
-   *
-   * @param Profile $profile
-   * @param String $flag
-   * @param Integer $value
-   * @return Boolean
-   */  
-  protected function handleFlag(Profile $profile, $flag, $value)
-  {
-    if ($value == 1)
-    {
-      $profile->flag($flag);
-    }
-    else
-    {
-      $profile->unflag($flag);
-    }
-    return $profile->hasFlag($flag);
   }
   
   /**

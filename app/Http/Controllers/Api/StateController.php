@@ -39,8 +39,8 @@ class StateController extends Controller
   {
     $state = State::create([
       'description' => $request->input('description'),
+      'publish' => $request->input('publish')
     ]);
-    $this->handleFlag($state, 'isPublished', $request->input('publish'));
     return response()->json(['stateId' => $state->id]);
   }
 
@@ -55,8 +55,8 @@ class StateController extends Controller
   {
     $state = State::findOrFail($state->id);
     $state->description = $request->input('description');
+    $state->publish = $request->input('publish');
     $state->save();
-    $this->handleFlag($state, 'isPublished', $request->input('publish'));
     return response()->json('successfully updated');
   }
 
@@ -68,15 +68,9 @@ class StateController extends Controller
    */
   public function toggle(State $state)
   {
-    if ($state->hasFlag('isPublished'))
-    {
-      $state->unflag('isPublished');
-    }
-    else
-    {
-      $state->flag('isPublished');
-    } 
-    return response()->json($state->hasFlag('isPublished'));
+    $state->publish = !$state->publish;
+    $state->save();
+    return response()->json($state->publish);
   }
 
   /**
@@ -98,37 +92,16 @@ class StateController extends Controller
    * @return \Illuminate\Http\Response
    */
 
-   public function order(Request $request)
-   {
-     $states = $request->get('states');
-     foreach($states as $state)
-     {
-       $s = State::find($state['id']);
-       $s->order = $state['order'];
-       $s->save(); 
-     }
-     return response()->json('successfully updated');
-   }
-
-  /**
-   * Handle flags of a state
-   *
-   * @param State $state
-   * @param String $flag
-   * @param Integer $value
-   * @return Boolean
-   */  
-  protected function handleFlag(State $state, $flag, $value)
+  public function order(Request $request)
   {
-    if ($value == 1)
+    $states = $request->get('states');
+    foreach($states as $state)
     {
-      $state->flag($flag);
+      $s = State::find($state['id']);
+      $s->order = $state['order'];
+      $s->save(); 
     }
-    else
-    {
-      $state->unflag($flag);
-    }
-    return $state->hasFlag($flag);
+    return response()->json('successfully updated');
   }
 
 }

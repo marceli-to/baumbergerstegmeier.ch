@@ -134,17 +134,48 @@
         </a>
       </div>
       <div class="upload-overlay__grid">
-        <figure v-if="hasOverlayEdit">
+        <div>
+          <figure v-if="hasOverlayEdit">
             <img :src="getSource(overlayItem, 'cache')" height="300" width="300">
             <figcaption v-if="overlayItem.caption">
               <span v-if="overlayItem.caption">{{overlayItem.caption}}</span>
             </figcaption>
           </figure>
+        </div>
         <div>
           <div class="form-row">
             <label>Beschreibung</label>
             <textarea v-model="overlayItem.caption"></textarea>
           </div>
+
+          <template v-if="$props.imageStates">
+            <div class="form-row" v-for="(state, index) in $props.imageStates" :key="index">
+              <label class="is-sm">{{ state.label }}</label>
+              <div class="form-radio">
+                <input
+                  v-model="overlayItem[state.key]"
+                  type="radio"
+                  :name="state.key"
+                  :id="state.key + '_1'"
+                  value="1"
+                  class="visually-hidden"
+                  @change="updateState($event.target.name, $event.target.value)"
+                >
+                <label :for="state.key + '_1'" class="form-control">Ja</label>
+                <input
+                  v-model="overlayItem[state.key]"
+                  type="radio"
+                  :name="state.key"
+                  :id="state.key + '_0'"
+                  value="0"
+                  class="visually-hidden"
+                  @change="updateState($event.target.name, $event.target.value)"
+                >
+                <label :for="state.key + '_0'" class="form-control">Nein</label>
+              </div>
+            </div>
+          </template>
+
           <div class="form-buttons flex justify-between">
             <a
               href="javascript:;"
@@ -228,9 +259,18 @@ export default {
       default: false,
     },
 
+    imageStates: {
+      type: Array,
+      default: function() {
+        return [];
+      }
+    },
+
     ratioFormats: {
       type: Array,
-      default: []
+      default: function() {
+        return [];
+      }
     }
   },
 
@@ -245,7 +285,7 @@ export default {
         w: null,
         h: null
       },
-      
+
       // States
       isFetched: false,
       isLoading: false,
@@ -253,6 +293,10 @@ export default {
       // Routes
       routes: {
         update: '/api/image',
+        states: {
+          cover: '/api/image/cover/state',
+          worklist: '/api/image/worklist/state',
+        }
       },
 
       // Messages
@@ -304,6 +348,19 @@ export default {
           this.$notify({type: 'success', text: 'Reihenfolge angepasst'});
         });
       }.bind(this, images), 1000);
+    },
+
+    updateState(key, value) {
+      this.overlayItem[key] = value;
+      this.axios.get(`${this.routes.states[key]}/${this.overlayItem.id}`).then((response) => {
+        if (value == 1) {
+          this.imageData.forEach((image) => {
+            if (image.id != this.overlayItem.id) {
+              image[key] = 0;
+            }
+          });
+        }
+      });
     },
 
     toggleView() {

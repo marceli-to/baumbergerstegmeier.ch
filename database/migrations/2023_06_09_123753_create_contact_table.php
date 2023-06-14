@@ -20,6 +20,7 @@ return new class extends Migration
         $table->string('maps_uri')->nullable();
         $table->text('imprint')->nullable();
         $table->text('privacy')->nullable();
+        $table->tinyInteger('publish')->default(1);
         $table->timestamps();
       });
     }

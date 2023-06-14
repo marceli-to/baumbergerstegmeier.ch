@@ -18,6 +18,7 @@ return new class extends Migration
         $table->string('periode');
         $table->text('description');
         $table->tinyInteger('order')->default(-1);
+        $table->tinyInteger('publish')->default(1);
         $table->foreignId('employee_id')->constrained()->onDelete('cascade');
         $table->foreignId('cv_category_id')->nullable()->constrained()->onDelete('cascade');
         $table->timestamps();

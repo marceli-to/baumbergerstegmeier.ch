@@ -19,7 +19,7 @@ class ProjectController extends Controller
    */
   public function get()
   {
-    return new DataCollection(Project::with('images')->orderBy('order')->orderBy('year', 'DESC')->get());
+    return new DataCollection(Project::orderBy('order')->orderBy('year', 'DESC')->get());
   }
 
   /**
@@ -55,12 +55,12 @@ class ProjectController extends Controller
       'periode' => $request->input('periode'),
       'year' => $request->input('year'),
       'location' => $request->input('location'),
+      'publish' => $request->input('publish'),
+      'feature' => $request->input('feature'),
       'type_id' => $request->input('type_id'),
     ]);
     $project->categories()->attach($request->input('category_ids'));
     $project->states()->attach($request->input('state_ids'));
-    $this->handleFlag($project, 'isPublished', $request->input('publish'));
-    $this->handleFlag($project, 'isFeatured', $request->input('feature'));
     $this->handleImages($project, $request->input('images'));
     return response()->json(['projectId' => $project->id]);
   }
@@ -81,12 +81,12 @@ class ProjectController extends Controller
     $project->periode = $request->input('periode');
     $project->year = $request->input('year');
     $project->location = $request->input('location');
+    $project->publish = $request->input('publish');
+    $project->feature = $request->input('feature');
     $project->type_id = $request->input('type_id');
     $project->save();
     $project->categories()->sync($request->input('category_ids'));
     $project->states()->sync($request->input('state_ids'));
-    $this->handleFlag($project, 'isPublished', $request->input('publish'));
-    $this->handleFlag($project, 'isFeatured', $request->input('feature'));
     $this->handleImages($project, $request->input('images'));
     return response()->json('successfully updated');
   }
@@ -99,17 +99,10 @@ class ProjectController extends Controller
    */
   public function toggle(Project $project)
   {
-    if ($project->hasFlag('isPublished'))
-    {
-      $project->unflag('isPublished');
-    }
-    else
-    {
-      $project->flag('isPublished');
-    } 
-    return response()->json($project->hasFlag('isPublished'));
+    $project->publish = !$project->publish;
+    $project->save();
+    return response()->json($project->publish);
   }
-
 
   /**
    * Remove the specified resource from storage.
@@ -142,26 +135,6 @@ class ProjectController extends Controller
     return response()->json('successfully updated');
   }
 
-  /**
-   * Handle flags of a project
-   *
-   * @param Project $project
-   * @param String $flag
-   * @param Integer $value
-   * @return Boolean
-   */  
-  protected function handleFlag(Project $project, $flag, $value)
-  {
-    if ($value == 1)
-    {
-      $project->flag($flag);
-    }
-    else
-    {
-      $project->unflag($flag);
-    }
-    return $project->hasFlag($flag);
-  }
   /**
    * Handle associated images
    *

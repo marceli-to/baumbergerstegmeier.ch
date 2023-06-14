@@ -1,13 +1,9 @@
 <?php
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\ModelFlags\Models\Concerns\HasFlags;
 
 class State extends Model
 {
-  use HasFlags;
-  
-
   /**
    * The attributes that are mass assignable.
    *
@@ -16,16 +12,7 @@ class State extends Model
    
 	protected $fillable = [
     'description',
-    'order'
-  ];
-
-  /**
-   * The accessors to append to the model's array form.
-   *
-   * @var array
-   */
-
-  protected $appends = [
+    'order',
     'publish',
   ];
 
@@ -38,13 +25,4 @@ class State extends Model
     return $this->belongsToMany(Project::class);
   }
 
-  /**
-   * Get the publish attribute
-   * 
-   */
-
-  public function getPublishAttribute()
-  {
-    return $this->hasFlag('isPublished') ? 1 : 0;    
-  }
 }

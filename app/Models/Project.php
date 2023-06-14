@@ -1,12 +1,9 @@
 <?php
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\ModelFlags\Models\Concerns\HasFlags;
 
 class Project extends Model
 {
-  use HasFlags;
-
   /**
    * The attributes that are mass assignable.
    *
@@ -22,6 +19,8 @@ class Project extends Model
     'location',
     'order',
     'type_id',
+    'publish',
+    'feature',
   ];
 
   /**
@@ -31,7 +30,7 @@ class Project extends Model
    */
 
   protected $appends = [
-    'publish', 'feature', 'category_ids', 'state_ids',
+    'category_ids', 'state_ids',
   ];
 
   /**
@@ -73,26 +72,6 @@ class Project extends Model
   public function publishedImages()
   {
     return $this->morphMany(Image::class, 'imageable')->where('publish', 1)->orderBy('order');
-  }
-
-  /**
-   * Get the publish attribute
-   * 
-   */
-
-  public function getPublishAttribute()
-  {
-    return $this->hasFlag('isPublished') ? 1 : 0;    
-  }
-
-  /**
-   * Get the feature attribute
-   * 
-   */
-
-  public function getFeatureAttribute()
-  {
-    return $this->hasFlag('isFeatured') ? 1 : 0;    
   }
 
   /**

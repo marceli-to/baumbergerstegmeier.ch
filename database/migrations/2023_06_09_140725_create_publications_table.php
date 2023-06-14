@@ -21,6 +21,7 @@ return new class extends Migration
         $table->string('description')->nullable();
         $table->string('link')->nullable();
         $table->tinyInteger('order')->default(-1);
+        $table->tinyInteger('publish')->default(1);
         $table->timestamps();
       });
     }

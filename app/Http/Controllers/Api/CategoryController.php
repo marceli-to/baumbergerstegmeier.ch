@@ -39,8 +39,8 @@ class CategoryController extends Controller
   {
     $category = Category::create([
       'description' => $request->input('description'),
+      'publish' => $request->input('publish')
     ]);
-    $this->handleFlag($category, 'isPublished', $request->input('publish'));
     return response()->json(['categoryId' => $category->id]);
   }
 
@@ -55,8 +55,8 @@ class CategoryController extends Controller
   {
     $category = Category::findOrFail($category->id);
     $category->description = $request->input('description');
+    $category->publish = $request->input('publish');
     $category->save();
-    $this->handleFlag($category, 'isPublished', $request->input('publish'));
     return response()->json('successfully updated');
   }
 
@@ -68,15 +68,9 @@ class CategoryController extends Controller
    */
   public function toggle(Category $category)
   {
-    if ($category->hasFlag('isPublished'))
-    {
-      $category->unflag('isPublished');
-    }
-    else
-    {
-      $category->flag('isPublished');
-    } 
-    return response()->json($category->hasFlag('isPublished'));
+    $category->publish = !$category->publish;
+    $category->save();
+    return response()->json($category->publish);
   }
 
   /**
@@ -98,37 +92,16 @@ class CategoryController extends Controller
    * @return \Illuminate\Http\Response
    */
 
-   public function order(Request $request)
-   {
-     $categories = $request->get('categories');
-     foreach($categories as $category)
-     {
-       $c = Category::find($category['id']);
-       $c->order = $category['order'];
-       $c->save(); 
-     }
-     return response()->json('successfully updated');
-   }
-
-  /**
-   * Handle flags of a category
-   *
-   * @param Category $category
-   * @param String $flag
-   * @param Integer $value
-   * @return Boolean
-   */  
-  protected function handleFlag(Category $category, $flag, $value)
+  public function order(Request $request)
   {
-    if ($value == 1)
+    $categories = $request->get('categories');
+    foreach($categories as $category)
     {
-      $category->flag($flag);
+      $c = Category::find($category['id']);
+      $c->order = $category['order'];
+      $c->save(); 
     }
-    else
-    {
-      $category->unflag($flag);
-    }
-    return $category->hasFlag($flag);
+    return response()->json('successfully updated');
   }
 
 }

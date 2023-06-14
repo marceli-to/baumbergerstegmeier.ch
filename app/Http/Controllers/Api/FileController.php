@@ -98,7 +98,7 @@ class FileController extends Controller
    */
   public function toggle(File $file)
   {
-    $file->publish = $file->publish == 0 ? 1 : 0;
+    $file->publish = !$file->publish;
     $file->save();
     return response()->json($file->publish);
   }

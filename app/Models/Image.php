@@ -3,10 +3,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\ModelFlags\Models\Concerns\HasFlags;
 
 class Image extends Model
 {
-  use HasFactory, SoftDeletes;
+  use HasFactory, SoftDeletes, HasFlags;
 
   protected $casts = [
     'created_at' => "datetime:d.m.Y",
@@ -41,7 +42,7 @@ class Image extends Model
    */
 
   protected $appends = [
-    'coords',
+    'coords', 'worklist', 'cover'
   ];
 
   /**
@@ -96,4 +97,25 @@ class Image extends Model
     }
     return $coords;
   }
+
+  /**
+   * Get the worklist attribute
+   * 
+   */
+
+  public function getWorklistAttribute()
+  {
+    return $this->hasFlag('isWorklist') ? 1 : 0;    
+  }
+
+  /**
+   * Get the cover attribute
+   * 
+   */
+
+  public function getCoverAttribute()
+  {
+    return $this->hasFlag('isCover') ? 1 : 0;    
+  }
+
 }

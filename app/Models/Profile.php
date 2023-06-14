@@ -1,12 +1,9 @@
 <?php
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\ModelFlags\Models\Concerns\HasFlags;
 
 class Profile extends Model
 {
-  use HasFlags;
-
   protected $table = 'profile';
 
   /**
@@ -20,15 +17,6 @@ class Profile extends Model
     'text_bsa',
     'title_bsemi',
     'text_bsemi',
-  ];
-
-  /**
-   * The accessors to append to the model's array form.
-   *
-   * @var array
-   */
-
-  protected $appends = [
     'publish',
   ];
 
@@ -52,16 +40,6 @@ class Profile extends Model
   public function publishedImages()
   {
     return $this->morphMany(Image::class, 'imageable')->where('publish', 1)->orderBy('order');
-  }
-
-  /**
-   * Get the publish attribute
-   * 
-   */
-
-  public function getPublishAttribute()
-  {
-    return $this->hasFlag('isPublished') ? 1 : 0;    
   }
 
 }

@@ -34,7 +34,7 @@
               :record="d"
               :hasList="true"
               :routes="{edit: 'employee-edit', list: `cv-index`}"
-              @toggle="toggle($event)"
+              @toggle="toggle($event, 'bsa_leadership')"
               @destroy="destroy($event)">
             </list-actions>
           </div>
@@ -57,7 +57,7 @@
             :id="d.id" 
             :record="d"
             :routes="{edit: 'employee-edit'}"
-            @toggle="toggle($event)"
+            @toggle="toggle($event, 'bsa_employees')"
             @destroy="destroy($event)">
           </list-actions>
         </div>
@@ -87,7 +87,7 @@
               :id="d.id" 
               :record="d"
               :routes="{edit: 'employee-edit'}"
-              @toggle="toggle($event)"
+              @toggle="toggle($event, 'bsemi_leadership')"
               @destroy="destroy($event)">
             </list-actions>
           </div>
@@ -110,7 +110,7 @@
             :id="d.id" 
             :record="d"
             :routes="{edit: 'employee-edit'}"
-            @toggle="toggle($event)"
+            @toggle="toggle($event, 'bsemi_employees')"
             @destroy="destroy($event)">
           </list-actions>
         </div>
@@ -132,7 +132,7 @@
             :id="d.id" 
             :record="d"
             :routes="{edit: 'employee-edit'}"
-            @toggle="toggle($event)"
+            @toggle="toggle($event, 'former_employees')"
             @destroy="destroy($event)">
           </list-actions>
         </div>
@@ -213,11 +213,11 @@ export default {
       });
     },
 
-    toggle(id) {
+    toggle(id, key) {
       this.isLoading = true;
       this.axios.get(`${this.routes.toggle}/${id}`).then(response => {
-        const index = this.data.findIndex(x => x.id === id);
-        this.data[index].publish = response.data;
+        const index = this.data[key].findIndex(x => x.id === id);
+        this.data[key][index].publish = response.data;
         this.$notify({ type: "success", text: this.messages.updated });
         this.isLoading = false;
       });

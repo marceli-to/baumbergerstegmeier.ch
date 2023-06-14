@@ -15,12 +15,10 @@ class TeamSeeder extends Seeder
     $record = Team::create([
       'name' => 'Baumberger Stegmeier Architektur',
     ]);
-    $record->flag('isPublished', 1);
 
     $record = Team::create([
       'name' => 'BS+EMI Architektenpartner',
     ]);
-    $record->flag('isPublished', 1);
 
   }
 }

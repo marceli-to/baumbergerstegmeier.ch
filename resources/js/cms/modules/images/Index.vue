@@ -14,6 +14,7 @@
       <image-edit 
         :images="data"
         :imagePreviewRoute="'cache'"
+        :imageStates="$props.imageStates"
         :hasPreviewState="$props.hasPreviewState"
         :ratioW="$props.imageRatioW"
         :ratioH="$props.imageRatioH"
@@ -57,6 +58,13 @@ export default {
     hasPreviewState: {
       type: Boolean,
       default: false,
+    },
+
+    imageStates: {
+      type: Array,
+      default: function() {
+        return [];
+      }
     },
 
     ratioFormats: {
@@ -135,6 +143,8 @@ export default {
         coords_y: 0,
         preview: 0,
         publish: 1,
+        cover: 0,
+        worklist: 0,
         imageable_id: this.$props.typeId,
         imageable_type: this.$props.type,
       };

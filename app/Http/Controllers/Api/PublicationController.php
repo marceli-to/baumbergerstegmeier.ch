@@ -43,9 +43,9 @@ class PublicationController extends Controller
       'title' => $request->input('title'),
       'subtitle' => $request->input('subtitle'),
       'description' => $request->input('description'),
-      'link' => $request->input('link')
+      'link' => $request->input('link'),
+      'publish' => $request->input('publish')
     ]);
-    $this->handleFlag($publication, 'isPublished', $request->input('publish'));
     $this->handleImages($publication, $request->input('images'));
     return response()->json(['publicationId' => $publication->id]);
   }
@@ -65,8 +65,8 @@ class PublicationController extends Controller
     $publication->subtitle = $request->input('subtitle');
     $publication->link = $request->input('link');
     $publication->description = $request->input('description');
+    $publication->publish = $request->input('publish');
     $publication->save();
-    $this->handleFlag($publication, 'isPublished', $request->input('publish'));
     $this->handleImages($publication, $request->input('images'));
     return response()->json('successfully updated');
   }
@@ -79,17 +79,10 @@ class PublicationController extends Controller
    */
   public function toggle(Publication $publication)
   {
-    if ($publication->hasFlag('isPublished'))
-    {
-      $publication->unflag('isPublished');
-    }
-    else
-    {
-      $publication->flag('isPublished');
-    } 
-    return response()->json($publication->hasFlag('isPublished'));
+    $publication->publish = !$publication->publish;
+    $publication->save();
+    return response()->json($publication->publish);
   }
-
 
   /**
    * Remove the specified resource from storage.
@@ -122,44 +115,22 @@ class PublicationController extends Controller
      return response()->json('successfully updated');
    }
 
-  /**
-   * Handle flags of a job
-   *
-   * @param Publication $publication
-   * @param String $flag
-   * @param Integer $value
-   * @return Boolean
-   */  
-  protected function handleFlag(Publication $publication, $flag, $value)
+/**
+ * Handle associated images
+ *
+ * @param Publication $publication
+ * @param Array $images
+ * @return void
+ */  
+
+  protected function handleImages(Publication $publication, $images = NULL)
   {
-    if ($value == 1)
+    foreach($images as $image)
     {
-      $publication->flag($flag);
+      $i = Image::findOrFail($image['id']);
+      $i->imageable_id = $publication->id;
+      $i->imageable_type = Publication::class;
+      $i->save();
     }
-    else
-    {
-      $publication->unflag($flag);
-    }
-    return $publication->hasFlag($flag);
   }
-
-  /**
-   * Handle associated images
-   *
-   * @param Publication $publication
-   * @param Array $images
-   * @return void
-   */  
-
-   protected function handleImages(Publication $publication, $images = NULL)
-   {
-     foreach($images as $image)
-     {
-       $i = Image::findOrFail($image['id']);
-       $i->imageable_id = $publication->id;
-       $i->imageable_type = Publication::class;
-       $i->save();
-     }
-   }
-
 }

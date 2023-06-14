@@ -110,7 +110,9 @@ class ProjectSeeder extends Seeder
         'year'  => rand(2010, 2023),
         'periode' => rand(2010, 2023) . ' – ' . rand(2010, 2023),
         'type_id' => $types->random()->id,
-        'order' => $i
+        'order' => $i,
+        'publish' => 1,
+        'feature' => random_int(0, 1)
       ]);
 
       // create many-to-many relationships for categories
@@ -126,9 +128,6 @@ class ProjectSeeder extends Seeder
       {
         $project->states()->attach($state->id);
       }
-
-      $project->flag('isPublished', 1);
-      $project->flag('isFeatured', random_int(0, 1));
     }
   }
 }

@@ -15,6 +15,5 @@ class JobSeeder extends Seeder
     $record = Job::create([
       'text' => 'Zur Zeit sind alle unsere Stellen besetzt.',
     ]);
-    $record->flag('isPublished', 1);
   }
 }

@@ -20,6 +20,7 @@ return new class extends Migration
         $table->string('title')->nullable();
         $table->string('email')->nullable();
         $table->tinyInteger('order')->default(-1);
+        $table->tinyInteger('publish')->default(1);
         $table->foreignId('team_id')->nullable()->constrained();
         $table->foreignId('employee_category_id')->nullable()->constrained();
         $table->timestamps();

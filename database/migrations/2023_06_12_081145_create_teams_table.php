@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name', 100);
             $table->tinyInteger('order')->default(-1);
+            $table->tinyInteger('publish')->default(1);
             $table->timestamps();
         });
     }

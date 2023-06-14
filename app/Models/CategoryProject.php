@@ -4,7 +4,6 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class CategoryProject extends Pivot
 {
-
   /**
    * The attributes that are mass assignable.
    *

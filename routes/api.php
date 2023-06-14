@@ -48,6 +48,8 @@ Route::middleware('auth:sanctum')->group(function() {
   Route::put('image/{image}', [ImageController::class, 'update']);
   Route::get('image/state/{image}', [ImageController::class, 'toggle']);
   Route::get('image/preview/state/{image}', [ImageController::class, 'preview']);
+  Route::get('image/cover/state/{image}', [ImageController::class, 'cover']);
+  Route::get('image/worklist/state/{image}', [ImageController::class, 'worklist']);
   Route::delete('image/{image}', [ImageController::class, 'destroy']);
 
   // Files

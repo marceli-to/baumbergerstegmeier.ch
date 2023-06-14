@@ -13,15 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('awards', function (Blueprint $table) {
-            $table->id();
-            $table->year('year');
-            $table->text('title');
-            $table->string('subtitle')->nullable();
-            $table->string('link')->nullable();
-            $table->tinyInteger('order')->default(-1);
-            $table->timestamps();
-        });
+      Schema::create('awards', function (Blueprint $table) {
+        $table->id();
+        $table->year('year');
+        $table->text('title');
+        $table->string('subtitle')->nullable();
+        $table->string('link')->nullable();
+        $table->tinyInteger('order')->default(-1);
+        $table->tinyInteger('publish')->default(1);
+        $table->timestamps();
+      });
     }
 
     /**
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('awards');
+      Schema::dropIfExists('awards');
     }
 };

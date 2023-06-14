@@ -41,9 +41,9 @@ class JobArticleController extends Controller
       'title' => $request->input('title'),
       'description' => $request->input('description'),
       'teaser_title' => $request->input('teaser_title'),
-      'teaser_description' => $request->input('teaser_description')
+      'teaser_description' => $request->input('teaser_description'),
+      'publish' => $request->input('publish')
     ]);
-    $this->handleFlag($jobArticle, 'isPublished', $request->input('publish'));
     return response()->json(['jobArticleId' => $jobArticle->id]);
   }
 
@@ -61,8 +61,8 @@ class JobArticleController extends Controller
     $jobArticle->description = $request->input('description');
     $jobArticle->teaser_title = $request->input('teaser_title');
     $jobArticle->teaser_description = $request->input('teaser_description');
+    $jobArticle->publish = $request->input('publish');
     $jobArticle->save();
-    $this->handleFlag($jobArticle, 'isPublished', $request->input('publish'));
     return response()->json('successfully updated');
   }
 
@@ -74,17 +74,10 @@ class JobArticleController extends Controller
    */
   public function toggle(JobArticle $jobArticle)
   {
-    if ($jobArticle->hasFlag('isPublished'))
-    {
-      $jobArticle->unflag('isPublished');
-    }
-    else
-    {
-      $jobArticle->flag('isPublished');
-    } 
-    return response()->json($jobArticle->hasFlag('isPublished'));
+    $jobArticle->publish = !$jobArticle->publish;
+    $jobArticle->save();
+    return response()->json($jobArticle->publish);
   }
-
 
   /**
    * Remove the specified resource from storage.
@@ -105,37 +98,16 @@ class JobArticleController extends Controller
    * @return \Illuminate\Http\Response
    */
 
-   public function order(Request $request)
-   {
-     $jobArticles = $request->get('jobArticles');
-     foreach($jobArticles as $jobArticle)
-     {
-       $p = JobArticle::find($jobArticle['id']);
-       $p->order = $jobArticle['order'];
-       $p->save(); 
-     }
-     return response()->json('successfully updated');
-   }
-
-  /**
-   * Handle flags of a job
-   *
-   * @param JobArticle $jobArticle
-   * @param String $flag
-   * @param Integer $value
-   * @return Boolean
-   */  
-  protected function handleFlag(JobArticle $jobArticle, $flag, $value)
+  public function order(Request $request)
   {
-    if ($value == 1)
+    $jobArticles = $request->get('jobArticles');
+    foreach($jobArticles as $jobArticle)
     {
-      $jobArticle->flag($flag);
+      $p = JobArticle::find($jobArticle['id']);
+      $p->order = $jobArticle['order'];
+      $p->save(); 
     }
-    else
-    {
-      $jobArticle->unflag($flag);
-    }
-    return $jobArticle->hasFlag($flag);
+    return response()->json('successfully updated');
   }
 
 }

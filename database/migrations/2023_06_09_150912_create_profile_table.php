@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('text_bsa')->nullable();
             $table->string('title_bsemi');
             $table->text('text_bsemi')->nullable();
+            $table->tinyInteger('publish')->default(1);
             $table->timestamps();
         });
     }

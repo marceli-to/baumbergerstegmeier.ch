@@ -15,16 +15,14 @@ class StateSeeder extends Seeder
     $record = State::create([
       'description' => 'Gebaut',
     ]);
-    $record->flag('isPublished', 1);
 
     $record = State::create([
       'description' => 'In Planung',
     ]);
-    $record->flag('isPublished', 1);
 
     $record = State::create([
       'description' => 'Wettbewerbe',
     ]);
-    $record->flag('isPublished', 1);
+
   }
 }

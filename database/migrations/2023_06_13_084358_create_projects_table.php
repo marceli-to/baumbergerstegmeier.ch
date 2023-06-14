@@ -22,6 +22,8 @@ return new class extends Migration
         $table->year('year');
         $table->string('location')->nullable();
         $table->tinyInteger('order')->default(-1);
+        $table->tinyInteger('publish')->default(1);
+        $table->tinyInteger('feature')->default(0);
         $table->unsignedBigInteger('type_id');
         $table->timestamps();
       });

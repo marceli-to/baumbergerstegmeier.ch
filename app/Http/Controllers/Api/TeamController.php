@@ -40,8 +40,8 @@ class TeamController extends Controller
   {
     $team = Team::create([
       'name' => $request->input('name'),
+      'publish' => $request->input('publish')
     ]);
-    $this->handleFlag($team, 'isPublished', $request->input('publish'));
     $this->handleImages($team, $request->input('images'));
     return response()->json(['teamId' => $team->id]);
   }
@@ -57,8 +57,8 @@ class TeamController extends Controller
   {
     $team = Team::findOrFail($team->id);
     $team->name = $request->input('name');
+    $team->publish = $request->input('publish');
     $team->save();
-    $this->handleFlag($team, 'isPublished', $request->input('publish'));
     $this->handleImages($team, $request->input('images'));
     return response()->json('successfully updated');
   }
@@ -71,15 +71,9 @@ class TeamController extends Controller
    */
   public function toggle(Team $team)
   {
-    if ($team->hasFlag('isPublished'))
-    {
-      $team->unflag('isPublished');
-    }
-    else
-    {
-      $team->flag('isPublished');
-    } 
-    return response()->json($team->hasFlag('isPublished'));
+    $team->publish = !$team->publish;
+    $team->save();
+    return response()->json($team->publish);
   }
 
 
@@ -114,26 +108,6 @@ class TeamController extends Controller
     return response()->json('successfully updated');
   }
 
-  /**
-   * Handle flags of a team
-   *
-   * @param Team $team
-   * @param String $flag
-   * @param Integer $value
-   * @return Boolean
-   */  
-  protected function handleFlag(Team $team, $flag, $value)
-  {
-    if ($value == 1)
-    {
-      $team->flag($flag);
-    }
-    else
-    {
-      $team->unflag($flag);
-    }
-    return $team->hasFlag($flag);
-  }
   /**
    * Handle associated images
    *

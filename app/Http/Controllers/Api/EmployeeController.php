@@ -58,10 +58,10 @@ class EmployeeController extends Controller
       'name' => $request->input('name'),
       'title' => $request->input('title'),
       'email' => $request->input('email'),
+      'publish' => $request->input('publish'),
       'team_id' => $request->input('team_id'),
       'employee_category_id' => $request->input('employee_category_id'),
     ]);
-    $this->handleFlag($employee, 'isPublished', $request->input('publish'));
     return response()->json(['employeeId' => $employee->id]);
   }
 
@@ -79,10 +79,10 @@ class EmployeeController extends Controller
     $employee->name = $request->input('name');
     $employee->title = $request->input('title');
     $employee->email = $request->input('email');
+    $employee->publish = $request->input('publish');
     $employee->team_id = $request->input('team_id');
     $employee->employee_category_id = $request->input('employee_category_id');
     $employee->save();
-    $this->handleFlag($employee, 'isPublished', $request->input('publish'));
     return response()->json('successfully updated');
   }
 
@@ -94,15 +94,9 @@ class EmployeeController extends Controller
    */
   public function toggle(Employee $employee)
   {
-    if ($employee->hasFlag('isPublished'))
-    {
-      $employee->unflag('isPublished');
-    }
-    else
-    {
-      $employee->flag('isPublished');
-    } 
-    return response()->json($employee->hasFlag('isPublished'));
+    $employee->publish = !$employee->publish;
+    $employee->save();
+    return response()->json($employee->publish);
   }
 
   /**
@@ -124,36 +118,15 @@ class EmployeeController extends Controller
    * @return \Illuminate\Http\Response
    */
 
-   public function order(Request $request)
-   {
-     $employees = $request->get('employees');
-     foreach($employees as $employee)
-     {
-       $p = Employee::find($employee['id']);
-       $p->order = $employee['order'];
-       $p->save(); 
-     }
-     return response()->json('successfully updated');
-   }
-
-  /**
-   * Handle flags of a employee
-   *
-   * @param Employee $employee
-   * @param String $flag
-   * @param Integer $value
-   * @return Boolean
-   */  
-  protected function handleFlag(Employee $employee, $flag, $value)
+  public function order(Request $request)
   {
-    if ($value == 1)
+    $employees = $request->get('employees');
+    foreach($employees as $employee)
     {
-      $employee->flag($flag);
+      $p = Employee::find($employee['id']);
+      $p->order = $employee['order'];
+      $p->save(); 
     }
-    else
-    {
-      $employee->unflag($flag);
-    }
-    return $employee->hasFlag($flag);
+    return response()->json('successfully updated');
   }
 }

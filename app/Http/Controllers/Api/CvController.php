@@ -65,8 +65,8 @@ class CvController extends Controller
       'description' => $request->input('description'),
       'cv_category_id' => $request->input('cv_category_id'),
       'employee_id' => $request->input('employee_id'),
+      'publish' => $request->input('publish')
     ]);
-    $this->handleFlag($cv, 'isPublished', $request->input('publish'));
     return response()->json(['cvId' => $cv->id]);
   }
 
@@ -83,8 +83,8 @@ class CvController extends Controller
     $cv->periode = $request->input('periode');
     $cv->description = $request->input('description');
     $cv->cv_category_id = $request->input('cv_category_id');
+    $cv->publish = $request->input('publish');
     $cv->save();
-    $this->handleFlag($cv, 'isPublished', $request->input('publish'));
     return response()->json('successfully updated');
   }
 
@@ -96,15 +96,9 @@ class CvController extends Controller
    */
   public function toggle(Cv $cv)
   {
-    if ($cv->hasFlag('isPublished'))
-    {
-      $cv->unflag('isPublished');
-    }
-    else
-    {
-      $cv->flag('isPublished');
-    } 
-    return response()->json($cv->hasFlag('isPublished'));
+    $cv->publish = !$cv->publish;
+    $cv->save();
+    return response()->json($cv->publish);
   }
 
 
@@ -127,38 +121,16 @@ class CvController extends Controller
    * @return \Illuminate\Http\Response
    */
 
-   public function order(Request $request)
-   {
-     $cvs = $request->get('cvs');
-     foreach($cvs as $cv)
-     {
-       $p = Cv::find($cv['id']);
-       $p->order = $cv['order'];
-       $p->save(); 
-     }
-     return response()->json('successfully updated');
-   }
-
-
-  /**
-   * Handle flags of a cv
-   *
-   * @param Cv $cv
-   * @param String $flag
-   * @param Integer $value
-   * @return Boolean
-   */  
-  protected function handleFlag(Cv $cv, $flag, $value)
+  public function order(Request $request)
   {
-    if ($value == 1)
+    $cvs = $request->get('cvs');
+    foreach($cvs as $cv)
     {
-      $cv->flag($flag);
+      $p = Cv::find($cv['id']);
+      $p->order = $cv['order'];
+      $p->save(); 
     }
-    else
-    {
-      $cv->unflag($flag);
-    }
-    return $cv->hasFlag($flag);
+    return response()->json('successfully updated');
   }
 
 }

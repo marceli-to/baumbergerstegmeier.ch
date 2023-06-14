@@ -43,7 +43,6 @@ class EmployeeSeeder extends Seeder
         'employee_category_id' => 1,
         'order' => $i
       ]);
-      $employee->flag('isPublished', 1);
     }
 
     // BSA, Employees
@@ -57,7 +56,6 @@ class EmployeeSeeder extends Seeder
         'employee_category_id' => 2,
         'order' => $i
       ]);
-      $employee->flag('isPublished', 1);
     }
 
     // BS+EMI, Leadership
@@ -71,7 +69,6 @@ class EmployeeSeeder extends Seeder
         'employee_category_id' => 1,
         'order' => $i
       ]);
-      $employee->flag('isPublished', 1);
     }
 
     // BSA, Employees
@@ -85,7 +82,6 @@ class EmployeeSeeder extends Seeder
         'employee_category_id' => 2,
         'order' => $i
       ]);
-      $employee->flag('isPublished', 1);
     }
 
     // BSA, Employees
@@ -99,7 +95,6 @@ class EmployeeSeeder extends Seeder
         'employee_category_id' => 3,
         'order' => $i
       ]);
-      $employee->flag('isPublished', 1);
     }
 
   }

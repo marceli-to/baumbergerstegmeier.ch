@@ -42,9 +42,9 @@ class AwardController extends Controller
       'year' => $request->input('year'),
       'title' => $request->input('title'),
       'subtitle' => $request->input('subtitle'),
-      'link' => $request->input('link')
+      'link' => $request->input('link'),
+      'publish' => $request->input('publish')
     ]);
-    $this->handleFlag($award, 'isPublished', $request->input('publish'));
     $this->handleImages($award, $request->input('images'));
     return response()->json(['awardId' => $award->id]);
   }
@@ -63,8 +63,8 @@ class AwardController extends Controller
     $award->title = $request->input('title');
     $award->subtitle = $request->input('subtitle');
     $award->link = $request->input('link');
+    $award->publish = $request->input('publish');
     $award->save();
-    $this->handleFlag($award, 'isPublished', $request->input('publish'));
     $this->handleImages($award, $request->input('images'));
     return response()->json('successfully updated');
   }
@@ -77,17 +77,10 @@ class AwardController extends Controller
    */
   public function toggle(Award $award)
   {
-    if ($award->hasFlag('isPublished'))
-    {
-      $award->unflag('isPublished');
-    }
-    else
-    {
-      $award->flag('isPublished');
-    } 
-    return response()->json($award->hasFlag('isPublished'));
+    $award->publish = !$award->publish;
+    $award->save();
+    return response()->json($award->publish);
   }
-
 
   /**
    * Remove the specified resource from storage.
@@ -119,27 +112,6 @@ class AwardController extends Controller
      }
      return response()->json('successfully updated');
    }
-
-  /**
-   * Handle flags of a job
-   *
-   * @param Award $award
-   * @param String $flag
-   * @param Integer $value
-   * @return Boolean
-   */  
-  protected function handleFlag(Award $award, $flag, $value)
-  {
-    if ($value == 1)
-    {
-      $award->flag($flag);
-    }
-    else
-    {
-      $award->unflag($flag);
-    }
-    return $award->hasFlag($flag);
-  }
 
   /**
    * Handle associated images

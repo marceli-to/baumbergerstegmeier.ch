@@ -7,6 +7,8 @@ export default {
       overlayItem: {
         name: '',
         caption: null,
+        cover: 0,
+        worklist: 0,
       },
 
       defaults: {

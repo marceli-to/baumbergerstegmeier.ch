@@ -4,7 +4,6 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 
 class ProjectState extends Pivot
 {
-
   /**
    * The attributes that are mass assignable.
    *

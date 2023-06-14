@@ -1,12 +1,10 @@
 <?php
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\ModelFlags\Models\Concerns\HasFlags;
 
 class JobArticle extends Model
 {
-  use HasFlags;
- 
+
   /**
    * The attributes that are mass assignable.
    *
@@ -18,26 +16,8 @@ class JobArticle extends Model
     'description',
     'teaser_title',
     'teaser_description',
-    'order'
-  ];
-
-  /**
-   * The accessors to append to the model's array form.
-   *
-   * @var array
-   */
-
-   protected $appends = [
+    'order',
     'publish',
   ];
 
-  /**
-   * Get the publish attribute
-   * 
-   */
-
-  public function getPublishAttribute()
-  {
-    return $this->hasFlag('isPublished') ? 1 : 0;    
-  }
 }
