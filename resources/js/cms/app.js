@@ -46,6 +46,7 @@ import profileRoutes from '@/views/pages/profile/config/routes';
 import publicationRoutes from '@/views/pages/publication/config/routes';
 import teamRoutes from '@/views/pages/team/config/routes';
 import projectRoutes from '@/views/pages/project/config/routes';
+import homepageRoutes from '@/views/pages/homepage/config/routes';
 import imageRoutes from '@/modules/images/config/routes';
 
 const router = new VueRouter(
@@ -60,6 +61,7 @@ const router = new VueRouter(
       ...profileRoutes,
       ...teamRoutes,
       ...projectRoutes,
+      ...homepageRoutes,
       ...imageRoutes,
     ]
   }

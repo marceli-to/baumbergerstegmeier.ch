@@ -19,6 +19,7 @@ use App\Http\Controllers\Api\StateController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\TypeController;
 use App\Http\Controllers\Api\ProjectController;
+use App\Http\Controllers\Api\ArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -221,6 +222,16 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('project/toggle/{project}', 'toggle');
     Route::post('project/order', 'order');
     Route::delete('project/{project}', 'destroy');
+  });
+
+  // Articles
+  Route::controller(ArticleController::class)->group(function () {
+    Route::get('articles', 'get');
+    Route::get('article/{article}', 'find');
+    Route::post('article', 'store');
+    Route::put('article/{article}', 'update');
+    Route::get('article/state/{article}', 'toggle');
+    Route::delete('article/{article}', 'destroy');
   });
 
 });

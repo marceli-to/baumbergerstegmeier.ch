@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-      Schema::create('job_articles', function (Blueprint $table) {
+      Schema::create('articles', function (Blueprint $table) {
         $table->id();
-        $table->string('title');
-        $table->text('description');
-        $table->tinyInteger('order')->default(-1);
+        $table->string('category', 255);
+        $table->string('title', 255);
+        $table->text('text')->nullable();
         $table->tinyInteger('publish')->default(1);
         $table->timestamps();
       });
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-      Schema::dropIfExists('job_articles');
+      Schema::dropIfExists('articles');
     }
 };

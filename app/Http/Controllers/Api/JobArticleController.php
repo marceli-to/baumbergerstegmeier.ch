@@ -40,8 +40,6 @@ class JobArticleController extends Controller
     $jobArticle = JobArticle::create([
       'title' => $request->input('title'),
       'description' => $request->input('description'),
-      'teaser_title' => $request->input('teaser_title'),
-      'teaser_description' => $request->input('teaser_description'),
       'publish' => $request->input('publish')
     ]);
     return response()->json(['jobArticleId' => $jobArticle->id]);
@@ -59,8 +57,6 @@ class JobArticleController extends Controller
     $jobArticle = JobArticle::findOrFail($jobArticle->id);
     $jobArticle->title = $request->input('title');
     $jobArticle->description = $request->input('description');
-    $jobArticle->teaser_title = $request->input('teaser_title');
-    $jobArticle->teaser_description = $request->input('teaser_description');
     $jobArticle->publish = $request->input('publish');
     $jobArticle->save();
     return response()->json('successfully updated');

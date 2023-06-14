@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
       \Database\Seeders\CategorySeeder::class,
       \Database\Seeders\TypeSeeder::class,
       \Database\Seeders\ProjectSeeder::class,
+      \Database\Seeders\ArticleSeeder::class,
     ]);
   }
 }

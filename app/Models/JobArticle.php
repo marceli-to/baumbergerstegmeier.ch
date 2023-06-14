@@ -14,8 +14,6 @@ class JobArticle extends Model
 	protected $fillable = [
     'title',
     'description',
-    'teaser_title',
-    'teaser_description',
     'order',
     'publish',
   ];

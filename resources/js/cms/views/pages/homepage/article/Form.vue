@@ -11,20 +11,35 @@
 
     <div v-show="tabs.data.active">
       <div>
+        <div :class="[this.errors.category ? 'has-error' : '', 'form-row']">
+          <label>Kategorie</label>
+          <input type="text" v-model="data.category">
+          <label-required />
+        </div>
         <div :class="[this.errors.title ? 'has-error' : '', 'form-row']">
           <label>Titel</label>
           <input type="text" v-model="data.title">
           <label-required />
         </div>
-        <div :class="[this.errors.description ? 'has-error' : '', 'form-row']">
+        <div class="form-row">
           <label>Text</label>
           <tinymce-editor
             :api-key="tinyApiKey"
             :init="tinyConfig"
-            v-model="data.description"
+            v-model="data.text"
           ></tinymce-editor>
         </div>
       </div>
+    </div>
+
+    <div v-show="tabs.images.active">
+      <images 
+        :allowRatioSwitch="true"
+        :imageRatioW="3" 
+        :imageRatioH="2"
+        :ratioFormats="[{label: 'Hoch', w: 3, h: 2}]"
+        :images="data.images">
+      </images>
     </div>
 
     <div v-show="tabs.settings.active">
@@ -41,7 +56,7 @@
     </div>
 
     <page-footer>
-      <button-back :route="'job-article-index'">Zurück</button-back>
+      <button-back :route="'article-index'">Zurück</button-back>
       <button-submit>Speichern</button-submit>
     </page-footer>
   </form>
@@ -58,7 +73,7 @@ import ButtonSubmit from "@/components/ui/ButtonSubmit.vue";
 import LabelRequired from "@/components/ui/LabelRequired.vue";
 import LabelInfo from "@/components/ui/LabelInfo.vue";
 import Tabs from "@/components/ui/Tabs.vue";
-import tabsConfig from "@/views/pages/job/article/config/tabs.js";
+import tabsConfig from "@/views/pages/homepage/article/config/tabs.js";
 import PageFooter from "@/components/ui/PageFooter.vue";
 import PageHeader from "@/components/ui/PageHeader.vue";
 import Images from "@/modules/images/Index.vue";
@@ -90,22 +105,23 @@ export default {
       // Model
       data: {
         id: null,
+        category: null,
         title: null,
-        description: null,
+        text: null,
         publish: 1,
       },
 
       // Validation
       errors: {
+        category: false,
         title: false,
-        description: false,
       },
 
       // Routes
       routes: {
-        find: '/api/job-article',
-        store: '/api/job-article',
-        update: '/api/job-article',
+        find: '/api/article',
+        store: '/api/article',
+        update: '/api/article',
       },
 
       // States
@@ -140,7 +156,7 @@ export default {
       this.isFetched = false;
       this.isLoading = true;
       this.axios.get(`${this.routes.find}/${this.$route.params.id}`).then(response => {
-        this.data = response.data.jobArticle;
+        this.data = response.data.article;
         this.isFetched = true;
         this.isLoading = false;
       });
@@ -158,7 +174,7 @@ export default {
     store() {
       this.isLoading = true;
       this.axios.post(this.routes.store, this.data).then(response => {
-        this.$router.push({ name: "job-article-index" });
+        this.$router.push({ name: "article-index" });
         this.$notify({ type: "success", text: this.messages.stored });
         this.isLoading = false;
       });
@@ -167,7 +183,7 @@ export default {
     update() {
       this.isLoading = true;
       this.axios.put(`${this.routes.update}/${this.$route.params.id}`, this.data).then(response => {
-        this.$router.push({ name: "job-article-index" });
+        this.$router.push({ name: "article-index" });
         this.$notify({ type: "success", text: this.messages.updated });
         this.isLoading = false;
       });
@@ -177,8 +193,8 @@ export default {
   computed: {
     title() {
       return this.$props.type == "edit" 
-        ? "Inserat bearbeiten" 
-        : "Inserat hinzufügen";
+        ? "Artikel bearbeiten" 
+        : "Artikel hinzufügen";
     }
   }
 };
