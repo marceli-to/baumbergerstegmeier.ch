@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
       \Database\Seeders\TypeSeeder::class,
       \Database\Seeders\ProjectSeeder::class,
       \Database\Seeders\ArticleSeeder::class,
+      \Database\Seeders\HomepageTeaserSeeder::class,
     ]);
   }
 }

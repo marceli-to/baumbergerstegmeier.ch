@@ -7,20 +7,20 @@
 .grid-gallery {
   @extend %mb-8x;
   
-  .btn-delete {
-    @extend %mb-3x;
-    background-color: $color-red;
-    &:hover {
-      background-color: $color-secondary;
-    }
-  }
+  // .btn-delete {
+  //   @extend %mb-3x;
+  //   background-color: $color-red;
+  //   &:hover {
+  //     background-color: $color-secondary;
+  //   }
+  // }
 
-  .btn-select,
-  .btn-delete-item {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-  }
+  // .btn-select,
+  // .btn-delete-item {
+  //   position: absolute;
+  //   top: 10px;
+  //   right: 10px;
+  // }
 
   .btn-select {
     min-width: 164px;

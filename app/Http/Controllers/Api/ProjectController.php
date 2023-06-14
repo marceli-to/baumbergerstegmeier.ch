@@ -19,7 +19,7 @@ class ProjectController extends Controller
    */
   public function get()
   {
-    return new DataCollection(Project::orderBy('order')->orderBy('year', 'DESC')->get());
+    return new DataCollection(Project::with('publishedImages')->orderBy('order')->orderBy('year', 'DESC')->get());
   }
 
   /**

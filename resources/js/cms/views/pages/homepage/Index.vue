@@ -1,19 +1,19 @@
 <template>
   <div class="is-loaded">
     <page-header>
-      <h1>Homepage-Teaser und Artikel</h1>
+      <h1>Startseite und Artikel</h1>
     </page-header>
     <div class="content content--wide cards">
-      <!-- <div class="card">
-        <router-link :to="{name: 'project-index'}">
-          <h2>Projekte</h2>
-          <p>Verwaltung der Projekte</p>
+      <div class="card">
+        <router-link :to="{name: 'teaser-index'}">
+          <h2>Startseite</h2>
+          <p>Verwaltung der Startseite</p>
         </router-link>
-      </div> -->
+      </div>
       <div class="card">
         <router-link :to="{name: 'article-index'}">
           <h2>Artikel</h2>
-          <p>Verwaltung der Teaser-Artikel</p>
+          <p>Verwaltung der Artikel</p>
         </router-link>
       </div>
     </div>
@@ -39,3 +39,6 @@ export default {
   mixins: [Helpers],
 }
 </script>
+<style scoped>
+
+</style>

@@ -19,7 +19,7 @@ return new class extends Migration
       $table->unsignedBigInteger('image_id')->nullable();
       $table->unsignedBigInteger('project_id')->nullable();
       $table->unsignedBigInteger('article_id')->nullable();
-      $table->tinyInteger('position')->default(-1);
+      $table->integer('position')->default(-1);
       $table->tinyInteger('column')->default(1);
       $table->tinyInteger('publish')->default(1);
       $table->timestamps();

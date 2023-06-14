@@ -76,7 +76,6 @@ class TeamController extends Controller
     return response()->json($team->publish);
   }
 
-
   /**
    * Remove the specified resource from storage.
    *

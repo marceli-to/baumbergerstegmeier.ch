@@ -20,6 +20,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\TypeController;
 use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\ArticleController;
+use App\Http\Controllers\Api\TeaserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -232,6 +233,15 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::put('article/{article}', 'update');
     Route::get('article/state/{article}', 'toggle');
     Route::delete('article/{article}', 'destroy');
+  });
+
+  // Articles
+  Route::controller(TeaserController::class)->group(function () {
+    Route::get('teasers/{type}', 'get');
+    Route::post('teaser', 'store');
+    Route::get('teaser/state/{teaser}', 'toggle');
+    Route::post('teaser/order', 'order');
+    Route::delete('teaser/{teaser}', 'destroy');
   });
 
 });

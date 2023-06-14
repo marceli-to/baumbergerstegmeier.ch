@@ -7,8 +7,8 @@
 
       <div class="card">
         <router-link :to="{name: 'homepage-dashboard'}">
-          <h2>Homepage</h2>
-          <p>Verwaltung der Homepage</p>
+          <h2>Startseite</h2>
+          <p>Verwaltung der Startseite</p>
         </router-link>
       </div>
 

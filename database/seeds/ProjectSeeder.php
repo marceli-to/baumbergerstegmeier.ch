@@ -4,6 +4,7 @@ use App\Models\Project;
 use App\Models\Type;
 use App\Models\Category;
 use App\Models\State;
+use App\Models\Image;
 use Illuminate\Database\Seeder;
 
 class ProjectSeeder extends Seeder
@@ -128,6 +129,26 @@ class ProjectSeeder extends Seeder
       {
         $project->states()->attach($state->id);
       }
+
+      // Create images
+      for($ii = 1; $ii <= 8; $ii++)
+      {
+        $image = Image::create([
+          'uuid' => \Str::uuid(),
+          'name' => 'bas-' . $ii . '.jpg',
+          'original_name' => 'bas-' . $ii . '.jpg',
+          'orientation' => 'landscape',
+          'extension' => 'jpg',
+          'size' => 111562,
+          'ratio' => '580x386',
+          'imageable_id' => $project->id,
+          'imageable_type' => Project::class,
+          'caption' => $titles[random_int(0, count($titles) - 1)],
+          'order' => $i,
+          'publish' => 1
+        ]);
+      }
+
     }
   }
 }
