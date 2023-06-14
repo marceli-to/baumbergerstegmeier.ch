@@ -11,7 +11,7 @@
     </page-header>
     <div class="listing is-grouped" v-if="data.length">
       <div
-        :class="[d.publish == 0 ? 'is-disabled' : '', 'listing__item is-draggable']"
+        :class="[d.publish == 0 ? 'is-disabled' : '', 'listing__item']"
         v-for="d in data"
         :key="d.id"
         >
