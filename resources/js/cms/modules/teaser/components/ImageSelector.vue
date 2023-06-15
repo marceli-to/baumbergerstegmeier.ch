@@ -33,7 +33,20 @@
             </div>        
           </template>
         </template>
-        <!-- add variant for type 'project' -->
+
+        <template v-if="$props.type == 'project'">
+          <h1>{{ project.title }}, {{ project.location }}</h1>
+          <div class="teaser-asset-selector__images">
+            <figure v-for="image in project.images" :key="image.id">
+              <img 
+                :src="getSource(image, 'cache')" 
+                height="300" 
+                width="300" v-if="image"
+                @click="$emit('select', {image: image.id, project: project.id})" />
+            </figure>
+          </div>  
+        </template>
+
       </div>
     </div>
   </div>
@@ -75,12 +88,20 @@ export default {
     type: {
       type: String,
       default: 'home'
-    }
+    },
+
+    projectId: {
+      type: [String, Number],
+    },
   },
 
   mounted() {
     if (this.$props.type == 'home') {
       this.fetchProjects();
+    }
+
+    if (this.$props.type == 'project') {
+      this.fetchProject();
     }
   },
 
@@ -95,9 +116,9 @@ export default {
       });
     },
 
-    fetchProject(id) {
+    fetchProject() {
       this.isLoading = true;
-      this.axios.get(`${this.routes.projects.find}/${id}`).then(response => {
+      this.axios.get(`${this.routes.projects.find}/${this.$props.projectId}`).then(response => {
         this.project = response.data.project;
         this.isFetched = true;
         this.isLoading = false;

@@ -1,9 +1,9 @@
 <template>
   <div class="listing__item-action">
 
-    <div v-if="hasGrid">
+    <div v-if="hasTeasers">
       <router-link
-        :to="{name: routes.grid, params: { id: id }}"
+        :to="{name: routes.teaser, params: { id: id }}"
         class="feather-icon"
       >
         <grid-icon size="18"></grid-icon>
@@ -154,7 +154,7 @@ export default {
       default: false
     },
 
-    hasGrid: {
+    hasTeasers: {
       type: Boolean,
       default: false
     },

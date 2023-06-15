@@ -12,9 +12,17 @@ class TeaserController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function get($type = NULL)
+  public function get($type = NULL, $projectId = NULL)
   {
-    $items = Teaser::with('image', 'project', 'article')->where('type', $type)->orderBy('position')->get();
+    $query = Teaser::with('image', 'project', 'article')->where('type', $type);
+
+    if ($projectId)
+    {
+      $query->where('project_id', $projectId);
+    }
+    
+    $items = $query->orderBy('position')->get();
+    
     return response()->json([
       'items' => $items->groupBy('column')->values()
     ]);

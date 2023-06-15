@@ -31,7 +31,8 @@
             <list-actions 
               :id="d.id" 
               :record="d"
-              :routes="{edit: 'project-edit'}"
+              :hasTeasers="true"
+              :routes="{edit: 'project-edit', teaser: 'project-teaser'}"
               @toggle="toggle($event)"
               @destroy="destroy($event)">
             </list-actions>

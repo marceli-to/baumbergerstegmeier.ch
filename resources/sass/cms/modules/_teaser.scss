@@ -8,8 +8,7 @@
   
   > div {
     @extend %p-2x;
-    border: 2px dashed $color-medium-grey;
-    min-height: 400px;
+    border: 2px dashed $color-light-grey;
   }
 
   .is-draggable {
@@ -28,6 +27,7 @@
   }
 
   .teaser__item__actions {
+    display: flex;
     position: absolute;
     top: 10px;
     right: 10px;
@@ -42,11 +42,11 @@
     line-height: 1;
 
     &.btn--delete {
-      @extend %mb-1x;
       background-color: $color-red;
     }
 
     &.btn--toggle {
+      @extend %mr-1x;
       background-color: $color-blue;
     }
 

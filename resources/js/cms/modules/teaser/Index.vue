@@ -4,13 +4,13 @@
   <loading-indicator v-if="isLoading"></loading-indicator>
 
   <page-header>
-    <!-- <h1 v-if="$props.modelName == 'Project'">{{ $props.model.title }}</h1>
-    <h1 v-else>Startseite</h1> -->
-    <h1>Startseite</h1>
+    <h1 v-if="$props.type == 'home'">Startseite</h1>
+    <h1>Projekt «{{ project.title }}, {{ project.location }}»</h1>
   </page-header>
 
   <teaser-image-selector
     :type="$props.type"
+    :projectId="$props.projectId"
     @close="toggleImageSelector()"
     @select="storeImage($event)"
     v-if="hasImageSelector">
@@ -53,12 +53,14 @@
           class="btn btn--select mr-3x" 
           @click.prevent="toggleImageSelector(index)">
           <image-icon size="16"></image-icon>
-          <span>Projekt</span>
+          <span v-if="$props.type == 'home'">Projekt</span>
+          <span v-if="$props.type == 'project'">Bild auswählen</span>
         </a>
         <a 
           href="" 
           class="btn btn--select" 
-          @click.prevent="toggleArticleSelector(index)">
+          @click.prevent="toggleArticleSelector(index)"
+          v-if="hasArticles">
           <align-left-icon size="16"></align-left-icon>
           <span>Artikel</span>
         </a>
@@ -101,14 +103,21 @@ export default {
       type: String,
       default: 'home'
     },
+
+    projectId: {
+      type: [String, Number],
+    }
   },
 
   data() {
     return {
 
       items: [],
-
       currentColumn: null,
+      project: {
+        title: null,
+        location: null
+      },
 
       // Routes
       routes: {
@@ -117,14 +126,15 @@ export default {
         delete: '/api/teaser',
         toggle: '/api/teaser/state',
         order: '/api/teaser/order',
+        project: {
+          find: '/api/project',
+        }
       },
 
       // States
       isLoading: false,
       isFetched: true,
       hasImageSelector: false,
-
-      hasGridSelector: false,
       hasArticleSelector: false,
       hasArticles: false,
 
@@ -149,10 +159,26 @@ export default {
     fetch() {
       this.isLoading = true;
       this.isFetched = false;
-      this.axios.get(`${this.routes.get}/${this.$props.type}`).then(response => {
+      const uri = this.$props.type == 'home' ? `${this.routes.get}/${this.$props.type}` : `${this.routes.get}/${this.$props.type}/${this.$props.projectId}`;
+      this.axios.get(uri).then(response => {
         this.items = response.data.items;
-        this.isLoading = false;
-        this.isFetched = true;
+
+        // create empty columns if no data is available
+        if (this.items.length == 0) {
+          this.items = [[], [], []];
+        }
+
+        if (this.$props.type == 'project') {
+          this.axios.get(`${this.routes.project.find}/${this.$props.projectId}`).then(response => {
+            this.project = response.data.project;
+            this.isLoading = false;
+            this.isFetched = true;
+          });
+        }
+        else {
+          this.isLoading = false;
+          this.isFetched = true;
+        }
       });
     },
 

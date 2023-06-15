@@ -3,16 +3,16 @@
     <div class="teaser__item__actions">
       <a 
         href="" 
-        class="btn btn--delete"
-        @click.prevent="$emit('destroy', $props.item.id)">
-        <trash-2-icon size="16"></trash-2-icon>
-      </a>
-      <a 
-        href="" 
         class="btn btn--toggle"
         @click.prevent="$emit('toggle', $props.item.id)">
         <eye-icon size="16" v-if="$props.item.publish"></eye-icon>
         <eye-off-icon size="16" v-else></eye-off-icon>
+      </a>
+      <a 
+        href="" 
+        class="btn btn--delete"
+        @click.prevent="$emit('destroy', $props.item.id)">
+        <trash-2-icon size="16"></trash-2-icon>
       </a>
     </div>
     <figure>

@@ -237,7 +237,7 @@ Route::middleware('auth:sanctum')->group(function() {
 
   // Articles
   Route::controller(TeaserController::class)->group(function () {
-    Route::get('teasers/{type}', 'get');
+    Route::get('teasers/{type}/{projectId?}', 'get');
     Route::post('teaser', 'store');
     Route::get('teaser/state/{teaser}', 'toggle');
     Route::post('teaser/order', 'order');
