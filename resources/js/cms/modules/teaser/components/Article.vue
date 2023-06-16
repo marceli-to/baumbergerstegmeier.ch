@@ -18,6 +18,9 @@
     <article>
       <h3>{{ item.article.category }}</h3>
       <h2>{{ item.article.title }}</h2>
+      <figure v-if="item.article.published_image" class="mb-3x">
+        <img :src="getSource(item.article.published_image, 'cache')" height="300" width="300">
+      </figure>
       <div v-html="item.article.text"></div>
     </article>
   </div>

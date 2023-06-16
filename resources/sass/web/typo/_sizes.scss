@@ -48,26 +48,11 @@ $fs-btn: (
 );
 
 
-// 18px, body sm
+// 18px
+%text-md,
 .text-md {
   font-size: 1.125rem;
 }
-
-// 20px, body xl
-.text-lg {
-  font-size: 1.25rem;
-}
-
-// 25px, heading sm
-.text-xl {
-  font-size: 1.6rem;
-}
-
-// 35px, heading xl
-.text-2xl {
-  font-size: 2.1875rem;
-}
-
 @each $bp, $width in $breakpoints {
   %#{$bp}\:text-md, 
   .#{$bp}\:text-md {
@@ -77,6 +62,11 @@ $fs-btn: (
   }
 }
 
+// 20px
+%text-lg,
+.text-lg {
+  font-size: 1.25rem;
+}
 @each $bp, $width in $breakpoints {
   %#{$bp}\:text-lg, 
   .#{$bp}\:text-lg {
@@ -86,6 +76,11 @@ $fs-btn: (
   }
 }
 
+// 25px
+%text-xl,
+.text-xl {
+  font-size: 1.6rem;
+}
 @each $bp, $width in $breakpoints {
   %#{$bp}\:text-xl, 
   .#{$bp}\:text-xl {
@@ -95,6 +90,11 @@ $fs-btn: (
   }
 }
 
+// 32px, heading xl
+%text-2xl,
+.text-2xl {
+  font-size: 2rem;
+}
 @each $bp, $width in $breakpoints {
   %#{$bp}\:text-2xl, 
   .#{$bp}\:text-2xl {

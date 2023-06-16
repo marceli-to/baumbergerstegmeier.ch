@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
+use App\Models\Image;
 use App\Http\Resources\DataCollection;
 use App\Http\Requests\ArticleStoreRequest;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class ArticleController extends Controller
    */
   public function get()
   {
-    return new DataCollection(Article::get());
+    return new DataCollection(Article::with('images', 'publishedImage')->get());
   }
 
   /**

@@ -5,7 +5,7 @@
 
   <page-header>
     <h1 v-if="$props.type == 'home'">Startseite</h1>
-    <h1>Projekt «{{ project.title }}, {{ project.location }}»</h1>
+    <h1 v-else>Projekt «{{ project.title }}, {{ project.location }}»</h1>
   </page-header>
 
   <teaser-image-selector

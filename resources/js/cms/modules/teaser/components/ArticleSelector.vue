@@ -41,7 +41,7 @@ export default {
       isLoading: false,
 
       routes: {
-        getArticles: '/api/articles',
+        get: '/api/articles',
       },
     }
   },
@@ -55,7 +55,7 @@ export default {
 
     fetchArticles() {
       this.isLoading = true;
-      this.axios.get(`${this.routes.getArticles}`).then(response => {
+      this.axios.get(`${this.routes.get}`).then(response => {
         this.articles = response.data.data;
         this.isFetched = true;
         this.isLoading = false;

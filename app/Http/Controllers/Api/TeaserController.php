@@ -14,7 +14,7 @@ class TeaserController extends Controller
    */
   public function get($type = NULL, $projectId = NULL)
   {
-    $query = Teaser::with('image', 'project', 'article')->where('type', $type);
+    $query = Teaser::with('image', 'project', 'article.publishedImage')->where('type', $type);
 
     if ($projectId)
     {

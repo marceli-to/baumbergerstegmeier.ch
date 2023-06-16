@@ -73,7 +73,6 @@
     }
   }
 
-
   figure {
     
     figcaption {
@@ -102,6 +101,15 @@
     h2 {
       @include font-size($fs-md);
       @extend %mb-4x;
+    }
+
+    figure {
+      @extend %mb-3x;
+    }
+
+    img {
+      @extend %is-responsive;
+      max-width: 80%;
     }
 
     p:last-of-type {
