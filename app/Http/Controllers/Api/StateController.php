@@ -39,6 +39,7 @@ class StateController extends Controller
   {
     $state = State::create([
       'description' => $request->input('description'),
+      'slug' => \Str::slug($request->input('description')),
       'publish' => $request->input('publish')
     ]);
     return response()->json(['stateId' => $state->id]);
@@ -55,6 +56,7 @@ class StateController extends Controller
   {
     $state = State::findOrFail($state->id);
     $state->description = $request->input('description');
+    $state->slug = \Str::slug($request->input('description'));
     $state->publish = $request->input('publish');
     $state->save();
     return response()->json('successfully updated');

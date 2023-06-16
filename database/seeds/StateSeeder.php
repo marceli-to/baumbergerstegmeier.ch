@@ -14,14 +14,17 @@ class StateSeeder extends Seeder
   {
     $record = State::create([
       'description' => 'Gebaut',
+      'slug' => 'gebaut',
     ]);
 
     $record = State::create([
       'description' => 'In Planung',
+      'slug' => 'in-planung',
     ]);
 
     $record = State::create([
       'description' => 'Wettbewerbe',
+      'slug' => 'wettbewerbe',
     ]);
 
   }

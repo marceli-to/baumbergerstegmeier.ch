@@ -16,6 +16,7 @@ return new class extends Migration
       Schema::create('categories', function (Blueprint $table) {
         $table->id();
         $table->string('description', 100);
+        $table->string('slug', 100);
         $table->tinyInteger('order')->default(-1);
         $table->tinyInteger('publish')->default(1);
         $table->timestamps();

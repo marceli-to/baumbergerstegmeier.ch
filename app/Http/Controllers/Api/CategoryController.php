@@ -39,6 +39,7 @@ class CategoryController extends Controller
   {
     $category = Category::create([
       'description' => $request->input('description'),
+      'slug' => \Str::slug($request->input('description')),
       'publish' => $request->input('publish')
     ]);
     return response()->json(['categoryId' => $category->id]);
@@ -56,6 +57,7 @@ class CategoryController extends Controller
     $category = Category::findOrFail($category->id);
     $category->description = $request->input('description');
     $category->publish = $request->input('publish');
+    $category->slug = \Str::slug($request->input('description'));
     $category->save();
     return response()->json('successfully updated');
   }
