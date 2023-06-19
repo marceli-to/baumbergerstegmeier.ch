@@ -105,6 +105,14 @@
           :name="'feature'">
         </radio-button>
       </div>
+      <div class="form-row">
+        <radio-button 
+          :label="'Startseite?'"
+          v-bind:landing.sync="data.landing"
+          :model="data.landing"
+          :name="'landing'">
+        </radio-button>
+      </div>
     </div>
 
     <page-footer>
@@ -171,6 +179,7 @@ export default {
         state_ids: [],
         publish: 1,
         feature: 0,
+        landing: 0,
         images: [],
       },
 
@@ -228,6 +237,9 @@ export default {
     if (this.$props.type == "create") {
       this.fetchSettings();
     }
+    this.axios.get(`/api/linklist`).then(response => {
+      this.tinyConfig.link_list = response.data;
+    });
   },
 
   methods: {

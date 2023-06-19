@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Base extends Model
 {
-	public function scopePublished($query)
+	public function scopePublish($query)
 	{
 		return $query->where('publish', '=', '1');
 	}

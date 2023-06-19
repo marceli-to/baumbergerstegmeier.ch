@@ -21,6 +21,7 @@ use App\Http\Controllers\Api\TypeController;
 use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\ArticleController;
 use App\Http\Controllers\Api\TeaserController;
+use App\Http\Controllers\Api\SettingsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -243,6 +244,12 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::post('teaser/order', 'order');
     Route::delete('teaser/{teaser}', 'destroy');
   });
+
+  // Publications
+  Route::controller(SettingsController::class)->group(function () {
+    Route::get('linklist', 'get');
+  });
+
 
 });
 

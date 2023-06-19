@@ -15,6 +15,7 @@ return new class extends Migration
     {
       Schema::create('projects', function (Blueprint $table) {
         $table->id();
+        $table->string('slug');
         $table->string('title');
         $table->text('text')->nullable();
         $table->text('info')->nullable();
@@ -24,6 +25,7 @@ return new class extends Migration
         $table->tinyInteger('order')->default(-1);
         $table->tinyInteger('publish')->default(1);
         $table->tinyInteger('feature')->default(0);
+        $table->tinyInteger('landing')->default(0);
         $table->unsignedBigInteger('type_id');
         $table->timestamps();
       });

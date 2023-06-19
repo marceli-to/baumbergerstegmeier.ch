@@ -1,8 +1,9 @@
 <?php
 namespace App\Models;
+use App\Models\Base;
 use Illuminate\Database\Eloquent\Model;
 
-class Teaser extends Model
+class Teaser extends Base
 {
   protected $fillable = [
     'type',
@@ -12,6 +13,11 @@ class Teaser extends Model
     'position',
     'column',
     'publish'
+  ];
+
+  protected $appends = [
+    'isProject',
+    'isArticle',
   ];
 
   /**
@@ -39,6 +45,16 @@ class Teaser extends Model
   public function article()
   {
     return $this->belongsTo(Article::class);
+  }
+
+  public function getIsArticleAttribute()
+  {
+    return $this->article_id !== null;
+  }
+
+  public function getIsProjectAttribute()
+  {
+    return $this->project_id !== null && $this->image_id !== null;
   }
 
 }

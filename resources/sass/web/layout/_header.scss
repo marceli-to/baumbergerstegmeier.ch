@@ -5,5 +5,17 @@
  */
 
 header.site-header {
+  background-color: $color-white;
+  height: $header-height;
 
+  @include bp-lg() {
+    height: $header-height-lg;
+  }
+
+  > div {
+    @extend %flex;
+    @extend %items-center;
+    @extend %justify-end;
+    @extend %pt-15x;
+  }
 }

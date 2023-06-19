@@ -153,11 +153,9 @@ export default {
       this.fetch();
     }
 
-    this.tinyConfig.link_list = [
-      {title: 'Jobs', value: window.location.origin + '/jobs'},
-      {title: 'Team', value: window.location.origin + '/team'},
-      {title: 'Kontakt', value: window.location.origin + '/kontakt'},
-    ];
+    this.axios.get(`/api/linklist`).then(response => {
+      this.tinyConfig.link_list = response.data;
+    });
   },
 
   methods: {

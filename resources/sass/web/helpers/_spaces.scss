@@ -142,3 +142,4 @@ $max: 100;
 %sm\:pl-0, .sm\:pl-0 { @include bp-sm() { padding-left: 0; } }
 %md\:pl-0, .md\:pl-0 { @include bp-md() { padding-left: 0; } }
 %lg\:pl-0, .lg\:pl-0 { @include bp-lg() { padding-left: 0; } }
+%xl\:pl-0, .xl\:pl-0 { @include bp-xl() { padding-left: 0; } }

@@ -5,6 +5,7 @@
  */
 
 body.auth {
+  @extend %text-base;
   background-color: #f9f9f9;
   height: 80vh;
   display: flex;
@@ -46,8 +47,8 @@ body.auth {
 
     h1 {
       @include font-bold();
-      @include font-size($fs-base);
       @extend %mb-20x;
+      @extend %text-lg;
     }
     
     .form-group {
@@ -70,8 +71,8 @@ body.auth {
     // Helpers
     .form-helper {
       @extend %ml-10x;
+      @extend %text-sm;
       color: $color-black;
-      @include font-size($fs-sm);
       text-decoration: underline;
       text-decoration-thickness: 1px;
       text-underline-offset: 3px;
@@ -87,6 +88,7 @@ body.auth {
     input[type=password] {
       @extend %pt-4x;
       @extend %pb-10x;
+      @extend %text-base;
       padding-left: 0;
       padding-right: 0;
       background-color: $color-white;
@@ -95,7 +97,6 @@ body.auth {
       border-radius: 0 !important;
       color: $color-black;
       display: block;
-      @include font-size($fs-base);
       width: 100%;
       -webkit-appearance: none;
 

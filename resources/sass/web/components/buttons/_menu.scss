@@ -1,0 +1,41 @@
+.btn-menu {
+  color: $color-black;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  height: 32px;
+  position: fixed;
+  left: $space-10x;
+  top: $space-15x;
+  width: 47px;
+  z-index: 500;
+
+  @include bp-xl() {
+    // 1366px (page max width) - 80px (padding on both sides)
+    left: calc((100% - 1286px)/2); 
+  }
+
+  .icon-menu-burger {
+    display: block;
+    height: 32px;
+    width: 47px;
+  }
+
+  .icon-menu-cross {
+    display: none;
+    height: 32px;
+    width: 32px;
+  }
+
+  &.is-active {
+    width: 32px;
+    
+    .icon-menu-burger {
+      display: none;
+    }
+
+    .icon-menu-cross {
+      display: block;
+    }
+  }
+}

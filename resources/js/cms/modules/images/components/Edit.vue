@@ -35,6 +35,10 @@
           <a :href="getSource(image, 'cache')" target="_blank" class="upload__preview">
             <img :src="getSource(image, 'thumbnail')" height="300" width="300">
           </a>
+          <span class="upload-item__labels" v-if="image.cover || image.worklist">
+            <pill v-if="image.cover">Cover</pill>
+            <pill v-if="image.worklist">Werkliste</pill>
+          </span>
           <div class="upload__actions">
             <image-actions 
               :image="image" 
@@ -208,6 +212,7 @@ import ImageEdit from "@/modules/images/mixins/edit";
 import ImageCrop from "@/modules/images/mixins/crop";
 import ImageUtils from "@/modules/images/mixins/utils";
 import RadioButton from "@/components/ui/RadioButton.vue";
+import Pill from "@/components/ui/Pill.vue";
 
 export default {
   
@@ -217,7 +222,8 @@ export default {
     DownloadIcon,
     Cropper,
     draggable,
-    RadioButton
+    RadioButton,
+    Pill
   },
 
   mixins: [ImageUtils, ImageEdit, ImageCrop],

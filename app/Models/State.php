@@ -1,8 +1,9 @@
 <?php
 namespace App\Models;
+use App\Models\Base;
 use Illuminate\Database\Eloquent\Model;
 
-class State extends Model
+class State extends Base
 {
   /**
    * The attributes that are mass assignable.
@@ -11,8 +12,8 @@ class State extends Model
    */
    
 	protected $fillable = [
-    'description',
     'slug',
+    'description',
     'order',
     'publish',
   ];
@@ -26,4 +27,17 @@ class State extends Model
     return $this->belongsToMany(Project::class);
   }
 
+  /**
+   * The published projects that belong to this state
+   */
+  
+  public function publishedProjects()
+  {
+    return $this->belongsToMany(Project::class)->where('publish', '=', '1');
+  }
+
+  public function featuredProjects()
+  {
+    return $this->belongsToMany(Project::class)->where('publish', '=', '1')->where('feature', '=', '1');
+  }
 }

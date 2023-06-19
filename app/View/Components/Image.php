@@ -47,13 +47,6 @@ class Image extends Component
   public $overlay; 
 
   /**
-   * Caption
-   *
-   * @var String
-   */
-  public $caption; 
-
-  /**
    * Classes
    *
    * @var String
@@ -72,7 +65,7 @@ class Image extends Component
    *
    * @return void
    */
-  public function __construct($image = NULL, $maxSizes = [], $width = NULL, $height = NULL, $visible = TRUE, $overlay = FALSE, $caption = NULL, $classes = '', $ratio = null)
+  public function __construct($image = NULL, $maxSizes = [], $width = NULL, $height = NULL, $visible = TRUE, $overlay = FALSE, $classes = '', $ratio = null)
   {
     $this->image = $image;
     $this->maxSizes = $maxSizes;
@@ -80,7 +73,6 @@ class Image extends Component
     $this->height = $height;
     $this->visible = $visible;
     $this->overlay = $overlay;
-    $this->caption = $caption;
     $this->classes = $classes;
     $this->ratio = $ratio;
   }

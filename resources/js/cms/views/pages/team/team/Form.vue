@@ -128,6 +128,9 @@ export default {
     if (this.$props.type == "edit") {
       this.fetch();
     }
+    this.axios.get(`/api/linklist`).then(response => {
+      this.tinyConfig.link_list = response.data;
+    });
   },
 
   methods: {

@@ -1,4 +1,27 @@
 @extends('layout.web')
 @section('content')
-<h1 class="text-xl xl:text-2xl leading-none mb-5x font-regular">1.4.23: Wir sind umgezogen</h1>
+@if ($coverProject)
+  <section class="hero">
+    <a href="{{ route('page.project.show', ['state' => $coverProject->states()->first()->slug, 'category' => $coverProject->categories()->first()->slug, 'project' => $coverProject->slug]) }}" title="{{ $coverProject->title }}">
+      <x-image 
+        :classes="'is-project'"
+        :maxSizes="[0 => 1200, 1000 => 1600]" 
+        :image="$coverProject->coverImage" 
+        width="1200" 
+        height="800">
+        <figcaption>
+          {{ $coverProject->title }}
+        </figcaption>
+      </x-image>
+    </a>
+  </section>
+@endif
+
+@if ($teasers)
+  <x-teasers.index>
+    @foreach ($teasers as $items)
+      <x-teasers.column :items="$items" />
+    @endforeach
+  </x-teasers.index>
+@endif
 @endsection

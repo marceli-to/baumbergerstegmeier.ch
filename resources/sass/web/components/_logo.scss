@@ -7,13 +7,9 @@
 .logo {
   display: block;
   height: auto;
-  width: 195px;
+  width: 240px;
 
-  @include bp-sm() {
-    width: 260px;
-  }
-  
-  @include bp-md() {
+  @include bp-lg() {
     width: 365px;
   }
   

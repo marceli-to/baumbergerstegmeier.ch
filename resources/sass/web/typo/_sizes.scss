@@ -5,38 +5,6 @@
  *
  */
 
-$fs-sm: (
-  null: (12px,1.33),
-  sm:   (15px,1.33),
-  md:   (15px,1.33),
-  lg:   (15px,1.33),
-  xl:   (15px,1.33),
-);
-
-$fs-base: (
-  null: (16px,1.25),
-  sm:   (18px,1.25),
-  md:   (18px,1.33),
-  lg:   (18px,1.33),
-  xl:   (18px,1.33),
-);
-
-// Menu
-$fs-menu: (
-  null: (25px,1.22),
-  sm:   (18px,1.22),
-  md:   (24px,1.22),
-  lg:   (24px,1.22),
-  xl:   (24px,1.22),
-);
-
-$fs-sub-menu: (
-  null: (20px,1.22),
-  sm:   (18px,1.22),
-  md:   (18px,1.22),
-  lg:   (18px,1.22),
-  xl:   (18px,1.22),
-);
 
 // Auth / Buttons
 $fs-btn: (
@@ -47,6 +15,33 @@ $fs-btn: (
   xl:   (16px,1.33),
 );
 
+// 15px
+%text-sm,
+.text-sm {
+  font-size: 0.938rem;
+}
+@each $bp, $width in $breakpoints {
+  %#{$bp}\:text-base, 
+  .#{$bp}\:text-base {
+    @media (min-width: $width) {
+      font-size: 0.938rem;
+    }
+  }
+}
+
+// 16px
+%text-base,
+.text-base {
+  font-size: 1rem;
+}
+@each $bp, $width in $breakpoints {
+  %#{$bp}\:text-base, 
+  .#{$bp}\:text-base {
+    @media (min-width: $width) {
+      font-size: 1rem;
+    }
+  }
+}
 
 // 18px
 %text-md,
@@ -57,7 +52,7 @@ $fs-btn: (
   %#{$bp}\:text-md, 
   .#{$bp}\:text-md {
     @media (min-width: $width) {
-      font-size: 1.125rem;
+      font-size: 1.156rem;
     }
   }
 }
@@ -90,7 +85,7 @@ $fs-btn: (
   }
 }
 
-// 32px, heading xl
+// 32px
 %text-2xl,
 .text-2xl {
   font-size: 2rem;

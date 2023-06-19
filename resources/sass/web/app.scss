@@ -30,8 +30,11 @@
 @import 'components/boxes/global';
 @import 'components/boxes/ratio';
 @import 'components/buttons/global';
+@import 'components/buttons/menu';
 @import 'components/buttons/primary';
+@import 'components/columns';
 @import 'components/icons/global';
+@import 'components/icons/arrow';
 @import 'components/headings/global';
 @import 'components/grids/layout';
 @import 'components/lists';
@@ -53,7 +56,10 @@
 // Layout
 @import 'layout/base';
 @import 'layout/header';
+@import 'layout/footer';
 @import 'layout/main';
+@import 'layout/section';
+@import 'layout/article';
 
 // Menu
 @import 'menu/global';

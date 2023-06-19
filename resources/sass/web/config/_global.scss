@@ -31,7 +31,7 @@ $bp-xs:   1023.999px;
 $bp-sm:   768px;
 $bp-md:  1024px;
 $bp-lg:  1280px;
-$bp-xl:  1440px;
+$bp-xl:  1366px;
 
 $breakpoints: (
   sm: $bp-sm,
@@ -44,15 +44,14 @@ $breakpoints: (
  * -------------------- */
 
 // standard screen size
-$page-max-width:  1440px;
+$page-max-width:  1366px;
 
 
 /* Header
  * -------------------- */
 
-$header-height:    110px;
-$header-height-sm: 160px;
-$header-height-md: 240px;
+$header-height:    140px;
+$header-height-lg: 185px;
 
 /* Grids
  * -------------------- */

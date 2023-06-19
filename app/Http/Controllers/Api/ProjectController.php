@@ -49,6 +49,7 @@ class ProjectController extends Controller
   public function store(ProjectStoreRequest $request)
   {
     $project = Project::create([
+      'slug' => 'null',
       'title' => $request->input('title'),
       'text' => $request->input('text'),
       'info' => $request->input('info'),
@@ -57,8 +58,11 @@ class ProjectController extends Controller
       'location' => $request->input('location'),
       'publish' => $request->input('publish'),
       'feature' => $request->input('feature'),
+      'landing' => $request->input('landing'),
       'type_id' => $request->input('type_id'),
     ]);
+    $project->slug = \AppHelper::slug($request->input('title')) . '-' . $project->id;
+    $project->save();
     $project->categories()->attach($request->input('category_ids'));
     $project->states()->attach($request->input('state_ids'));
     $this->handleImages($project, $request->input('images'));
@@ -75,6 +79,7 @@ class ProjectController extends Controller
   public function update(ProjectStoreRequest $request, Project $project)
   {
     $project = Project::findOrFail($project->id);
+    $project->slug = \AppHelper::slug($request->input('title')) . '-' . $project->id;
     $project->title = $request->input('title');
     $project->text = $request->input('text');
     $project->info = $request->input('info');
@@ -83,6 +88,7 @@ class ProjectController extends Controller
     $project->location = $request->input('location');
     $project->publish = $request->input('publish');
     $project->feature = $request->input('feature');
+    $project->landing = $request->input('landing');
     $project->type_id = $request->input('type_id');
     $project->save();
     $project->categories()->sync($request->input('category_ids'));

@@ -2,7 +2,6 @@
 
   const classes = {
     visible: 'is-visible',
-    block: 'is-block',
     active: 'is-active',
     hidden: 'is-hidden',
     current: 'is-current',
@@ -10,9 +9,9 @@
 
   const selectors = {
     menu: '[data-menu]',
-    browse: '[data-browse]',
+    btns: '[data-menu] a',
     btnMenu: '[data-menu-btn]',
-    btnMenuItemParent: '[data-menu-parent]',
+    btnMenuParent: '[data-menu-parent]',
   };
 
   const init = () => {
@@ -22,9 +21,9 @@
       btnMenu.addEventListener("click", toggle, false);
     }
 
-    const btnMenuItemParent = document.querySelectorAll(selectors.btnMenuItemParent);
-    if (btnMenuItemParent) {
-      btnMenuItemParent.forEach(function (btn) {
+    const btnMenuParent = document.querySelectorAll(selectors.btnMenuParent);
+    if (btnMenuParent) {
+      btnMenuParent.forEach(function (btn) {
         btn.addEventListener("click", function(){
           toggleItems(btn);
         }, false);
@@ -39,11 +38,6 @@
     const menu = document.querySelector(selectors.menu);
     menu.classList.toggle(classes.visible);
 
-    const browse = document.querySelector(selectors.browse);
-    if (browse) {
-      browse.classList.toggle(classes.hidden);
-    }
-
     if (!menu.classList.contains(classes.visible)) {
       hideAllItems();
     }
@@ -53,19 +47,53 @@
 
     if (btn.classList.contains(classes.active)) {
       btn.classList.remove(classes.active);
-      btn.nextElementSibling.classList.remove(classes.block);
+      btn.nextElementSibling.classList.remove(classes.current);
       return;
     }
+
+    if (btn.hasAttribute('data-menu-item-state')) {
+      hideParentStateItems(btn);
+    }
+    else if (btn.hasAttribute('data-menu-item-category')) {
+      hideParentCategoryItems(btn);
+    }
+    else {
+      hideAllItems();
+    }
+
     const ul = btn.nextElementSibling;
-    ul.classList.add(classes.block);
+    ul.classList.add(classes.current);
+
+    // remove is-active from all a inside data-menu
+    const btns = document.querySelectorAll(selectors.btns);
+    btns.forEach(function (b) {
+      b.classList.remove(classes.active);
+    });
+
     btn.classList.add(classes.active);
   };
 
   const hideAllItems = function(){
-    const uls = document.querySelectorAll(selectors.btnMenuItemParent + ' + ul');
+    const uls = document.querySelectorAll(selectors.btnMenuParent + ' + ul');
     uls.forEach(function (ul) {
       ul.previousElementSibling.classList.remove(classes.active);
-      ul.classList.remove(classes.block);
+      ul.classList.remove(classes.current);
+    });
+  };
+
+  const hideParentStateItems = function(btn){
+    const items = document.querySelectorAll('[data-menu-item-state]');
+    items.forEach(function (item) {
+      item.nextElementSibling.classList.remove(classes.current);
+      item.classList.remove(classes.active);
+    });
+  };
+
+  const hideParentCategoryItems = function(btn){
+    const items = document.querySelectorAll('[data-menu-item-category]');
+    items.forEach(function (item) {
+      item.nextElementSibling.classList.remove(classes.current);
+      item.classList.remove(classes.active);
     });
   };
 

@@ -1,0 +1,7 @@
+%icon-arrow-right-up,
+.icon-arrow-right-up {
+  @include background-default();
+  background-image: url($url-icons + 'arrow-right-up.svg');
+  background-size: 12px auto;
+  background-position: center right;
+}

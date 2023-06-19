@@ -13,6 +13,7 @@ input[type=time],
 textarea,
 select,
 button {
+  @extend %text-base;
 	background-color: transparent;
 	border-radius: 0;
 	border: none;
@@ -20,7 +21,6 @@ button {
 	color: $color-black;
 	display: block;
 	@include font-regular();
-  @include font-size($fs-sm);
 	padding: 0 0 $space-4x 0;
 	position: relative;
 	outline: none !important;

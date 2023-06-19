@@ -14,8 +14,23 @@
   width: 100%;
 }
 
-.is-responsive {
+picture {
+
   img {
     @extend %is-responsive;
+  }
+
+  &.is-teaser,
+  &.is-project {
+    figcaption {
+      @extend %pt-3x;
+      @extend %text-sm;
+      @extend %lg\:text-lg;
+      display: block;
+      min-height: 54px;
+      @include bp-lg() {
+        min-height: 80px;
+      }
+    }
   }
 }

@@ -73,6 +73,7 @@ strong, b {
 }
 
 p {
+  @extend %mb-15x;
 	&:last-child {
 		margin-bottom: 0 !important;
 	}

@@ -1,0 +1,33 @@
+article {
+
+  &.is-teaser {
+    @extend %mb-60x;
+
+    h3 {
+      @extend %text-md;
+      @extend %pb-4x;
+      border-bottom: 1px solid $color-black;
+    }
+
+    h2 {
+      @extend %mt-4x;
+      @extend %mb-30x;
+      @extend %text-2xl;
+      line-height: 1.1;
+    }
+
+    picture {
+      @extend %mb-8x;
+      @extend %lg\:mb-12x;
+      display: block;
+      max-width: 80%;
+    }
+
+    a.icon-arrow-right-up {
+      @extend %lg\:text-md;
+      @extend %pr-30x;
+      display: inline-block;
+    }
+  }
+
+}

@@ -62,14 +62,14 @@ $site-max-width: (
 // Header
 $header-height:     80px;
 $header-height-sm:  80px;
-$header-height-md:  100px;
-$header-height-md:  100px;
+$header-height-lg:  100px;
+$header-height-lg:  100px;
 
 $header-heights: (
   null:  $header-height,
   sm:    $header-height-sm,
-  md:    $header-height-md,
-  lg:    $header-height-md
+  md:    $header-height-lg,
+  lg:    $header-height-lg
 );
 
 $footer-height:     70px;

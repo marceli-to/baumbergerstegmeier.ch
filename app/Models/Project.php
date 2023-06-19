@@ -1,8 +1,9 @@
 <?php
 namespace App\Models;
+use App\Models\Base;
 use Illuminate\Database\Eloquent\Model;
 
-class Project extends Model
+class Project extends Base
 {
   /**
    * The attributes that are mass assignable.
@@ -11,6 +12,7 @@ class Project extends Model
    */
    
   protected $fillable = [
+    'slug',
     'title',
     'text',
     'info',
@@ -21,6 +23,7 @@ class Project extends Model
     'type_id',
     'publish',
     'feature',
+    'landing',
   ];
 
   /**
@@ -72,6 +75,29 @@ class Project extends Model
   public function publishedImages()
   {
     return $this->morphMany(Image::class, 'imageable')->where('publish', 1)->orderBy('order');
+  }
+
+  public function coverImage()
+  {
+    return $this->morphOne(Image::class, 'imageable')->where('publish', 1)->where('cover', 1);
+  }
+
+  /**
+   * Scope for featured projects
+   */
+
+  public function scopeFeatured($query)
+  {
+    return $query->where('feature', '=', '1')->where('publish', '=', '1');
+  }
+
+  /**
+   * Scope for landing page projects
+   */
+
+  public function scopeLanding($query)
+  {
+    return $query->where('landing', '=', '1')->where('publish', '=', '1')->where('feature', '=', '1');
   }
 
   /**

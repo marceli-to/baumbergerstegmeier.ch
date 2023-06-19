@@ -3,6 +3,10 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\OfficeController;
+use App\Http\Controllers\WorklistController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TestController;
 
 
@@ -19,6 +23,20 @@ Route::get('/logout', 'Auth\LoginController@logout');
 
 // Frontend - Home
 Route::get('/', [HomeController::class, 'index'])->name('page.home');
+
+Route::get('/projekte', [ProjectController::class, 'index'])->name('page.projects');
+Route::get('/projekte/{state:slug}/{category:slug}/{project:slug}', [ProjectController::class, 'show'])->name('page.project.show');
+
+Route::get('/werkliste', [WorklistController::class, 'index'])->name('page.worklist');
+
+Route::get('/buero/profil', [OfficeController::class, 'profile'])->name('page.office.profile');
+Route::get('/buero/team', [OfficeController::class, 'team'])->name('page.office.team');
+Route::get('/buero/publikationen', [OfficeController::class, 'publications'])->name('page.office.publications');
+Route::get('/buero/auszeichnungen', [OfficeController::class, 'awards'])->name('page.office.awards');
+Route::get('/buero/jobs', [OfficeController::class, 'jobs'])->name('page.office.jobs');
+
+Route::get('/kontakt', [ContactController::class, 'index'])->name('page.contact');
+
 
 // Frontend - url based images
 Route::get('/img/{template}/{filename}/{maxSize?}/{coords?}', [ImageController::class, 'getResponse']);

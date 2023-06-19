@@ -157,9 +157,12 @@ export default {
     }
     else {
       this.fetchCategories();
-
     }
     this.data.employee_id = this.$route.params.employee_id;
+    
+    this.axios.get(`/api/linklist`).then(response => {
+      this.tinyConfig.link_list = response.data;
+    });
   },
 
   methods: {

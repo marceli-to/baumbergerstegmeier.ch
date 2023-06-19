@@ -180,6 +180,10 @@ export default {
     if (this.$props.type == "create") {
       this.fetchTeamsAndCategories();
     }
+    
+    this.axios.get(`/api/linklist`).then(response => {
+      this.tinyConfig.link_list = response.data;
+    });
   },
 
   methods: {

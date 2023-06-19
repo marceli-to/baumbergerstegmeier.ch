@@ -103,7 +103,10 @@ class ProjectSeeder extends Seeder
 
     for($i = 0; $i <= 50; $i++)
     {
+      $landingAndFeature = random_int(0, 1);
+
       $project = Project::create([
+        'slug'  => 'null',
         'title' => $titles[$i],
         'text'  => $texts[random_int(0, 4)],
         'info'  => $info,
@@ -113,22 +116,20 @@ class ProjectSeeder extends Seeder
         'type_id' => $types->random()->id,
         'order' => $i,
         'publish' => 1,
-        'feature' => random_int(0, 1)
+        'feature' => $landingAndFeature,
+        'landing' => $landingAndFeature
       ]);
 
+      $project->slug = \AppHelper::slug($titles[$i]) . '-' . $project->id;
+      $project->save();
+
       // create many-to-many relationships for categories
-      $categories = Category::get()->random(rand(1, 3));
-      foreach($categories as $category)
-      {
-        $project->categories()->attach($category->id);
-      }
+      $categories = Category::get();
+      $project->categories()->attach($categories[random_int(0, count($categories) - 1)]->id);
 
       // create many-to-many relationships for states
-      $states = State::get()->random(rand(1, 3));
-      foreach($states as $state)
-      {
-        $project->states()->attach($state->id);
-      }
+      $states = State::get();
+      $project->states()->attach($states[random_int(0, count($states) - 1)]->id);
 
       // Create images
       for($ii = 1; $ii <= 8; $ii++)

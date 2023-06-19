@@ -1,0 +1,6 @@
+.hero {
+  @extend %md\:mb-36x;
+  img {
+    @extend %is-responsive;
+  }
+}
