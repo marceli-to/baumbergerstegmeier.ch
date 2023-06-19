@@ -1,0 +1,19 @@
+.project {
+  @extend %lg\:mt-25x;
+  position: relative;
+
+  h1 {
+    @extend %text-xl;
+    @extend %lg\:text-2xl;
+    @extend %mb-40x;
+    @extend %lg\:mb-20x;
+  }
+
+  h2 {
+    display: none;
+    @include bp-lg() {
+      display: block;
+    }
+  }
+
+}

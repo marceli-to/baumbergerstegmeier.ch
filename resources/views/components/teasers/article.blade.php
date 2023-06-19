@@ -1,6 +1,8 @@
 @props(['article'])
 <article class="is-teaser">
-  <h3>{{ $article->article->category }}</h3>
+  <header class="content-header">
+    <h3>{{ $article->article->category }}</h3>
+  </header>
   <h2>{{ $article->article->title }}</h2>
 
   <x-image 

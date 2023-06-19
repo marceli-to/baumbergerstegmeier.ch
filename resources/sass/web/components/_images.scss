@@ -20,8 +20,7 @@ picture {
     @extend %is-responsive;
   }
 
-  &.is-teaser,
-  &.is-project {
+  &.is-teaser {
     figcaption {
       @extend %pt-3x;
       @extend %text-sm;
@@ -31,6 +30,19 @@ picture {
       @include bp-lg() {
         min-height: 80px;
       }
+    }
+  }
+}
+
+a {
+  picture.is-teaser {
+    opacity: 1;
+    transition: opacity .12s ease-in-out;
+  }
+
+  &:hover {
+    picture.is-teaser {
+      opacity: .8;
     }
   }
 }

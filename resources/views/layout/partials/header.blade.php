@@ -4,9 +4,10 @@
       <x-icons.burger class="icon-menu-burger" />
       <x-icons.cross class="icon-menu-cross" />
     </a> 
-    @include('layout.partials.menu')
+    <x-menu />
     <a href="{{ route('page.home') }}" class="logo" title="{{ __('Home') }}">
       <x-icons.logo />
     </a>
+    <x-page-title />
    </div>
 </header>

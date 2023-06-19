@@ -7,6 +7,7 @@
 header.site-header {
   background-color: $color-white;
   height: $header-height;
+  position: relative;
 
   @include bp-lg() {
     height: $header-height-lg;
@@ -17,5 +18,27 @@ header.site-header {
     @extend %items-center;
     @extend %justify-end;
     @extend %pt-15x;
+  }
+
+  h2 {
+    @extend %text-lg;
+    display: none;
+    @include bp-lg() {
+      bottom: 10px;
+      display: block;
+      left: 0;
+      position: absolute;
+    }
+  }
+}
+
+header.content-header {
+  @extend %mb-4x;
+  @extend %pb-4x;
+  border-bottom: 1px solid $color-black;
+
+  h3 {
+    @extend %text-sm;
+    @extend %lg\:text-md;
   }
 }

@@ -4,13 +4,10 @@ article {
     @extend %mb-60x;
 
     h3 {
-      @extend %text-md;
-      @extend %pb-4x;
-      border-bottom: 1px solid $color-black;
+      @extend %\!text-md;
     }
-
+    
     h2 {
-      @extend %mt-4x;
       @extend %mb-30x;
       @extend %text-2xl;
       line-height: 1.1;

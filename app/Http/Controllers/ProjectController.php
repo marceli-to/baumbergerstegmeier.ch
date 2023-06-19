@@ -4,6 +4,7 @@ use App\Http\Controllers\BaseController;
 use App\Models\Project;
 use App\Models\Category;
 use App\Models\State;
+use App\Models\Teaser;
 use Illuminate\Http\Request;
 
 class ProjectController extends BaseController
@@ -30,9 +31,17 @@ class ProjectController extends BaseController
   public function show($state, $category, Project $project)
   {
     return view($this->viewPath . 'show', [
-      'project' => $project,
+      'project' => Project::with('coverImage')->find($project->id),
+      'teasers' => $this->getTeasers($project),
       'category' => Category::where('slug', $category)->first(),
       'state' => State::where('slug', $state)->first(),
     ]);
   }
+
+  private function getTeasers(Project $project)
+  {
+    $teasers = Teaser::with('image', 'project', 'article.publishedImage')->where('project_id', $project->id)->orderBy('position')->get();
+    return $teasers->groupBy('column')->values();
+  }
+
 }

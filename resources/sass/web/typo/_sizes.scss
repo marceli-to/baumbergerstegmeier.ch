@@ -48,6 +48,10 @@ $fs-btn: (
 .text-md {
   font-size: 1.125rem;
 }
+%\!text-md,
+.\!text-md {
+  font-size: 1.125rem !important;
+}
 @each $bp, $width in $breakpoints {
   %#{$bp}\:text-md, 
   .#{$bp}\:text-md {

@@ -1,10 +1,10 @@
 @extends('layout.web')
 @section('content')
 @if ($coverProject)
-  <section class="hero">
+  <section class="hero is-landing">
     <a href="{{ route('page.project.show', ['state' => $coverProject->states()->first()->slug, 'category' => $coverProject->categories()->first()->slug, 'project' => $coverProject->slug]) }}" title="{{ $coverProject->title }}">
       <x-image 
-        :classes="'is-project'"
+        :classes="'is-teaser'"
         :maxSizes="[0 => 1200, 1000 => 1600]" 
         :image="$coverProject->coverImage" 
         width="1200" 

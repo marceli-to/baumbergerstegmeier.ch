@@ -1,5 +1,9 @@
 .hero {
-  @extend %md\:mb-36x;
+
+  &.is-landing {
+    @extend %md\:mb-36x;
+  }
+
   img {
     @extend %is-responsive;
   }

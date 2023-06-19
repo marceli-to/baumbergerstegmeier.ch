@@ -33,7 +33,7 @@ class HomeController extends BaseController
   private function getCoverProject()
   {
     // Get a random project by scope 'landing', the image must have an image with 'cover'
-    $projects = Project::landing()->with('states', 'categories')->with('coverImage')->get();
+    $projects = Project::landing()->with('states', 'categories', 'coverImage')->get();
 
     // Filter out projects without a cover image
     $projects = $projects->filter(function ($project) {
