@@ -1,8 +1,9 @@
 <?php
 namespace App\Models;
+use App\Models\Base;
 use Illuminate\Database\Eloquent\Model;
 
-class JobArticle extends Model
+class JobArticle extends Base
 {
 
   /**

@@ -1,6 +1,7 @@
 <?php
 namespace Database\Seeders;
 use App\Models\Profile;
+use App\Models\Image;
 use Illuminate\Database\Seeder;
 
 class ProfileSeeder extends Seeder
@@ -18,5 +19,24 @@ class ProfileSeeder extends Seeder
       'title_bsemi' => 'BS+EMI Architektenpartner',
       'text_bsemi' => '<p>Die kontinuierliche Zusammenarbeit mit Edelaar Mosayebi Inderbitzin Architekten hat 2011 zur Gründung der BS+EMI Architektenpartner AG geführt. In dieser Zusammensetzung beschäftigen sich die sechs Partnerinnen und Partner, Peter Baumberger, Karin Stegmeier, Ron Edelaar, Elli Mosayebi, Christian Inderbitzin und seit 2017 Phillip Türich, mit grossmassstäblichen Projekten, Projektwettbewerben und städtebaulichen Studien. Die beiden Partnerbüros behalten weiterhin ihre Eigenständigkeit.</p>',
     ]);
+    
+    for($i = 1; $i <= 2; $i++)
+    {
+      $rand = rand(1,8);
+      $image = Image::create([
+        'uuid' => \Str::uuid(),
+        'name' => 'bas-' . $rand . '.jpg',
+        'original_name' => 'bas-' . $rand . '.jpg',
+        'orientation' => 'landscape',
+        'extension' => 'jpg',
+        'size' => 111562,
+        'ratio' => '580x386',
+        'imageable_id' => $record->id,
+        'imageable_type' => Profile::class,
+        'caption' => '',
+        'order' => $i,
+        'publish' => 1
+      ]);
+    }
   }
 }

@@ -1,8 +1,9 @@
 <?php
 namespace App\Models;
+use App\Models\Base;
 use Illuminate\Database\Eloquent\Model;
 
-class Publication extends Model
+class Publication extends Base
 {
   /**
    * The attributes that are mass assignable.

@@ -1,5 +1,11 @@
 <?php
 namespace App\Http\Controllers;
+use App\Models\Profile;
+use App\Models\Job;
+use App\Models\JobArticle;
+use App\Models\Award;
+use App\Services\Awards;
+use App\Models\Publication;
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 
@@ -14,7 +20,12 @@ class OfficeController extends BaseController
    */
   public function profile()
   {
-    return view($this->viewPath . 'profile');
+    return view(
+      $this->viewPath . 'profile', 
+      [
+        'data' => Profile::publish()->with('publishedImages')->first()
+      ]
+    );
   }
 
   /**
@@ -44,7 +55,12 @@ class OfficeController extends BaseController
    */
   public function awards()
   {
-    return view($this->viewPath . 'awards');
+    return view(
+      $this->viewPath . 'awards',
+      [
+        'data' => (new Awards())->get()
+      ]
+    );
   }
   
   /**
@@ -54,6 +70,12 @@ class OfficeController extends BaseController
    */
   public function jobs()
   {
-    return view($this->viewPath . 'jobs');
+    return view(
+      $this->viewPath . 'jobs', 
+      [
+        'data' => Job::publish()->with('publishedImages')->first(),
+        'articles' => JobArticle::publish()->orderBy('order')->get()
+      ]
+    );
   }
 }

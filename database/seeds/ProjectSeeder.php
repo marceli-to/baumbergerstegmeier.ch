@@ -16,7 +16,6 @@ class ProjectSeeder extends Seeder
    */
   public function run()
   {
-   
     $locations = [
       "Zürich",
       "Genf",
@@ -145,7 +144,9 @@ class ProjectSeeder extends Seeder
           'imageable_id' => $project->id,
           'imageable_type' => Project::class,
           'caption' => $titles[random_int(0, count($titles) - 1)],
-          'order' => $i,
+          'order' => $ii,
+          'cover' => $landingAndFeature ? 1 : 0,
+          'worklist' => $landingAndFeature ? 1 : 0,
           'publish' => 1
         ]);
       }

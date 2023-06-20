@@ -2,6 +2,13 @@
   @include bp-md() {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 15px;
+    grid-gap: 17px;
+  }
+}
+
+.content-columns {
+  @include bp-lg() {
+    columns: 200px 2;
+    column-gap: 17px;
   }
 }

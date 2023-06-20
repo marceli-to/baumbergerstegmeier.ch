@@ -15,7 +15,7 @@
 }
 
 picture {
-
+  display: block;
   img {
     @extend %is-responsive;
   }

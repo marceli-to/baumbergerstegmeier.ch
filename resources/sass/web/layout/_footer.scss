@@ -1,5 +1,6 @@
 footer.site-footer {
-  @extend %mt-20x;
+  @extend %mt-40x;
+  @extend %lg\:mt-80x;
   border-top: 1px solid $color-black;
 
   > div {

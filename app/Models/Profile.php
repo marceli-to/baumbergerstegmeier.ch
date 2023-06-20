@@ -1,8 +1,9 @@
 <?php
 namespace App\Models;
+use App\Models\Base;
 use Illuminate\Database\Eloquent\Model;
 
-class Profile extends Model
+class Profile extends Base
 {
   protected $table = 'profile';
 

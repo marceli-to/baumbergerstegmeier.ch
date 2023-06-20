@@ -24,7 +24,6 @@ article {
     picture {
       @extend %mb-8x;
       @extend %lg\:mb-12x;
-      display: block;
       max-width: 80%;
     }
   }

@@ -25,7 +25,8 @@ class AwardStoreRequest extends FormRequest
   {
     return [
       'year' => 'required|integer|min:1900|max:2100',
-      'title' => 'required',
+      'text' => 'required',
+      //'title' => 'required',
     ];
   }
 
@@ -46,10 +47,14 @@ class AwardStoreRequest extends FormRequest
         'field' => 'year',
         'error' => 'Jahr muss eine Zahl sein'
       ],
-      'title.required' => [
-        'field' => 'title',
+      'text.required' => [
+        'field' => 'text',
         'error' => 'Text wird benötigt'
       ],
+      // 'title.required' => [
+      //   'field' => 'title',
+      //   'error' => 'Titel wird benötigt'
+      // ],
     ];
   }
 }

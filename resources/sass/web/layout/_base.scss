@@ -12,7 +12,7 @@ html {
 
 body {
   @extend %inner-block;
-  @extend %word-break;
+  //@extend %word-break;
   @extend %text-md;
   @extend %lg\:text-lg;
 	background-color: $color-white;

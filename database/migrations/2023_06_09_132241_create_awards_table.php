@@ -16,9 +16,10 @@ return new class extends Migration
       Schema::create('awards', function (Blueprint $table) {
         $table->id();
         $table->year('year');
-        $table->text('title');
-        $table->string('subtitle')->nullable();
-        $table->string('link')->nullable();
+        // $table->text('title');
+        $table->text('text');
+        // $table->string('subtitle')->nullable();
+        // $table->string('link')->nullable();
         $table->tinyInteger('order')->default(-1);
         $table->tinyInteger('publish')->default(1);
         $table->timestamps();

@@ -4,12 +4,12 @@
       @foreach(config('pages') as $key => $page)
         <li>
           @if (isset($page['route']))
-            <a href="{{ route($page['route']) }}" title="{{ $page['title'] }}" class="text-2xl">
+            <a href="{{ route($page['route']) }}" title="{{ $page['title'] }}">
               {{ $page['title'] }}
             </a>
           @else
             
-            <a href="javascript:;" title="{{ $page['title'] }}" class="text-2xl {{ request()->routeIs('page.' . $key . '*') ? '' : '' }}" data-menu-parent>
+            <a href="javascript:;" title="{{ $page['title'] }}" class="{{ request()->routeIs('page.' . $key . '*') ? '' : '' }}" data-menu-parent>
               {{ $page['title'] }}
             </a>
             @if ($key == 'project')
@@ -17,7 +17,7 @@
                 <ul class="{{ request()->routeIs('page.' . $key . '*') ? 'is-current' : '' }}">
                   @foreach($menuProjects as $menuProjectState)
                     <li>
-                      <a href="javascript:;" title="{{ $menuProjectState['description'] }}" class="text-xl {{ isset($state) && $state->slug == $menuProjectState['slug'] ? '' : '' }}" data-menu-parent data-menu-item-state>
+                      <a href="javascript:;" title="{{ $menuProjectState['description'] }}" class="{{ isset($state) && $state->slug == $menuProjectState['slug'] ? '' : '' }}" data-menu-parent data-menu-item-state>
                         {{ $menuProjectState['description'] }}
                       </a>
                       @if ($menuProjectState['categories'])
@@ -51,7 +51,7 @@
               <ul class="{{ request()->routeIs('page.' . $key . '*') ? 'is-current' : '' }}">
                 @foreach($page['items'] as $key => $item)
                   <li>
-                    <a href="{{ route($item['route']) }}" title="{{ $item['title'] }}" class="text-xl {{ request()->routeIs($item['route']) ? 'is-active' : '' }}">
+                    <a href="{{ route($item['route']) }}" title="{{ $item['title'] }}" class="{{ request()->routeIs($item['route']) ? 'is-active' : '' }}">
                       {{ $item['title'] }}
                     </a>
                   </li>

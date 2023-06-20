@@ -13,7 +13,16 @@
           <input type="text" v-model="data.year" maxlength="4">
           <label-required />
         </div>
-        <div :class="[this.errors.title ? 'has-error' : '', 'form-row']">
+        <div :class="[this.errors.text ? 'has-error' : '', 'form-row']">
+          <label>Text</label>
+          <tinymce-editor
+            :api-key="tinyApiKey"
+            :init="tinyConfig"
+            v-model="data.text"
+          ></tinymce-editor>
+          <label-required />
+        </div>
+        <!-- <div :class="[this.errors.title ? 'has-error' : '', 'form-row']">
           <label>Titel</label>
           <textarea v-model="data.title"></textarea>
           <label-required />
@@ -30,7 +39,7 @@
             </a>
           </div>
           <input type="text" v-model="data.link">
-        </div>
+        </div> -->
       </div>
     </div>
 
@@ -109,6 +118,7 @@ export default {
       data: {
         id: null,
         year: null,
+        text: null,
         title: null,
         subtitle: null,
         link: null,
@@ -119,7 +129,8 @@ export default {
       // Validation
       errors: {
         year: false,
-        title: false,
+        text: false,
+        //title: false,
       },
 
       // Routes

@@ -40,9 +40,10 @@ class AwardController extends Controller
   {
     $award = Award::create([
       'year' => $request->input('year'),
-      'title' => $request->input('title'),
-      'subtitle' => $request->input('subtitle'),
-      'link' => $request->input('link'),
+      'text' => $request->input('text'),
+      // 'title' => $request->input('title'),
+      // 'subtitle' => $request->input('subtitle'),
+      // 'link' => $request->input('link'),
       'publish' => $request->input('publish')
     ]);
     $this->handleImages($award, $request->input('images'));
@@ -60,9 +61,10 @@ class AwardController extends Controller
   {
     $award = Award::findOrFail($award->id);
     $award->year = $request->input('year');
-    $award->title = $request->input('title');
-    $award->subtitle = $request->input('subtitle');
-    $award->link = $request->input('link');
+    $award->text = $request->input('text');
+    // $award->title = $request->input('title');
+    // $award->subtitle = $request->input('subtitle');
+    // $award->link = $request->input('link');
     $award->publish = $request->input('publish');
     $award->save();
     $this->handleImages($award, $request->input('images'));
