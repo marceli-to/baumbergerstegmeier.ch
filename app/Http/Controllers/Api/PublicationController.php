@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Publication;
 use App\Models\Image;
+use App\Models\File;
 use App\Http\Resources\DataCollection;
 use App\Http\Requests\PublicationStoreRequest;
 use Illuminate\Http\Request;
@@ -27,7 +28,7 @@ class PublicationController extends Controller
    */
   public function find(Publication $publication)
   {
-    return response()->json(['publication' => Publication::with('images')->find($publication->id)]);
+    return response()->json(['publication' => Publication::with('images', 'files')->find($publication->id)]);
   }
 
   /**
@@ -47,6 +48,7 @@ class PublicationController extends Controller
       'publish' => $request->input('publish')
     ]);
     $this->handleImages($publication, $request->input('images'));
+    $this->handleFiles($publication, $request->input('files'));
     return response()->json(['publicationId' => $publication->id]);
   }
 
@@ -68,6 +70,7 @@ class PublicationController extends Controller
     $publication->publish = $request->input('publish');
     $publication->save();
     $this->handleImages($publication, $request->input('images'));
+    $this->handleFiles($publication, $request->input('files'));
     return response()->json('successfully updated');
   }
 
@@ -133,4 +136,23 @@ class PublicationController extends Controller
       $i->save();
     }
   }
+
+  /**
+   * Handle associated files
+   *
+   * @param Publication $publication
+   * @param Array $files
+   * @return void
+   */  
+
+   protected function handleFiles(Publication $publication, $files = NULL)
+   {
+     foreach($files as $file)
+     {
+       $f = File::findOrFail($file['id']);
+       $f->fileable_id = $publication->id;
+       $f->fileable_type = Publication::class;
+       $f->save();
+     }
+   }
 }

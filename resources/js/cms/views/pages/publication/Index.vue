@@ -25,9 +25,6 @@
           >
           <div class="listing__item-body">
             {{ d.year }} <separator /> {{ d.title }}
-            <template v-if="d.subtitle">
-              <separator /> {{ d.subtitle }}
-            </template>
           </div>
           <list-actions 
             :id="d.id" 

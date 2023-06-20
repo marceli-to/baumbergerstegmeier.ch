@@ -6,11 +6,7 @@
   @include background-default();
   background-image: url($url-icons + 'arrow-right-up.svg');
   background-size: 12px auto;
-  background-position: top 6px right;
+  background-position: center right;
   display: inline-block;
   vertical-align: top;
-
-  @include bp-lg() {
-    background-position: top 8px right;
-  }
 }

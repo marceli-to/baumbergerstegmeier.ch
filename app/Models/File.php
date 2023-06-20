@@ -20,7 +20,6 @@ class File extends Model
     'size',
     'caption',
     'description',
-    'orientation',
     'order',
     'publish',
     'locked',
@@ -34,7 +33,7 @@ class File extends Model
   }
 
 	/**
-   * Scope for published images
+   * Scope for published files
    */
 
 	public function scopePublish($query)
@@ -43,7 +42,7 @@ class File extends Model
 	}
 
 	/**
-   * Scope for locked images
+   * Scope for locked files
    */
 
 	public function scopeLocked($query)

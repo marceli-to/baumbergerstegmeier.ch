@@ -34,4 +34,28 @@ class Publication extends Base
     return $this->morphMany(Image::class, 'imageable')->where('publish', 1)->orderBy('order');
   }
 
+  public function publishedImage()
+  {
+    return $this->morphOne(Image::class, 'imageable')->where('publish', 1)->orderBy('order');
+  }
+
+  /**
+   * The images that belong to this model.
+   */
+
+  public function files()
+  {
+    return $this->morphMany(File::class, 'fileable')->orderBy('order');
+  }
+
+  public function publishedFiles()
+  {
+    return $this->morphMany(File::class, 'fileable')->where('publish', 1)->orderBy('order');
+  }
+
+  public function publishedFile()
+  {
+    return $this->morphOne(File::class, 'fileable')->where('publish', 1)->orderBy('order');
+  }
+
 }

@@ -6,6 +6,7 @@ use App\Models\JobArticle;
 use App\Models\Award;
 use App\Services\Awards;
 use App\Models\Publication;
+use App\Services\Publications;
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 
@@ -45,7 +46,12 @@ class OfficeController extends BaseController
    */
   public function publications()
   {
-    return view($this->viewPath . 'publications');
+    return view(
+      $this->viewPath . 'publications',
+      [
+        'data' => (new Publications())->get()
+      ]
+    );
   }
   
   /**

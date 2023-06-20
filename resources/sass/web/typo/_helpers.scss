@@ -42,6 +42,7 @@
 .align-right { text-align: right; }
 .nobr { white-space: nowrap; }
 
+%font-regular,
 .font-regular {
   @include font-regular();
 }
@@ -54,6 +55,7 @@
   @include font-semi-bold();
 }
 
+%font-bold,
 .font-bold {
   @include font-bold();
 }

@@ -16,8 +16,9 @@ export default {
   style_formats: [{
     title: 'Text',
     items: [
-      { title: 'Überschrift 1', block : 'h1'},
       { title: 'Überschrift 2', block : 'h2'},
+      { title: 'Überschrift 3', block : 'h3'},
+      { title: 'Überschrift 4', block : 'h4'},
       { title: 'Trennung verhindern', inline : 'span', classes : 'no-word-break'},
     ],
   }],

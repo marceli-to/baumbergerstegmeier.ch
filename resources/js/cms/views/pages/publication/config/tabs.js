@@ -13,6 +13,13 @@ export default {
     error: false
   },
 
+  files: {
+    key: 'files',
+    label: 'Dateien',
+    active: false,
+    error: false
+  },
+
   settings: {
     key: 'settings',
     label: 'Einstellungen',

@@ -106,7 +106,7 @@ class AwardSeeder extends Seeder
 
     $award = Award::create([
       'year' => '2021',
-      'text' => '<p>best architects 22, Auszeichnung<br>Wohnhaus in Zürich</p>',
+      'text' => '<h3>best architects 22, Auszeichnung</h3><p>Wohnhaus in Zürich</p>',
       'publish' => 1,
     ]);
 
@@ -128,49 +128,49 @@ class AwardSeeder extends Seeder
 
     $award = Award::create([
       'year' => '2021',
-      'text' => '<p>best architects 21, Auszeichnung<br>Wohnsiedlung am Katzenbach IV/V</p>',
+      'text' => '<h3>best architects 21, Auszeichnung</h3><p>Wohnsiedlung am Katzenbach IV/V</p>',
       'publish' => 1,
     ]);
 
     $award = Award::create([
       'year' => '2021',
-      'text' => '<p>best architects 21, Auszeichnung<br>Wohnhaus Ottikerstrasse</p>',
+      'text' => '<h3>best architects 21, Auszeichnung</h3><p>Wohnhaus Ottikerstrasse</p>',
       'publish' => 1,
     ]);
 
     $award = Award::create([
       'year' => '2020',
-      'text' => '<p>best architects 22, Auszeichnung<br>Wohnhaus in Zürich</p>',
+      'text' => '<h3>best architects 22, Auszeichnung</h3><p>Wohnhaus in Zürich</p>',
       'publish' => 1,
     ]);
 
     $award = Award::create([
       'year' => '2020',
-      'text' => '<p>best architects 21, Auszeichnung<br>Wohnsiedlung am Katzenbach I</p>',
+      'text' => '<h3>best architects 21, Auszeichnung</h3><p>Wohnsiedlung am Katzenbach I</p>',
       'publish' => 1,
     ]);
 
     $award = Award::create([
       'year' => '2019',
-      'text' => '<p>best architects 21, Auszeichnung<br>Wohnhaus Ottikerstrasse</p>',
+      'text' => '<h3>best architects 21, Auszeichnung</h3><p>Wohnhaus Ottikerstrasse</p>',
       'publish' => 1,
     ]);
 
     $award = Award::create([
       'year' => '2018',
-      'text' => '<p>best architects 19, Auszeichnung<br>Wohnhaus in Zürich</p>',
+      'text' => '<h3>best architects 19, Auszeichnung</h3><p>Wohnhaus in Zürich</p>',
       'publish' => 1,
     ]);
 
     $award = Award::create([
       'year' => '2018',
-      'text' => '<p>best architects 19, Auszeichnung<br>Wohnsiedlung am Katzenbach IV</p>',
+      'text' => '<h3>best architects 19, Auszeichnung</h3><p>Wohnsiedlung am Katzenbach IV</p>',
       'publish' => 1,
     ]);
 
     $award = Award::create([
       'year' => '2017',
-      'text' => '<p>best architects 21, Auszeichnung<br>Wohnhaus Ottikerstrasse</p>',
+      'text' => '<h3>best architects 21, Auszeichnung</h3><p>Wohnhaus Ottikerstrasse</p>',
       'publish' => 1,
     ]);
     $rand = rand(1,8);
@@ -191,25 +191,25 @@ class AwardSeeder extends Seeder
 
     $award = Award::create([
       'year' => '2019',
-      'text' => '<p>best architects 18, Auszeichnung<br>Wohnhaus Pfungen</p>',
+      'text' => '<h3>best architects 18, Auszeichnung</h3><p>Wohnhaus Pfungen</p>',
       'publish' => 1,
     ]);
 
     $award = Award::create([
       'year' => '2016',
-      'text' => '<p>best architects 15, Auszeichnung<br>Primarschulhaus Neftenbach</p>',
+      'text' => '<h3>best architects 15, Auszeichnung</h3><p>Primarschulhaus Neftenbach</p>',
       'publish' => 1,
     ]);
 
     $award = Award::create([
       'year' => '2015',
-      'text' => '<p>Arc-Award 13 Sieger Sonderpreis Ingenieurleistung<br>Wohnsiedlung am Katzenbach IV/V</p>',
+      'text' => '<h3>Arc-Award 13 Sieger Sonderpreis Ingenieurleistung</h3><p>Wohnsiedlung am Katzenbach IV/V</p>',
       'publish' => 1,
     ]);
 
     $award = Award::create([
       'year' => '2015',
-      'text' => '<p>Die Besten 2012/Hochparterre, Nomination<br>Mehrfamilienhaus Segantinistrasse</p>',
+      'text' => '<h3>Die Besten 2012/Hochparterre, Nomination</h3><p>Mehrfamilienhaus Segantinistrasse</p>',
       'publish' => 1,
     ]);
     $rand = rand(1,8);

@@ -5,11 +5,7 @@
   @include background-default();
   background-image: url($url-icons + 'chevron-down.svg');
   background-size: 21px auto;
-  background-position: top 4px right;
+  background-position: center right;
   display: inline-block;
   vertical-align: top;
-
-  @include bp-lg() {
-    background-position: top 8px right;
-  }
 }

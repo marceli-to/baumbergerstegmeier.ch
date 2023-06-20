@@ -48,6 +48,10 @@
       </images>
     </div>
 
+    <div v-show="tabs.files.active">
+      <files :files="data.files"></files>
+    </div>
+
     <div v-show="tabs.settings.active">
       <div>
         <div class="form-row">
@@ -83,6 +87,7 @@ import tabsConfig from "@/views/pages/publication/config/tabs.js";
 import PageFooter from "@/components/ui/PageFooter.vue";
 import PageHeader from "@/components/ui/PageHeader.vue";
 import Images from "@/modules/images/Index.vue";
+import Files from "@/modules/files/Index.vue";
 
 export default {
   components: {
@@ -96,6 +101,7 @@ export default {
     PageFooter,
     PageHeader,
     Images,
+    Files,
     LabelInfo,
     TinymceEditor,
   },
@@ -119,6 +125,7 @@ export default {
         link: null,
         publish: 1,
         images: [],
+        files: [],
       },
 
       // Validation

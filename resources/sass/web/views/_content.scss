@@ -67,8 +67,51 @@
     @extend %mb-12x;
   }
 
+  h3 {
+    @extend %font-bold;
+  }
+
   article.award {
     @extend %mb-24x;
+
+    picture {
+      @extend %mb-4x;
+      @extend %lg\:mb-6x;
+    }
+  }
+}
+
+.content-publications {
+  @extend %content;
+
+  h2 {
+    @extend %mb-12x;
+  }
+
+  h3 {
+    @extend %font-bold;
+  }
+  
+  h4 {
+    @extend %text-md;
+    @extend %lg\:text-lg;
+
+    span {
+      @extend %mr-3x;
+      background-color: $color-black;
+      display: inline-block;
+      height: 1px;
+      line-height: 1 !important;
+      position: relative;
+      top: 12px;
+      width: 15px;
+      vertical-align: top;
+    }
+  }
+
+  article.publication {
+    @extend %mb-24x;
+    @extend %lg\:mb-32x;
 
     picture {
       @extend %mb-4x;
