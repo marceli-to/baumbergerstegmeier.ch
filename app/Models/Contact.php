@@ -1,8 +1,9 @@
 <?php
 namespace App\Models;
+use App\Models\Base;
 use Illuminate\Database\Eloquent\Model;
 
-class Contact extends Model
+class Contact extends Base
 {
   protected $table = 'contact';
 

@@ -1,0 +1,28 @@
+
+.content-project {
+  @extend %lg\:mt-25x;
+
+  h1 {
+    @extend %text-xl;
+    @extend %lg\:text-2xl;
+    @extend %mb-40x;
+    @extend %lg\:mb-20x;
+  }
+}
+
+.content-contact {
+  address {
+    @extend %pt-4x;
+    @extend %lg\:pt-0;
+    @extend %lg\:text-xl;
+    line-height: 1.35;
+    border-top: 1px solid $color-black;
+    @include bp-lg() {
+      border-top: none;
+      line-height: 1.2;
+    }
+  }
+}
+
+
+

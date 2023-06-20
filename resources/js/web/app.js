@@ -5,4 +5,5 @@ require('./bootstrap');
 // require('./modules/project.js');
 require('./modules/menu.js');
 require('./modules/touch.js');
+require('./modules/contact.js');
 

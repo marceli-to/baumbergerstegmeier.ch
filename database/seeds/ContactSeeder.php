@@ -14,7 +14,8 @@ class ContactSeeder extends Seeder
   {
     $record = Contact::create([
       'address' => '<p>Baumberger Stegmeier Architektur<br>Weststrasse 70, CH-8003 Zürich<br>info@baumbergerstegmeier.ch, +41 43 500 54 00',
-      'description' => '<p>Presse: <span class="icon-arrow-right-up"><a href="mailto:test@test.ch">Katharina Sommer</a></span></p><p><span class="icon-arrow-right-up"><a href="/jobs">Bewerbungen</a></span></p>'
+      'description' => '<p>Presse: <a href="mailto:test@test.ch" class="icon-arrow-right-up">Katharina Sommer</a></p><p><a href="/jobs" class="icon-arrow-right-up">Bewerbungen</a></span></p>',
+      'maps_uri' => 'https://goo.gl/maps/D9K5vEgjLQuWA4ncA',
     ]);
   }
 }

@@ -37,7 +37,7 @@
         :allowRatioSwitch="true"
         :imageRatioW="3" 
         :imageRatioH="2"
-        :ratioFormats="[{label: 'Hoch', w: 3, h: 2}]"
+        :ratioFormats="[{label: 'Quer', w: 3, h: 2}]"
         :images="data.images">
       </images>
     </div>

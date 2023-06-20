@@ -20,6 +20,9 @@ body {
   @include font-smoothing();
 	@include font-regular();
   line-height: 1.2;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 	position: relative;
 }
 

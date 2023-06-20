@@ -6,3 +6,11 @@
 
 h1, h2, h3, h4 {
 }
+
+h1.content-title,
+h2.content-title {
+  @extend %text-sm;
+  @extend %lg\:text-lg;
+  @extend %mb-8x;
+  line-height: 1 !important;
+}

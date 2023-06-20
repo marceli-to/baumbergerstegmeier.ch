@@ -8,6 +8,5 @@
     <a href="{{ route('page.home') }}" class="logo" title="{{ __('Home') }}">
       <x-icons.logo />
     </a>
-    <x-page-title />
    </div>
 </header>

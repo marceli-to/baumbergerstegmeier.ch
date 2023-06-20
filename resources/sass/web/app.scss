@@ -35,6 +35,7 @@
 @import 'components/columns';
 @import 'components/icons/global';
 @import 'components/icons/arrow';
+@import 'components/icons/chevron-down';
 @import 'components/headings/global';
 @import 'components/grids/layout';
 @import 'components/lists';
@@ -67,6 +68,6 @@
 
 // Views
 @import 'views/auth';
-@import 'views/project';
+@import 'views/content';
 
 // Vendor

@@ -20,7 +20,7 @@ picture {
     @extend %is-responsive;
   }
 
-  &.is-teaser {
+  &.teaser {
     figcaption {
       @extend %pt-3x;
       @extend %text-sm;
@@ -35,13 +35,14 @@ picture {
 }
 
 a {
-  picture.is-teaser {
+  
+  picture.teaser {
     opacity: 1;
     transition: opacity .12s ease-in-out;
   }
 
   &:hover {
-    picture.is-teaser {
+    picture.teaser {
       opacity: .8;
     }
   }

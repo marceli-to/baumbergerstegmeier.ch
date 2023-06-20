@@ -59,25 +59,33 @@
 
 %grid-gap,
 .grid-gap {
-  grid-gap: 16px;
+  grid-gap: 15px;
 }
 @each $bp, $width in $breakpoints {
   %#{$bp}\:grid-gap, 
   .#{$bp}\:grid-gap {
     @media (min-width: $width) {
-      grid-gap: 16px;
+      grid-gap: 15px;
     }
   }
 }
 
 %grid-column-gap,
 .grid-column-gap {
-  grid-column-gap: 16px;
+  grid-column-gap: 15px;
+}
+@each $bp, $width in $breakpoints {
+  %#{$bp}\:grid-column-gap, 
+  .#{$bp}\:grid-column-gap {
+    @media (min-width: $width) {
+      grid-column-gap: 15px;
+    }
+  }
 }
 
 %grid-row-gap,
 .grid-row-gap {
-  grid-row-gap: 16px;
+  grid-row-gap: 15px;
 }
 
 %grid-gap-none,

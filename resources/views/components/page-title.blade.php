@@ -1,4 +1,5 @@
-<h2>
+@props(['class' => null, 'type' => 'h1'])
+<{{ $type }} class="content-title {{ $class }}">
   @if (request()->routeIs('page.project.show'))
     Projekte
   @elseif (request()->routeIs('page.worklist'))
@@ -16,4 +17,4 @@
   @elseif (request()->routeIs('page.contact'))
     Kontakt
   @endif
-</h2>
+</{{ $type }}>

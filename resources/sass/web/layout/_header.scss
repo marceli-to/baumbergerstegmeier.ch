@@ -19,19 +19,9 @@ header.site-header {
     @extend %justify-end;
     @extend %pt-15x;
   }
-
-  h2 {
-    @extend %text-lg;
-    display: none;
-    @include bp-lg() {
-      bottom: 10px;
-      display: block;
-      left: 0;
-      position: absolute;
-    }
-  }
 }
 
+%content-header,
 header.content-header {
   @extend %mb-4x;
   @extend %pb-4x;

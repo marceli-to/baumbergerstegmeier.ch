@@ -1,16 +1,17 @@
 @extends('layout.web')
 @section('content')
+<x-page-title :class="'hidden !lg:block'" :type="'h2'" />
 @if ($project->coverImage)
-  <section class="hero hidden !lg:block">
+  <x-hero class="hidden !lg:block">
     <x-image 
       :maxSizes="[0 => 1200, 1000 => 1600]" 
       :image="$project->coverImage" 
       width="1200" 
       height="800">
     </x-image>
-  </section>
+  </x-hero>
 @endif
-<section class="project">
+<section class="content-project">
   <header class="content-header">
     <h3>{{ $category->description }}</h3>
   </header>

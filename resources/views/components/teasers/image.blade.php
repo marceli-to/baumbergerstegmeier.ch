@@ -1,6 +1,6 @@
 @props(['image'])
 <x-image 
-  :classes="'is-teaser'"
+  :classes="'teaser'"
   :maxSizes="[0 => 600, 1000 => 900]" 
   :image="$image->image" 
   width="1200" 

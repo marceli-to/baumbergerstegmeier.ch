@@ -15,6 +15,6 @@ class ContactController extends BaseController
    */
   public function index()
   {
-    return view($this->viewPath . 'index');
+    return view($this->viewPath . 'index', ['contact' => Contact::publish()->with('publishedImages')->first()]);
   }
 }

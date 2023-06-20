@@ -1,7 +1,16 @@
 %icon-arrow-right-up,
 .icon-arrow-right-up {
+  @extend %text-md;
+  @extend %lg\:text-lg;
+  @extend %pr-30x;
   @include background-default();
   background-image: url($url-icons + 'arrow-right-up.svg');
   background-size: 12px auto;
-  background-position: center right;
+  background-position: top 6px right;
+  display: inline-block;
+  vertical-align: top;
+
+  @include bp-lg() {
+    background-position: top 8px right;
+  }
 }

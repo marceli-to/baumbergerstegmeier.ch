@@ -1,7 +1,11 @@
 article {
 
-  &.is-teaser {
+  &.teaser {
     @extend %mb-60x;
+
+    header {
+      @extend %content-header;
+    }
 
     h3 {
       @extend %\!text-md;
@@ -13,17 +17,15 @@ article {
       line-height: 1.1;
     }
 
+    p {
+      line-height: 1.35;
+    }
+
     picture {
       @extend %mb-8x;
       @extend %lg\:mb-12x;
       display: block;
       max-width: 80%;
-    }
-
-    a.icon-arrow-right-up {
-      @extend %lg\:text-md;
-      @extend %pr-30x;
-      display: inline-block;
     }
   }
 
