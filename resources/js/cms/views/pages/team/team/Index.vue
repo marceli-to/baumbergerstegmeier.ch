@@ -4,10 +4,10 @@
   <div v-if="isFetched" class="is-loaded">
     <page-header>
       <h2>Teams</h2>
-      <router-link :to="{ name: 'team-create'}" class="btn-add has-icon">
+      <!-- <router-link :to="{ name: 'team-create'}" class="btn-add has-icon">
         <plus-icon size="16"></plus-icon>
         <span>Hinzufügen</span>
-      </router-link>
+      </router-link> -->
     </page-header>
     <div class="listing is-grouped" v-if="data.length">
       <draggable 

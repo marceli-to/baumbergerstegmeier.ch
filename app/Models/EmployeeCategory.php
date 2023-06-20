@@ -11,6 +11,7 @@ class EmployeeCategory extends Model
    */
    
 	protected $fillable = [
+    'slug',
     'name',
     'publish',
   ];

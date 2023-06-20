@@ -14,6 +14,7 @@ class TeamSeeder extends Seeder
   public function run()
   {
     $record = Team::create([
+      'slug' => 'baumberger-stegmeier-architekten',
       'name' => 'Baumberger Stegmeier Architektur',
     ]);
 
@@ -37,6 +38,7 @@ class TeamSeeder extends Seeder
     }
 
     $record = Team::create([
+      'slug' => 'bs-emi-architektenpartner',
       'name' => 'BS+EMI Architektenpartner',
     ]);
 

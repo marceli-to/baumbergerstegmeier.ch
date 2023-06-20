@@ -1,8 +1,9 @@
 <?php
 namespace App\Models;
+use App\Models\Base;
 use Illuminate\Database\Eloquent\Model;
 
-class Team extends Model
+class Team extends Base
 {
   /**
    * The attributes that are mass assignable.
@@ -11,7 +12,7 @@ class Team extends Model
    */
    
 	protected $fillable = [
-    'name', 'order', 'publish',
+    'slug', 'name', 'order', 'publish',
   ];
 
   /*
@@ -34,5 +35,10 @@ class Team extends Model
   public function publishedImages()
   {
     return $this->morphMany(Image::class, 'imageable')->where('publish', 1)->orderBy('order');
+  }
+
+  public function employees()
+  {
+    return $this->hasMany(Employee::class);
   }
 }

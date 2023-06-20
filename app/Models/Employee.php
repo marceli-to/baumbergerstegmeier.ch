@@ -1,8 +1,9 @@
 <?php
 namespace App\Models;
+use App\Models\Base;
 use Illuminate\Database\Eloquent\Model;
 
-class Employee extends Model
+class Employee extends Base
 {
   /**
    * The attributes that are mass assignable.
@@ -20,7 +21,6 @@ class Employee extends Model
     'team_id',
     'employee_category_id'
   ];
-
 
   /*
   |--------------------------------------------------------------------------
@@ -55,6 +55,11 @@ class Employee extends Model
   public function cv()
   {
     return $this->hasMany(Cv::class);
+  }
+
+  public function publishedCv()
+  {
+    return $this->hasMany(Cv::class)->where('publish', 1);
   }
 
 }

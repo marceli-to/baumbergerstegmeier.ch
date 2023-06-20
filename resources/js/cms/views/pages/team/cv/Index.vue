@@ -61,7 +61,7 @@
             :id="d.id" 
             :record="d"
             :routes="{edit: 'cv-edit'}"
-            @toggle="toggle($event)"
+            @toggle="toggleCategorized(d.category.id, $event)"
             @destroy="destroy($event)">
           </list-actions>
         </div>
@@ -112,6 +112,7 @@ export default {
         get: '/api/cv',
         store: '/api/cv',
         order: '/api/cv/order',
+        toggle: '/api/cv/state',
         delete: '/api/cv',
       },
 
@@ -153,6 +154,17 @@ export default {
         this.isLoading = false;
       });
     },
+
+    toggleCategorized(categoryId, id) {
+      this.isLoading = true;
+      this.axios.get(`${this.routes.toggle}/${id}`).then(response => {
+        const idx = this.dataCategorized[categoryId].findIndex(x => x.id === id);
+        this.dataCategorized[[categoryId]][idx].publish = response.data;
+        this.$notify({ type: "success", text: this.messages.updated });
+        this.isLoading = false;
+      });
+    },
+
 
     destroy(id) {
       if (confirm(this.messages.confirm)) {

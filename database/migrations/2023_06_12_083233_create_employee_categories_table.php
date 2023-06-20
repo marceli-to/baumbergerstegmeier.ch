@@ -15,6 +15,7 @@ return new class extends Migration
     {
       Schema::create('employee_categories', function (Blueprint $table) {
         $table->id();
+        $table->string('slug', 100)->nullable();
         $table->string('name');
         $table->tinyInteger('publish')->default(1);
         $table->timestamps();

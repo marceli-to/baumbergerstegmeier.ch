@@ -1,0 +1,12 @@
+%icon-file,
+.icon-file {
+  @extend %text-md;
+  @extend %lg\:text-lg;
+  @extend %pl-25x;
+  @include background-default();
+  background-image: url($url-icons + 'file.svg');
+  background-size: 13px auto;
+  background-position: center left;
+  display: inline-block;
+  vertical-align: top;
+}

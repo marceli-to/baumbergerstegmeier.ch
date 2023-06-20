@@ -7,6 +7,8 @@ use App\Models\Award;
 use App\Services\Awards;
 use App\Models\Publication;
 use App\Services\Publications;
+use App\Models\Team;
+use App\Services\Teams;
 use App\Http\Controllers\BaseController;
 use Illuminate\Http\Request;
 
@@ -36,7 +38,12 @@ class OfficeController extends BaseController
    */
   public function team()
   {
-    return view($this->viewPath . 'team');
+    return view(
+      $this->viewPath . 'team',
+      [
+        'data' => (new Teams())->get()
+      ]
+    );
   }
 
   /**

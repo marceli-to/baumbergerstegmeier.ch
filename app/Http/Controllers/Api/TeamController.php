@@ -39,6 +39,7 @@ class TeamController extends Controller
   public function store(TeamStoreRequest $request)
   {
     $team = Team::create([
+      'slug' => Str::slug($request->input('name')),
       'name' => $request->input('name'),
       'publish' => $request->input('publish')
     ]);

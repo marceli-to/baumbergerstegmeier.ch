@@ -29,7 +29,14 @@
                     </h4>
                   @endif
                   @if ($publication->description)
-                    <div>{!! nl2br($publication->description) !!}</div>
+                    {!! nl2br($publication->description) !!}
+                  @endif
+                  @if ($publication->publishedFile)
+                  <div>
+                      <a href="/storage/uploads/{{ $publication->publishedFile->name }}" target="_blank" class="icon-file" title="Download {{ $publication->publishedFile->caption }}">
+                        {{ $publication->publishedFile->caption }}
+                      </a>
+                  </div>
                   @endif
                 </article>
               @endforeach

@@ -38,6 +38,7 @@ class EmployeeCategoryController extends Controller
   public function store(EmployeeCategoryStoreRequest $request)
   {
     $employeeCategory = EmployeeCategory::create([
+      'slug' => Str::slug($request->input('name')),
       'name' => $request->input('name'),
       'publish' => $request->input('publish')
     ]);

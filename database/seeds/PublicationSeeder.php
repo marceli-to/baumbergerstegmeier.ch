@@ -28,7 +28,7 @@ class PublicationSeeder extends Seeder
       'size' => 111562,
       'fileable_id' => $record->id,
       'fileable_type' => Publication::class,
-      'caption' => '',
+      'caption' => 'Das Ideale Heim 2/2023',
       'order' => 1,
       'publish' => 1
     ]);
@@ -37,7 +37,7 @@ class PublicationSeeder extends Seeder
       'year' => '2021',
       'title' => 'Das farbigste Schulhaus der Schweiz',
       'subtitle' => 'Sekundarschulhaus Chliriet',
-      'description' => 'Andres Herzog Tagesanzeiger,17.12.2022',
+      'description' => 'Andres Herzog Tagesanzeiger, 17.12.2022',
     ]);
     $rand = rand(1,8);
     $image = Image::create([
@@ -50,7 +50,7 @@ class PublicationSeeder extends Seeder
       'ratio' => '580x386',
       'imageable_id' => $record->id,
       'imageable_type' => Publication::class,
-      'caption' => '',
+      'caption' => 'Tagesanzeiger, 17.12.2022',
       'order' => 1,
       'publish' => 1
     ]);
@@ -82,7 +82,7 @@ class PublicationSeeder extends Seeder
       'size' => 111562,
       'fileable_id' => $record->id,
       'fileable_type' => Publication::class,
-      'caption' => '',
+      'caption' => 'Soziologie und Architektur 11/2017',
       'order' => 1,
       'publish' => 1
     ]);
@@ -146,7 +146,7 @@ class PublicationSeeder extends Seeder
       'ratio' => '580x386',
       'imageable_id' => $record->id,
       'imageable_type' => Publication::class,
-      'caption' => '',
+      'caption' => 'Hochpartere 9/2016',
       'order' => 1,
       'publish' => 1
     ]);
@@ -164,7 +164,7 @@ class PublicationSeeder extends Seeder
       'size' => 111562,
       'fileable_id' => $record->id,
       'fileable_type' => Publication::class,
-      'caption' => '',
+      'caption' => 'Architekturmagazin 9/2017',
       'order' => 1,
       'publish' => 1
     ]);
@@ -217,7 +217,7 @@ class PublicationSeeder extends Seeder
       'size' => 111562,
       'fileable_id' => $record->id,
       'fileable_type' => Publication::class,
-      'caption' => '',
+      'caption' => 'Urbanistik Magazin, 2023',
       'order' => 1,
       'publish' => 1
     ]);
