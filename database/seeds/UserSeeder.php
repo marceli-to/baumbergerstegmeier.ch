@@ -29,6 +29,13 @@ class UserSeeder extends Seeder
         'email_verified_at' => \Carbon\Carbon::now(),
         'password' => \Hash::make('jUd1tH5tUtz'),
       ],
+      [
+        'firstname' => 'Katharina',
+        'name'  => 'Sommer',
+        'email' => 'sommer@baumbergerstegmeier.ch',
+        'email_verified_at' => \Carbon\Carbon::now(),
+        'password' => \Hash::make('k4th4rin@SomM3R'),
+      ],
     ];
 
     foreach($users as $user)

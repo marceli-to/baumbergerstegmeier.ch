@@ -131,7 +131,7 @@ class ProjectSeeder extends Seeder
       $project->states()->attach($states[random_int(0, count($states) - 1)]->id);
 
       // Create images
-      for($ii = 1; $ii <= 8; $ii++)
+      for($ii = 1; $ii <= 13; $ii++)
       {
         $image = Image::create([
           'uuid' => \Str::uuid(),
