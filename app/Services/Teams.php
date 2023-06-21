@@ -27,7 +27,7 @@ class Teams
 
     // BSEMI Leadership
     $bsemi_leadership_category = EmployeeCategory::where('slug', 'partner')->first();
-    $bsemi_leadership = $bsemi_team->id ? Employee::with('team', 'employeeCategory')->where('team_id', $bsemi_team->id)->where('employee_category_id', $bsemi_leadership_category->id)->orderBy('order')->get() : [];
+    $bsemi_leadership = $bsemi_team ? Employee::with('team', 'employeeCategory')->where('team_id', $bsemi_team->id)->where('employee_category_id', $bsemi_leadership_category->id)->orderBy('order')->get() : [];
 
     // BSEMI Employees
     $bsemi_employees_category = EmployeeCategory::where('slug', 'mitarbeitende')->first();
