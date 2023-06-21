@@ -13,7 +13,7 @@ class Teams
 
     // BSA Leadership
     $bsa_leadership_category = EmployeeCategory::where('slug', 'partner')->first();
-    $bsa_leadership = Employee::with('team', 'employeeCategory')->where('team_id', $bsa_team->id)->where('employee_category_id', $bsa_leadership_category->id)->orderBy('order')->get();
+    $bsa_leadership = $bsa_team ? Employee::with('team', 'employeeCategory')->where('team_id', $bsa_team->id)->where('employee_category_id', $bsa_leadership_category->id)->orderBy('order')->get() : [];
 
     // BSA Employees
     $bsa_employees_category = EmployeeCategory::where('slug', 'mitarbeitende')->first();
