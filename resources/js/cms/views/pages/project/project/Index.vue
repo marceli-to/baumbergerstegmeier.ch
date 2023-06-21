@@ -27,6 +27,11 @@
               {{ d.title }}<template v-if="d.location">, {{ d.location }}</template>
               <separator /> 
               {{ d.year }}
+              <template v-if="d.feature">
+                <separator /> 
+                <star-icon size="18" color="#f0ad4e"></star-icon>
+              </template>
+  
             </div>
             <list-actions 
               :id="d.id" 
@@ -49,7 +54,7 @@
   </div>
   </template>
   <script>
-  import { PlusIcon, EditIcon, Trash2Icon } from 'vue-feather-icons';
+  import { PlusIcon, EditIcon, Trash2Icon, StarIcon } from 'vue-feather-icons';
   import ButtonBack from "@/components/ui/ButtonBack.vue";
   import Helpers from "@/mixins/Helpers";
   import ListActions from "@/components/ui/ListActions.vue";
@@ -67,6 +72,7 @@
       PlusIcon,
       EditIcon,
       Trash2Icon,
+      StarIcon,
       ButtonBack,
       PageFooter,
       PageHeader,

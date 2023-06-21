@@ -53,7 +53,7 @@
       <div class="mt-32x">
         @if ($data->imprint)
           <div>
-            <a href="javascript:;" class="icon-chevron-down" title="Impressum anzeigen/verbergen" data-btn-toggle>Impressum</a>
+            <a href="javascript:;" class="icon-chevron" title="Impressum anzeigen/verbergen" data-btn-toggle>Impressum</a>
             <div class="hidden pt-16x mb-20x lg:mb-40x text-sm lg:text-md" data-hidden>
               {!! $data->imprint !!}
             </div>
@@ -61,8 +61,8 @@
         @endif
         @if ($data->privacy)
           <div>
-            <a href="javascript:;" class="icon-chevron-down" title="Datenschutzerklärung anzeigen/verbergen" data-btn-toggle>Datenschutzerklärung</a>
-            <div class="hidden pt-16x text-sm lg:text-md max-w-50" data-hidden>
+            <a href="javascript:;" class="icon-chevron" title="Datenschutzerklärung anzeigen/verbergen" data-btn-toggle>Datenschutzerklärung</a>
+            <div class="hidden pt-16x text-sm lg:text-md md:max-w-50" data-hidden>
               {!! $data->privacy !!}
             </div>
           </div>

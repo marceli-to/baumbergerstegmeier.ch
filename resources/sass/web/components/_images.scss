@@ -16,8 +16,23 @@
 
 picture {
   display: block;
+
   img {
     @extend %is-responsive;
+  }
+
+  &.aspect-ratio-3\/2 {
+    img {
+      aspect-ratio: 3 / 2;
+      object-fit: cover;
+    }
+  }
+
+  &.aspect-ratio-2\/3 {
+    img {
+      aspect-ratio: 2 / 3;
+      object-fit: cover;
+    }
   }
 
   &.teaser {

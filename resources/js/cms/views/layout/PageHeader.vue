@@ -28,17 +28,11 @@
       </a>
     </header>
     <ul>
-      <!-- <li>
-        <router-link :to="{name: 'home'}">
+     <li>
+        <router-link :to="{name: 'homepage-dashboard'}">
           <span>Startseite</span>
         </router-link>
       </li>
-      <li>
-        <router-link :to="{name: 'project-overview'}">
-          <span>Projekte</span>
-        </router-link>
-      </li> -->
-
       <li>
         <router-link :to="{name: 'project-dashboard'}">
           <span>Projekte</span>

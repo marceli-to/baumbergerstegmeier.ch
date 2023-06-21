@@ -34,6 +34,33 @@
     @extend %mb-40x;
     @extend %lg\:mb-20x;
   }
+
+  .project-text {
+    @extend %my-25x;
+    line-height: 1.35;
+    @include bp-lg() {
+      line-height: 1.3;
+    }
+  }
+
+  .project-info {
+    @extend %pt-6x;
+    @extend %lg\:pt-0;
+    @extend %my-25x;
+    @extend %lg\:mt-0;
+    @extend %text-sm;
+    border-top: 1px solid $color-black;
+    line-height: 1.25;
+
+    @include bp-lg() {
+      border-top: 0;
+    }
+    
+    h2 {
+      @extend %text-lg;
+      @extend %mb-25x;
+    }
+  }
 }
 
 .content-contact {

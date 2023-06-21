@@ -122,22 +122,30 @@
   border: none;
 }
 
-%max-w-25,
-.max-w-25 {
+%max-w-25, .max-w-25 {
   max-width: 25%;
 }
 
-%max-w-50,
-.max-w-50 {
+%max-w-50, .max-w-50 {
   max-width: 50%;
 }
 
-%max-w-75,
-.max-w-75 {
+%md\:max-w-50, .md\:max-w-50 {
+  @include bp-md() {
+    max-width: 50%;
+  }
+}
+
+%lg\:max-w-50, .lg\:max-w-50 {
+  @include bp-lg() {
+    max-width: 50%;
+  }
+}
+
+%max-w-75, .max-w-75 {
   max-width: 50%;
 }
 
-%max-w-none,
-.max-w-none {
+%max-w-none, .max-w-none {
   max-width: auto;
 }

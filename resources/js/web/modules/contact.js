@@ -3,6 +3,7 @@
   const classes = {
     hidden: 'hidden',
     block: 'block',
+    active: 'is-active',
   };
 
   const selectors = {
@@ -23,6 +24,7 @@
     // if the content is already visible, hide it
     if (!btn.target.nextElementSibling.classList.contains(classes.hidden)) {
       btn.target.nextElementSibling.classList.add(classes.hidden);
+      btn.target.classList.remove(classes.active);
       return;
     }
 
@@ -35,6 +37,9 @@
     // show the one next to the button if it's hidden
     const content = btn.target.nextElementSibling;
     content.classList.remove(classes.hidden);
+
+    // add active class to the button
+    btn.target.classList.add(classes.active);
   };
 
   init();

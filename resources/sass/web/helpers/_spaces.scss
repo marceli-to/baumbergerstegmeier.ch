@@ -56,9 +56,9 @@ $max: 100;
 .lg\:mx-0 { @include bp-lg() { margin-left: 0; margin-right: 0; } }
 
 %mt-0, .mt-0 { margin-top: 0; }
-.sm\:mt-0 { @include bp-sm() { margin-top: 0; } }
-.md\:mt-0 { @include bp-md() { margin-top: 0; } }
-.lg\:mt-0 { @include bp-lg() { margin-top: 0; } }
+%sm\:mt-0, .sm\:mt-0 { @include bp-sm() { margin-top: 0; } }
+%md\:mt-0, .md\:mt-0 { @include bp-md() { margin-top: 0; } }
+%lg\:mt-0, .lg\:mt-0 { @include bp-lg() { margin-top: 0; } }
 
 %mr-0, .mr-0 { margin-right: 0; }
 .sm\:mr-0 { @include bp-sm() { margin-right: 0; } }
