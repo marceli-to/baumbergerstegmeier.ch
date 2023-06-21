@@ -119,10 +119,10 @@
     </div>
   @endif
 
-  <article class="team mt-80x">
-    <h2>{{ $data['former_employees']['category']->name }}</h2>
-  </article>
   @if (isset($data['former_employees']['employees']))
+    <article class="team mt-80x">
+      <h2>{{ $data['former_employees']['category']->name }}</h2>
+    </article>
     <div class="lg:grid lg:grid-cols-12 lg:grid-column-gap">
       @foreach($data['former_employees']['employees'] as $employees)
         <div class="lg:span-6">
