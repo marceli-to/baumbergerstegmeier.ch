@@ -4,7 +4,7 @@
   <x-hero :class="'lg:mt-25x'">
     <a href="{{ route('page.project.show', ['state' => $coverProject->states()->first()->slug, 'category' => $coverProject->categories()->first()->slug, 'project' => $coverProject->slug]) }}" title="{{ $coverProject->title }}">
       <x-image 
-        :classes="'teaser'"
+        :classes="'aspect-ratio-3/2 teaser'"
         :maxSizes="[0 => 1200, 1000 => 1600]" 
         :image="$coverProject->coverImage" 
         width="1200" 
