@@ -29,7 +29,7 @@
       @endforeach
     @else
       <article class="lg:span-6">
-        {!! $data->text !!}
+        {!! $data->text ?? '' !!}
       </article>
     @endif
   </div>
