@@ -31,7 +31,7 @@ class Teams
 
     // BSEMI Employees
     $bsemi_employees_category = EmployeeCategory::where('slug', 'mitarbeitende')->first();
-    $bsemi_employees = $bsemi_team->id ? Employee::with('team', 'employeeCategory')->where('team_id', $bsemi_team->id)->where('employee_category_id', $bsemi_employees_category->id)->orderBy('name', 'ASC')->get() : [];
+    $bsemi_employees = $bsemi_team ? Employee::with('team', 'employeeCategory')->where('team_id', $bsemi_team->id)->where('employee_category_id', $bsemi_employees_category->id)->orderBy('name', 'ASC')->get() : [];
 
     // chunk employees into 2 columns
     $bsemi_employees = $bsemi_employees ? $bsemi_employees->chunk(ceil($bsemi_employees->count() / 2)) : [[], []];
