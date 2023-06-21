@@ -119,7 +119,7 @@
     </div>
   @endif
 
-  @if (isset($data['former_employees']['employees']))
+  @if (isset($data['former_employees']['employees']) && count($data['former_employees']['employees']) > 0))
     <article class="team mt-80x">
       <h2>{{ $data['former_employees']['category']->name }}</h2>
     </article>
