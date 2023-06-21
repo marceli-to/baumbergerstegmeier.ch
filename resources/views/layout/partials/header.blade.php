@@ -4,7 +4,7 @@
       <x-icons.burger class="icon-menu-burger" />
       <x-icons.cross class="icon-menu-cross" />
     </a> 
-    <x-menu />
+    @include('layout.partials.menu')
     <a href="{{ route('page.home') }}" class="logo" title="{{ __('Home') }}">
       <x-icons.logo />
     </a>
