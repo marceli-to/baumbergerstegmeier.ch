@@ -4,7 +4,7 @@
 <section class="content-teams">
 
   <article class="team">
-    <h2>{{ $data['bsa_team']->name }}</h2>
+    <h2>{{ isset($data['bsa_team']->name) }}</h2>
   </article>
   <div class="lg:grid lg:grid-cols-12 lg:grid-column-gap">
     <div class="lg:span-6">
