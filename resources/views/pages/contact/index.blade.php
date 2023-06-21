@@ -49,9 +49,9 @@
   </div>
   <div class="lg:span-12 mt-40x lg:mt-16x">
     {!! $data->description ?? '' !!}
-    @if ($data->imprint || $data->privacy)
+    @if (isset($data->imprint) || isset($data->privacy))
       <div class="mt-32x">
-        @if ($data->imprint)
+        @if (isset($data->imprint))
           <div>
             <a href="javascript:;" class="icon-chevron" title="Impressum anzeigen/verbergen" data-btn-toggle>Impressum</a>
             <div class="hidden pt-16x mb-20x lg:mb-40x text-sm lg:text-md" data-hidden>
@@ -59,7 +59,7 @@
             </div>
           </div>
         @endif
-        @if ($data->privacy)
+        @if (isset($data->privacy))
           <div>
             <a href="javascript:;" class="icon-chevron" title="Datenschutzerklärung anzeigen/verbergen" data-btn-toggle>Datenschutzerklärung</a>
             <div class="hidden pt-16x text-sm lg:text-md md:max-w-50" data-hidden>
