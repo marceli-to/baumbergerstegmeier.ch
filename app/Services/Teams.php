@@ -20,7 +20,7 @@ class Teams
     $bsa_employees = $bsa_team ? Employee::with('team', 'employeeCategory')->where('team_id', $bsa_team->id)->where('employee_category_id', $bsa_employees_category->id)->orderBy('name', 'ASC')->get() : [];
     
     // chunk employees into 2 columns
-    $bsa_employees = $bsa_employees->chunk(ceil($bsa_employees->count() / 2));
+    $bsa_employees = $bsa_employees ? $bsa_employees->chunk(ceil($bsa_employees->count() / 2)) : [[], []];
 
     // BSEMI
     $bsemi_team = Team::with('publishedImages')->where('slug', 'bs-emi-architektenpartner')->first();
@@ -34,7 +34,7 @@ class Teams
     $bsemi_employees = Employee::with('team', 'employeeCategory')->where('team_id', $bsemi_team->id)->where('employee_category_id', $bsemi_employees_category->id)->orderBy('name', 'ASC')->get();
 
     // chunk employees into 2 columns
-    $bsemi_employees = $bsemi_employees->chunk(ceil($bsemi_employees->count() / 2));
+    $bsemi_employees = $bsemi_employees ? $bsemi_employees->chunk(ceil($bsemi_employees->count() / 2)) : [[], []];
 
     // Former employees
     $former_employees_category = EmployeeCategory::where('slug', 'ehemalige')->first();
