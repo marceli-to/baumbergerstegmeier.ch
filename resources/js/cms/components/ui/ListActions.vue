@@ -1,6 +1,12 @@
 <template>
   <div class="listing__item-action">
 
+    <div v-if="hasPreview">
+      <a :href="`${routes.preview}`" class="feather-icon" target="_blank">
+        <arrow-up-right-icon size="18"></arrow-up-right-icon>
+      </a>
+    </div>
+
     <div v-if="hasTeasers">
       <router-link
         :to="{name: routes.teaser, params: { id: id }}"
@@ -83,6 +89,7 @@ import {
   Trash2Icon,
   CopyIcon,
   DownloadCloudIcon,
+  ArrowUpRightIcon,
   SettingsIcon,
   LayersIcon,
   UserIcon,
@@ -106,6 +113,7 @@ export default {
     CopyIcon,
     DownloadCloudIcon,
     SettingsIcon,
+    ArrowUpRightIcon,
     LayersIcon,
     UserIcon,
     UsersIcon,
@@ -155,6 +163,11 @@ export default {
     },
 
     hasTeasers: {
+      type: Boolean,
+      default: false
+    },
+
+    hasPreview: {
       type: Boolean,
       default: false
     },

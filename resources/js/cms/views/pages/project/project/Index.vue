@@ -37,7 +37,8 @@
               :id="d.id" 
               :record="d"
               :hasTeasers="true"
-              :routes="{edit: 'project-edit', teaser: 'project-teaser'}"
+              :hasPreview="d.feature ? true : false"
+              :routes="{edit: 'project-edit', teaser: 'project-teaser', preview: '/projekt/vorschau/' + d.id}"
               @toggle="toggle($event)"
               @destroy="destroy($event)">
             </list-actions>

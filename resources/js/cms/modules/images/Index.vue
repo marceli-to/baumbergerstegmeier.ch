@@ -18,6 +18,7 @@
         :hasPreviewState="$props.hasPreviewState"
         :ratioW="$props.imageRatioW"
         :ratioH="$props.imageRatioH"
+        :allowFreeCrop="$props.allowFreeCrop"
         :allowRatioSwitch="$props.allowRatioSwitch"
         :ratioFormats="$props.ratioFormats"
       ></image-edit>
@@ -51,6 +52,11 @@ export default {
     },
 
     allowRatioSwitch: {
+      type: Boolean,
+      default: false,
+    },
+
+    allowFreeCrop: {
       type: Boolean,
       default: false,
     },

@@ -38,6 +38,22 @@ class ProjectController extends BaseController
     ]);
   }
 
+  /**
+   * Show a project in preview mode
+   * @param Project $project
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function preview(Project $project)
+  {
+    return view($this->viewPath . 'show', [
+      'project' => Project::with('coverImage')->find($project->id),
+      'teasers' => $this->getTeasers($project),
+      'category' => Category::first(),
+      'state' => State::first(),
+    ]);
+  }
+
   private function getTeasers(Project $project)
   {
     $teasers = Teaser::with('image', 'project', 'article.publishedImage')->where('project_id', $project->id)->orderBy('position')->get();

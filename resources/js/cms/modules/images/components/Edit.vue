@@ -82,7 +82,7 @@
             <a 
                 href="javascript:;" 
                 @click.prevent="changeRatio(null, null)" 
-                :class="`btn-cropper-format`">
+                :class="`btn-cropper-format`" v-if="$props.allowFreeCrop">
                 Frei
               </a>
             </div>
@@ -253,6 +253,11 @@ export default {
     allowRatioSwitch: {
       type: Boolean,
       default: true,
+    },
+
+    allowFreeCrop: {
+      type: Boolean,
+      default: false,
     },
 
     hasPreview: {

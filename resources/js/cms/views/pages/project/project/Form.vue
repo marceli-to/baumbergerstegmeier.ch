@@ -56,7 +56,7 @@
         :imageRatioW="3" 
         :imageRatioH="2"
         :imageStates="[{ label: 'Werkliste', key: 'worklist'}, { label: 'Cover', key: 'cover'}]"
-        :ratioFormats="[{label: 'Quer', w: 3, h: 2}]"
+        :ratioFormats="[{label: 'Quer', w: 3, h: 2}, {label: 'Hoch', w: 2, h: 3}]"
         :images="data.images">
       </images>
     </div>
