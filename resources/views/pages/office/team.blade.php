@@ -62,7 +62,7 @@
   </div>
 
   <article class="team mt-80x">
-    <h2>{{ $data['bsemi_team']->name }}</h2>
+    <h2>{{ isset($data['bsemi_team']) && $data['bsemi_team']->name) }}</h2>
   </article>
   <div class="lg:grid lg:grid-cols-12 lg:grid-column-gap">
     <div class="lg:span-6">
