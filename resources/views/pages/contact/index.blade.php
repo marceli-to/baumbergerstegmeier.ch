@@ -48,7 +48,7 @@
     @endif
   </div>
   <div class="lg:span-12 mt-40x lg:mt-16x">
-    {!! $data->description !!}
+    {!! $data->description ?? '' !!}
     @if ($data->imprint || $data->privacy)
       <div class="mt-32x">
         @if ($data->imprint)
