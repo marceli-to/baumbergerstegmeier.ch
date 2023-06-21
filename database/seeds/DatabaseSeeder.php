@@ -38,6 +38,7 @@ class DatabaseSeeder extends Seeder
       $this->call([
         \Database\Seeders\UserSeeder::class,
         \Database\Seeders\CvCategorySeeder::class,
+        \Database\Seeders\EmployeeCategorySeeder::class,
         \Database\Seeders\StateSeeder::class,
         \Database\Seeders\CategorySeeder::class,
         \Database\Seeders\TypeSeeder::class,
