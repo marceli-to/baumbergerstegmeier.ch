@@ -20,7 +20,7 @@
 @if ($teasers)
   <x-teasers.index class="md:mt-36x">
     @foreach ($teasers as $items)
-      <x-teasers.column :items="$items" />
+      <x-teasers.column :items="$items" :type="'home'" />
     @endforeach
   </x-teasers.index>
 @endif

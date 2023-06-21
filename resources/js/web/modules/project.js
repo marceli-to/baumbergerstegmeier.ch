@@ -1,58 +1,97 @@
 (function () {
 
+  const states = {
+    hasChange: false,
+  };
+
   const classes = {
     active: 'is-active',
-    visible: 'is-visible',
+    hidden: 'hidden'
   };
 
   const selectors = {
-    btnToggleInfo: '[data-btn-project-info]',
-    wrapperInfo: '[data-project-info]',
-    browseBtn: '[data-browse-btn]',
-    browsePreview: '[data-browse-preview]',
+    btnToggleAll: '[data-btn-toggle-both]',
+    btnInfo: '[data-btn-toggle-info]',
+    btnCredits: '[data-btn-toggle-credits]',
+    info: '[data-info]',
+    credits: '[data-credits]',
   };
 
   const init = () => {
-    // Get all buttons
-    const btnToggleInfo = document.querySelectorAll(selectors.btnToggleInfo);
 
-    // Add event listener to all buttons to toggle info
-    btnToggleInfo.forEach((btn) => {
-      btn.addEventListener('click', function() {
-        toggleInfo(btn);
-      }, false);
-    });
+    const btnToggleAll = document.querySelector(selectors.btnToggleAll);
+    if (btnToggleAll) {
+      btnToggleAll.addEventListener("click", toggle, false);
+    }
 
-    // Get all browse buttons
-    const browseBtn = document.querySelectorAll(selectors.browseBtn);
+    const btnInfo = document.querySelector(selectors.btnInfo);
+    if (btnInfo) {
+      btnInfo.addEventListener("click", toggleInfo, false);
+    }
 
-    // Add event listener (mouse over, mouse out) to all browse buttons
-    browseBtn.forEach((btn) => {
-      btn.addEventListener('mouseover', function() {
-        showPreview(btn);
-      }, false);
-      btn.addEventListener('mouseout', function() {
-        hidePreview(btn);
-      }, false);
-    });
+    const btnCredits = document.querySelector(selectors.btnCredits);
+    if (btnCredits) {
+      btnCredits.addEventListener("click", toggleCredits, false);
+    }
+   
   };
 
-  const toggleInfo = function(btn){
-    btn.classList.toggle(classes.active);
-    const wrapperInfo = document.querySelector(selectors.wrapperInfo);
-    wrapperInfo.classList.toggle(classes.visible);
+  const toggle = function(){
+    states.hasChange = true;
+
+    const btnToggleAll = document.querySelector(selectors.btnToggleAll);
+    btnToggleAll.classList.toggle(classes.active);
+
+    const btnInfo = document.querySelector(selectors.btnInfo);
+    btnInfo.classList.toggle(classes.active);
+
+    const btnCredits = document.querySelector(selectors.btnCredits);
+    btnCredits.classList.toggle(classes.active);
+
+    const info = document.querySelector(selectors.info);
+    info.classList.toggle(classes.hidden);
+
+    const credits = document.querySelector(selectors.credits);
+    credits.classList.toggle(classes.hidden);
   };
 
-  const showPreview = function(btn){
-    const preview = document.querySelector(selectors.browsePreview);
-    preview.classList.add(classes.visible);
-    preview.innerHTML = btn.title;
+  const toggleInfo = function(){
+    states.hasChange = true;
+
+    const btnInfo = document.querySelector(selectors.btnInfo);
+    btnInfo.classList.toggle(classes.active);
+
+    const btnToggleAll = document.querySelector(selectors.btnToggleAll);
+    btnToggleAll.classList.toggle(classes.active);
+
+    const info = document.querySelector(selectors.info);
+    info.classList.toggle(classes.hidden);
   };
 
-  const hidePreview = function(btn){
-    const preview = document.querySelector(selectors.browsePreview);
-    preview.classList.remove(classes.visible);
-    preview.innerHTML = '';
+  const toggleCredits = function(){
+    states.hasChange = true;
+
+    const btnCredits = document.querySelector(selectors.btnCredits);
+    btnCredits.classList.toggle(classes.active);
+
+    const credits = document.querySelector(selectors.credits);
+    credits.classList.toggle(classes.hidden);
+  };
+
+  const reset = function(){
+    states.hasChange = false;
+
+    const btnToggleAll = document.querySelector(selectors.btnToggleAll);
+    btnToggleAll.classList.remove(classes.active);
+
+    const btnInfo = document.querySelector(selectors.btnInfo);
+    btnInfo.classList.remove(classes.active);
+
+    const info = document.querySelector(selectors.info);
+    info.classList.add(classes.hidden);
+
+    const credits = document.querySelector(selectors.credits);
+    credits.classList.add(classes.hidden);
   };
 
   init();

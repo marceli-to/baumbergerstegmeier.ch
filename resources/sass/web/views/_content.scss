@@ -37,14 +37,22 @@
 
   .project-text {
     @extend %my-25x;
+    @extend %lg\:mt-40x;
+    @extend %lg\:mb-0;
     line-height: 1.35;
     @include bp-lg() {
       line-height: 1.3;
     }
+
+    .project-text__info {
+      @extend %lg\:pb-100x;
+    }
   }
 
-  .project-info {
+  .project-credits {
     @extend %pt-6x;
+    @extend %pb-50x;
+    @extend %lg\:pb-100x;
     @extend %lg\:pt-0;
     @extend %my-25x;
     @extend %lg\:mt-0;

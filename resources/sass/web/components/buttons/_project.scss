@@ -1,0 +1,34 @@
+
+.btn-info {
+  @extend %lg\:text-2xl;
+  align-items: center;
+  display: none;
+  justify-content: flex-end;
+  height: 36px;
+  line-height: 1 !important;
+  width: 67px;
+
+  @include bp-lg() {
+    display: flex;
+  }
+
+  span {
+    display: block;
+  }
+
+  .icon-project-cross {
+    @extend %mr-12x;
+    display: none;
+    height: 25px;
+    width: 25px;
+  }
+
+  &.is-active {
+    span {
+      display: none;
+    }
+    .icon-project-cross {
+      display: block;
+    }
+  }
+}
