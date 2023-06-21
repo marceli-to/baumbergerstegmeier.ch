@@ -36,6 +36,13 @@ class UserSeeder extends Seeder
         'email_verified_at' => \Carbon\Carbon::now(),
         'password' => \Hash::make('k4th4rin@SomM3R'),
       ],
+      [
+        'firstname' => 'Carla',
+        'name'  => 'Petraschke',
+        'email' => 'petraschke@bivgrafik.ch',
+        'email_verified_at' => \Carbon\Carbon::now(),
+        'password' => \Hash::make('c4RL@P3tr4sChK3'),
+      ],
     ];
 
     foreach($users as $user)
@@ -48,7 +55,6 @@ class UserSeeder extends Seeder
         'password' => $user['password'],
         'role' => 'admin'
       ]);
-
     }
   }
 }
