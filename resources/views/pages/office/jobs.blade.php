@@ -2,7 +2,7 @@
 @section('content')
 <x-page-title />
 <section class="content-jobs">
-  @if ($data->publishedImages)
+  @if (isset($data->publishedImages))
     <div class="lg:grid lg:grid-cols-12 lg:grid-column-gap mb-20x lg:mb-40x">
       @foreach($data->publishedImages as $image)
         <div class="lg:span-6 {{ $loop->index == 1 ? 'hidden !lg:block' : ''}}">
