@@ -17,21 +17,21 @@
     </div>
   @endif
   
-  @if ($data->title_bsa)
+  @if (isset($data->title_bsa))
     <h2>{{ $data->title_bsa }}</h2>
   @endif
 
-  @if ($data->text_bsa)
+  @if (isset($data->text_bsa))
     <article class="content-columns">
       {!! $data->text_bsa !!}
     </article>
   @endif
 
-  @if ($data->title_bsemi)
+  @if (isset($data->title_bsemi))
     <h2>{{ $data->title_bsemi }}</h2>
   @endif
 
-  @if ($data->text_bsemi)
+  @if (isset($data->text_bsemi))
     <article class="lg:grid lg:grid-cols-12 lg:grid-column-gap">
       <div class="lg:span-6">{!! $data->text_bsemi !!}</div>
     </article>
