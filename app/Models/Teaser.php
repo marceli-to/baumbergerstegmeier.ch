@@ -51,6 +51,20 @@ class Teaser extends Base
     return $this->belongsTo(Article::class);
   }
 
+  /**
+   * Scopes (home, project)
+   */
+
+  public function scopeHome($query)
+  {
+    return $query->where('type', 'home');
+  }
+
+  public function scopeProject($query)
+  {
+    return $query->where('type', 'project');
+  }
+
   public function getIsArticleAttribute()
   {
     return $this->article_id !== null;

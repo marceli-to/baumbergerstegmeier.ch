@@ -56,8 +56,11 @@ class ProjectController extends BaseController
 
   private function getTeasers(Project $project)
   {
-    $items = Teaser::with('image', 'project', 'article.publishedImage')->where('project_id', $project->id)->orderBy('position')->get();
-    dd($items);
+    $items = Teaser::project()
+              ->with('image', 'project', 'article.publishedImage')
+              ->where('project_id', $project->id)
+              ->orderBy('position')
+              ->get();
     $data = [];
     foreach($items as $item)
     {
