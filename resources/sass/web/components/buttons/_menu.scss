@@ -10,6 +10,10 @@
   width: 47px;
   z-index: 500;
 
+  @include bp-lg() {
+    top: $space-20x;
+  }
+
   @include bp-xl() {
     // 1366px (page max width) - 80px (padding on both sides)
     left: calc((100% - 1286px)/2); 
