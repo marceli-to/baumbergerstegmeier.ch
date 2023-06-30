@@ -18,6 +18,7 @@ header.site-header {
     @extend %items-center;
     @extend %justify-end;
     @extend %pt-15x;
+    @extend %lg\:pt-20x;
   }
 }
 
