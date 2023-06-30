@@ -19,9 +19,15 @@
 
 @if ($teasers)
   <x-teasers.index class="md:mt-36x">
-    @foreach ($teasers as $items)
-      <x-teasers.column :items="$items" :type="'home'" />
-    @endforeach
+    @if (isset($teasers['col-0']))
+      <x-teasers.column :items="$teasers['col-0']" :type="'home'" />
+    @endif
+    @if (isset($teasers['col-1']))
+      <x-teasers.column :items="$teasers['col-1']" :type="'home'" />
+    @endif
+    @if (isset($teasers['col-2']))
+      <x-teasers.column :items="$teasers['col-2']" :type="'home'" />
+    @endif
   </x-teasers.index>
 @endif
 @endsection

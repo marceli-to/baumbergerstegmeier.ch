@@ -51,11 +51,12 @@ class HomeController extends BaseController
   private function getTeasers()
   {
     $items = Teaser::publish()->with('image', 'project', 'article.publishedImage')->where('type', 'home')->orderBy('position')->get();
-    $items->groupBy(function ($item) {
-      return (int) $item->column;
-    })->values();
-    dd($items->all());
-    return $items;
+    $data = [];
+    foreach($items as $item)
+    {
+      $data['col-' . $item->column][] = $item;
+    } 
+    return $data;
   }
 
 }
