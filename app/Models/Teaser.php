@@ -60,7 +60,7 @@ class Teaser extends Base
     return $query->where('type', 'home');
   }
 
-  public function scopeProject($query)
+  public function scopeProjects($query)
   {
     return $query->where('type', 'project');
   }

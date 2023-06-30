@@ -56,7 +56,7 @@ class ProjectController extends BaseController
 
   private function getTeasers(Project $project)
   {
-    $items = Teaser::project()
+    $items = Teaser::projects()
               ->with('image', 'project', 'article.publishedImage')
               ->where('project_id', $project->id)
               ->orderBy('position')
