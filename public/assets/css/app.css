@@ -31748,26 +31748,26 @@ nav.site ul a, article.teaser h2,
 
 @media (min-width: 768px) {
   .sm\:text-2xl {
-    font-size: 2.1875rem;
+    font-size: 2rem;
   }
 }
 
 @media (min-width: 1024px) {
   .md\:text-2xl {
-    font-size: 2.1875rem;
+    font-size: 2rem;
   }
 }
 
 @media (min-width: 1280px) {
   .content-project h1, .content-teams h2, .content-publications h2, .content-awards h2, .content-jobs h2, .content-profile h2, .btn-info,
 .lg\:text-2xl {
-    font-size: 2.1875rem;
+    font-size: 2rem;
   }
 }
 
 @media (min-width: 1366px) {
   .xl\:text-2xl {
-    font-size: 2.1875rem;
+    font-size: 2rem;
   }
 }
 
