@@ -54,8 +54,9 @@ class HomeController extends BaseController
     $data = [];
     foreach($items as $item)
     {
-      $data['col-' . $item->column][] = $item;
-    } 
+      $data['' . $item->column.''][] = $item;
+    }
+    dd($data);
     return $data;
   }
 
