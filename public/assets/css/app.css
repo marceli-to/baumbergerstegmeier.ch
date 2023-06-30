@@ -34281,7 +34281,7 @@ nav.site.is-visible {
 }
 @media only screen and (min-width: 1280px) {
   nav.site {
-    width: 33.3333%;
+    width: calc(33.3333% - ((100% - 1286px)/2));
   }
 }
 @media only screen and (min-width: 1366px) {

@@ -24,7 +24,7 @@ nav.site {
   }
 
   @include bp-lg() {
-    width: 33.3333%;
+    width: calc(33.3333% - ((100% - 1286px)/2));
   }
 
   @include bp-xl() {
