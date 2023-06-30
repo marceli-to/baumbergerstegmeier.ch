@@ -10,7 +10,7 @@
         width="1200" 
         height="800">
         <figcaption>
-          {{ $coverProject->title }}
+          {{ $coverProject->title }}@if ($coverProject->location), {{ $coverProject->location }}@endif
         </figcaption>
       </x-image>
     </a>
