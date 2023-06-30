@@ -57,15 +57,15 @@ class HomeController extends BaseController
 
     foreach($items as $item)
     {
-      if ($item->column === 0)
+      if ($item->column == 0)
       {
         $data[0][] = $item;
       }
-      if ($item->column === 1)
+      if ($item->column == 1)
       {
         $data[1][] = $item;
       }
-      if ($item->column === 2)
+      if ($item->column == 2)
       {
         $data[2][] = $item;
       }
