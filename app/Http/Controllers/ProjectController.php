@@ -56,12 +56,23 @@ class ProjectController extends BaseController
 
   private function getTeasers(Project $project)
   {
-    $teasers = Teaser::with('image', 'project', 'article.publishedImage')->where('project_id', $project->id)->orderBy('position')->get();
+    $items = Teaser::with('image', 'project', 'article.publishedImage')->where('project_id', $project->id)->orderBy('position')->get();
     $data = [];
-    foreach($teasers as $teaser)
+    foreach($items as $item)
     {
-      $data['col-' . $teaser->column][] = $teaser;
-    } 
+      if ($item->column == 0)
+      {
+        $data[0][] = $item;
+      }
+      if ($item->column == 1)
+      {
+        $data[1][] = $item;
+      }
+      if ($item->column == 2)
+      {
+        $data[2][] = $item;
+      }
+    }
     return $data;
   }
 

@@ -20,9 +20,9 @@ class TeaserController extends Controller
     {
       $query->where('project_id', $projectId);
     }
-    
-    $items = $query->orderBy('position')->get();
 
+    $items = $query->orderBy('position')->get();
+    
     $data = [];
     foreach($items as $item)
     {
