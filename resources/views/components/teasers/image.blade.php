@@ -7,7 +7,7 @@
   height="800">
   @if ($image->type == 'home')
     <figcaption>
-      {{ $image->project->title }}
+      {{ $image->project->title }}@if ($image->project->location), {{ $image->project->location }}@endif
     </figcaption>
   @else
     <figcaption>
