@@ -27,12 +27,12 @@
     <div class="span-4" v-for="index in [0,1,2]" :key="index">
       <draggable 
         :disabled="false"
-        v-model="items[index]" 
+        v-model="items['col-' + index]" 
         @end="order(index)"
         ghost-class="draggable-ghost"
         draggable=".is-draggable"
-        v-if="items[index]">
-        <div v-for="item in items[index]" :key="item.id" class="is-draggable">
+        v-if="items['col-' + index]">
+        <div v-for="item in items['col-' + index]" :key="item.id" class="is-draggable">
           <teaser-image 
             :item="item" 
             @destroy="destroy"
