@@ -54,7 +54,7 @@ class HomeController extends BaseController
     $items->groupBy(function ($item) {
       return (int) $item->column;
     })->values();
-    dd($items);
+    dd($items->all());
     return $items;
   }
 
