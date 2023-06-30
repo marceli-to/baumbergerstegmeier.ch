@@ -5,6 +5,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Teaser extends Base
 {
+  protected $casts = [
+    'column' => 'string',
+  ];
+
   protected $fillable = [
     'type',
     'image_id',

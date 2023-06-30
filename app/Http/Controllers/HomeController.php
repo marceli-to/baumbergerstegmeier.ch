@@ -52,6 +52,7 @@ class HomeController extends BaseController
   {
     $query = Teaser::publish()->with('image', 'project', 'article.publishedImage')->where('type', 'home');
     $items = $query->orderBy('position')->get();
+    dd($items->groupBy('column')->values());
     return $items->groupBy('column')->values();
   }
 
