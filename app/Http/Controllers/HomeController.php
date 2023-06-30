@@ -50,13 +50,9 @@ class HomeController extends BaseController
 
   private function getTeasers()
   {
-    $items = Teaser::publish()->with('image', 'project', 'article.publishedImage')->where('type', 'home')->orderBy('position')->get();
-    $data = [];
-    foreach($items as $item)
-    {
-      $data['col-' . $item->column][] = $item;
-    } 
-    return $data;
+    $query = Teaser::publish()->with('image', 'project', 'article.publishedImage')->where('type', 'home');
+    $items = $query->orderBy('position')->get();
+    return $items->groupBy('column')->values();
   }
 
 }

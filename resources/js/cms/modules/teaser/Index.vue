@@ -27,12 +27,12 @@
     <div class="span-4" v-for="index in [0,1,2]" :key="index">
       <draggable 
         :disabled="false"
-        v-model="items['col-' + index]" 
+        v-model="items[index]" 
         @end="order(index)"
         ghost-class="draggable-ghost"
         draggable=".is-draggable"
-        v-if="items['col-' + index]">
-        <div v-for="item in items['col-' + index]" :key="item.id" class="is-draggable">
+        v-if="items[index]">
+        <div v-for="item in items[index]" :key="item.id" class="is-draggable">
           <teaser-image 
             :item="item" 
             @destroy="destroy"
@@ -189,7 +189,7 @@ export default {
           this.items.forEach((column, index) => {
             column.forEach((item, itemIndex) => {
               if (item.id == id) {
-                this.items['col-' + index].splice(itemIndex, 1);
+                this.items[index].splice(itemIndex, 1);
               }
             });
           });
@@ -205,7 +205,7 @@ export default {
         this.items.forEach((column, index) => {
             column.forEach((item, itemIndex) => {
               if (item.id == id) {
-                this.items['col-' + index][itemIndex].publish = response.data;
+                this.items[index][itemIndex].publish = response.data;
               }
             });
           });

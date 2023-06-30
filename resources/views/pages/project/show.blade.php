@@ -60,15 +60,9 @@
 
   @if ($teasers)
     <x-teasers.index>
-      @if (isset($teasers['col-0']))
-        <x-teasers.column :items="$teasers['col-0']" :type="'project'" />
-      @endif
-      @if (isset($teasers['col-1']))
-        <x-teasers.column :items="$teasers['col-1']" :type="'project'" />
-      @endif
-      @if (isset($teasers['col-2']))
-        <x-teasers.column :items="$teasers['col-2']" :type="'project'" />
-      @endif
+      @foreach ($teasers as $items)
+        <x-teasers.column :items="$items" :type="'project'" />
+      @endforeach
     </x-teasers.index>
   @endif
 

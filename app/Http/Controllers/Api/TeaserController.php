@@ -20,16 +20,11 @@ class TeaserController extends Controller
     {
       $query->where('project_id', $projectId);
     }
+    
     $items = $query->orderBy('position')->get();
-
-    $data = [];
-    foreach($items as $item)
-    {
-      $data['col-' . $item->column][] = $item;
-    } 
-   
+    
     return response()->json([
-      'items' => $data
+      'items' => $items->groupBy('column')->values()
     ]);
   }
 

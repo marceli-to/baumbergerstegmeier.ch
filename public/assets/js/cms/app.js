@@ -4401,7 +4401,7 @@ __webpack_require__.r(__webpack_exports__);
           _this2.items.forEach(function (column, index) {
             column.forEach(function (item, itemIndex) {
               if (item.id == id) {
-                _this2.items['col-' + index].splice(itemIndex, 1);
+                _this2.items[index].splice(itemIndex, 1);
               }
             });
           });
@@ -4423,7 +4423,7 @@ __webpack_require__.r(__webpack_exports__);
         _this3.items.forEach(function (column, index) {
           column.forEach(function (item, itemIndex) {
             if (item.id == id) {
-              _this3.items['col-' + index][itemIndex].publish = response.data;
+              _this3.items[index][itemIndex].publish = response.data;
             }
           });
         });
@@ -51636,7 +51636,7 @@ var render = function() {
                 "div",
                 { key: index, staticClass: "span-4" },
                 [
-                  _vm.items["col-" + index]
+                  _vm.items[index]
                     ? _c(
                         "draggable",
                         {
@@ -51651,14 +51651,14 @@ var render = function() {
                             }
                           },
                           model: {
-                            value: _vm.items["col-" + index],
+                            value: _vm.items[index],
                             callback: function($$v) {
-                              _vm.$set(_vm.items, "col-" + index, $$v)
+                              _vm.$set(_vm.items, index, $$v)
                             },
-                            expression: "items['col-' + index]"
+                            expression: "items[index]"
                           }
                         },
-                        _vm._l(_vm.items["col-" + index], function(item) {
+                        _vm._l(_vm.items[index], function(item) {
                           return _c(
                             "div",
                             { key: item.id, staticClass: "is-draggable" },
