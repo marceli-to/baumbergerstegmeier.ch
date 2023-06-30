@@ -52,12 +52,7 @@ class HomeController extends BaseController
   {
     $query = Teaser::publish()->with('image', 'project', 'article.publishedImage')->where('type', 'home');
     $items = $query->orderBy('position')->get();
-
-    // group teasers by column
-    $items = $items->groupBy('column')->values();
-    return $items;
-
-
+    return $items->groupBy('column')->values();
   }
 
 }
