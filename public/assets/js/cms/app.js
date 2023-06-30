@@ -4401,7 +4401,7 @@ __webpack_require__.r(__webpack_exports__);
           _this2.items.forEach(function (column, index) {
             column.forEach(function (item, itemIndex) {
               if (item.id == id) {
-                _this2.items[index].splice(itemIndex, 1);
+                _this2.items['col-' + index].splice(itemIndex, 1);
               }
             });
           });
@@ -4423,7 +4423,7 @@ __webpack_require__.r(__webpack_exports__);
         _this3.items.forEach(function (column, index) {
           column.forEach(function (item, itemIndex) {
             if (item.id == id) {
-              _this3.items[index][itemIndex].publish = response.data;
+              _this3.items['col-' + index][itemIndex].publish = response.data;
             }
           });
         });

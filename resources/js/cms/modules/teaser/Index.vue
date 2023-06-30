@@ -189,7 +189,7 @@ export default {
           this.items.forEach((column, index) => {
             column.forEach((item, itemIndex) => {
               if (item.id == id) {
-                this.items[index].splice(itemIndex, 1);
+                this.items['col-' + index].splice(itemIndex, 1);
               }
             });
           });
@@ -205,7 +205,7 @@ export default {
         this.items.forEach((column, index) => {
             column.forEach((item, itemIndex) => {
               if (item.id == id) {
-                this.items[index][itemIndex].publish = response.data;
+                this.items['col-' + index][itemIndex].publish = response.data;
               }
             });
           });
