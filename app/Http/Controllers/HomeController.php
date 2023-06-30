@@ -71,6 +71,8 @@ class HomeController extends BaseController
       }
     }
 
+    dd($data);
+
 
     return $items->groupBy('column')->values();
   }
