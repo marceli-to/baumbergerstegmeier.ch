@@ -68,6 +68,8 @@ class HomeController extends BaseController
         $data[2][] = $item;
       }
     }
+    ksort($data);
+    dd($data);
     return $data;
   }
 
