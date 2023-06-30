@@ -52,9 +52,7 @@ class HomeController extends BaseController
   {
     $query = Teaser::publish()->with('image', 'project', 'article.publishedImage')->where('type', 'home');
     $items = $query->orderBy('position')->get();
-
     $data = [];
-
     foreach($items as $item)
     {
       if ($item->column == 0)
@@ -70,11 +68,7 @@ class HomeController extends BaseController
         $data[2][] = $item;
       }
     }
-
-    dd($data);
-
-
-    return $items->groupBy('column')->values();
+    return $data;
   }
 
 }
