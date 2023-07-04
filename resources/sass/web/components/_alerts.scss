@@ -32,7 +32,7 @@
 .alert-warning {
   border: 2px solid $color-black;
   color: $color-black;
-  @include font-bold();
+  @include font-semi-bold();
 
   a {
     color: $color-black;

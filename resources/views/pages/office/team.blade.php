@@ -119,7 +119,7 @@
     </div>
   @endif
 
-  @if (isset($data['former_employees']['employees']) && count($data['former_employees']['employees']) > 0))
+  @if (isset($data['former_employees']['employees']) && count($data['former_employees']['employees']) > 0)
     <article class="team mt-80x">
       <h2>{{ $data['former_employees']['category']->name }}</h2>
     </article>
@@ -131,7 +131,7 @@
               {{ $employee->firstname}} {{ $employee->name}}, {{ $employee->title}}@if ($employee->team_id == 2)* @endif
             </div>
           @endforeach
-          @if ($loop->index == 1)<div class="mt-16x lg:mt-32x">* Ehemalige BS+EMI</div> @endif
+          @if ($loop->index == 1)<div class="mt-16x lg:mt-32x">* Ehemalige BS+EMI</div>@endif
         </div>
       @endforeach
     </div>
