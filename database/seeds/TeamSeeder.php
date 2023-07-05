@@ -18,24 +18,24 @@ class TeamSeeder extends Seeder
       'name' => 'Baumberger Stegmeier Architektur',
     ]);
 
-    for($i = 1; $i <= 2; $i++)
-    {
-      $rand = rand(1,8);
-      $image = Image::create([
-        'uuid' => \Str::uuid(),
-        'name' => 'bas-' . $rand . '.jpg',
-        'original_name' => 'bas-' . $rand . '.jpg',
-        'orientation' => 'landscape',
-        'extension' => 'jpg',
-        'size' => 111562,
-        'ratio' => '580x386',
-        'imageable_id' => $record->id,
-        'imageable_type' => Team::class,
-        'caption' => '',
-        'order' => $i,
-        'publish' => 1
-      ]);
-    }
+    // for($i = 1; $i <= 2; $i++)
+    // {
+    //   $rand = rand(1,8);
+    //   $image = Image::create([
+    //     'uuid' => \Str::uuid(),
+    //     'name' => 'bas-' . $rand . '.jpg',
+    //     'original_name' => 'bas-' . $rand . '.jpg',
+    //     'orientation' => 'landscape',
+    //     'extension' => 'jpg',
+    //     'size' => 111562,
+    //     'ratio' => '580x386',
+    //     'imageable_id' => $record->id,
+    //     'imageable_type' => Team::class,
+    //     'caption' => '',
+    //     'order' => $i,
+    //     'publish' => 1
+    //   ]);
+    // }
 
     $record = Team::create([
       'slug' => 'bs-emi-architektenpartner',
