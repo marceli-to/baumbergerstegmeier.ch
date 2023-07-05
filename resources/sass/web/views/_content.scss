@@ -32,13 +32,13 @@
     @extend %text-xl;
     @extend %lg\:text-2xl;
     @extend %mb-40x;
-    @extend %lg\:mb-20x;
+    @extend %lg\:mb-28x;
   }
 
   .project-text {
-    @extend %my-25x;
-    @extend %lg\:mt-40x;
-    @extend %lg\:mb-0;
+    // @extend %mb-25x;
+    // @extend %lg\:mt-40x;
+    // @extend %lg\:mb-0;
     line-height: 1.35;
     @include bp-lg() {
       line-height: 1.3;
@@ -233,6 +233,64 @@
 
     &.team__member--former {
       margin-bottom: 0;
+    }
+  }
+}
+
+.content-worklist {
+
+  nav.worklist-filter {
+    @extend %pt-8x;
+    @extend %lg\:pt-10x;
+    border-top: 1px solid $color-black;
+
+    ul {
+      @extend %ml-33x;
+      position: relative;
+
+      a {
+        @extend %text-md;
+        @extend %lg\:text-lg;
+        @extend %lg\:ml-54x;
+        @extend %mb-10x;
+        display: block;
+        line-height: 1 !important;
+        position: relative;
+
+        &.is-first {
+          margin-left: 0 !important;
+        }
+
+        &.is-active,
+        &:hover {
+          &:before {
+            display: block;
+          }
+        }
+
+        &:not(.is-search):before {
+          @extend %line-left;
+        }
+      }
+
+      li.is-search {
+        position: absolute;
+        right: 0;
+        top: 0;
+
+        @include bp-lg() {
+          position: relative;
+          right: auto;
+          top: auto;
+        }
+      }
+    }
+
+    ul ul {
+      a {
+        @extend %text-base;
+        @extend %lg\:text-base;
+      }
     }
   }
 }

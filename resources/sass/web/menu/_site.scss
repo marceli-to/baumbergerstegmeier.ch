@@ -64,16 +64,7 @@ nav.site {
     position: relative;
 
     &:before {
-      background-color: $color-black;
-      content: '';
-      display: none;
-      height: 1px;
-      line-height: 1 !important;
-      position: absolute;
-      left: -32px;
-      top: calc(50% - 1px);
-      width: 26px;
-      z-index: 200;
+      @extend %line-left;
     }
 
     &.is-active,

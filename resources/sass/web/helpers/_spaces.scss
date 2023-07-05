@@ -66,6 +66,7 @@ $max: 100;
 .lg\:mr-0 { @include bp-lg() { margin-right: 0; } }
 
 %mb-0, .mb-0 { margin-bottom: 0; }
+%\!mb-0, .\!mb-0 { margin-bottom: 0 !important; }
 %sm\:mb-0, .sm\:mb-0 { @include bp-sm() { margin-bottom: 0; } }
 %md\:mb-0, .md\:mb-0 { @include bp-md() { margin-bottom: 0; } }
 %lg\:mb-0, .lg\:mb-0 { @include bp-lg() { margin-bottom: 0; } }
