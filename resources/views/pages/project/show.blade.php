@@ -1,8 +1,8 @@
 @extends('layout.web')
 @section('content')
-<x-page-title :class="'hidden !lg:block'" :type="'h2'" />
+<x-page-title :class="'hidden !md:block'" :type="'h2'" />
 @if ($project->coverImage)
-  <x-hero class="hidden !lg:block">
+  <x-hero class="hidden !md:block">
     <x-image 
       :classes="'aspect-ratio-3/2'"
       :maxSizes="[0 => 1200, 1000 => 1600]" 
@@ -12,22 +12,37 @@
     </x-image>
   </x-hero>
 @endif
-
 <section class="content-project">
   
-  <header class="content-header">
+  <header class="content-header md:items-end md:flex md:justify-between">
     <h3>{{ $category->description }}</h3>
+    <nav class="project-browse">
+      @if (isset($browse['prev']))
+        <a href="{{ route('page.project.show', ['state' => $browse['prev']->states()->first()->slug, 'category' => $browse['prev']->categories()->first()->slug, 'project' => $browse['prev']->slug]) }}" 
+          class="block mr-7x" 
+          title="{{ $browse['prev']->title }}">
+          <x-icons.chevron-prev-large />
+        </a>
+      @endif
+      @if (isset($browse['next']))
+        <a href="{{ route('page.project.show', ['state' => $browse['next']->states()->first()->slug, 'category' => $browse['next']->categories()->first()->slug, 'project' => $browse['next']->slug]) }}" 
+          class="block ml-7" 
+          title="{{ $browse['next']->title }}">
+          <x-icons.chevron-next-large />
+        </a>
+      @endif
+    </nav>
   </header>
   
-  <div class="mb-10x lg:flex lg:justify-between">
-    <h1>{{ $project->title }}</h1>
+  <div class="mb-10x md:flex md:justify-between">
+    <h1>{{ $project->title }}@if ($project->location), {{ $project->location }}@endif</h1>
     <div>
       <a href="javascript:;" class="hidden btn-info" title="Info anzeigen/verbergen" data-btn-toggle-both>
         <x-icons.cross class="icon-project-cross" />
         <span>Info</span>
       </a>
     </div>
-    <a href="javascript:;" class="block !lg:hidden icon-chevron text-md" title="Info anzeigen/verbergen" data-btn-toggle-info>
+    <a href="javascript:;" class="block !md:hidden icon-chevron text-md" title="Info anzeigen/verbergen" data-btn-toggle-info>
       Info
     </a>
   </div>
@@ -46,18 +61,6 @@
     </div>
   </div>
 
-  {{-- @if ($project->coverImage)
-    <x-hero class="block !lg:hidden">
-      <x-image 
-        :classes="'aspect-ratio-3/2'"
-        :maxSizes="[0 => 1200, 1000 => 1600]" 
-        :image="$project->coverImage" 
-        width="1200" 
-        height="800">
-      </x-image>
-    </x-hero>
-  @endif --}}
-
   @if ($teasers)
     <x-teasers.index>
       @foreach ($teasers as $items)
@@ -66,5 +69,20 @@
     </x-teasers.index>
   @endif
 
+  @if (isset($browse['next']))
+    <a href="{{ route('page.project.show', ['state' => $browse['next']->states()->first()->slug, 'category' => $browse['next']->categories()->first()->slug, 'project' => $browse['next']->slug]) }}" 
+      class="project-teaser" 
+      title="{{ $browse['next']->title }}">
+      <span>Nächstes Projekt</span>
+      <h3>{{ $browse['next']->title }}</h3>
+      <x-image 
+        :classes="'aspect-ratio-3/2'"
+        :maxSizes="[0 => 1200]" 
+        :image="$browse['next']->coverImage" 
+        width="1200" 
+        height="800">
+      </x-image>
+    </a>
+  @endif
 </section>
 @endsection

@@ -1,5 +1,6 @@
 
 .btn-info {
+  @extend %md\:text-xl;
   @extend %lg\:text-2xl;
   align-items: center;
   display: none;
@@ -8,7 +9,7 @@
   line-height: 1 !important;
   width: 67px;
 
-  @include bp-lg() {
+  @include bp-md() {
     display: flex;
   }
 

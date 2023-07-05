@@ -26,7 +26,7 @@
 }
 
 .content-project {
-  @extend %lg\:mt-25x;
+  @extend %md\:mt-25x;
 
   h1 {
     @extend %text-xl;
@@ -46,6 +46,39 @@
 
     .project-text__info {
       @extend %lg\:pb-100x;
+    }
+  }
+
+  .project-browse {
+    display: none;
+    @include bp-md() {
+      display: flex;
+    }
+  }
+
+  .project-teaser {
+    @extend %mt-76x;
+    display: block;
+
+    @include bp-lg() {
+      display: none;
+    }
+
+    span {
+      @extend %mb-4x;
+      @extend %pb-4x;
+      @extend %text-sm;
+      border-bottom: 1px solid $color-black;
+      display: block;
+    }
+
+    h3 {
+      @extend %text-lg;
+    }
+
+    picture {
+      @extend %mt-12x;
+      display: block;
     }
   }
 
@@ -69,6 +102,8 @@
       @extend %mb-25x;
     }
   }
+
+
 }
 
 .content-contact {
@@ -186,6 +221,10 @@
 
     @include bp-lg() {
       line-height: 1.3;
+    }
+
+    .icon-chevron {
+      @extend %text-lg;
     }
 
     strong {

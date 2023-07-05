@@ -35,6 +35,7 @@ class ProjectController extends BaseController
       'teasers' => $this->getTeasers($project),
       'category' => Category::where('slug', $category)->first(),
       'state' => State::where('slug', $state)->first(),
+      'browse' => $this->getBrowse($project->id, $state, $category),
     ]);
   }
 
@@ -80,4 +81,60 @@ class ProjectController extends BaseController
     return $data;
   }
 
+  /**
+   * Get project browse navigation
+   * 
+   * @param Integer $projectId
+   * @param String $stateSlug
+   * @param String $categorySlug
+   * @return Array $items
+   */
+
+  private function getBrowse($projectId = NULL, $stateSlug = NULL, $categorySlug = NULL)
+  {
+    // Get category and state by slug
+    $category = Category::where('slug', $categorySlug)->first();
+    $state = State::where('slug', $stateSlug)->first();
+
+    // Get all projects in the same category and state. 
+    // Category and state are in a many to many relationship
+    $projects = Project::featured()->with('coverImage')->whereHas('categories', function($q) use ($category) {
+      $q->where('category_id', $category->id);
+    })->whereHas('states', function($q) use ($state) {
+      $q->where('state_id', $state->id);
+    })->orderBy('order')->get();
+      
+    $keys  = [];
+    $items = [];
+
+    foreach($projects as $p)
+    {
+      $keys[] = (int) $p->id;
+    }
+
+    // Get current key
+    $key = array_search($projectId, $keys);
+
+    if ($key == 0)
+    {
+      $prevId = end($keys);
+      $nextId = isset($keys[$key+1]) ? $keys[$key+1] : NULL;
+    }
+    else if ($key == count($keys) - 1)
+    {
+      $prevId = $keys[$key-1];
+      $nextId = $keys[0];
+    }
+    else
+    {
+      $prevId = $keys[$key-1];
+      $nextId = $keys[$key+1];
+    }
+
+    $items = [
+      'prev' => Project::find($prevId),
+      'next' => Project::find($nextId),
+    ];
+    return $items;
+  }
 }

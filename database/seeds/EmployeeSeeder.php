@@ -1,6 +1,7 @@
 <?php
 namespace Database\Seeders;
 use App\Models\Employee;
+use App\Models\Cv;
 use Illuminate\Database\Seeder;
 
 class EmployeeSeeder extends Seeder
@@ -27,6 +28,19 @@ class EmployeeSeeder extends Seeder
       'Mitglied der Geschäftsleitung',
     ];
 
+    $cv = [
+      'seit 2003' => 'Gemeinsames Büro mit Karin Stegmeier in Zürich',
+      '2001–03' => 'Assistenz bei Gastprofessor F. Riegler, ETH Zürich',
+      '1996–05' => 'Mitarbeit bei Miller & Maranta, Basel',
+      '1995–96' => 'Mitarbeit bei Graber Pulver Architekten, Zürich',
+      '1994'  => 'Mitarbeit bei Gigon / Guyer Architekten, Zürich',
+      '1991–95' => 'Architekturstudium am Technikum Winterthur',
+      '1991' => 'Mitarbeit im Architekturbüro Prof. R. Leu, Wetzikon',
+      '1986–90' => 'Hochbauzeichnerlehre',
+      '1969' => 'geboren in Zürich',
+    ];
+
+
     // BSA, Leadership
     for($i = 0; $i < 6; $i++)
     {
@@ -42,6 +56,53 @@ class EmployeeSeeder extends Seeder
         'team_id' => 1,
         'employee_category_id' => 1,
         'order' => $i
+      ]);
+
+      foreach($cv as $periode => $description)
+      {
+        Cv::create([
+          'periode' => $periode,
+          'description' => $description,
+          'employee_id' => $employee->id,
+        ]);
+      }
+
+      // Add cv items with category
+      Cv::create([
+        'periode' => '2003',
+        'description' => 'Gründung Einzelgesellschaft Baumberger & Stegmeier Architekten',
+        'employee_id' => $employee->id,
+        'cv_category_id' => 1
+      ]);
+      Cv::create([
+        'periode' => '2008',
+        'description' => 'Aktiengesellschaft Baumberger & Stegmeier Architekten AG',
+        'employee_id' => $employee->id,
+        'cv_category_id' => 1
+      ]);
+      Cv::create([
+        'periode' => '2011',
+        'description' => 'Gründung BS+EMI Architektenpartner AG',
+        'employee_id' => $employee->id,
+        'cv_category_id' => 1
+      ]);
+      Cv::create([
+        'periode' => '2006',
+        'description' => 'SIA (Schweizerischer Ingenieur- und Architektenverein) Firmenmitglied',
+        'employee_id' => $employee->id,
+        'cv_category_id' => 2
+      ]);
+      Cv::create([
+        'periode' => '2004',
+        'description' => 'SIA FEB (Fachgruppe für die Erhaltung von Bauwerken) Vorstandsmitglied',
+        'employee_id' => $employee->id,
+        'cv_category_id' => 2
+      ]);
+      Cv::create([
+        'periode' => '2002',
+        'description' => 'BSA (Bund Schweizer Architekten)',
+        'employee_id' => $employee->id,
+        'cv_category_id' => 2
       ]);
     }
 
