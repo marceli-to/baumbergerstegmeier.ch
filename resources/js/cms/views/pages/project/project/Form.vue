@@ -15,6 +15,10 @@
           <input type="text" v-model="data.title" />
           <label-required />
         </div>
+        <div class="form-row">
+          <label>Ort</label>
+          <input type="text" v-model="data.location">
+        </div>
         <div :class="[this.errors.year ? 'has-error' : '', 'form-row']">
           <label>Jahr</label>
           <input type="text" v-model="data.year" maxlength="4">
@@ -40,9 +44,14 @@
     </div>
 
     <div v-show="tabs.worklist.active">
-      <div class="form-row">
-        <label>Ort</label>
-        <input type="text" v-model="data.location">
+      <div :class="[this.errors.type_id ? 'has-error' : '', 'form-row mt-8x']">
+        <label>Typ</label>
+        <div class="select-wrapper">
+          <select v-model="data.type_id">
+            <option v-for="t in types" :key="t.id" :value="t.id">{{ t.description }}</option>
+          </select>
+        </div>
+        <label-required />
       </div>
       <div class="form-row">
         <label>Zeitraum (z.B. 2015 – 2019)</label>
@@ -62,17 +71,8 @@
     </div>
 
     <div v-show="tabs.settings.active">
-      <div :class="[this.errors.type_id ? 'has-error' : '', 'form-row mt-8x']">
-        <label>Typ</label>
-        <div class="select-wrapper">
-          <select v-model="data.type_id">
-            <option v-for="t in types" :key="t.id" :value="t.id">{{ t.description }}</option>
-          </select>
-        </div>
-        <label-required />
-      </div>
       <div :class="[this.errors.category_ids ? 'has-error' : '', 'form-row']">
-        <label>Kategorie </label>
+        <label>Kategorie</label>
         <div v-for="category in categories" :key="category.id" class="flex items-center mb-2x">
           <input type="checkbox" :id="`category-${category.id}`" :name="`category-${category.id}`" :value="category.id" v-model="data.category_ids">
           <label :for="`category-${category.id}`" class="ml-3x !mb-0">

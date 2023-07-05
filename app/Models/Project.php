@@ -83,6 +83,15 @@ class Project extends Base
   }
 
   /**
+   * Scope for published projects
+   */
+
+  public function scopePublished($query)
+  {
+    return $query->where('publish', '=', '1');
+  }
+
+  /**
    * Scope for featured projects
    */
 

@@ -238,11 +238,31 @@
 }
 
 .content-worklist {
+  position: relative;
 
+  .worklist-wrapper {
+    @extend %md\:grid;
+    @extend %md\:grid-cols-12;
+    @extend %md\:grid-column-gap;
+    @extend %lg\:pt-90x;
+  }
+  
   nav.worklist-filter {
     @extend %pt-8x;
+    @extend %pb-22x;
+    @extend %lg\:pb-30x;
     @extend %lg\:pt-10x;
+    background-color: $color-white;
     border-top: 1px solid $color-black;
+
+    @include bp-lg() {
+      position: absolute;
+      width: 100%;
+
+      &.has-selection {
+        min-height: 250px;
+      }
+    }
 
     ul {
       @extend %ml-33x;
@@ -287,10 +307,29 @@
     }
 
     ul ul {
+      @include bp-lg() {
+        position: absolute;
+      }
       a {
         @extend %text-base;
         @extend %lg\:text-base;
       }
     }
   }
+
+  article.worklist-item {
+    @extend %mb-26x;
+    @extend %lg\:mb-40x;
+    @extend %text-md;
+    @extend %lg\:text-lg;
+
+    > div {
+      @extend %mt-6x;
+
+      h2 {
+        @extend %text-md;
+        @extend %lg\:text-lg;
+      }
+    }
+  } 
 }
