@@ -20,7 +20,7 @@ return new class extends Migration
         $table->tinyInteger('order')->default(-1);
         $table->tinyInteger('publish')->default(1);
         $table->foreignId('employee_id')->constrained()->onDelete('cascade');
-        $table->foreignId('cv_category_id')->nullable()->constrained();
+        $table->foreignId('cv_category_id')->nullable()->constrained()->onDelete('set null');
         $table->timestamps();
       });
     }
