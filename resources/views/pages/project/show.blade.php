@@ -1,6 +1,7 @@
 @extends('layout.web')
 @section('content')
 <x-page-title :class="'hidden !md:block'" :type="'h2'" />
+
 @if ($project->coverImage)
   <x-hero class="hidden !md:block">
     <x-image 
@@ -12,6 +13,7 @@
     </x-image>
   </x-hero>
 @endif
+
 <section class="content-project">
   
   <header class="content-header md:items-end md:flex md:justify-between">
