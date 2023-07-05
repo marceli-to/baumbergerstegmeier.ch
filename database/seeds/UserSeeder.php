@@ -43,6 +43,27 @@ class UserSeeder extends Seeder
         'email_verified_at' => \Carbon\Carbon::now(),
         'password' => \Hash::make('c4RL@P3tr4sChK3'),
       ],
+      [
+        'firstname' => 'Karin',
+        'name'  => 'Stegmeier',
+        'email' => 'stegmeier@baumbergerstegmeier.ch',
+        'email_verified_at' => \Carbon\Carbon::now(),
+        'password' => \Hash::make('k4r+in3t3gm3Ler'),
+      ],
+      [
+        'firstname' => 'Daniel',
+        'name'  => 'Kaschub',
+        'email' => 'kaschub@baumbergerstegmeier.ch',
+        'email_verified_at' => \Carbon\Carbon::now(),
+        'password' => \Hash::make('D4n13LK4$cHuB'),
+      ],
+      [
+        'firstname' => 'Ján',
+        'name'  => 'Vyšný',
+        'email' => 'vysny@baumbergerstegmeier.ch',
+        'email_verified_at' => \Carbon\Carbon::now(),
+        'password' => \Hash::make('j@NVy$nY23'),
+      ],
     ];
 
     foreach($users as $user)
