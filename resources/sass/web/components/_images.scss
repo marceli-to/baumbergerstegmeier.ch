@@ -43,7 +43,7 @@ picture {
       display: block;
       min-height: 54px;
       @include bp-lg() {
-        min-height: 80px;
+        min-height: 70px;
       }
     }
   }
