@@ -149,11 +149,11 @@
         <div>
           <div class="form-row">
             <label>Beschreibung</label>
-            <input name="caption" v-model="overlayItem.caption" />
+            <input type="text" name="caption" v-model="overlayItem.caption" />
           </div>
           <div class="form-row">
             <label>Credit</label>
-            <input name="credits" v-model="overlayItem.credits" />
+            <input type="text" name="credits" v-model="overlayItem.credits" />
           </div>
           <template v-if="$props.imageStates">
             <div class="form-row" v-for="(state, index) in $props.imageStates" :key="index">
