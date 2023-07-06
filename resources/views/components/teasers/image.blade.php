@@ -1,6 +1,13 @@
 @props(['image'])
+@php 
+  $class = 'teaser';
+  if (!$image->image->has_coords)
+  {
+    $class .= $image->image->orientation == 'landscape' ? ' aspect-ratio-3/2' :  ' aspect-ratio-2/3';
+  }
+@endphp
 <x-image 
-  :classes="'teaser'"
+  :classes="$class"
   :maxSizes="[0 => 600, 1000 => 900]" 
   :image="$image->image" 
   width="1200" 

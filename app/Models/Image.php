@@ -44,7 +44,8 @@ class Image extends Model
    */
 
   protected $appends = [
-    'coords'
+    'coords',
+    'has_coords',
   ];
 
   /**
@@ -98,6 +99,16 @@ class Image extends Model
       $coords = floor($this->coords_w) . ',' .  floor($this->coords_h) . ',' .  floor($this->coords_x) . ',' .  floor($this->coords_y);
     }
     return $coords;
+  }
+
+  /**
+   * Check for cropping coordinates
+   * @return boolean
+   */
+
+  public function getHasCoordsAttribute()
+  {
+    return ($this->coords_w && $this->coords_h && $this->coords_w > 0 && $this->coords_h > 0);
   }
 
 }
