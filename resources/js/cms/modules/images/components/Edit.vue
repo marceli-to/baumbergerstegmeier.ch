@@ -152,7 +152,7 @@
             <input type="text" name="caption" v-model="overlayItem.caption" />
           </div>
           <div class="form-row">
-            <label>Credit</label>
+            <label>Credits</label>
             <input type="text" name="credits" v-model="overlayItem.credits" />
           </div>
           <template v-if="$props.imageStates">
