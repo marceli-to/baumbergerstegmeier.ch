@@ -43,7 +43,7 @@ picture {
       display: block;
       min-height: 54px;
       @include bp-lg() {
-        min-height: 70px;
+        min-height: 70px; // was 80px (06.07.2023);
       }
     }
   }

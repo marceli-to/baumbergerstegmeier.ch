@@ -20,6 +20,7 @@ class Image extends Model
     'extension',
     'size',
     'caption',
+    'credits',
     'description',
     'orientation',
     'ratio',

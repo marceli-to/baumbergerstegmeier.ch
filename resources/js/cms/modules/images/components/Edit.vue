@@ -151,7 +151,10 @@
             <label>Beschreibung</label>
             <textarea v-model="overlayItem.caption"></textarea>
           </div>
-
+          <div class="form-row">
+            <label>Credit</label>
+            <textarea v-model="overlayItem.credits"></textarea>
+          </div>
           <template v-if="$props.imageStates">
             <div class="form-row" v-for="(state, index) in $props.imageStates" :key="index">
               <label class="is-sm">{{ state.label }}</label>
