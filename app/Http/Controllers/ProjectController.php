@@ -78,6 +78,7 @@ class ProjectController extends BaseController
         $data[2][] = $item;
       }
     }
+    ksort($data);
     return $data;
   }
 
