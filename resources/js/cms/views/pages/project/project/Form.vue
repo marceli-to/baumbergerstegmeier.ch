@@ -54,7 +54,7 @@
         <label-required />
       </div>
       <div class="form-row">
-        <label>Zeitraum (z.B. 2015 – 2019)</label>
+        <label>Zeitraum (z.B. 2015–2019)</label>
         <input type="text" v-model="data.periode">
       </div>
     </div>
