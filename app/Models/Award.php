@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 class Award extends Base
 {
 
+  protected $casts = [
+    'year' => 'integer',
+    'publish' => 'integer',
+  ];
+
   /**
    * The attributes that are mass assignable.
    *
@@ -15,9 +20,6 @@ class Award extends Base
 	protected $fillable = [
     'year',
     'text',
-    'title',
-    'subtitle',
-    'link',
     'publish',
   ];
 
@@ -42,7 +44,8 @@ class Award extends Base
   public function getPreviewTextAttribute()
   {
     // remove all html-tags, replace <br /> and <br> with space
-    $text = strip_tags(str_replace(['<br />', '<br>'], ' ', $this->text));
+    $text = str_replace('</h3>', ' – ', $this->text);
+    $text = strip_tags(str_replace(['<br />', '<br>'], ['&nbsp;'], $text));
 
     // replace entities like &uuml; &auml; &ouml; &szlig; &quot; &amp; with their corresponding characters
     $text = html_entity_decode($text);

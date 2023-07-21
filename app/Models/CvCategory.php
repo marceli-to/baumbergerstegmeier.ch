@@ -12,6 +12,7 @@ class CvCategory extends Model
    
 	protected $fillable = [
     'description',
+    'order',
     'publish',
   ];
 

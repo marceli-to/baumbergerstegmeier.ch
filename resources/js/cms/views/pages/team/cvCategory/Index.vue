@@ -10,22 +10,31 @@
       </router-link>
     </page-header>
     <div class="listing is-grouped" v-if="data.length">
-      <div
-        :class="[d.publish == 0 ? 'is-disabled' : '', 'listing__item']"
-        v-for="d in data"
-        :key="d.id"
-        >
-        <div class="listing__item-body">
-          {{ d.description }}
+      <draggable 
+        :disabled="false"
+        v-model="data" 
+        @end="order(data)"
+        ghost-class="draggable-ghost"
+        draggable=".listing__item"
+        class="listing"
+        v-if="data.length">
+        <div
+          :class="[d.publish == 0 ? 'is-disabled' : '', 'listing__item is-draggable']"
+          v-for="d in data"
+          :key="d.id"
+          >
+          <div class="listing__item-body">
+            {{ d.description }}
+          </div>
+          <list-actions 
+            :id="d.id" 
+            :record="d"
+            :routes="{edit: 'cv-category-edit'}"
+            @toggle="toggle($event)"
+            @destroy="destroy($event)">
+          </list-actions>
         </div>
-        <list-actions 
-          :id="d.id" 
-          :record="d"
-          :routes="{edit: 'cv-category-edit'}"
-          @toggle="toggle($event)"
-          @destroy="destroy($event)">
-        </list-actions>
-      </div>
+      </draggable>
     </div>
     <div v-else>
       <p class="no-records">{{messages.emptyData}}</p>
@@ -44,6 +53,7 @@ import ListActions from "@/components/ui/ListActions.vue";
 import Separator from "@/components/ui/Separator.vue";
 import PageFooter from "@/components/ui/PageFooter.vue";
 import PageHeader from "@/components/ui/PageHeader.vue";
+import draggable from 'vuedraggable';
 
 export default {
 
@@ -56,6 +66,7 @@ export default {
     ButtonBack,
     PageFooter,
     PageHeader,
+    draggable,
   },
 
   mixins: [Helpers],
@@ -70,6 +81,7 @@ export default {
         get: '/api/cv/categories',
         store: '/api/cv/category',
         delete: '/api/cv/category',
+        order: '/api/cv/category/order',
         toggle: '/api/cv/category/state',
       },
 
@@ -119,6 +131,21 @@ export default {
           this.isLoading = false;
         });
       }
+    },
+
+    order() {
+      let cvCategories = this.data.map(function(cvCategory, idx) {
+        cvCategory.order = idx;
+        return cvCategory;
+      });
+
+      if (this.debounce) return;
+      this.debounce = setTimeout(function() {
+        this.debounce = false 
+        this.axios.post(`${this.routes.order}`, {cvCategories: cvCategories}).then((response) => {
+          this.$notify({type: 'success', text: 'Reihenfolge angepasst'});
+        });
+      }.bind(this, cvCategories), 500);
     },
   }
 }

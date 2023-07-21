@@ -13,13 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-      Schema::create('awards', function (Blueprint $table) {
-        $table->id();
-        $table->year('year');
-        $table->text('text');
-        $table->tinyInteger('order')->default(-1);
-        $table->tinyInteger('publish')->default(1);
-        $table->timestamps();
+      Schema::table('cv_categories', function (Blueprint $table) {
+        $table->tinyInteger('order')->default(-1)->after('description');
       });
     }
 
@@ -30,6 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-      Schema::dropIfExists('awards');
+      Schema::table('cv_categories', function (Blueprint $table) {
+        $table->dropColumn('order');
+      });      
     }
 };

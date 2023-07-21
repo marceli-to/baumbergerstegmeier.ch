@@ -15,7 +15,7 @@ class CvCategoryController extends Controller
    */
   public function get()
   {
-    return new DataCollection(CvCategory::get());
+    return new DataCollection(CvCategory::orderBy('order')->get());
   }
 
   /**
@@ -85,4 +85,23 @@ class CvCategoryController extends Controller
     return response()->json('successfully deleted');
   }
 
+
+/**
+ * Update the order the projects
+ *
+ * @param  \Illuminate\Http\Request  $request
+ * @return \Illuminate\Http\Response
+ */
+
+  public function order(Request $request)
+  {
+    $cvCategories = $request->get('cvCategories');
+    foreach($cvCategories as $cvCategory)
+    {
+      $c = CvCategory::find($cvCategory['id']);
+      $c->order = $cvCategory['order'];
+      $c->save(); 
+    }
+    return response()->json('successfully updated');
+  }
 }

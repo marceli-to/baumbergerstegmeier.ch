@@ -8,6 +8,7 @@ class Publications
   {
     $publications = Publication::publish()->with('publishedImage', 'publishedFile')->orderBy('year', 'DESC')->get();
     $publications = $publications->groupBy('year');
-    return $publications->chunk(ceil($publications->count() / 3));
+    $data = $publications->chunk(ceil($publications->count() / 3), true);
+    return $data;
   }
 }
