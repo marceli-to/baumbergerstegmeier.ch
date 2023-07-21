@@ -61,6 +61,7 @@ class ImportEmployees extends Command
       // $data[6] = employee_category_id
       // remove \r\n from the end of the line
       $data[6] = str_replace("\r\n", "", $data[6]);
+      dd($data[6]);
       $employee_category_id = $data[6] == 'Partner' ? 1 : 2;
 
       $employee = Employee::create([
