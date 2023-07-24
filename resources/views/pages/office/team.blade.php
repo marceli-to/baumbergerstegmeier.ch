@@ -25,7 +25,16 @@
         @if (isset($data['bsa_leadership']['employees']))
           @foreach($data['bsa_leadership']['employees'] as $employee)
             <div class="team__member">
-              <strong>{{ $employee->firstname}} {{ $employee->name}}</strong><br>
+              <strong>
+                @if ($employee->email)
+                  <a href="mailto:{{ $employee->email}}">
+                    {{ $employee->firstname}} {{ $employee->name}}
+                  </a>
+                @else
+                  {{ $employee->firstname}} {{ $employee->name}}
+                @endif
+              </strong>
+              <br>
               {{ $employee->title}}
 
               @if ($employee->cv)
@@ -93,7 +102,16 @@
               <div class="lg:span-6">
                 @foreach($employees as $employee)
                   <div class="team__member">
-                    <strong>{{ $employee->firstname}} {{ $employee->name}}</strong><br>
+                    <strong>
+                      @if ($employee->email)
+                        <a href="mailto:{{ $employee->email}}">
+                          {{ $employee->firstname}} {{ $employee->name}}
+                        </a>
+                      @else
+                        {{ $employee->firstname}} {{ $employee->name}}
+                      @endif
+                    </strong>
+                    <br>
                     {{ $employee->title}}
                   </div>
                 @endforeach
@@ -125,7 +143,16 @@
         @if (isset($data['bsemi_leadership']['employees']))
           @foreach($data['bsemi_leadership']['employees'] as $employee)
             <div class="team__member">
-              <strong>{{ $employee->firstname}} {{ $employee->name}}</strong><br>
+              <strong>
+                @if ($employee->email)
+                  <a href="mailto:{{ $employee->email}}">
+                    {{ $employee->firstname}} {{ $employee->name}}
+                  </a>
+                @else
+                  {{ $employee->firstname}} {{ $employee->name}}
+                @endif
+              </strong>
+              <br>
               {{ $employee->title}}
             </div>
           @endforeach
@@ -149,7 +176,16 @@
               <div class="lg:span-6">
                 @foreach($employees as $employee)
                   <div class="team__member">
-                    <strong>{{ $employee->firstname}} {{ $employee->name}}</strong><br>
+                    <strong>
+                      @if ($employee->email)
+                        <a href="mailto:{{ $employee->email}}">
+                          {{ $employee->firstname}} {{ $employee->name}}
+                        </a>
+                      @else
+                        {{ $employee->firstname}} {{ $employee->name}}
+                      @endif
+                    </strong>
+                    <br>
                     {{ $employee->title}}
                   </div>
                 @endforeach

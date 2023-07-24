@@ -4,7 +4,7 @@
 <section class="content-publications">
   @if ($data)
     <div class="md:grid lg:grid-cols-12 lg:grid-column-gap">
-      @foreach($data as $column)
+      @foreach($data as $key => $column)
         <div class="lg:span-4">
           @foreach($column as $key => $year)
             <div class="mb-36x lg:mb-48x">

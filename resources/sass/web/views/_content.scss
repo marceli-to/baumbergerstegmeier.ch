@@ -227,6 +227,14 @@
       @extend %text-lg;
     }
 
+    a[href^="mailto:"] {
+      &:hover {
+        text-decoration: underline;
+        text-underline-offset: 3px;
+        text-decoration-thickness: .05rem;
+      }
+    }
+
     strong {
       @extend %font-semi-bold;
     }
