@@ -33,7 +33,6 @@ class ProjectController extends Controller
     return response()->json(
       [
         'project' => Project::with('images', 'categories', 'states')->find($project->id),
-        'types' => Type::orderBy('order')->get(),
         'states' => State::orderBy('order')->get(),
         'categories' => Category::get(),
       ]
@@ -53,13 +52,11 @@ class ProjectController extends Controller
       'title' => $request->input('title'),
       'text' => $request->input('text'),
       'info' => $request->input('info'),
-      'periode' => $request->input('periode'),
       'year' => $request->input('year'),
       'location' => $request->input('location'),
       'publish' => $request->input('publish'),
       'feature' => $request->input('feature'),
       'landing' => $request->input('landing'),
-      'type_id' => $request->input('type_id'),
     ]);
     $project->slug = \AppHelper::slug($request->input('title')) . '-' . $project->id;
     $project->save();
@@ -83,13 +80,11 @@ class ProjectController extends Controller
     $project->title = $request->input('title');
     $project->text = $request->input('text');
     $project->info = $request->input('info');
-    $project->periode = $request->input('periode');
     $project->year = $request->input('year');
     $project->location = $request->input('location');
     $project->publish = $request->input('publish');
     $project->feature = $request->input('feature');
     $project->landing = $request->input('landing');
-    $project->type_id = $request->input('type_id');
     $project->save();
     $project->categories()->sync($request->input('category_ids'));
     $project->states()->sync($request->input('state_ids'));

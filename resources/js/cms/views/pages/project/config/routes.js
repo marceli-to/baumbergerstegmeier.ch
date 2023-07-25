@@ -13,10 +13,6 @@ import StateIndex from '@/views/pages/project/state/Index.vue';
 import StateCreate from '@/views/pages/project/state/partials/Create.vue';
 import StateEdit from '@/views/pages/project/state/partials/Edit.vue';
 
-import TypeIndex from '@/views/pages/project/type/Index.vue';
-import TypeCreate from '@/views/pages/project/type/partials/Create.vue';
-import TypeEdit from '@/views/pages/project/type/partials/Edit.vue';
-
 const routes = [
   {
     name: 'project-dashboard',
@@ -75,22 +71,6 @@ const routes = [
     name: 'project-state-edit',
     path: '/administration/project/state/edit/:id',
     component: StateEdit,
-  },
-
-  {
-    name: 'project-type-index',
-    path: '/administration/project/type/index',
-    component: TypeIndex,
-  },
-  {
-    name: 'project-type-create',
-    path: '/administration/project/type/create',
-    component: TypeCreate,
-  },
-  {
-    name: 'project-type-edit',
-    path: '/administration/project/type/edit/:id',
-    component: TypeEdit,
   },
 
 ];

@@ -26,7 +26,7 @@ class ProjectStoreRequest extends FormRequest
     return [
       'title' => 'required',
       'year' => 'required|integer|min:1900|max:2100',
-      'type_id' => 'required|exists:types,id',
+      'type' => 'required',
     ];
   }
 
@@ -51,13 +51,9 @@ class ProjectStoreRequest extends FormRequest
         'field' => 'year',
         'error' => 'Jahr muss eine Zahl sein'
       ],
-      'type_id.required' => [
+      'type.required' => [
         'field' => 'type',
         'error' => 'Typ wird benötigt'
-      ],
-      'type_id.exists' => [
-        'field' => 'type',
-        'error' => 'Typ existiert nicht'
       ],
     ];
   }

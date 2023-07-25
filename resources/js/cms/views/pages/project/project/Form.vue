@@ -44,18 +44,10 @@
     </div>
 
     <div v-show="tabs.worklist.active">
-      <div :class="[this.errors.type_id ? 'has-error' : '', 'form-row mt-8x']">
+      <div :class="[this.errors.type ? 'has-error' : '', 'form-row mt-8x']">
         <label>Typ</label>
-        <div class="select-wrapper">
-          <select v-model="data.type_id">
-            <option v-for="t in types" :key="t.id" :value="t.id">{{ t.description }}</option>
-          </select>
-        </div>
+        <input type="text" v-model="data.type">
         <label-required />
-      </div>
-      <div class="form-row">
-        <label>Zeitraum (z.B. 2015–2019)</label>
-        <input type="text" v-model="data.periode">
       </div>
     </div>
 
@@ -171,10 +163,9 @@ export default {
         text: null,
         info: null,
         year: null,
-        periode: null,
         location: null,
         order: null,
-        type_id: 1,
+        type: null,
         category_ids: [],
         state_ids: [],
         publish: 1,
@@ -183,7 +174,6 @@ export default {
         images: [],
       },
 
-      types: [],
       states: [],
       categories: [],
 
@@ -191,7 +181,7 @@ export default {
       errors: {
         title: false,
         year: false,
-        type_id: false,
+        type: false,
       },
 
       // Routes
@@ -205,9 +195,6 @@ export default {
         states: {
           get: '/api/project/states',
         },
-        types: {
-          get: '/api/project/types',
-        }
       },
 
       // States

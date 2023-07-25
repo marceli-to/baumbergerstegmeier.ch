@@ -22,12 +22,6 @@
           <p>Verwaltung der Status</p>
         </router-link>
       </div>
-      <div class="card">
-        <router-link :to="{name: 'project-type-index'}">
-          <h2>Typen</h2>
-          <p>Verwaltung der Typen</p>
-        </router-link>
-      </div>
     </div>
     <page-footer>
       <button-back :route="'dashboard'">Zurück</button-back>

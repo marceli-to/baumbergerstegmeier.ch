@@ -19,7 +19,7 @@ class WorklistController extends BaseController
   {
     return view($this->viewPath . 'index', [
       'filter' => 'all',
-      'projects' => Project::with('coverImage', 'type')->published()->orderBy('order')->get(),
+      'projects' => Project::with('coverImage')->published()->orderBy('order')->get(),
       'categories' => Category::with('publishedProjects')->orderBy('order')->get(),
       'states' => State::with('publishedProjects')->orderBy('order')->get(),
     ]);

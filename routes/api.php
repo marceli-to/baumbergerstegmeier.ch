@@ -182,17 +182,6 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::delete('cv/{cv}', 'destroy');
   });
 
-  // Project type
-  Route::controller(TypeController::class)->group(function () {
-    Route::get('project/types', 'get');
-    Route::get('project/type/{type}', 'find');
-    Route::post('project/type', 'store');
-    Route::put('project/type/{type}', 'update');
-    Route::get('project/type/state/{type}', 'toggle');
-    Route::post('project/type/order', 'order');
-    Route::delete('project/type/{type}', 'destroy');
-  });
-
   // Project state
   Route::controller(StateController::class)->group(function () {
     Route::get('project/states', 'get');

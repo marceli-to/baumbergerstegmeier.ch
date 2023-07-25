@@ -16,11 +16,10 @@ class Project extends Base
     'title',
     'text',
     'info',
-    'periode',
     'year',
     'location',
+    'type',
     'order',
-    'type_id',
     'publish',
     'feature',
     'landing',
@@ -36,14 +35,6 @@ class Project extends Base
     'category_ids', 'state_ids',
   ];
 
-  /**
-   * The type that belong to this project.
-   */
-  
-  public function type()
-  {
-    return $this->belongsTo(Type::class);
-  }
 
   /**
    * The states that belong to this project.

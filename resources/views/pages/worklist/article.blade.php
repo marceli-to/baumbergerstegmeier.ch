@@ -13,7 +13,7 @@
       <h2>{{ $project->title }}</h2>
       <p>
         @if ($project->location) {{ $project->location }}<br>@endif
-        {{ $project->type->description }}@if ($project->periode), {{ $project->periode }}@endif
+        {{ $project->type }}
       </p>
     </div>
   </article>

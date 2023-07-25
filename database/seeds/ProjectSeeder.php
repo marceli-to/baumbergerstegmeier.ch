@@ -148,9 +148,18 @@ class ProjectSeeder extends Seeder
       "Die verborgenen Geschichten städtischer Landschaften aufdecken."
     ];
 
-    $info = '<h2>'.$subtitles[random_int(0, count($subtitles) - 1)].'</h2><p><strong>Wettbewerb:</strong> 2016, 1. Preis<br><strong>Ausführung:</strong> 2018-2021<br><strong>Bausumme:</strong> ca. 90 Mio. CHF</p><p><strong>Bauherrschaft:</strong> Implenia Schweiz, Dietlikon; Anlagestiftung Adimora, Zürich; Genossenschaft Gesewo, Winterthur; Genossenschaft Gaiwo, Winterthur</p><p><strong>Mitarbeit Wettbewerb:</strong> Peter Baumberger, Karin Stegmeier, Stephan Popp, Monika Kilga, Daniel Kaschub, Arno Bruderer, Marius Rinderknecht, Laura Kübler, Manuela Schneeberger<br><strong>Mitarbeit Ausführung:</strong> Peter Baumberger, Karin Stegmeier, Stephan Popp, Monika Kilga, Daniel Kaschub, Markus Nyfeler, Remo Reichmuth, Nadine Jaberg, Giancarlo Ceriani, Arno Bruderer, Sarah Fahrni, Lars Schriever, Viola Müller, Roman Schober, Urs Bösch, Andreina Schnellmann, Josua Frei</p><p><strong>Totalunternehmer:</strong> Implenia Schweiz AG Modernisation & Development, Winterthur<br><strong>Holzbauingenieur:</strong> Timbatec Holzbauingenieure Schweiz AG, Zürich<br><strong>Bauingenieur:</strong> Dr. Grob & Partner AG, Winterthur<br><strong>HLSK-Planung:</strong> Implenia Schweiz AG. Gisikon<br><strong>Elektroplanung:</strong> Hefti. Hess. Martignoni, Zürich<br><strong>Fassadenplanung:</strong> EBP Schweiz AG, Zürich<br><strong>Bauphysik:</strong> Pirmin Jung Schweiz AG, Rain<br><strong>Brandschutz:</strong> Timbatec Holzbauingenieure Schweiz AG, Zürich<br><strong>Landschaftsarchitektur</strong>: Hager Partner AG, Zürich<br><strong>Fotograf</strong>: Jürg Zimmermann, Zürich</p>';
+    $types = [
+      'Wettbewerb 2003, 1. Ankauf',
+      'Neubau 2012 – 2019',
+      'Wettbewerb 2016, 1. Preis',
+      'Renovation 2015 – 2017',
+      'Wettbewerb 2018, 1. Preis',
+      'Neubau 2016 – 2019',
+      'Wettbewerb 2019, 1. Preis',
+      'Umbau 2017 – 2019',
+    ];
 
-    $types = Type::get();
+    $info = '<h2>'.$subtitles[random_int(0, count($subtitles) - 1)].'</h2><p><strong>Wettbewerb:</strong> 2016, 1. Preis<br><strong>Ausführung:</strong> 2018-2021<br><strong>Bausumme:</strong> ca. 90 Mio. CHF</p><p><strong>Bauherrschaft:</strong> Implenia Schweiz, Dietlikon; Anlagestiftung Adimora, Zürich; Genossenschaft Gesewo, Winterthur; Genossenschaft Gaiwo, Winterthur</p><p><strong>Mitarbeit Wettbewerb:</strong> Peter Baumberger, Karin Stegmeier, Stephan Popp, Monika Kilga, Daniel Kaschub, Arno Bruderer, Marius Rinderknecht, Laura Kübler, Manuela Schneeberger<br><strong>Mitarbeit Ausführung:</strong> Peter Baumberger, Karin Stegmeier, Stephan Popp, Monika Kilga, Daniel Kaschub, Markus Nyfeler, Remo Reichmuth, Nadine Jaberg, Giancarlo Ceriani, Arno Bruderer, Sarah Fahrni, Lars Schriever, Viola Müller, Roman Schober, Urs Bösch, Andreina Schnellmann, Josua Frei</p><p><strong>Totalunternehmer:</strong> Implenia Schweiz AG Modernisation & Development, Winterthur<br><strong>Holzbauingenieur:</strong> Timbatec Holzbauingenieure Schweiz AG, Zürich<br><strong>Bauingenieur:</strong> Dr. Grob & Partner AG, Winterthur<br><strong>HLSK-Planung:</strong> Implenia Schweiz AG. Gisikon<br><strong>Elektroplanung:</strong> Hefti. Hess. Martignoni, Zürich<br><strong>Fassadenplanung:</strong> EBP Schweiz AG, Zürich<br><strong>Bauphysik:</strong> Pirmin Jung Schweiz AG, Rain<br><strong>Brandschutz:</strong> Timbatec Holzbauingenieure Schweiz AG, Zürich<br><strong>Landschaftsarchitektur</strong>: Hager Partner AG, Zürich<br><strong>Fotograf</strong>: Jürg Zimmermann, Zürich</p>';
 
     for($i = 0; $i <= 50; $i++)
     {
@@ -163,8 +172,7 @@ class ProjectSeeder extends Seeder
         'info'  => $info,
         'location' => $locations[random_int(0, count($locations) - 1)],
         'year'  => rand(2010, 2023),
-        'periode' => rand(2010, 2023) . ' – ' . rand(2010, 2023),
-        'type_id' => $types->random()->id,
+        'type' => $types[random_int(0, count($types) - 1)],
         'order' => $i,
         'publish' => 1,
         'feature' => $landingAndFeature,
