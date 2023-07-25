@@ -236,7 +236,6 @@ export default {
       this.isLoading = true;
       this.axios.get(`${this.routes.find}/${this.$route.params.id}`).then(response => {
         this.data = response.data.project;
-        this.types = response.data.types;
         this.states = response.data.states;
         this.categories = response.data.categories;
         this.isFetched = true;
@@ -250,11 +249,9 @@ export default {
       this.axios.all([
         this.axios.get(`${this.routes.categories.get}`),
         this.axios.get(`${this.routes.states.get}`),
-        this.axios.get(`${this.routes.types.get}`),
       ]).then(this.axios.spread((...responses) => {
         this.categories = responses[0].data.data;
         this.states = responses[1].data.data;
-        this.types = responses[2].data.data;
         this.isFetched = true;
         this.isLoading = false;
       }));
