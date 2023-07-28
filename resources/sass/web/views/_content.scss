@@ -248,11 +248,24 @@
 .content-worklist {
   position: relative;
 
+  h2 {
+    @extend %pt-4x;
+    @extend %mb-10x;
+    @extend %lg\:mb-16x;
+    @extend %text-xl;
+    @extend %lg\:text-2xl;
+    border-top: 1px solid $color-black;
+  } 
+
   .worklist-wrapper {
-    @extend %md\:grid;
-    @extend %md\:grid-cols-12;
-    @extend %md\:grid-column-gap;
     @extend %lg\:pt-90x;
+
+    > div  {
+      @extend %md\:grid;
+      @extend %md\:grid-cols-12;
+      @extend %md\:grid-column-gap;
+    }
+
   }
   
   nav.worklist-filter {
@@ -318,6 +331,7 @@
       @include bp-lg() {
         position: absolute;
       }
+
       a {
         @extend %text-base;
         @extend %lg\:text-base;

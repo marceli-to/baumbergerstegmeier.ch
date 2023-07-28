@@ -1,6 +1,6 @@
-@if ($project->coverImage)
-  <article class="worklist-item md:span-6 lg:span-3">
-    <figure>
+<article class="worklist-item md:span-6 lg:span-3">
+  <figure>
+    @if ($project->coverImage)
       <x-image 
         :classes="'aspect-ratio-3/2'"
         :maxSizes="[0 => 1000]" 
@@ -8,13 +8,30 @@
         width="1000" 
         height="667">
       </x-image>
-    </figure>
-    <div>
-      <h2>{{ $project->title }}</h2>
-      <p>
-        @if ($project->location) {{ $project->location }}<br>@endif
-        {{ $project->type }}
-      </p>
-    </div>
-  </article>
-@endif
+    @else
+      <picture class="aspect-ratio-3/2" style="background-color: #d1d1d1">
+        <div class="placeholder"></div>
+      </picture>
+    @endif
+  </figure>
+  <div>
+    <h3>
+      @if ($project->feature)
+        <a href="{{ route('page.project.show', ['state' => $project->states->first()->slug, 'category' => $project->categories->first()->slug, 'project' => $project->slug]) }}" 
+          title="{{ $project->title }}"
+          class="flex">
+          <span class="inline-block">
+            {{ $project->title }}<x-icons.arrow-right-up class="inline-block ml-12x" />
+          </span>
+        </a>
+      @else
+        {{ $project->title }}
+      @endif
+    </h3>
+    <p>
+      @if ($project->location) {{ $project->location }}<br>@endif
+      {{ $project->type }}
+    </p>
+  </div>
+</article>
+

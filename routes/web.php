@@ -29,6 +29,10 @@ Route::get('/projekte/{state:slug}/{category:slug}/{project:slug}', [ProjectCont
 Route::get('/projekt/vorschau/{project}', [ProjectController::class, 'preview'])->name('page.project.preview');
 
 Route::get('/werkliste', [WorklistController::class, 'index'])->name('page.worklist');
+Route::get('/werkliste/jahr', [WorklistController::class, 'byYear'])->name('page.worklist.year');
+Route::get('/werkliste/suche/{searchTerm}', [WorklistController::class, 'search'])->name('page.worklist.search');
+Route::get('/werkliste/status/{state:slug}', [WorklistController::class, 'byState'])->name('page.worklist.state');
+Route::get('/werkliste/programm/{category:slug}', [WorklistController::class, 'byCategory'])->name('page.worklist.category');
 
 Route::get('/buero/profil', [OfficeController::class, 'profile'])->name('page.office.profile');
 Route::get('/buero/team', [OfficeController::class, 'team'])->name('page.office.team');

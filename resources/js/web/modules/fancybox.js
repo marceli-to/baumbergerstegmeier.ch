@@ -31,7 +31,7 @@ var FancyBox = (function() {
             '<div class="fancybox-toolbar">{{buttons}}</div>' +
             '<div class="fancybox-navigation">{{arrows}}</div>' +
             '<div class="fancybox-stage"></div>' +
-            '<div class="fancybox-caption"><div class=""fancybox-caption__body"></div></div>' +
+            '<div class="fancybox-caption"><div class="fancybox-caption__body"></div></div>' +
           '</div>' +
         '</div>',
       

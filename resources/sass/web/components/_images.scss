@@ -22,6 +22,7 @@ picture {
   }
 
   &.aspect-ratio-3\/2 {
+    .placeholder,
     img {
       aspect-ratio: 3 / 2;
       object-fit: cover;
@@ -29,6 +30,7 @@ picture {
   }
 
   &.aspect-ratio-2\/3 {
+    .placeholder,
     img {
       aspect-ratio: 2 / 3;
       object-fit: cover;
@@ -37,7 +39,7 @@ picture {
 
   &.teaser {
     figcaption {
-      @extend %pt-3x;
+      @extend %pt-4x;
       @extend %text-sm;
       @extend %lg\:text-lg;
       display: block;
