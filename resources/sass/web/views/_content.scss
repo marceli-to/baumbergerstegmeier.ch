@@ -86,14 +86,14 @@
     @extend %pt-6x;
     @extend %pb-50x;
     @extend %lg\:pb-100x;
-    @extend %lg\:pt-0;
+    @extend %md\:pt-0;
     @extend %my-25x;
-    @extend %lg\:mt-0;
+    @extend %md\:mt-0;
     @extend %text-sm;
     border-top: 1px solid $color-black;
     line-height: 1.25;
 
-    @include bp-lg() {
+    @include bp-md() {
       border-top: 0;
     }
     
@@ -102,18 +102,16 @@
       @extend %mb-25x;
     }
   }
-
-
 }
 
 .content-contact {
   address {
     @extend %pt-4x;
-    @extend %lg\:pt-0;
+    @extend %md\:pt-0;
     @extend %lg\:text-xl;
     line-height: 1.35;
     border-top: 1px solid $color-black;
-    @include bp-lg() {
+    @include bp-md() {
       border-top: none;
       line-height: 1.2;
     }
@@ -319,6 +317,27 @@
         right: 0;
         top: 0;
 
+        a {
+          display: flex !important;
+
+          form {
+            margin-top: -4px;
+          }
+
+          input[type=text] {
+            @extend %pb-0;
+            @extend %text-md;
+            @extend %lg\:text-lg;
+            border: none !important;
+            
+          }
+
+          input::placeholder {
+            @extend %text-md;
+            @extend %lg\:text-lg;
+          }
+        }
+
         @include bp-lg() {
           position: relative;
           right: auto;
@@ -328,6 +347,7 @@
     }
 
     ul ul {
+      @extend %ml-0;
       @include bp-lg() {
         position: absolute;
       }

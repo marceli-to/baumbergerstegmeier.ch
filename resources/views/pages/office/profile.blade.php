@@ -3,9 +3,9 @@
 <x-page-title />
 <section class="content-profile">
   @if (isset($data->publishedImages))
-    <div class="lg:grid lg:grid-cols-12 lg:grid-column-gap mb-20x lg:mb-40x">
+    <div class="md:grid md:grid-cols-12 md:grid-column-gap mb-20x lg:mb-40x">
       @foreach($data->publishedImages as $image)
-        <div class="lg:span-6 {{ $loop->index == 1 ? 'hidden !lg:block' : ''}}">
+        <div class="md:span-6 {{ $loop->index == 1 ? 'hidden !md:block' : ''}}">
           <x-image 
             :maxSizes="[0 => 1200, 1000 => 1600]" 
             :image="$image" 
@@ -32,8 +32,8 @@
   @endif
 
   @if (isset($data->text_bsemi))
-    <article class="lg:grid lg:grid-cols-12 lg:grid-column-gap">
-      <div class="lg:span-6">{!! $data->text_bsemi !!}</div>
+    <article class="md:grid md:grid-cols-12 md:grid-column-gap">
+      <div class="md:span-6">{!! $data->text_bsemi !!}</div>
     </article>
   @endif
 

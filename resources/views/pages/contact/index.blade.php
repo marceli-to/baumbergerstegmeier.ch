@@ -1,8 +1,8 @@
 @extends('layout.web')
 @section('content')
 <x-page-title />
-<section class="content-contact lg:grid lg:grid-cols-12 lg:grid-column-gap">
-  <div class="lg:span-6">
+<section class="content-contact md:grid md:grid-cols-12 md:grid-column-gap">
+  <div class="md:span-6">
     @if (isset($data->publishedImages[0]))
       <x-image 
         :maxSizes="[0 => 1200, 1000 => 1600]" 
@@ -12,12 +12,12 @@
       </x-image>
     @endif
     @if (isset($data->address))
-      <address class="mt-20x lg:mt-16x">
+      <address class="mt-20x md:mt-16x">
         {!! $data->address !!}
       </address>
     @endif
   </div>
-  <div class="lg:span-6 mt-25x lg:mt-0">
+  <div class="md:span-6 mt-25x md:mt-0">
     @if (isset($data->publishedImages[1]))
       @if (isset($data->maps_uri))
         <a href="{{ $data->maps_uri }}" target="_blank" title="Auf Google Maps anzeigen">
@@ -38,7 +38,7 @@
       @endif
     @endif
     @if (isset($data->maps_uri))
-      <div class="mt-8x lg:mt-16x">
+      <div class="mt-8x md:mt-16x">
         <p>
           <a href="{{ $data->maps_uri }}" class="icon-arrow-right-up" target="_blank" title="Auf Google Maps anzeigen">
             Auf Google Maps anzeigen
@@ -47,7 +47,7 @@
       </div>
     @endif
   </div>
-  <div class="lg:span-12 mt-40x lg:mt-16x">
+  <div class="md:span-12 mt-40x md:mt-16x">
     {!! $data->description ?? '' !!}
     @if (isset($data->imprint) || isset($data->privacy))
       <div class="mt-32x">

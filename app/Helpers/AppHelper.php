@@ -57,4 +57,16 @@ class AppHelper
     return $item->image?->caption ? $item->image->caption : NULL;
   }
 
+  public static function projectTitle($title)
+  {
+    // Split the title by spaces
+    $words = explode(' ', $title);
+
+    // Wrap the last word in a span
+    $words[count($words) - 1] = '<span class="icon-arrow-right-up-sm">' . $words[count($words) - 1] . '</span>';
+    
+    // Return the imploded array
+    return implode(' ', $words);
+  }
+
 }

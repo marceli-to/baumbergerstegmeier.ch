@@ -10,3 +10,8 @@
   display: inline-block;
   vertical-align: top;
 }
+
+.icon-arrow-right-up-sm {
+  @extend %icon-arrow-right-up;
+  padding-right: 1.4rem;
+}

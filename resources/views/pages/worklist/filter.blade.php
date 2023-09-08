@@ -33,9 +33,11 @@
     </li>
     @endif
     <li class="is-search">
-      <a href="javascript:;" class="is-search !mb-0 flex justify-between items-center lg:items-start">
+      <a href="javascript:;" class="is-search mt-2x !mb-0 flex justify-between items-start">
         <x-icons.search class="mr-7x lg:mr-10x" />
-        Suche
+        <form action="{{ route('page.worklist')}}" method="GET">
+          <input type="text" name="searchTerm" min="3" placeholder="Suche" value="{{ $searchTerm ?? '' }}" class="leading-none">
+        </form>
       </a>
     </li>
   </ul>

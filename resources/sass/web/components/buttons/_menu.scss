@@ -11,6 +11,7 @@
   z-index: 500;
 
   @include bp-lg() {
+    left: $space-40x;
     top: $space-20x;
   }
 

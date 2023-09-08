@@ -7,7 +7,7 @@
 }
 
 .content-columns {
-  @include bp-lg() {
+  @include bp-md() {
     columns: 200px 2;
     column-gap: 17px;
   }

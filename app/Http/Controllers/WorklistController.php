@@ -13,13 +13,37 @@ class WorklistController extends BaseController
   /**
    * Show the worklist page
    *
+   * @param  \Illuminate\Http\Request $request
    * @return \Illuminate\Http\Response
    */
-  public function index()
-  {
+  public function index(Request $request)
+  { 
+    $searchTerm = NULL;
+    if ($request->input('searchTerm'))
+    {
+      $searchTerm = $request->input('searchTerm');
+      $projects = Project::with('coverImage', 'states', 'categories')
+                    ->published()
+                    ->whereLike('title', $searchTerm)
+                    ->orWhereLike('text', $searchTerm)
+                    ->orWhereLike('info', $searchTerm)
+                    ->orWhereLike('location', $searchTerm)
+                    ->orWhereLike('type', $searchTerm)
+                    ->orderBy('order')
+                    ->get();
+    }
+    else
+    {
+      $projects = Project::with('coverImage', 'states', 'categories')
+                    ->published()
+                    ->orderBy('order')
+                    ->get();
+    }
+
     return view($this->viewPath . 'index', [
       'filter' => 'all',
-      'projects' => Project::with('coverImage', 'states', 'categories')->published()->orderBy('order')->get(),
+      'searchTerm' => $searchTerm,
+      'projects' => $projects,
       'categories' => Category::with('publishedProjects')->orderBy('order')->get(),
       'states' => State::with('publishedProjects')->orderBy('order')->get(),
     ]);

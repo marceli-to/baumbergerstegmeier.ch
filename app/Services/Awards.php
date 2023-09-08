@@ -4,17 +4,15 @@ use App\Models\Award;
 
 class Awards
 { 
-  public function get()
+  public function get($columns = 3)
   {
-    // $awards = Award::publish()->with('publishedImage')->orderBy('year', 'DESC')->get();
-    // $awards = $awards->groupBy('year');
-    // return $awards->chunk(ceil($awards->count() / 3));
     // initialize the array of data
-    $data = [
-      'col_1' => [],
-      'col_2' => [],
-      'col_3' => [],
-    ];
+    $data = [];
+
+    for($i = 1; $i <= $columns; $i++)
+    {
+      $data['col_' . $i] = [];
+    }
 
     // get all awards, ordered by year, ascending
     $awards = Award::publish()->with('publishedImage')->orderBy('year', 'ASC')->get();
@@ -25,11 +23,11 @@ class Awards
     });
 
     // define a threshold for the number of items per column
-    $threshold = ceil($awards->count() / 3);
+    $threshold = ceil($awards->count() / $columns);
 
     // loop over the years array and put the years into one of the colums. 
     // start with col_3. if the threshold is reached, switch to col_2, then col_1
-    $col_index = '3';
+    $col_index = $columns;
     $count = 0;
 
     foreach ($years as $year => $items)

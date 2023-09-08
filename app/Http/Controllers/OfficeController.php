@@ -56,7 +56,8 @@ class OfficeController extends BaseController
     return view(
       $this->viewPath . 'publications',
       [
-        'data' => (new Publications())->get()
+        'data_2_columns' => (new Publications())->get(2),
+        'data_3_columns' => (new Publications())->get(3)
       ]
     );
   }
@@ -71,7 +72,8 @@ class OfficeController extends BaseController
     return view(
       $this->viewPath . 'awards',
       [
-        'data' => (new Awards())->get()
+        'data_2_columns' => (new Awards())->get(2),
+        'data_3_columns' => (new Awards())->get(3)
       ]
     );
   }

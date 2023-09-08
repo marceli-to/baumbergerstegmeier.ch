@@ -19,14 +19,14 @@
       <nav class="project-browse">
         @if (isset($browse['prev']))
           <a href="{{ route('page.project.show', ['state' => $browse['prev']->states()->first()->slug, 'category' => $browse['prev']->categories()->first()->slug, 'project' => $browse['prev']->slug]) }}" 
-            class="block mr-7x" 
+            class="block mr-8x lg:mr-9x" 
             title="{{ $browse['prev']->title }}">
             <x-icons.chevron-prev-large />
           </a>
         @endif
         @if (isset($browse['next']))
           <a href="{{ route('page.project.show', ['state' => $browse['next']->states()->first()->slug, 'category' => $browse['next']->categories()->first()->slug, 'project' => $browse['next']->slug]) }}" 
-            class="block ml-7" 
+            class="block ml-8x lg:ml-9x" 
             title="{{ $browse['next']->title }}">
             <x-icons.chevron-next-large />
           </a>
@@ -47,14 +47,14 @@
     </a>
   </div>
   <div class="project-text">
-    <div class="lg:grid lg:grid-cols-12 lg:grid-gap">
-      <div class="project-text__info lg:span-6 hidden" data-info>
+    <div class="md:grid md:grid-cols-12 md:grid-gap">
+      <div class="project-text__info md:span-6 hidden" data-info>
         {!! $project->text !!}
-        <a href="javascript:;" class="block !lg:hidden icon-chevron mt-25x text-md" title="Credits anzeigen/verbergen" data-btn-toggle-credits>
+        <a href="javascript:;" class="block !md:hidden icon-chevron mt-25x text-md" title="Credits anzeigen/verbergen" data-btn-toggle-credits>
           Credits
         </a>
       </div>
-      <div class="lg:span-6 project-credits hidden" data-credits>
+      <div class="md:span-6 project-credits hidden" data-credits>
         {!! $project->info !!}
       </div>
     </div>
