@@ -12,15 +12,6 @@ class ProjectController extends BaseController
   protected $viewPath = 'pages.project.';
 
   /**
-   * Show the project page
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function index()
-  {
-  }
-
-  /**
    * Show a project
    * @param String $state
    * @param String $category
@@ -36,6 +27,24 @@ class ProjectController extends BaseController
       'category' => Category::where('slug', $category)->first(),
       'state' => State::where('slug', $state)->first(),
       'browse' => $this->getBrowse($project->id, $state, $category),
+    ]);
+  }
+
+  /**
+   * Show a project gallery
+   * @param Project $project
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function gallery(Project $project)
+  {
+    return view($this->viewPath . 'gallery', [
+      'project' => Project::find($project->id),
+      'images' => Teaser::projects()
+                  ->with('image')
+                  ->where('project_id', $project->id)
+                  ->orderBy('position')
+                  ->get(),
     ]);
   }
 

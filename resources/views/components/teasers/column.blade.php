@@ -12,7 +12,11 @@
           <x-teasers.image :image="$item" />
         </a>
       @else
-        <a href="/img/cache/{{ $item->image->name }}" data-fancybox="gallery">
+        {{-- <a href="/img/cache/{{ $item->image->name }}" data-fancybox="gallery">
+          <x-teasers.image :image="$item" />
+        </a> --}}
+
+        <a href="{{ route('page.project.gallery', ['project' => $item->project->slug]) }}" title="{{ $item->image->caption }}">
           <x-teasers.image :image="$item" />
         </a>
       @endif
