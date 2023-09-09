@@ -1,5 +1,5 @@
 <nav class="worklist-filter" data-worklist>
-  <ul class="lg:flex">
+  <ul class="md:flex">
     <li>
       <a href="{{ route('page.worklist') }}" class="is-first {{ $filter == 'all' ? 'is-active' : '' }}" title="Alle" {{ $filter == 'all' ? 'data-btn-worklist-current' : '' }}>
         Alle
@@ -33,7 +33,7 @@
     </li>
     @endif
     <li class="is-search">
-      <a href="javascript:;" class="is-search mt-2x !mb-0 flex justify-between items-start">
+      <a href="javascript:;" class="is-search !mb-0 flex justify-between items-start">
         <x-icons.search class="mr-7x lg:mr-10x" />
         <form action="{{ route('page.worklist')}}" method="GET">
           <input type="text" name="searchTerm" min="3" placeholder="Suche" value="{{ $searchTerm ?? '' }}" class="leading-none">

@@ -274,7 +274,7 @@
     background-color: $color-white;
     border-top: 1px solid $color-black;
 
-    @include bp-lg() {
+    @include bp-md() {
       position: absolute;
       width: 100%;
 
@@ -290,7 +290,7 @@
       a {
         @extend %text-md;
         @extend %lg\:text-lg;
-        @extend %lg\:ml-54x;
+        @extend %md\:ml-54x;
         @extend %mb-10x;
         display: block;
         line-height: 1 !important;
@@ -348,7 +348,7 @@
 
     ul ul {
       @extend %ml-0;
-      @include bp-lg() {
+      @include bp-md() {
         position: absolute;
       }
 
