@@ -60,7 +60,7 @@
     @extend %mt-76x;
     display: block;
 
-    @include bp-lg() {
+    @include bp-md() {
       display: none;
     }
 
