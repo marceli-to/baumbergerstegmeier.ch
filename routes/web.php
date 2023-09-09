@@ -21,12 +21,11 @@ use App\Http\Controllers\TestController;
 Auth::routes(['verify' => true, 'register' => false]);
 Route::get('/logout', 'Auth\LoginController@logout');
 
-// Frontend - Home
+// Frontend
 Route::get('/', [HomeController::class, 'index'])->name('page.home');
 
 Route::get('/projekte', [ProjectController::class, 'index'])->name('page.projects');
 Route::get('/projekte/{state:slug}/{category:slug}/{project:slug}', [ProjectController::class, 'show'])->name('page.project.show');
-Route::get('/projekte/galerie/{project:slug}', [ProjectController::class, 'gallery'])->name('page.project.gallery');
 Route::get('/projekt/vorschau/{project}', [ProjectController::class, 'preview'])->name('page.project.preview');
 
 Route::get('/werkliste/{searchTerm?}', [WorklistController::class, 'index'])->name('page.worklist');

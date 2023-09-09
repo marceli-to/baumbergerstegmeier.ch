@@ -31,24 +31,6 @@ class ProjectController extends BaseController
   }
 
   /**
-   * Show a project gallery
-   * @param Project $project
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function gallery(Project $project)
-  {
-    return view($this->viewPath . 'gallery', [
-      'project' => Project::find($project->id),
-      'images' => Teaser::projects()
-                  ->with('image')
-                  ->where('project_id', $project->id)
-                  ->orderBy('position')
-                  ->get(),
-    ]);
-  }
-
-  /**
    * Show a project in preview mode
    * @param Project $project
    *

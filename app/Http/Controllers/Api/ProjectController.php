@@ -53,6 +53,7 @@ class ProjectController extends Controller
       'text' => $request->input('text'),
       'info' => $request->input('info'),
       'year' => $request->input('year'),
+      'type' => $request->input('type'),
       'location' => $request->input('location'),
       'publish' => $request->input('publish'),
       'feature' => $request->input('feature'),
@@ -81,6 +82,7 @@ class ProjectController extends Controller
     $project->text = $request->input('text');
     $project->info = $request->input('info');
     $project->year = $request->input('year');
+    $project->type = $request->input('type');
     $project->location = $request->input('location');
     $project->publish = $request->input('publish');
     $project->feature = $request->input('feature');

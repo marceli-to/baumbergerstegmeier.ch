@@ -24,12 +24,13 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
-        "@fancyapps/ui": "^5.0.14",
+        "@fancyapps/ui": "^5.0.22",
         "@tinymce/tinymce-vue": "^3.2.2",
         "cleave.js": "^1.6.0",
         "moment": "^2.29.4",
         "postcss-loader": "^3.0.0",
         "raw-loader": "^0.5.1",
+        "swiper": "^9.1.0",
         "vue-advanced-cropper": "^0.16.5",
         "vue-axios": "^2.1.5",
         "vue-axios-interceptors": "^0.3.1",

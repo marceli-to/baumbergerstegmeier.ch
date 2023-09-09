@@ -1,4 +1,5 @@
 @extends('layout.web')
+@section('seo_title', $project->title)
 @section('content')
 <x-page-title :class="'hidden !md:block'" :type="'h2'" />
 @if ($project->coverImage)
