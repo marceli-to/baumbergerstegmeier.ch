@@ -49,21 +49,21 @@
 .fancybox__nav .f-button.is-next {
   background-image: url($url-icons + 'arrow-right.svg');
   background-position: center right;
-  right: 22px !important;
+  right: 11px !important;
 
-  // @include bp-lg() {
-  //   right: 44px !important;
-  // }
+  @include bp-md() {
+    right: 22px !important;
+  }
 }
 
 .fancybox__nav .f-button.is-prev {
   background-image: url($url-icons + 'arrow-left.svg');
   background-position: center left;
-  left: 22px !important;
+  left: 11px !important;
 
-  // @include bp-lg() {
-  //   left: 44px !important;
-  // }
+  @include bp-md() {
+    left: 22px !important;
+  }
 }
 
 .fancybox__caption {
@@ -85,4 +85,9 @@
     @extend %text-sm;
     color: $color-black;
   }
+}
+
+.fancybox__footer {
+  background-color: transparent !important;
+  padding: 11px 0 !important;
 }
