@@ -49,6 +49,13 @@ picture {
       }
     }
   }
+
+  &.teaser.portrait {
+    max-width: 70%;
+    @include bp-md() {
+      max-width: 100%;
+    }
+  }
 }
 
 a {

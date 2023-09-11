@@ -47,6 +47,7 @@ class Image extends Model
   protected $appends = [
     'coords',
     'has_coords',
+    'image_orientation'
   ];
 
   /**
@@ -89,7 +90,7 @@ class Image extends Model
 	/**
 	 * Get the cropping coordinates
 	 *
-	 * @return string
+	 * @return String
 	 */
 
 	public function getCoordsAttribute()
@@ -104,12 +105,22 @@ class Image extends Model
 
   /**
    * Check for cropping coordinates
-   * @return boolean
+   * @return Boolean
    */
 
   public function getHasCoordsAttribute()
   {
     return ($this->coords_w && $this->coords_h && $this->coords_w > 0 && $this->coords_h > 0);
+  }
+
+  /**
+   * Check for landscape orientation
+   * @return String
+   */
+
+  public function getImageOrientationAttribute()
+  {
+    return ($this->orientation == 'landscape') || $this->coords_w > $this->coords_h ? 'landscape' : 'portrait';
   }
 
 }

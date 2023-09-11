@@ -3,8 +3,9 @@
   $class = 'teaser';
   if (!$image->image->has_coords)
   {
-    $class .= $image->image->orientation == 'landscape' ? ' aspect-ratio-3/2' :  ' aspect-ratio-2/3';
+    $class .= $image->image->orientation == 'landscape' ? ' aspect-ratio-3/2' : ' aspect-ratio-2/3';
   }
+  $class .= ' ' . $image->image->orientation;
 @endphp
 <x-image 
   :classes="$class"
