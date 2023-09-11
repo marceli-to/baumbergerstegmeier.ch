@@ -34624,7 +34624,12 @@ body.auth section input[type=password]:-moz-placeholder {
 }
 
 .fancybox__content {
-  padding: 20px 20px 20px 20px !important;
+  padding: 0 !important;
+}
+@media only screen and (min-width: 768px) {
+  .fancybox__content {
+    padding: 20px 20px 20px 20px !important;
+  }
 }
 
 .fancybox__nav .f-button svg,
