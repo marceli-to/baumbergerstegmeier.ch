@@ -43,13 +43,13 @@
         <span>Info</span>
       </a>
     </div>
-    <a href="javascript:;" class="block !md:hidden icon-chevron mb-25x text-md" title="Info anzeigen/verbergen" data-btn-toggle-info>
+    <a href="javascript:;" class="block !md:hidden icon-chevron mb-5x lg:mb-25x text-md" title="Info anzeigen/verbergen" data-btn-toggle-info>
       Info
     </a>
   </div>
   <div class="project-text">
     <div class="md:grid md:grid-cols-12 md:grid-gap">
-      <div class="project-text__info md:span-6 hidden" data-info>
+      <div class="project-text__info md:span-6 pb-25x hidden" data-info>
         {!! $project->text !!}
         <a href="javascript:;" class="block !md:hidden icon-chevron mt-25x text-md" title="Credits anzeigen/verbergen" data-btn-toggle-credits>
           Credits
@@ -61,7 +61,7 @@
     </div>
   </div>
   @if ($teasers)
-    <x-teasers.index class="mt-25x lg:mt-0">
+    <x-teasers.index class="lg:mt-0">
       @foreach ($teasers as $items)
         <x-teasers.column :items="$items" :type="'project'" />
       @endforeach

@@ -25,6 +25,20 @@
   }
 }
 
+.grid-cols-auto {
+  grid-template-columns: auto 1fr;
+}
+@each $bp, $width in $breakpoints {
+  @for $i from 1 through 12 {
+    %#{$bp}\:grid-cols-auto, 
+    .#{$bp}\:grid-cols-auto {
+      @media (min-width: $width) {
+        grid-template-columns: auto 1fr;
+      }
+    }
+  }
+}
+
 // grid-template-columns: xyz;
 @for $i from 1 through 12 {
   %grid-cols-#{$i}, 

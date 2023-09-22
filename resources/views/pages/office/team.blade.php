@@ -44,12 +44,12 @@
                     {{-- cv uncategorized --}}
                     @php $cv = $employee->cv->whereNull('cv_category_id')->sortBy('order'); @endphp
                     @if ($cv)
-                      <div class="sm:grid sm:grid-cols-12 sm:grid-column-gap">
+                      <div class="sm:grid sm:grid-cols-auto sm:grid-column-gap">
                         @foreach($cv as $item)
-                          <div class="sm:span-2 sm:mb-1x">
+                          <div class="sm:mb-1x">
                             {{ $item->periode }}
                           </div>
-                          <div class="sm:span-10 mb-12x sm:mb-1x">
+                          <div class="mb-12x sm:mb-1x">
                             {{ $item->description }}
                           </div>
                         @endforeach
@@ -62,12 +62,12 @@
                         <div class="mt-22x">
                           @php $cv_category = $items->first()->category; @endphp
                           <strong class="block mb-2x">{{ $cv_category->description }}</strong>
-                          <div class="md:grid md:grid-cols-12 md:grid-column-gap">
+                          <div class="sm:grid sm:grid-cols-auto sm:grid-column-gap">
                             @foreach($items->sortBy('order') as $item)
-                              <div class="md:span-2 mb-1x">
+                              <div class="sm:mb-1x">
                                 {{ $item->periode }}
                               </div>
-                              <div class="md:span-10 mb-1x">
+                              <div class="sm:mb-1x">
                                 {{ $item->description }}
                               </div>
                             @endforeach

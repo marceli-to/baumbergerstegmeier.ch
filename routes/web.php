@@ -28,8 +28,8 @@ Route::get('/projekte', [ProjectController::class, 'index'])->name('page.project
 Route::get('/projekte/{state:slug}/{category:slug}/{project:slug}', [ProjectController::class, 'show'])->name('page.project.show');
 Route::get('/projekt/vorschau/{project}', [ProjectController::class, 'preview'])->name('page.project.preview');
 
-Route::get('/werkliste/{searchTerm?}', [WorklistController::class, 'index'])->name('page.worklist');
 Route::get('/werkliste/jahr', [WorklistController::class, 'byYear'])->name('page.worklist.year');
+Route::get('/werkliste/{searchTerm?}', [WorklistController::class, 'index'])->name('page.worklist');
 Route::get('/werkliste/status/{state:slug}', [WorklistController::class, 'byState'])->name('page.worklist.state');
 Route::get('/werkliste/programm/{category:slug}', [WorklistController::class, 'byCategory'])->name('page.worklist.category');
 

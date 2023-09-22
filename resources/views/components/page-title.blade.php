@@ -2,7 +2,7 @@
 <{{ $type }} class="content-title {{ $class }}">
   @if (request()->routeIs('page.project.show'))
     Projekte
-  @elseif (request()->routeIs('page.worklist'))
+  @elseif (request()->routeIs('page.worklist*'))
     Werkliste
   @elseif (request()->routeIs('page.office.profile'))
     Profil

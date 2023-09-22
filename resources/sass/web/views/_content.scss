@@ -26,12 +26,14 @@
 }
 
 .content-project {
-  @extend %md\:mt-25x;
+  @extend %md\:mt-12x;
+  @extend %lg\:mt-25x;
 
   h1 {
     @extend %text-xl;
     @extend %lg\:text-2xl;
     @extend %mb-40x;
+    @extend %md\:mb-20x;
     @extend %lg\:mb-28x;
   }
 
@@ -256,7 +258,7 @@
   } 
 
   .worklist-wrapper {
-    @extend %lg\:pt-90x;
+    @extend %md\:pt-90x;
 
     > div  {
       @extend %md\:grid;

@@ -5,7 +5,7 @@
 
   @if ($data_2_columns)
     <div class="sm:grid sm:grid-cols-12 sm:grid-column-gap !lg:hidden">
-      @foreach($data_3_columns as $key => $column)
+      @foreach($data_2_columns as $key => $column)
         <div class="sm:span-6">
           @foreach($column as $key => $year)
             <div class="mb-36x lg:mb-48x">
