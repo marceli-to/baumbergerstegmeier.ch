@@ -50,6 +50,8 @@ class ProjectController extends Controller
     $project = Project::create([
       'slug' => 'null',
       'title' => $request->input('title'),
+      'title_menu' => $request->input('title_menu'),
+      'title_worklist' => $request->input('title_worklist'),
       'text' => $request->input('text'),
       'info' => $request->input('info'),
       'year' => $request->input('year'),
@@ -79,6 +81,8 @@ class ProjectController extends Controller
     $project = Project::findOrFail($project->id);
     $project->slug = \AppHelper::slug($request->input('title')) . '-' . $project->id;
     $project->title = $request->input('title');
+    $project->title_menu = $request->input('title_menu');
+    $project->title_worklist = $request->input('title_worklist');
     $project->text = $request->input('text');
     $project->info = $request->input('info');
     $project->year = $request->input('year');

@@ -4,13 +4,18 @@
 <x-page-title :class="'hidden !md:block'" :type="'h2'" />
 @if ($project->coverImage)
   <x-hero class="hidden !md:block">
-    <x-image 
-      :classes="'aspect-ratio-3/2'"
-      :maxSizes="[0 => 1200, 1000 => 1600]" 
-      :image="$project->coverImage" 
-      width="1200" 
-      height="800">
-    </x-image>
+    <a 
+    href="/img/cache/{{ $project->coverImage->name }}/2000/{{ $project->coverImage->coords }}" 
+    data-fancybox="gallery-{{ $project->slug }}"
+    data-caption="{{ $project->coverImage->caption }}">
+      <x-image 
+        :classes="'aspect-ratio-3/2'"
+        :maxSizes="[0 => 1200, 1000 => 1600]" 
+        :image="$project->coverImage" 
+        width="1200" 
+        height="800">
+      </x-image>
+    </a>
   </x-hero>
 @endif
 <section class="content-project">

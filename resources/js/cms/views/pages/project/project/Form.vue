@@ -16,6 +16,16 @@
           <label-required />
         </div>
         <div class="form-row">
+          <label>Titel Menü</label>
+          <input type="text" v-model="data.title_menu" />
+          <label-info>Optional</label-info>
+        </div>
+        <div class="form-row">
+          <label>Titel Werkliste</label>
+          <input type="text" v-model="data.title_worklist" />
+          <label-info>Optional</label-info>
+        </div>
+        <div class="form-row">
           <label>Ort</label>
           <input type="text" v-model="data.location">
         </div>
@@ -160,6 +170,8 @@ export default {
       data: {
         id: null,
         title: null,
+        title_menu: null,
+        title_worklist: null,
         text: null,
         info: null,
         year: null,

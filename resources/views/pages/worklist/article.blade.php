@@ -41,17 +41,12 @@
         <a href="{{ route('page.project.show', ['state' => $project->states->first()->slug, 'category' => $project->categories->first()->slug, 'project' => $project->slug]) }}" 
           title="{{ $project->title }}"
           class="flex">
-          {{-- <span class="inline-block">
-            {{ $project->title }}<x-icons.arrow-right-up class="inline-block ml-12x" />
-          </span> --}}
-
           <span class="inline-block">
-            {!! AppHelper::projectTitle($project->title) !!}
+            {!! AppHelper::projectTitle($project->title_worklist ? $project->title_worklist : $project->title) !!}
           </span>
-
         </a>
       @else
-        {{ $project->title }}
+        {{ $project->title_worklist ? $project->title_worklist : $project->title }}
       @endif
     </h3>
     <p>

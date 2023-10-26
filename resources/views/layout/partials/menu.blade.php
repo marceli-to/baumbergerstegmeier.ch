@@ -31,7 +31,7 @@
                                   @foreach($menuProjectCategory['featuredProjects'] as $project)
                                     <li>
                                       <a href="{{ route('page.project.show', ['state' => $menuProjectState['slug'], 'category' => $menuProjectCategory['slug'], 'project' => $project->slug]) }}" title="{{ $project->title }}">
-                                        {{ $project->title }}
+                                        {{ $project->title_menu ? $project->title_menu : $project->title }}
                                       </a>
                                     </li>
                                   @endforeach
