@@ -41,16 +41,24 @@
         <a href="{{ route('page.project.show', ['state' => $project->states->first()->slug, 'category' => $project->categories->first()->slug, 'project' => $project->slug]) }}" 
           title="{{ $project->title }}"
           class="flex">
-          <span class="inline-block">
-            {!! AppHelper::projectTitle($project->title_worklist ? $project->title_worklist : $project->title) !!}
+          <span class="hidden !lg:inline-block">
+            {!! AppHelper::projectTitle($project->worklist_title_desktop) !!}
+          </span>
+          <span class="inline-block !lg:hidden">
+            {!! AppHelper::projectTitle($project->worklist_title_mobile) !!}
           </span>
         </a>
       @else
-        {{ $project->title_worklist ? $project->title_worklist : $project->title }}
+        <span class="hidden !lg:inline-block">
+          {{ $project->worklist_title_desktop }}
+        </span>
+        <span class="inline-block !lg:hidden">
+          {{ $project->worklist_title_mobile }}
+        </span>
       @endif
     </h3>
     <p>
-      @if ($project->location) {{ $project->location }}<br>@endif
+      @if ($project->location) <span class="hidden !lg:block">{{ $project->location }}<br></span>@endif
       {{ $project->type }}
     </p>
   </div>

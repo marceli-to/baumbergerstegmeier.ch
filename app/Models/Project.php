@@ -34,7 +34,10 @@ class Project extends Base
    */
 
   protected $appends = [
-    'category_ids', 'state_ids',
+    'category_ids', 
+    'state_ids', 
+    'worklist_title_mobile',
+    'worklist_title_desktop',
   ];
 
 
@@ -121,5 +124,31 @@ class Project extends Base
   {
     return $this->states->pluck('id');
   }
+
+  /**
+   * Get the worklist title for mobile, which consists of:
+   * - title_worklist (if available, title if not)
+   * - location (separated by a comma)
+   * 
+   */
+
+  public function getWorklistTitleMobileAttribute()
+  {
+    $title = $this->title_worklist ? $this->title_worklist : $this->title;
+    $location = $this->location ? $this->location : '';
+    return $title . ($location ? ', ' . $location : '');
+  }
+
+  /**
+   * Get the worklist title for desktop, which consists of:
+   * - title_worklist (if available, title if not)
+   * 
+   */
+
+  public function getWorklistTitleDesktopAttribute()
+  {
+    return $this->title_worklist ? $this->title_worklist : $this->title;
+  }
+
  
 }
