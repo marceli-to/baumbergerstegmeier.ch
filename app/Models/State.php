@@ -16,6 +16,7 @@ class State extends Base
     'description',
     'order',
     'publish',
+    'show_in_menu'
   ];
 
   /**

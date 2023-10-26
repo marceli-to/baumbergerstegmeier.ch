@@ -24,7 +24,7 @@ picture {
   &.aspect-ratio-3\/2 {
     .placeholder,
     img {
-      aspect-ratio: 3 / 2;
+      //aspect-ratio: 3 / 2;
       object-fit: cover;
     }
   }
@@ -32,7 +32,7 @@ picture {
   &.aspect-ratio-2\/3 {
     .placeholder,
     img {
-      aspect-ratio: 2 / 3;
+      //aspect-ratio: 2 / 3;
       object-fit: cover;
     }
   }

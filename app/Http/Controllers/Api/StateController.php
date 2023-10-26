@@ -40,7 +40,8 @@ class StateController extends Controller
     $state = State::create([
       'description' => $request->input('description'),
       'slug' => \Str::slug($request->input('description')),
-      'publish' => $request->input('publish')
+      'publish' => $request->input('publish'),
+      'show_in_menu' => $request->input('show_in_menu')
     ]);
     return response()->json(['stateId' => $state->id]);
   }
@@ -58,6 +59,7 @@ class StateController extends Controller
     $state->description = $request->input('description');
     $state->slug = \Str::slug($request->input('description'));
     $state->publish = $request->input('publish');
+    $state->show_in_menu = $request->input('show_in_menu');
     $state->save();
     return response()->json('successfully updated');
   }

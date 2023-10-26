@@ -19,6 +19,7 @@ class BaseController extends Controller
         $menuProjects[$state->slug] = [
           'id' => $state->id,
           'slug' => $state->slug,
+          'show_in_menu' => $state->show_in_menu,
           'description' => $state->description,
           'order' => $state->order,
           'projects' => $state->featuredProjects,

@@ -8,7 +8,8 @@
         :maxSizes="[0 => 1200, 1000 => 1600]" 
         :image="$coverProject->coverImage" 
         width="1200" 
-        height="800">
+        height="800"
+        ratio="3x2">
         <figcaption>
           {{ $coverProject->title }}@if ($coverProject->location), {{ $coverProject->location }}@endif
         </figcaption>

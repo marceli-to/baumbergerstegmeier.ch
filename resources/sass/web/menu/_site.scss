@@ -77,10 +77,13 @@ nav.site {
 
   ul ul {
     display: none;
+    &.is-active,
+    &.is-current {
+      display: block;
+    }
     &.is-current {
       @extend %mb-32x;
       @extend %lg\:mb-40x;
-      display: block;
     }
   }
 

@@ -29,6 +29,14 @@
             :name="'publish'">
           </radio-button>
         </div>
+        <div class="form-row">
+          <radio-button 
+            :label="'Im Menu anzeigen?'"
+            v-bind:show_in_menu.sync="data.show_in_menu"
+            :model="data.show_in_menu"
+            :name="'show_in_menu'">
+          </radio-button>
+        </div>
       </div>
     </div>
 
@@ -85,6 +93,7 @@ export default {
         id: null,
         description: null,
         publish: 1,
+        show_in_menu: 1,
       },
 
       // Validation

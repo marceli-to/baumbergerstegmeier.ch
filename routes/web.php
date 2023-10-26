@@ -43,7 +43,7 @@ Route::get('/kontakt', [ContactController::class, 'index'])->name('page.contact'
 
 
 // Frontend - url based images
-Route::get('/img/{template}/{filename}/{maxSize?}/{coords?}', [ImageController::class, 'getResponse']);
+Route::get('/img/{template}/{filename}/{maxSize?}/{coords?}/{ratio?}', [ImageController::class, 'getResponse']);
 
 // Testing
 Route::get('/test', [TestController::class, 'index']);

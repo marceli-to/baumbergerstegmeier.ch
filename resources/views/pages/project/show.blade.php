@@ -5,15 +5,16 @@
 @if ($project->coverImage)
   <x-hero class="hidden !md:block">
     <a 
-    href="/img/cache/{{ $project->coverImage->name }}/2000/{{ $project->coverImage->coords }}" 
-    data-fancybox="gallery-{{ $project->slug }}"
-    data-caption="{{ $project->coverImage->caption }}">
+      href="/img/cache/{{ $project->coverImage->name }}/2000/{{ $project->coverImage->coords }}" 
+      data-fancybox="gallery-{{ $project->slug }}"
+      data-caption="{{ $project->coverImage->caption }}">
       <x-image 
         :classes="'aspect-ratio-3/2'"
         :maxSizes="[0 => 1200, 1000 => 1600]" 
         :image="$project->coverImage" 
         width="1200" 
-        height="800">
+        height="800"
+        ratio="3x2">
       </x-image>
     </a>
   </x-hero>
@@ -83,7 +84,8 @@
         :maxSizes="[0 => 1200]" 
         :image="$browse['next']->coverImage" 
         width="1200" 
-        height="800">
+        height="800"
+        ratio="3x2">
       </x-image>
     </a>
   @endif

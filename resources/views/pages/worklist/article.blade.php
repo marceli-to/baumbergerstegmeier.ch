@@ -5,15 +5,16 @@
       <figure>
         @if ($project->coverImage)
           <x-image 
-            :classes="'aspect-ratio-3/2'"
+            :classes="''"
             :maxSizes="[0 => 1000]" 
             :image="$project->coverImage" 
             width="1000" 
-            height="667">
+            height="667"
+            ratio="3x2">
           </x-image>
         @else
-          <picture class="aspect-ratio-3/2" style="background-color: #d1d1d1">
-            <div class="placeholder"></div>
+          <picture style="background-color: #d1d1d1">
+            <img src="/assets/img/placeholder-3x2.png" width="300" height="200">
           </picture>
         @endif
       </figure>
@@ -22,15 +23,16 @@
   <figure>
     @if ($project->coverImage)
       <x-image 
-        :classes="'aspect-ratio-3/2'"
+        :classes="''"
         :maxSizes="[0 => 1000]" 
         :image="$project->coverImage" 
         width="1000" 
-        height="667">
+        height="667"
+        ratio="3x2">
       </x-image>
     @else
-      <picture class="aspect-ratio-3/2" style="background-color: #d1d1d1">
-        <div class="placeholder"></div>
+      <picture class="" style="background-color: #d1d1d1">
+        <img src="/assets/img/placeholder-3x2.png" width="300" height="200">
       </picture>
     @endif
   </figure>

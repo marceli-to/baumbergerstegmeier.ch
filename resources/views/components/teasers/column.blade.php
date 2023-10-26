@@ -12,15 +12,17 @@
           <x-teasers.image :image="$item" />
         </a>
       @else
-        <a 
-          href="/img/cache/{{ $item->image->name }}/2000/{{ $item->image->coords }}" 
-          data-fancybox="gallery-{{ $item->project->slug }}"
-          data-caption="{{ $item->image->caption }} {{ $item->image->credits}}">
-          <x-teasers.image :image="$item" />
-          <legend class="hidden">
-            <div class="ml-12x">{{ $item->image->caption }}@if ($item->image->credits) / {{ $item->image->credits }}@endif</div>
-          </legend>
-        </a>
+        @if (isset($item->image->name))
+          <a 
+            href="/img/cache/{{ $item->image->name }}/2000/{{ $item->image->coords }}" 
+            data-fancybox="gallery-{{ $item->project->slug }}"
+            data-caption="{{ $item->image->caption }} {{ $item->image->credits}}">
+            <x-teasers.image :image="$item" />
+            <legend class="hidden">
+              <div class="ml-12x">{{ $item->image->caption }}@if ($item->image->credits) / {{ $item->image->credits }}@endif</div>
+            </legend>
+          </a>
+        @endif
       @endif
     @endif
   @endforeach
