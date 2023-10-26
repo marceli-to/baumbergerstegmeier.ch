@@ -3,11 +3,11 @@
     <a href="{{ route('page.project.show', ['state' => $project->states->first()->slug, 'category' => $project->categories->first()->slug, 'project' => $project->slug]) }}" 
       title="{{ $project->title }}">
       <figure>
-        @if ($project->coverImage)
+        @if ($project->workListImage)
           <x-image 
             :classes="''"
             :maxSizes="[0 => 1000]" 
-            :image="$project->coverImage" 
+            :image="$project->workListImage" 
             width="1000" 
             height="667"
             ratio="3x2">
@@ -21,11 +21,11 @@
     </a>
   @else
   <figure>
-    @if ($project->coverImage)
+    @if ($project->workListImage)
       <x-image 
         :classes="''"
         :maxSizes="[0 => 1000]" 
-        :image="$project->coverImage" 
+        :image="$project->workListImage" 
         width="1000" 
         height="667"
         ratio="3x2">

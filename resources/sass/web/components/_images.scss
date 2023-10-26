@@ -51,8 +51,12 @@ picture {
   }
 
   &.teaser.portrait {
-    max-width: 70%;
-    @include bp-md() {
+
+    @include bp-sm() {
+      max-width: 70%;
+    }
+    
+    @include bp-lg() {
       max-width: 100%;
     }
   }

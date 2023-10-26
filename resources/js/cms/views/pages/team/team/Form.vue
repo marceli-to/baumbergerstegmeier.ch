@@ -176,8 +176,8 @@ export default {
   computed: {
     title() {
       return this.$props.type == "edit" 
-        ? "Job-Seite bearbeiten" 
-        : "Job-Seite hinzufügen";
+        ? "Team bearbeiten" 
+        : "Team hinzufügen";
     }
   }
 };

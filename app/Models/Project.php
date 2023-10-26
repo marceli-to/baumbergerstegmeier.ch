@@ -78,6 +78,11 @@ class Project extends Base
     return $this->morphOne(Image::class, 'imageable')->where('publish', 1)->where('cover', 1);
   }
 
+  public function workListImage()
+  {
+    return $this->morphOne(Image::class, 'imageable')->where('publish', 1)->where('worklist', 1);
+  }
+
   /**
    * Scope for published projects
    */
