@@ -5,15 +5,15 @@
     </page-header>
     <div class="content content--wide cards">
       <div class="card">
-        <router-link :to="{name: 'team-index'}">
-          <h2>Teams</h2>
-          <p>Verwaltung der Teams</p>
-        </router-link>
-      </div>
-      <div class="card">
         <router-link :to="{name: 'employee-index'}">
           <h2>Mitarbeitende</h2>
           <p>Verwaltung der Mitarbeitenden</p>
+        </router-link>
+      </div>
+      <div class="card">
+        <router-link :to="{name: 'team-index'}">
+          <h2>Teams</h2>
+          <p>Verwaltung der Teams</p>
         </router-link>
       </div>
       <div class="card">

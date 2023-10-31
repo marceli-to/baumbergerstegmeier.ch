@@ -40,7 +40,7 @@ class Cache implements FilterInterface
       $this->hasCrop = TRUE;
     }
 
-    if ($this->hasCrop && !$this->ratio)
+    if ($this->hasCrop)
     {
       if ($this->orientation == 'landscape')
       {
