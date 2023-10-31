@@ -29,6 +29,10 @@
           <label>E-Mail</label>
           <input v-model="data.email" type="text" name="name">
         </div>
+        <div class="form-row">
+          <label>Telefon</label>
+          <input v-model="data.phone" type="text" name="name">
+        </div>
         <div :class="[this.errors.team_id ? 'has-error' : '', 'form-row']">
           <label>Team</label>
           <div class="select-wrapper">
@@ -121,6 +125,7 @@ export default {
         name: null,
         title: null,
         email: null,
+        phone: null,
         team_id: null,
         employee_category_id: null,
         publish: 1,

@@ -10,7 +10,7 @@
       </router-link>
     </page-header>
 
-    <template v-if="data.bsa_leadership.length">
+    <!-- <template v-if="data.bsa_leadership.length">
       <h2 class="mb-4x">BSA Partner:in/Geschäftsleitung</h2>
       <div class="listing is-grouped">
         <draggable 
@@ -115,7 +115,62 @@
           </list-actions>
         </div>
       </div>
+    </template> -->
+
+    <template v-if="data.leadership.length">
+      <h2 class="mb-4x">Geschäftsleitung</h2>
+      <div class="listing is-grouped">
+        <draggable 
+          :disabled="false"
+          v-model="data.leadership" 
+          @end="order('leadership')"
+          ghost-class="draggable-ghost"
+          draggable=".listing__item"
+          class="listing"
+          v-if="data.leadership.length">
+          <div
+            :class="[d.publish == 0 ? 'is-disabled' : '', 'listing__item is-draggable']"
+            v-for="d in data.leadership"
+            :key="d.id"
+            >
+            <div class="listing__item-body">
+              {{d.firstname }} {{ d.name }}<template v-if="d.team_id == 2">*</template> <separator /> {{ d.title }}
+            </div>
+            <list-actions 
+              :id="d.id" 
+              :record="d"
+              :hasList="d.team_id == 1 ? true : false"
+              :routes="{edit: 'employee-edit', list: `cv-index`}"
+              @toggle="toggle($event, 'leadership')"
+              @destroy="destroy($event)">
+            </list-actions>
+          </div>
+        </draggable>
+      </div>
     </template>
+
+    <template v-if="data.employees.length">
+      <h2 class="mt-8x mb-4x">Mitarbeitende</h2>
+      <div class="listing is-grouped">
+        <div
+          :class="[d.publish == 0 ? 'is-disabled' : '', 'listing__item']"
+          v-for="d in data.employees"
+          :key="d.id"
+          >
+          <div class="listing__item-body">
+            {{d.firstname }} {{ d.name }}<template v-if="d.team_id == 2">*</template> <separator /> {{ d.title }}
+          </div>
+          <list-actions 
+            :id="d.id" 
+            :record="d"
+            :routes="{edit: 'employee-edit'}"
+            @toggle="toggle($event, 'employees')"
+            @destroy="destroy($event)">
+          </list-actions>
+        </div>
+      </div>
+    </template>
+
 
     <template v-if="data.former_employees.length">
       <h2 class="mt-8x mb-4x">Ehemalige Mitarbeitende</h2>
@@ -126,7 +181,7 @@
           :key="d.id"
           >
           <div class="listing__item-body">
-            {{d.firstname }} {{ d.name }} <separator /> {{ d.title }} <span v-if="d.team_id == 2">*</span>
+            {{d.firstname }} {{ d.name }}<template v-if="d.team_id == 2">*</template> <separator /> {{ d.title }}
           </div>
           <list-actions 
             :id="d.id" 

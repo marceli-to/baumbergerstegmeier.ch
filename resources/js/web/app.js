@@ -7,3 +7,4 @@ require('./modules/touch.js');
 require('./modules/contact.js');
 require('./modules/cv.js');
 require('./modules/worklist.js');
+require('./modules/team.js');

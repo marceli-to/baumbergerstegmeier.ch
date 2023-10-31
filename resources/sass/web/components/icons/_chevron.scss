@@ -13,3 +13,11 @@
     background-image: url($url-icons + 'chevron-up.svg');
   }
 }
+
+.icon-chevron-large {
+  &.is-active {
+    svg {
+      transform: rotate(180deg);
+    }
+  }
+}

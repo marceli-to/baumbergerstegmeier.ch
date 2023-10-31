@@ -16,6 +16,7 @@ class Employee extends Base
     'name',
     'title',
     'email',
+    'phone',
     'order',
     'publish',
     'team_id',

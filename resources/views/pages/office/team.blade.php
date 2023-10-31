@@ -3,41 +3,40 @@
 <x-page-title />
 <section class="content-teams">
 
-  @if (isset($data['bsa_team']->name))
-    <article class="team">
-      <h2>{{ $data['bsa_team']->name }}</h2>
-    </article>
+  @if (isset($data['team']->name))
     <div class="md:grid md:grid-cols-12 md:grid-column-gap">
       <div class="md:span-6">
-        @if (isset($data['bsa_team']->publishedImages[0]))
+        @if (isset($data['team']->publishedImages[0]))
           <div class="mb-20x lg:mb-50x">
             <x-image 
               :maxSizes="[0 => 1200, 1000 => 1600]" 
-              :image="$data['bsa_team']->publishedImages[0]" 
+              :image="$data['team']->publishedImages[0]" 
               width="1200" 
               height="800">
             </x-image>
           </div>
         @endif
-        @if (isset($data['bsa_leadership']))
-          <h3>{{ $data['bsa_leadership']['category']->name}}</h3>
+        @if (isset($data['leadership']))
+          <h3>{{ $data['leadership']['category']->name}}</h3>
         @endif
-        @if (isset($data['bsa_leadership']['employees']))
-          @foreach($data['bsa_leadership']['employees'] as $employee)
+        @if (isset($data['leadership']['employees']))
+          @foreach($data['leadership']['employees'] as $employee)
             <div class="team__member">
               <strong>
                 @if ($employee->email)
-                  <a href="mailto:{{ $employee->email}}">
-                    {{ $employee->firstname}} {{ $employee->name}}
-                  </a>
+                  <a href="mailto:{{ $employee->email}}">{{ $employee->firstname}} {{ $employee->name}}</a>{{ $employee->team_id == 2 ? '*' : '' }}
                 @else
-                  {{ $employee->firstname}} {{ $employee->name}}
+                  {{ $employee->firstname}} {{ $employee->name}}{{ $employee->team_id == 2 ? '*' : '' }}
                 @endif
               </strong>
               <br>
-              {{ $employee->title}}
+              {{ $employee->title }}
 
-              @if ($employee->cv)
+              @if ($employee->phone)
+                <br><a href="tel:{{ $employee->phone}}">{{ $employee->phone}}</a>
+              @endif
+
+              @if ($employee->cv && $employee->cv->count() > 0)
                 <div>
                   <a href="javascript:;" class="icon-chevron" data-btn-cv>Lebenslauf</a>
                   <div data-cv class="hidden mt-6x mb-40x sm:mb-60x">
@@ -83,110 +82,37 @@
         @endif
       </div>
       <div class="md:span-6">
-        @if (isset($data['bsa_team']->publishedImages[1]))
+        @if (isset($data['team']->publishedImages[1]))
           <div class="mb-20x lg:mb-50x">
             <x-image 
               :maxSizes="[0 => 1200, 1000 => 1600]" 
-              :image="$data['bsa_team']->publishedImages[1]" 
+              :image="$data['team']->publishedImages[1]" 
               width="1200" 
               height="800">
             </x-image>
           </div>
         @endif
-        @if (isset($data['bsa_employees']))
-          <h3>{{ $data['bsa_employees']['category']->name}}</h3>
+        @if (isset($data['employees']))
+          <h3>{{ $data['employees']['category']->name}}</h3>
         @endif
-        @if (isset($data['bsa_employees']['employees']))
+        @if (isset($data['employees']['employees']))
           <div class="md:grid md:grid-cols-12 md:grid-column-gap">
-            @foreach($data['bsa_employees']['employees'] as $employees)
+            @foreach($data['employees']['employees'] as $employees)
               <div class="md:span-6">
                 @foreach($employees as $employee)
                   <div class="team__member">
                     <strong>
                       @if ($employee->email)
-                        <a href="mailto:{{ $employee->email}}">
-                          {{ $employee->firstname}} {{ $employee->name}}
-                        </a>
+                        <a href="mailto:{{ $employee->email}}">{{ $employee->firstname}} {{ $employee->name}}</a>{{ $employee->team_id == 2 ? '*' : '' }}
                       @else
-                        {{ $employee->firstname}} {{ $employee->name}}
+                        {{ $employee->firstname}} {{ $employee->name}}{{ $employee->team_id == 2 ? '*' : '' }}
                       @endif
                     </strong>
                     <br>
                     {{ $employee->title}}
-                  </div>
-                @endforeach
-              </div>
-            @endforeach
-          </div>
-        @endif
-      </div>
-    </div>
-  @endif
-  
-  @if (isset($data['bsemi_team']->name))
-    <article class="team mt-80x">
-      <h2>{{ $data['bsemi_team']->name }}</h2>
-    </article>
-    <div class="md:grid md:grid-cols-12 md:grid-column-gap">
-      <div class="md:span-6">
-        @if (isset($data['bsemi_team']->publishedImages[0]))
-          <x-image 
-            :maxSizes="[0 => 1200, 1000 => 1600]" 
-            :image="$data['bsemi_team']->publishedImages[0]" 
-            width="1200" 
-            height="800">
-          </x-image>
-        @endif
-        @if (isset($data['bsemi_leadership']))
-          <h3>{{ $data['bsemi_leadership']['category']->name}}</h3>
-        @endif
-        @if (isset($data['bsemi_leadership']['employees']))
-          @foreach($data['bsemi_leadership']['employees'] as $employee)
-            <div class="team__member">
-              <strong>
-                @if ($employee->email)
-                  <a href="mailto:{{ $employee->email}}">
-                    {{ $employee->firstname}} {{ $employee->name}}
-                  </a>
-                @else
-                  {{ $employee->firstname}} {{ $employee->name}}
-                @endif
-              </strong>
-              <br>
-              {{ $employee->title}}
-            </div>
-          @endforeach
-        @endif
-      </div>
-      <div class="md:span-6">
-        @if (isset($data['bsemi_team']->publishedImages[1]))
-          <x-image 
-            :maxSizes="[0 => 1200, 1000 => 1600]" 
-            :image="$data['bsemi_team']->publishedImages[1]" 
-            width="1200" 
-            height="800">
-          </x-image>
-        @endif
-        @if (isset($data['bsemi_employees']))
-          <h3>{{ $data['bsemi_employees']['category']->name}}</h3>
-        @endif
-        @if (isset($data['bsemi_employees']['employees']))
-          <div class="md:grid md:grid-cols-12 md:grid-column-gap">
-            @foreach($data['bsemi_employees']['employees'] as $employees)
-              <div class="md:span-6">
-                @foreach($employees as $employee)
-                  <div class="team__member">
-                    <strong>
-                      @if ($employee->email)
-                        <a href="mailto:{{ $employee->email}}">
-                          {{ $employee->firstname}} {{ $employee->name}}
-                        </a>
-                      @else
-                        {{ $employee->firstname}} {{ $employee->name}}
-                      @endif
-                    </strong>
-                    <br>
-                    {{ $employee->title}}
+                    @if ($employee->phone)
+                      <br><a href="tel:{{ $employee->phone}}">{{ $employee->phone}}</a>
+                    @endif
                   </div>
                 @endforeach
               </div>
@@ -199,9 +125,14 @@
 
   @if (isset($data['former_employees']['employees']) && count($data['former_employees']['employees']) > 0)
     <article class="team mt-80x">
-      <h2>{{ $data['former_employees']['category']->name }}</h2>
+      <h2>
+        <a href="javascript:;" class="icon-chevron-large flex justify-between" data-btn-toggle-former>
+          {{ $data['former_employees']['category']->name }}
+          <x-icons.chevron-down-large class="mt-7x" />
+        </a>
+      </h2>
     </article>
-    <div class="md:grid md:grid-cols-12 md:grid-column-gap">
+    <div class="md:grid md:grid-cols-12 md:grid-column-gap !hidden" data-hidden-former>
       @foreach($data['former_employees']['employees'] as $employees)
         <div class="md:span-6">
           @foreach($employees as $employee)

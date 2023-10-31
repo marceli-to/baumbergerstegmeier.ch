@@ -227,7 +227,8 @@
       @extend %text-lg;
     }
 
-    a[href^="mailto:"] {
+    a[href^="mailto:"],
+    a[href^="tel:"]{
       &:hover {
         text-decoration: underline;
         text-underline-offset: 3px;

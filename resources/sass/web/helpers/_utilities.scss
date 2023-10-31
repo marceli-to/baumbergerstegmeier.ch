@@ -79,6 +79,11 @@
   display: none;
 }
 
+%\!hidden,
+.\!hidden {
+  display: none !important;
+}
+
 %md\:hidden,
 .md\:hidden {
   @include bp-md() {

@@ -17,14 +17,12 @@ class EmployeeController extends Controller
    */
   public function get()
   {
-    // BSA, Leadership
     $data = [
-      'bsa_leadership'    => Employee::with('team', 'employeeCategory')->where('team_id', 1)->where('employee_category_id', 1)->orderBy('order')->get(),
-      'bsa_employees'     => Employee::with('team', 'employeeCategory')->where('team_id', 1)->where('employee_category_id', 2)->orderBy('name', 'ASC')->get(),
-      'bsemi_leadership'  => Employee::with('team', 'employeeCategory')->where('team_id', 2)->where('employee_category_id', 1)->orderBy('order')->get(),
-      'bsemi_employees'   => Employee::with('team', 'employeeCategory')->where('team_id', 2)->where('employee_category_id', 2)->orderBy('name', 'ASC')->get(),
+      'leadership'    => Employee::with('team', 'employeeCategory')->where('employee_category_id', 1)->orderBy('order')->get(),
+      'employees'     => Employee::with('team', 'employeeCategory')->where('employee_category_id', 2)->orderBy('name', 'ASC')->get(),
       'former_employees'  => Employee::with('team', 'employeeCategory')->where('employee_category_id', 3)->orderBy('name', 'ASC')->get()
     ];
+
     return response()->json($data);
   }
 
@@ -58,6 +56,7 @@ class EmployeeController extends Controller
       'name' => $request->input('name'),
       'title' => $request->input('title'),
       'email' => $request->input('email'),
+      'phone' => $request->input('phone'),
       'publish' => $request->input('publish'),
       'team_id' => $request->input('team_id'),
       'employee_category_id' => $request->input('employee_category_id'),
@@ -79,6 +78,7 @@ class EmployeeController extends Controller
     $employee->name = $request->input('name');
     $employee->title = $request->input('title');
     $employee->email = $request->input('email');
+    $employee->phone = $request->input('phone');
     $employee->publish = $request->input('publish');
     $employee->team_id = $request->input('team_id');
     $employee->employee_category_id = $request->input('employee_category_id');
