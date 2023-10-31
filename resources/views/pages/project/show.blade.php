@@ -10,7 +10,7 @@
       data-caption="{{ $project->coverImage->caption }}">
       <x-image 
         :classes="'aspect-ratio-3/2'"
-        :maxSizes="[0 => 1200, 1000 => 1600]" 
+        :maxSizes="[0 => 1200, 1000 => 1800]" 
         :image="$project->coverImage" 
         width="1200" 
         height="800"
