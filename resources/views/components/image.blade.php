@@ -5,8 +5,7 @@
       @if ($minWidth > 0)
         <source media="(min-width: {{ $minWidth }}px)" data-srcset="/img/cache/{{ $image->name }}/{{ $maxSize}}/{{ $image->coords }}{{ $ratio ? '/' . $ratio : ''}}">
       @endif
-      @endforeach
-
+    @endforeach
     <img 
     src="/img/cache/{{ $image->name }}/{{ $maxSize }}/{{ $image->coords }}{{ $ratio ? '/' . $ratio : ''}}"
     width="{{ $width }}" 
