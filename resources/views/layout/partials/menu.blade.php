@@ -41,21 +41,17 @@
                               @endif
                             @endforeach
                           @else
-                            @foreach($menuProjectState['categories'] as $menuProjectCategory)
-                              @if ($menuProjectCategory['featuredProjects'] && $menuProjectCategory['featuredProjects']->count() > 0)
-                                <li>
-                                  <ul class="{{ isset($category) && $category->slug == $menuProjectCategory['slug'] ? 'is-current ' : 'is-active' }}">
-                                    @foreach($menuProjectCategory['featuredProjects'] as $project)
-                                      <li>
-                                        <a href="{{ route('page.project.show', ['state' => $menuProjectState['slug'], 'category' => $menuProjectCategory['slug'], 'project' => $project->slug]) }}" title="{{ $project->title }}">
-                                          {{ $project->title_menu ? $project->title_menu : $project->title }}
-                                        </a>
-                                      </li>
-                                    @endforeach
-                                  </ul>
-                                </li>
-                              @endif
-                            @endforeach
+                            <li>
+                              <ul class="is-current">
+                                @foreach($menuProjectState['projects'] as $project)
+                                  <li>
+                                    <a href="{{ route('page.project.show', ['state' => $menuProjectState['slug'], 'category' => $menuProjectCategory['slug'], 'project' => $project->slug]) }}" title="{{ $project->title }}">
+                                      {{ $project->title_menu ? $project->title_menu : $project->title }}
+                                    </a>
+                                  </li>
+                                @endforeach
+                              </ul>
+                            </li>
                           @endif
                         </ul>
                       @endif

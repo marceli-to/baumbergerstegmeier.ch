@@ -38,6 +38,8 @@ class BaseController extends Controller
         }])->publish()->orderBy('order')->get();
       }
     }
+
+    //dd($menuProjects);
     
     view()->share('menuProjects', $menuProjects);
   }

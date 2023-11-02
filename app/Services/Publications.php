@@ -15,7 +15,11 @@ class Publications
     }
 
     // get all publications, ordered by year, ascending
-    $publications = Publication::publish()->with('publishedImage', 'publishedFile')->orderBy('year', 'ASC')->get();
+    $publications = Publication::publish()
+      ->with('publishedImage', 'publishedFile')
+      ->orderBy('year', 'ASC')
+      ->orderBy('order', 'ASC')
+      ->get();
 
     // build an array of years (year as key, number of items as value)
     $years = $publications->groupBy('year')->map(function ($item, $key){

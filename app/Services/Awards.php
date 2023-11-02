@@ -15,7 +15,11 @@ class Awards
     }
 
     // get all awards, ordered by year, ascending
-    $awards = Award::publish()->with('publishedImage')->orderBy('year', 'ASC')->get();
+    $awards = Award::publish()
+      ->with('publishedImage')
+      ->orderBy('year', 'ASC')
+      ->orderBy('order', 'ASC')
+      ->get();
 
     // build an array of years (year as key, number of items as value)
     $years = $awards->groupBy('year')->map(function ($item, $key){
