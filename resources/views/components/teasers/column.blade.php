@@ -6,7 +6,6 @@
     @endif
     @if ($item->isProject)
       @if ($type === 'home')
-
         <a 
           href="{{ route('page.project.show', ['state' => $item->project->states() ? $item->project->states()->first()->slug : '', 'category' => $item->project->categories()->first() ? $item->project->categories()->first()->slug : 'null', 'project' => $item->project->slug]) }}" 
           title="{{ $item->project->title }}">
