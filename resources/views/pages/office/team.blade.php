@@ -120,7 +120,7 @@
           </div>
         @endif
       </div>
-      <div class="md:span-12 mt-16x lg:mt-32x">* BS+EMI Architektenpartner</div>
+      <div class="md:span-6 md:start-7 mt-16x lg:mt-32x">* BS+EMI Architektenpartner</div>
     </div>
   @endif
 
