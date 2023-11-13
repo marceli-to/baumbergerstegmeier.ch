@@ -23,13 +23,13 @@ class WorklistController extends BaseController
     {
       $searchTerm = $request->input('searchTerm');
       $projects = Project::with('coverImage', 'states', 'categories')
-                    ->published()
                     ->whereLike('title', $searchTerm)
                     ->orWhereLike('text', $searchTerm)
                     ->orWhereLike('info', $searchTerm)
                     ->orWhereLike('location', $searchTerm)
                     ->orWhereLike('type', $searchTerm)
                     ->orderBy('order')
+                    ->published()
                     ->get();
     }
     else
