@@ -45,7 +45,7 @@
                               <ul class="is-current">
                                 @foreach($menuProjectState['projects'] as $project)
                                   <li>
-                                    <a href="{{ route('page.project.show', ['state' => $menuProjectState['slug'], 'category' => $menuProjectCategory['slug'], 'project' => $project->slug]) }}" title="{{ $project->title }}">
+                                    <a href="{{ route('page.project.show', ['state' => $menuProjectState['slug'], 'category' => $project->categories()->first()->slug, 'project' => $project->slug]) }}" title="{{ $project->title }}">
                                       {{ $project->title_menu ? $project->title_menu : $project->title }}
                                     </a>
                                   </li>

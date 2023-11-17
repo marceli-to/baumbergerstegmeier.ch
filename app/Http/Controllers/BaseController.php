@@ -37,7 +37,8 @@ class BaseController extends Controller
           })->orderBy('order');
         }])->publish()->orderBy('order')->get();
       }
-    }    
+    }
+    
     view()->share('menuProjects', $menuProjects);
   }
 }
