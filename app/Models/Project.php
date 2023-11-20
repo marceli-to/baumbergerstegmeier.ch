@@ -52,15 +52,6 @@ class Project extends Base
   /**
    * The categories that belong to this project.
    */
-
-  public function states()
-  {
-    return $this->belongsToMany(State::class);
-  }
-
-  /**
-   * The categories that belong to this project.
-   */
   
   public function categories()
   {
