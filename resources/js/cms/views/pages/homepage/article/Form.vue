@@ -29,6 +29,10 @@
             v-model="data.text"
           ></tinymce-editor>
         </div>
+        <div class="form-row">
+          <label>Link</label>
+          <input type="text" v-model="data.link">
+        </div>
       </div>
     </div>
 
@@ -108,6 +112,7 @@ export default {
         category: null,
         title: null,
         text: null,
+        link: null,
         publish: 1,
       },
 

@@ -25,7 +25,16 @@ article {
       @extend %mb-8x;
       @extend %lg\:mb-12x;
       max-width: 80%;
+      opacity: 1;
+      transition: opacity .12s ease-in-out;
     }
+  
+    a:hover {
+      picture {
+        opacity: .8;
+      }
+    }
+
   }
 
 }

@@ -42,6 +42,7 @@ class ArticleController extends Controller
       'category' => $request->input('category'),
       'title' => $request->input('title'),
       'text' => $request->input('text'),
+      'link' => $request->input('link'),
       'publish' => $request->input('publish')
     ]);
     $this->handleImages($article, $request->input('images'));
@@ -61,6 +62,7 @@ class ArticleController extends Controller
     $article->category = $request->input('category');
     $article->title = $request->input('title');
     $article->text = $request->input('text');
+    $article->link = $request->input('link');
     $article->publish = $request->input('publish');
     $article->save();
     $this->handleImages($article, $request->input('images'));

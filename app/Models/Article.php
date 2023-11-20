@@ -14,7 +14,12 @@ class Article extends Model
     'category',
     'title',
     'text',
+    'link',
     'publish',
+  ];
+
+  protected $attributes = [
+    'link_target' => '_blank',
   ];
 
   /**
@@ -34,5 +39,19 @@ class Article extends Model
   public function publishedImage()
   {
     return $this->morphOne(Image::class, 'imageable')->where('publish', 1)->orderBy('order');
+  }
+
+  public function setLinkAttribute($value)
+  {
+    $this->attributes['link'] = preg_match("~^(?:f|ht)tps?://~i", $value) ? $value : "https://".$value;
+  }
+
+  public function getLinkTargetAttribute($value)
+  {
+    // if $this->links contains 'baumberger-stegmeier.ch', set target to '_self'
+    if (strpos($this->link, 'baumberger-stegmeier.ch') !== false) {
+      return '_self';
+    }
+    return '_blank';
   }
 }
