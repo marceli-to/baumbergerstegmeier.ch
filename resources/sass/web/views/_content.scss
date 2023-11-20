@@ -305,6 +305,14 @@
     background-color: $color-white;
     border-top: 1px solid $color-black;
 
+    @include bp-xs() {
+      &.is-sticky {
+        position: sticky;
+        top: -1px;
+        z-index: 500;
+      }
+    }
+
     @include bp-md() {
       position: absolute;
       width: 100%;

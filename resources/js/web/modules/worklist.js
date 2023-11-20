@@ -7,6 +7,8 @@
     btnCurrent: '[data-btn-worklist-current]'
   };
 
+  let hasUserInteraction = false;
+
   const init = () => {
     const btns = document.querySelectorAll(selectors.btn);
     if (!btns.length) return;
@@ -21,14 +23,32 @@
       if (!isClickInside) {
         reset();
       }
-    }
-    , false);
+    }, false);
+
+    // handle scrolling up and down
+    // if the user starts scrolling up, add class 'is-sticky' to the wrapper
+    // if the user starts scrolling down and scrolls for more than 500px, remove class 'is-sticky' from the wrapper
+    let lastScrollTop = 0;
+
+    window.addEventListener('scroll', function() {
+      const st = window.pageYOffset || document.documentElement.scrollTop;
+
+      if (st > lastScrollTop && st > 300 && !hasUserInteraction) {
+        wrapper.classList.remove('is-sticky');
+      } 
+      else {
+        wrapper.classList.add('is-sticky');
+      }
+    
+      lastScrollTop = st <= 0 ? 0 : st; // Update lastScrollTop
+    });
   };
 
   const toggle = function(btn){
 
     const worklist = document.querySelector(selectors.wrapper);
-        
+    const isSticky = worklist.classList.contains('is-sticky');
+    hasUserInteraction = true;        
     // if the content is already visible, hide it
     if (!btn.target.nextElementSibling.classList.contains('hidden')) {
       btn.target.nextElementSibling.classList.add('hidden');
@@ -53,6 +73,15 @@
     
     // add active class to the button
     btn.target.classList.add('is-active');
+
+    // add is-sticky class to the wrapper if isSticky is true
+    if (isSticky) {
+      worklist.classList.add('is-sticky');
+      // scroll wrapper into view
+      worklist.scrollIntoView();
+      hasUserInteraction = false;
+    }
+
   };
 
   const hideAll = () => {

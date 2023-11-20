@@ -2,6 +2,7 @@
 @section('content')
 <x-page-title />
 <section class="content-worklist">
+  {{-- @include('pages.worklist.filter', ['class' => 'is-mobile js-sticky-filter']) --}}
   @include('pages.worklist.filter')
   @if ($projects)
     @if ($filter == 'all')
