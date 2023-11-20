@@ -1,6 +1,6 @@
 <article class="worklist-item md:span-6 lg:span-3">
   @if ($project->feature)
-    <a href="{{ route('page.project.show', ['state' => $project->states->first()->slug, 'category' => $project->categories->first()->slug, 'project' => $project->slug]) }}" 
+    <a href="{{ $project->getShowRoute() }}" 
       title="{{ $project->title }}">
       <figure>
         @if ($project->workListImage)
@@ -40,7 +40,7 @@
   <div>
     <h3>
       @if ($project->feature)
-        <a href="{{ route('page.project.show', ['state' => $project->states->first()->slug, 'category' => $project->categories->first()->slug, 'project' => $project->slug]) }}" 
+        <a href="{{ $project->getShowRoute() }}" 
           title="{{ $project->title }}"
           class="flex">
           <span class="hidden !lg:inline-block">

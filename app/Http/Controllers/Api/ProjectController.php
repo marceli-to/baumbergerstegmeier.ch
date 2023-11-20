@@ -32,7 +32,7 @@ class ProjectController extends Controller
   {
     return response()->json(
       [
-        'project' => Project::with('images', 'categories', 'states')->find($project->id),
+        'project' => Project::with('images', 'categories', 'state')->find($project->id),
         'states' => State::orderBy('order')->get(),
         'categories' => Category::get(),
       ]
@@ -60,11 +60,11 @@ class ProjectController extends Controller
       'publish' => $request->input('publish'),
       'feature' => $request->input('feature'),
       'landing' => $request->input('landing'),
+      'state_id' => $request->input('state_id'),
     ]);
     $project->slug = \AppHelper::slug($request->input('title')) . '-' . $project->id;
     $project->save();
     $project->categories()->attach($request->input('category_ids'));
-    $project->states()->attach($request->input('state_ids'));
     $this->handleImages($project, $request->input('images'));
     return response()->json(['projectId' => $project->id]);
   }
@@ -91,9 +91,9 @@ class ProjectController extends Controller
     $project->publish = $request->input('publish');
     $project->feature = $request->input('feature');
     $project->landing = $request->input('landing');
+    $project->state_id = $request->input('state_id');
     $project->save();
     $project->categories()->sync($request->input('category_ids'));
-    $project->states()->sync($request->input('state_ids'));
     $this->handleImages($project, $request->input('images'));
     return response()->json('successfully updated');
   }

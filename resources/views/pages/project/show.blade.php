@@ -21,20 +21,20 @@
 @endif
 <section class="content-project">
   <header class="content-header md:items-end md:flex md:justify-between">
-    <h3>{{ $category->description }}</h3>
+    <h3>{{ $has_category ? $category->description : $state->description }}</h3>
     @if (isset($browse['prev']) && isset($browse['next']))
       <nav class="project-browse">
         @if (isset($browse['prev']))
-          <a href="{{ route('page.project.show', ['state' => $browse['prev']->states()->first()->slug, 'category' => $browse['prev']->categories()->first()->slug, 'project' => $browse['prev']->slug]) }}" 
+          <a href="{{ $browse['prev']['route'] }}" 
             class="block mr-8x lg:mr-9x" 
-            title="{{ $browse['prev']->title }}">
+            title="{{ $browse['prev']['project']->title }}">
             <x-icons.chevron-prev-large />
           </a>
         @endif
         @if (isset($browse['next']))
-          <a href="{{ route('page.project.show', ['state' => $browse['next']->states()->first()->slug, 'category' => $browse['next']->categories()->first()->slug, 'project' => $browse['next']->slug]) }}" 
+          <a href="{{ $browse['next']['route'] }}" 
             class="block ml-8x lg:ml-9x" 
-            title="{{ $browse['next']->title }}">
+            title="{{ $browse['next']['project']->title }}">
             <x-icons.chevron-next-large />
           </a>
         @endif
@@ -74,15 +74,15 @@
     </x-teasers.index>
   @endif
   @if (isset($browse['next']))
-    <a href="{{ route('page.project.show', ['state' => $browse['next']->states()->first()->slug, 'category' => $browse['next']->categories()->first()->slug, 'project' => $browse['next']->slug]) }}" 
+    <a href="{{ $browse['next']['route'] }}" 
       class="project-teaser" 
-      title="{{ $browse['next']->title }}">
+      title="{{ $browse['next']['project']->title }}">
       <span>Nächstes Projekt</span>
-      <h3>{{ $browse['next']->title }}</h3>
+      <h3>{{ $browse['next']['project']->title }}</h3>
       <x-image 
         :classes="'aspect-ratio-3/2'"
         :maxSizes="[0 => 1200]" 
-        :image="$browse['next']->coverImage" 
+        :image="$browse['next']['project']->coverImage" 
         width="1200" 
         height="800"
         ratio="3x2">

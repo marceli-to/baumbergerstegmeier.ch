@@ -25,7 +25,7 @@ class State extends Base
   
   public function projects()
   {
-    return $this->belongsToMany(Project::class);
+    return $this->hasMany(Project::class);
   }
 
   /**
@@ -34,11 +34,16 @@ class State extends Base
   
   public function publishedProjects()
   {
-    return $this->belongsToMany(Project::class)->where('publish', '=', '1');
+    return $this->hasMany(Project::class)->where('publish', '=', '1');
   }
 
   public function featuredProjects()
   {
-    return $this->belongsToMany(Project::class)->where('publish', '=', '1')->where('feature', '=', '1');
+    return $this->hasMany(Project::class)->where('publish', '=', '1')->where('feature', '=', '1');
+  }
+
+  public function hasCategories()
+  {
+    return $this->show_in_menu;
   }
 }

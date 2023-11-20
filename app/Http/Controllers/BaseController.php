@@ -10,35 +10,46 @@ class BaseController extends Controller
 {
   public function __construct()
   {
-    $states = State::publish()->with('featuredProjects.categories')->orderBy('order')->get();
     $menuProjects = [];
-    foreach ($states as $state)
+    $states = State::publish()->orderBy('order')->get();
+    foreach($states as $state)
     {
-      if ($state->featuredProjects->count() > 0)
+      if ($state->show_in_menu)
       {
-        $menuProjects[$state->slug] = [
-          'id' => $state->id,
-          'slug' => $state->slug,
-          'show_in_menu' => $state->show_in_menu,
-          'description' => $state->description,
-          'order' => $state->order,
-          'projects' => $state->featuredProjects,
-          'categories' => [],
-        ];
-
-        // get all categories with published projects for this state, order the projects by order
-        $menuProjects[$state->slug]['categories'] = Category::whereHas('featuredProjects', function ($query) use ($state) {
-          $query->whereHas('states', function ($query) use ($state) {
-            $query->where('state_id', '=', $state->id);
-          });
-        })->with(['featuredProjects' => function ($query) use ($state) {
-          $query->whereHas('states', function ($query) use ($state) {
-            $query->where('state_id', '=', $state->id);
-          })->orderBy('order');
+        // get all categories with featuredProjects, the state_id on a project must equal the id of the state
+        $projectsByCategories = Category::with(['featuredProjects' => function ($query) use ($state) {
+          $query->where('state_id', '=', $state->id)->orderBy('year', 'DESC');
         }])->publish()->orderBy('order')->get();
+
+        // filter out categories that don't have any featured projects
+        $projectsByCategories = $projectsByCategories->filter(function ($category) {
+          return $category->featuredProjects->count() > 0;
+        });
+
+        // if there are any categories left, add them to the menuProjects array
+        if ($projectsByCategories->count() > 0)
+        {
+          $menuProjects[$state->order] = [
+            'id' => $state->id,
+            'state' => $state,
+            'hasCategories' => true,
+            'categories' => $projectsByCategories,
+          ];
+        }
+      }
+      else
+      {
+        // get all projects for this state, order the projects by year
+        $projectsByState = Project::featured()->where('state_id', $state->id)->publish()->orderBy('year', 'DESC')->get();
+
+        $menuProjects[$state->order] = [
+          'id' => $state->id,
+          'state' => $state,
+          'hasCategories' => false,
+          'featuredProjects' => $projectsByState,
+        ];
       }
     }
-    
     view()->share('menuProjects', $menuProjects);
   }
 }

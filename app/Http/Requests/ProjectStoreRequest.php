@@ -27,7 +27,7 @@ class ProjectStoreRequest extends FormRequest
       'title' => 'required',
       'year' => 'required|integer|min:1900|max:2100',
       'category_ids' => 'required',
-      'state_ids' => 'required',
+      'state_id' => 'required',
       'type' => 'required',
     ];
   }
@@ -61,8 +61,8 @@ class ProjectStoreRequest extends FormRequest
         'field' => 'category_ids',
         'error' => 'Kategorie wird benötigt'
       ],
-      'state_ids' => [
-        'field' => 'state_ids',
+      'state_id' => [
+        'field' => 'state_id',
         'error' => 'Status wird benötigt'
       ],
     ];

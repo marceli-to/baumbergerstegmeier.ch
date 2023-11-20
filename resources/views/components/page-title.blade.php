@@ -1,6 +1,6 @@
 @props(['class' => null, 'type' => 'h1'])
 <{{ $type }} class="content-title {{ $class }}">
-  @if (request()->routeIs('page.project.show'))
+  @if (request()->routeIs('page.project.showByState') || request()->routeIs('page.project.showByStateAndCategory'))
     Projekte
   @elseif (request()->routeIs('page.worklist*'))
     Werkliste

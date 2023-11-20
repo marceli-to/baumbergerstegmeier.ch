@@ -16,44 +16,60 @@
                 <ul class="{{ request()->routeIs('page.' . $key . '*') ? 'is-current' : '' }}">
                   @foreach($menuProjects as $menuProjectState)
                     <li>
-                      <a href="javascript:;" title="{{ $menuProjectState['description'] }}" class="{{ isset($state) && $state->slug == $menuProjectState['slug'] ? 'is-current' : '' }}" data-menu-parent data-menu-item-state>
-                        {{ $menuProjectState['description'] }}
+                      <a 
+                        href="javascript:;" 
+                        title="{{ $menuProjectState['state']->description }}" 
+                        class="{{ isset($state) && $state->slug == $menuProjectState['state']->slug ? 'is-current' : '' }}" 
+                        data-menu-parent 
+                        data-menu-item-state>
+                        {{ $menuProjectState['state']->description }}
                       </a>
-                      @if ($menuProjectState['categories'])
-                        <ul class="{{ isset($state) && $state->slug == $menuProjectState['slug'] ? 'is-current' : '' }}">
-                          @if ($menuProjectState['show_in_menu'])
+
+                      {{-- Projects by state and categories --}}
+                      @if ($menuProjectState['hasCategories'])
+                        @if ($menuProjectState['categories'])
+                          <ul class="{{ request()->routeIs('page.project.showByStateAndCategory') && isset($state) && $state->slug == $menuProjectState['state']->slug ? 'is-current' : '' }}">
                             @foreach($menuProjectState['categories'] as $menuProjectCategory)
-                              @if ($menuProjectCategory['featuredProjects'] && $menuProjectCategory['featuredProjects']->count() > 0)
-                                <li>
-                                  <a href="javascript:;" title="{{ $menuProjectCategory['description'] }}" class="text-lg {{ isset($category) && $category->slug == $menuProjectCategory['slug'] ? 'is-active' : '' }}" data-menu-parent data-menu-item-category>
-                                    {{ $menuProjectCategory['description'] }}
-                                  </a>
-                                  <ul class="{{ isset($category) && $category->slug == $menuProjectCategory['slug'] ? 'is-current' : '' }}">
-                                    @foreach($menuProjectCategory['featuredProjects'] as $project)
-                                      <li>
-                                        <a href="{{ route('page.project.show', ['state' => $menuProjectState['slug'], 'category' => $menuProjectCategory['slug'], 'project' => $project->slug]) }}" title="{{ $project->title }}">
-                                          {{ $project->title_menu ? $project->title_menu : $project->title }}
-                                        </a>
-                                      </li>
-                                    @endforeach
-                                  </ul>
-                                </li>
-                              @endif
+                              <li>
+                                <a href="javascript:;" 
+                                  data-menu-parent 
+                                  data-menu-item-category>
+                                  {{ $menuProjectCategory->description}}
+                                </a>
+                                <ul class="{{ (isset($state) && $state->slug == $menuProjectState['state']->slug && isset($category) && $category->slug == $menuProjectCategory->slug) ? 'is-current' : '' }}">
+                                  @foreach($menuProjectCategory->featuredProjects as $project)
+                                    <li>
+                                      <a 
+                                        href="{{ route('page.project.showByStateAndCategory', ['state' => $menuProjectState['state']->slug, 'category' => $menuProjectCategory->slug, 'project' => $project->slug]) }}" 
+                                        title="{{ $project->title_menu ? $project->title_menu : $project->title }}">
+                                        {{ $project->title_menu ? $project->title_menu : $project->title }}
+                                      </a>
+                                    </li>
+                                  @endforeach
+                                </ul>
+                              </li>
                             @endforeach
-                          @else
+                          </ul>
+                        @endif
+                      {{-- Projects by state without categories --}}
+                      @else
+                        @if ($menuProjectState['featuredProjects'])
+                          <ul class="{{ isset($state) && $state->slug == $menuProjectState['state']->slug ? 'is-current' : '' }}">
                             <li>
                               <ul class="is-current">
-                                @foreach($menuProjectState['projects'] as $project)
+                                @foreach($menuProjectState['featuredProjects'] as $project)
                                   <li>
-                                    <a href="{{ route('page.project.show', ['state' => $menuProjectState['slug'], 'category' => $project->categories()->first()->slug, 'project' => $project->slug]) }}" title="{{ $project->title }}">
+                                    <a 
+                                      href="{{ route('page.project.showByState', ['state' => $menuProjectState['state']->slug, 'project' => $project->slug]) }}" 
+                                      title="{{ $project->title_menu ? $project->title_menu : $project->title }}">
                                       {{ $project->title_menu ? $project->title_menu : $project->title }}
                                     </a>
                                   </li>
                                 @endforeach
                               </ul>
                             </li>
-                          @endif
-                        </ul>
+                          </ul>
+                        @endif
                       @endif
                     </li>
                   @endforeach

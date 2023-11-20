@@ -25,6 +25,7 @@ class Project extends Base
     'publish',
     'feature',
     'landing',
+    'state_id',
   ];
 
   /**
@@ -35,19 +36,17 @@ class Project extends Base
 
   protected $appends = [
     'category_ids', 
-    'state_ids', 
     'worklist_title_mobile',
     'worklist_title_desktop',
   ];
 
-
   /**
-   * The states that belong to this project.
+   * The state that belong to this model.
    */
-  
-  public function states()
+
+  public function state()
   {
-    return $this->belongsToMany(State::class);
+    return $this->belongsTo(State::class);
   }
 
   /**
@@ -121,16 +120,6 @@ class Project extends Base
   }
 
   /**
-   * Get array of ids from the m:n state relationship
-   *
-   */
-
-  public function getStateIdsAttribute()
-  {
-    return $this->states->pluck('id');
-  }
-
-  /**
    * Get the worklist title for mobile, which consists of:
    * - title_worklist (if available, title if not)
    * - location (separated by a comma)
@@ -155,5 +144,11 @@ class Project extends Base
     return $this->title_worklist ? $this->title_worklist : $this->title;
   }
 
- 
+  public function getShowRoute()
+  {
+   return $this->state->hasCategories() ? 
+      route('page.project.showByStateAndCategory', ['state' => $this->state->slug, 'category' => $this->categories()->first()->slug, 'project' => $this->slug]) :
+      route('page.project.showByState', ['state' => $this->state->slug, 'project' => $this->slug]);
+  }
+
 }

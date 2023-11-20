@@ -2,7 +2,7 @@
 @section('content')
 @if ($coverProject)
   <x-hero :class="'lg:mt-25x'">
-    <a href="{{ route('page.project.show', ['state' => $coverProject->states()->first()->slug, 'category' => $coverProject->categories()->first()->slug, 'project' => $coverProject->slug]) }}" title="{{ $coverProject->title }}">
+    <a href="{{ $coverProject->getShowRoute() }}" title="{{ $coverProject->title }}">
       <x-image 
         :classes="'aspect-ratio-3/2 teaser'"
         :maxSizes="[0 => 1200, 1000 => 1600]" 

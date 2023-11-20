@@ -28,7 +28,7 @@ class WorklistController extends BaseController
                     ->orWhereLike('info', $searchTerm)
                     ->orWhereLike('location', $searchTerm)
                     ->orWhereLike('type', $searchTerm)
-                    ->orderBy('order')
+                    ->orderBy('year', 'DESC')
                     ->published()
                     ->get();
     }
@@ -36,7 +36,7 @@ class WorklistController extends BaseController
     {
       $projects = Project::with('coverImage', 'states', 'categories')
                     ->published()
-                    ->orderBy('order')
+                    ->orderBy('year', 'DESC')
                     ->get();
     }
 
@@ -69,9 +69,7 @@ class WorklistController extends BaseController
 
   public function byState(State $state)
   {
-    $projects = Project::with('coverImage', 'states', 'categories')->published()->whereHas('states', function($query) use ($state) {
-      $query->where('state_id', $state->id);
-    })->orderBy('order')->get();
+    $projects = Project::with('coverImage', 'states', 'categories')->published()->where('state_id', $state->id)->orderBy('year', 'DESC')->get();
 
     return view($this->viewPath . 'index', [
       'filter' => 'state',
@@ -90,7 +88,7 @@ class WorklistController extends BaseController
   {
     $projects = Project::with('coverImage', 'states', 'categories')->published()->whereHas('categories', function($query) use ($category) {
       $query->where('category_id', $category->id);
-    })->orderBy('order')->get();
+    })->orderBy('year', 'DESC')->get();
 
     return view($this->viewPath . 'index', [
       'filter' => 'category',

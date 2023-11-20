@@ -106,7 +106,11 @@ input[type=checkbox] {
   appearance: none;
 	-webkit-appearance: none;
 	-webkit-tap-highlight-color: $color-white;
-}   
+}
+
+input[type=radio] {
+  border-radius: 50%;
+}
 
 input[type=radio] + label,
 input[type=checkbox] + label {
