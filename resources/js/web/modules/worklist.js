@@ -75,7 +75,8 @@
     btn.target.classList.add('is-active');
 
     // add is-sticky class to the wrapper if isSticky is true
-    if (isSticky) {
+    // and screen size is smaller than 768px
+    if (isSticky && window.innerWidth < 768) {
       worklist.classList.add('is-sticky');
       // scroll wrapper into view
       worklist.scrollIntoView();
