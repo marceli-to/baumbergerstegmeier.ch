@@ -14,7 +14,7 @@ class TestController extends BaseController
 
   public function index()
   {
-    $projects = Project::with('categories', 'states')->get();
+    $projects = Project::with('categories', 'state')->get();
   }
 
 }

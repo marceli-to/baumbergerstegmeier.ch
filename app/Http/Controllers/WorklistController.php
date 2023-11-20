@@ -22,7 +22,7 @@ class WorklistController extends BaseController
     if ($request->input('searchTerm'))
     {
       $searchTerm = $request->input('searchTerm');
-      $projects = Project::with('coverImage', 'states', 'categories')
+      $projects = Project::with('coverImage', 'state', 'categories')
                     ->whereLike('title', $searchTerm)
                     ->orWhereLike('text', $searchTerm)
                     ->orWhereLike('info', $searchTerm)
@@ -34,7 +34,7 @@ class WorklistController extends BaseController
     }
     else
     {
-      $projects = Project::with('coverImage', 'states', 'categories')
+      $projects = Project::with('coverImage', 'state', 'categories')
                     ->published()
                     ->orderBy('year', 'DESC')
                     ->get();
@@ -54,7 +54,7 @@ class WorklistController extends BaseController
    */
   public function byYear()
   { 
-    $projects = Project::with('coverImage', 'states', 'categories')->published()->orderBy('year', 'DESC')->get();
+    $projects = Project::with('coverImage', 'state', 'categories')->published()->orderBy('year', 'DESC')->get();
     return view($this->viewPath . 'index', [
       'filter' => 'year',
       'projects' => $projects->groupBy('year'),
@@ -69,7 +69,7 @@ class WorklistController extends BaseController
 
   public function byState(State $state)
   {
-    $projects = Project::with('coverImage', 'states', 'categories')->published()->where('state_id', $state->id)->orderBy('year', 'DESC')->get();
+    $projects = Project::with('coverImage', 'state', 'categories')->published()->where('state_id', $state->id)->orderBy('year', 'DESC')->get();
 
     return view($this->viewPath . 'index', [
       'filter' => 'state',
@@ -86,7 +86,7 @@ class WorklistController extends BaseController
 
   public function byCategory(Category $category)
   {
-    $projects = Project::with('coverImage', 'states', 'categories')->published()->whereHas('categories', function($query) use ($category) {
+    $projects = Project::with('coverImage', 'state', 'categories')->published()->whereHas('categories', function($query) use ($category) {
       $query->where('category_id', $category->id);
     })->orderBy('year', 'DESC')->get();
 
