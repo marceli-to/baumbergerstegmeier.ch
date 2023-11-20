@@ -12,7 +12,7 @@ article {
     }
     
     h2 {
-      @extend %mb-30x;
+      @extend %mb-15x;
       @extend %text-2xl;
       line-height: 1.1;
     }
@@ -36,5 +36,8 @@ article {
     }
 
   }
+}
 
+.teaser-columns > div a + article.teaser {
+  @extend %mt-20x;
 }
