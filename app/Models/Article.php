@@ -49,7 +49,7 @@ class Article extends Model
   public function getLinkTargetAttribute($value)
   {
     // if $this->links contains 'baumberger-stegmeier.ch', set target to '_self'
-    if (strpos($this->link, 'baumberger-stegmeier.ch') !== false) {
+    if (strpos($this->link, 'baumberger-stegmeier.ch') !== false || strpos($this->link, 'baumbergerstegmeier.ch') !== false) {
       return '_self';
     }
     return '_blank';
