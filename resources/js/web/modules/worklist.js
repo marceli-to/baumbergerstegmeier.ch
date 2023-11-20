@@ -33,7 +33,7 @@
     window.addEventListener('scroll', function() {
       const st = window.pageYOffset || document.documentElement.scrollTop;
 
-      if (st > lastScrollTop && st > 300 && !hasUserInteraction) {
+      if (st > lastScrollTop && !hasUserInteraction) {
         wrapper.classList.remove('is-sticky');
       } 
       else {
