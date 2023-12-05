@@ -119,6 +119,7 @@ class ProjectController extends Controller
    */
   public function destroy(Project $project)
   {
+    $project->categories()->detach();
     $project->delete();
     return response()->json('successfully deleted');
   }
