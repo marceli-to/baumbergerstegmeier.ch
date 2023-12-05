@@ -16,6 +16,7 @@
                     <x-image 
                       :maxSizes="[0 => 900, 1000 => 600]" 
                       :image="$publication->publishedImage" 
+                      caption="{{ $publication->title }}"
                       width="1200" 
                       height="800">
                     </x-image>
@@ -62,6 +63,7 @@
                       :maxSizes="[0 => 900, 1000 => 600]" 
                       :image="$publication->publishedImage" 
                       width="1200" 
+                      caption="{{ $publication->title }}"
                       height="800">
                     </x-image>
                   @endif

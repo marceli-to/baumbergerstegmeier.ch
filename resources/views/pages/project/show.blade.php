@@ -12,6 +12,7 @@
         :classes="'aspect-ratio-3/2'"
         :maxSizes="[0 => 1200, 1000 => 1800]" 
         :image="$project->coverImage" 
+        caption="{{ $project->title }}"
         width="1200" 
         height="800"
         ratio="3x2">
@@ -83,6 +84,7 @@
         :classes="'aspect-ratio-3/2'"
         :maxSizes="[0 => 1200]" 
         :image="$browse['next']['project']->coverImage" 
+        caption="{{ $browse['next']['project']->title }}"
         width="1200" 
         height="800"
         ratio="3x2">

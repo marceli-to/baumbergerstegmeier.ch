@@ -13,6 +13,7 @@
     :maxSizes="[0 => 600, 1000 => 900]" 
     :image="$image->image" 
     width="1200" 
+    caption="{{ $image->type == 'home' ? $image->project->title : $image->image->caption }}"
     height="800">
     @if ($image->type == 'home')
       <figcaption>

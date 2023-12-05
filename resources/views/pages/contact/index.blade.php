@@ -7,6 +7,7 @@
       <x-image 
         :maxSizes="[0 => 1200, 1000 => 1600]" 
         :image="$data->publishedImages[0]" 
+        caption="Kontakt"
         width="1200" 
         height="800">
       </x-image>
@@ -25,6 +26,7 @@
             :maxSizes="[0 => 1200, 1000 => 1600]" 
             :image="$data->publishedImages[1]" 
             width="1200" 
+            caption="Kontakt"
             height="800">
           </x-image>
         </a>
@@ -33,6 +35,7 @@
           :maxSizes="[0 => 1200, 1000 => 1600]" 
           :image="$data->publishedImages[1]" 
           width="1200" 
+          caption="Kontakt"
           height="800">
         </x-image>
       @endif

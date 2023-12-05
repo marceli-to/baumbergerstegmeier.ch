@@ -12,6 +12,7 @@
               :maxSizes="[0 => 1200, 1000 => 1600]" 
               :image="$data['team']->publishedImages[0]" 
               width="1200" 
+              caption="{{ $data['team']->name }}"
               height="800">
             </x-image>
           </div>
@@ -88,6 +89,7 @@
               :maxSizes="[0 => 1200, 1000 => 1600]" 
               :image="$data['team']->publishedImages[1]" 
               width="1200" 
+              caption="{{ $data['team']->name }}"
               height="800">
             </x-image>
           </div>

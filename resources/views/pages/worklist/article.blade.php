@@ -9,6 +9,7 @@
             :maxSizes="[0 => 1000]" 
             :image="$project->workListImage" 
             width="1000" 
+            caption="{{ $project->title }}"
             height="667"
             ratio="3x2">
           </x-image>
@@ -27,6 +28,7 @@
         :maxSizes="[0 => 1000]" 
         :image="$project->workListImage" 
         width="1000" 
+        caption="{{ $project->title }}"
         height="667"
         ratio="3x2">
       </x-image>

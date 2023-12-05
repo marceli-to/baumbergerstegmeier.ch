@@ -9,6 +9,7 @@
           <x-image 
             :maxSizes="[0 => 1200, 1000 => 1600]" 
             :image="$image" 
+            caption="Profil"
             width="1200" 
             height="800">
           </x-image>

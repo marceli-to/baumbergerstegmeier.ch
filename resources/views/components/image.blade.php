@@ -1,4 +1,4 @@
-@props(['ratio' => null])
+@props(['ratio' => null, 'caption' => null])
 @if ($maxSizes && $image)
   <picture class="{{ $classes }}">
     @foreach($maxSizes as $minWidth => $maxSize)
@@ -10,7 +10,7 @@
     src="/img/cache/{{ $image->name }}/{{ $maxSize }}/{{ $image->coords }}{{ $ratio ? '/' . $ratio : ''}}"
     width="{{ $width }}" 
     height="{{ $height }}"
-    title="{{ $image->caption }}"
+    title="{{ $caption }}"
     alt="{{ $image->caption }}"
     loading="lazy">
     {{ $slot }}

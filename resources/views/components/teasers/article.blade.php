@@ -10,6 +10,7 @@
       :maxSizes="[0 => 600, 1000 => 900]" 
       :image="$article->article->publishedImage" 
       width="1200" 
+      caption="{{ $article->article->title }}"
       height="800">
     </x-image>
     <div>
@@ -25,6 +26,7 @@
       :maxSizes="[0 => 600, 1000 => 900]" 
       :image="$article->article->publishedImage" 
       width="1200" 
+      caption="{{ $article->article->title }}"
       height="800">
     </x-image>
     <div>

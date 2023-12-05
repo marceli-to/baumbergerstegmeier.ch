@@ -7,6 +7,7 @@
         :classes="'aspect-ratio-3/2 teaser'"
         :maxSizes="[0 => 1200, 1000 => 1600]" 
         :image="$coverProject->coverImage" 
+        caption="{{ $coverProject->title }}"
         width="1200" 
         height="800"
         ratio="3x2">
