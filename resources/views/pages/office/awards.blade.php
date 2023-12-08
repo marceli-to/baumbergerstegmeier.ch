@@ -1,4 +1,6 @@
 @extends('layout.web')
+@section('seo_title', 'Auszeichnungen')
+@section('seo_description', 'Zahlreiche Auszeichnungen wie Gute Bauten Kanton Basel, Arc-Award oder best architects.')
 @section('content')
 <x-page-title />
 <section class="content-awards">

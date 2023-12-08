@@ -1,4 +1,6 @@
 @extends('layout.web')
+@section('seo_title', 'Werkliste')
+@section('seo_description', 'Schwerpunkte bilden neben dem Wohnungsbau Schul- und Gesundheitsbauten wie auch Gewerbebauten. Darüber hinaus gilt unser Interesse dem Umbau und der Sanierung denkmalpflegerisch geschützter Gebäude.')
 @section('content')
 <x-page-title />
 <section class="content-worklist">

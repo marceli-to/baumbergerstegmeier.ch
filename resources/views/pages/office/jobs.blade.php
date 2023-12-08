@@ -1,4 +1,6 @@
 @extends('layout.web')
+@section('seo_title', 'Jobs')
+@section('seo_description', 'Danke für das Interesse an einer Mitarbeit in unserem Büro. Wir sind immer wieder auf der Suche nach talentierten Bewerber*innen.')
 @section('content')
 <x-page-title />
 <section class="content-jobs">

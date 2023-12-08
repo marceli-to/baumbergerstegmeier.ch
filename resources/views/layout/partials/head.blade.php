@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>@if(trim($__env->yieldContent('seo_title')))@yield('seo_title') • {{config('seo.title')}}@else{{config('seo.title')}}@endif</title>
 <meta name="description" content="@if(trim($__env->yieldContent('seo_description')))@yield('seo_description')@else{{config('seo.description')}}@endif">
+<meta name="keywords" content="{{config('seo.keywords')}}">
 <meta property="og:title" content="@if(trim($__env->yieldContent('seo_title')))@yield('seo_title') • {{config('seo.title')}}@else{{config('seo.title')}}@endif">
 <meta property="og:description" content="@if(trim($__env->yieldContent('seo_description')))@yield('seo_description')@else{{config('seo.description')}}@endif">
 <meta property="og:url" content="{{url()->current()}}">

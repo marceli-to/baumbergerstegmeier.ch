@@ -1,4 +1,6 @@
 @extends('layout.web')
+@section('seo_title', 'Profil')
+@section('seo_description', 'Das Architekturbüro Baumberger Stegmeier wurde 2004 von Karin Stegmeier und Peter Baumberger in Zürich gegründet. Seit 2016 wurde die Geschäftsleitung mit Daniel Kaschub und Mirko Schlemminger und seit 2021 mit Arno Bruderer erweitert. Peter Baumberger und Karin Stegmeier wurden 2013 in den Bund Schweizer Architektinnen und Architekten BSA aufgenommen.')
 @section('content')
 <x-page-title />
 <section class="content-profile">

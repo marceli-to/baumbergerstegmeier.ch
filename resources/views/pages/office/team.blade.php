@@ -1,4 +1,6 @@
 @extends('layout.web')
+@section('seo_title', 'Team')
+@section('seo_description', 'In unserem Team arbeiten rund 40 Architekt*innen, Bauleiter*innen, Praktikant*innen und Lehrlinge.')
 @section('content')
 <x-page-title />
 <section class="content-teams">

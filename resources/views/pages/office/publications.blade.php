@@ -1,4 +1,6 @@
 @extends('layout.web')
+@section('seo_title', 'Publikationen')
+@section('seo_description', 'Zahlreiche Veröffentlichungen in der Fach- und Tagespresse, wie Hochparterre, werk, bauen+wohnen, TEC21, NZZ, Tagesanzeige u. v. m. ')
 @section('content')
 <x-page-title />
 <section class="content-publications">
