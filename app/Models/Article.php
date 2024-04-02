@@ -43,6 +43,10 @@ class Article extends Model
 
   public function setLinkAttribute($value)
   {
+    if ($value == null) {
+      $this->attributes['link'] = null;
+      return;
+    }
     $this->attributes['link'] = preg_match("~^(?:f|ht)tps?://~i", $value) ? $value : "https://".$value;
   }
 
