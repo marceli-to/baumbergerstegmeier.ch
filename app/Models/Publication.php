@@ -58,4 +58,22 @@ class Publication extends Base
     return $this->morphOne(File::class, 'fileable')->where('publish', 1)->orderBy('order');
   }
 
+  public function setLinkAttribute($value)
+  {
+    if ($value == null) {
+      $this->attributes['link'] = null;
+      return;
+    }
+    $this->attributes['link'] = preg_match("~^(?:f|ht)tps?://~i", $value) ? $value : "https://".$value;
+  }
+
+  public function getLinkTargetAttribute($value)
+  {
+    // if $this->links contains 'baumberger-stegmeier.ch', set target to '_self'
+    if (strpos($this->link, 'baumberger-stegmeier.ch') !== false || strpos($this->link, 'baumbergerstegmeier.ch') !== false) {
+      return '_self';
+    }
+    return '_blank';
+  }
+
 }
