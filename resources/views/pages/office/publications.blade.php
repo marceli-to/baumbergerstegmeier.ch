@@ -44,8 +44,8 @@
                   @endif
                   @if ($publication->link)
                   <div>
-                    <a href="{{ $publication->link }}" target="_blank" class="icon-arrow-right-up" title="">
-                      {{ $publication->link }}
+                    <a href="{{ $publication->link }}" target="_blank" title="">
+                      {{ $publication->link }}<x-icons.arrow-right-up class="ml-8x" />
                     </a>
                   </div>
                   @endif
@@ -87,8 +87,8 @@
                   @endif
                   @if ($publication->description)
                     @if ($publication->link)
-                      <a href="{{ $publication->link }}" target="{{ $publication->link_target }}" class="icon-arrow-right-up" title="">
-                        {!! nl2br($publication->description) !!}
+                      <a href="{{ $publication->link }}" target="{{ $publication->link_target }}" title="">
+                        {!! nl2br($publication->description) !!}<x-icons.arrow-right-up class="ml-8x" />
                       </a>
                     @else
                       {!! nl2br($publication->description) !!}
