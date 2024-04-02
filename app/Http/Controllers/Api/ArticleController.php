@@ -123,6 +123,7 @@ class ArticleController extends Controller
 
   protected function handleImages(Article $article, $images = NULL)
   {
+    if ($images === NULL) return;
     foreach($images as $image)
     {
       $i = Image::findOrFail($image['id']);

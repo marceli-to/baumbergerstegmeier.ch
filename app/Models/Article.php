@@ -18,9 +18,9 @@ class Article extends Model
     'publish',
   ];
 
-  protected $attributes = [
-    'link_target' => '_blank',
-  ];
+  // protected $attributes = [
+  //   'link_target' => '_blank',
+  // ];
 
   /**
    * The images that belong to this model.
