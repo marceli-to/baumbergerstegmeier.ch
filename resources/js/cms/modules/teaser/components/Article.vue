@@ -15,7 +15,7 @@
         <trash-2-icon size="16"></trash-2-icon>
       </a>
     </div>
-    <article>
+    <article v-if="item.article">
       <h3>{{ item.article.category }}</h3>
       <h2>{{ item.article.title }}</h2>
       <figure v-if="item.article.published_image" class="mb-3x">

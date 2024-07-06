@@ -19,6 +19,7 @@ use App\Http\Controllers\Api\StateController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\TypeController;
 use App\Http\Controllers\Api\ProjectController;
+use App\Http\Controllers\Api\ProjectLandingController;
 use App\Http\Controllers\Api\ArticleController;
 use App\Http\Controllers\Api\TeaserController;
 use App\Http\Controllers\Api\SettingsController;
@@ -204,9 +205,22 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::delete('project/category/{category}', 'destroy');
   });
 
+  // Project landing
+  Route::controller(ProjectLandingController::class)->group(function () {
+    Route::get('project/landing', 'get');
+    Route::get('project/landing/items/category/{category}', 'findCategoryItems');
+    Route::get('project/landing/items/state/{state}', 'findStateItems');
+    Route::post('project/landing/item', 'store');
+    Route::get('project/landing/item/state/{projectLanding}', 'toggle');
+    Route::post('project/landing/item/order', 'order');
+    Route::delete('project/landing/item/{projectLanding}', 'destroy');
+  });
+
   // Projects
   Route::controller(ProjectController::class)->group(function () {
     Route::get('projects', 'get');
+    Route::get('projects/category/{category}', 'getByCategory');
+    Route::get('projects/state/{state}', 'getByState');
     Route::get('project/{project}', 'find');
     Route::post('project', 'store');
     Route::put('project/{project}', 'update');

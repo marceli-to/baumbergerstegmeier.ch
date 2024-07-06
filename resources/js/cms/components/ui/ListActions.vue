@@ -16,6 +16,15 @@
       </router-link>
     </div>
 
+    <div v-if="hasLanding">
+      <router-link
+        :to="{name: routes.landing, params: { id: id, view: routes.view, title: routes.title }}"
+        class="feather-icon"
+      >
+        <grid-icon size="18"></grid-icon>
+      </router-link>
+    </div>
+
     <div v-if="hasList">
       <router-link
         :to="{name: routes.list, params: { id: id }}"
@@ -173,6 +182,11 @@ export default {
     },
 
     hasList: {
+      type: Boolean,
+      default: false
+    },
+
+    hasLanding: {
       type: Boolean,
       default: false
     },

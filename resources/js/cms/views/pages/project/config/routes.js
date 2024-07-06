@@ -5,6 +5,9 @@ import ProjectCreate from '@/views/pages/project/project/partials/Create.vue';
 import ProjectEdit from '@/views/pages/project/project/partials/Edit.vue';
 import ProjectTeaser from '@/views/pages/project/project/Teaser.vue';
 
+import ProjectLandingIndex from '@/views/pages/project/landing/Index.vue';
+import ProjectLandingEdit from '@/views/pages/project/landing/Edit.vue';
+
 import CategoryIndex from '@/views/pages/project/category/Index.vue';
 import CategoryCreate from '@/views/pages/project/category/partials/Create.vue';
 import CategoryEdit from '@/views/pages/project/category/partials/Edit.vue';
@@ -24,6 +27,21 @@ const routes = [
     name: 'project-index',
     path: '/administration/project/index',
     component: ProjectIndex,
+  },
+  {
+    name: 'project-landing-index',
+    path: '/administration/project/landing',
+    component: ProjectLandingIndex,
+  },
+  {
+    name: 'project-landing-category-edit',
+    path: '/administration/project/landing/edit/:id/:view?/:title?',
+    component: ProjectLandingEdit,
+  },
+  {
+    name: 'project-landing-state-edit',
+    path: '/administration/project/landing/edit/:id/:view?/:title?',
+    component: ProjectLandingEdit,
   },
   {
     name: 'project-teaser',

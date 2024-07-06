@@ -44,6 +44,11 @@ export default {
       type: Object,
       required: true
     },
+
+    title: {
+      type: String,
+      default: ''
+    }
   
   },
 }

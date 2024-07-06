@@ -23,6 +23,30 @@ class ProjectController extends Controller
   }
 
   /**
+   * Display a listing of the resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function getByCategory(Category $category)
+  {
+    return new DataCollection(Project::with('publishedImages')->whereHas('categories', function($q) use ($category) {
+      $q->where('category_id', $category->id);
+    })->orderBy('title')->get());
+  }
+
+  /**
+   * Display a listing of the resource.
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function getByState(State $state)
+  {
+    dd($state);
+    return new DataCollection(Project::with('publishedImages')->whereHas('states', function($q) use ($state) {
+      $q->where('state_id', $state->id);
+    })->orderBy('title')->get());
+  }
+  /**
    * Display the specified resource.
    *
    * @param  Project $project

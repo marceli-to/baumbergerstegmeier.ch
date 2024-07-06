@@ -11,6 +11,12 @@
         </router-link>
       </div>
       <div class="card">
+        <router-link :to="{name: 'project-landing-index'}">
+          <h2>Projekt Übersicht</h2>
+          <p>Verwaltung der Übersichtsseiten (Kategorie/Status)</p>
+        </router-link>
+      </div>
+      <div class="card">
         <router-link :to="{name: 'project-category-index'}">
           <h2>Kategorien</h2>
           <p>Verwaltung der Kategorien</p>

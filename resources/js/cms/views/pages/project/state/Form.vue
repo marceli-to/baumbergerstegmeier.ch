@@ -37,6 +37,14 @@
             :name="'show_in_menu'">
           </radio-button>
         </div>
+        <div class="form-row">
+          <radio-button 
+            :label="'Übersichtsseite?'"
+            v-bind:has_landing.sync="data.has_landing"
+            :model="data.has_landing"
+            :name="'has_landing'">
+          </radio-button>
+        </div>
       </div>
     </div>
 
@@ -94,6 +102,7 @@ export default {
         description: null,
         publish: 1,
         show_in_menu: 1,
+        has_landing: 1,
       },
 
       // Validation

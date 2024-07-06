@@ -6,7 +6,7 @@
         <a href="" class="btn-close" @click.prevent="$emit('close')">
           <x-icon size="24"></x-icon>
         </a>
-        <template v-if="$props.type == 'home'">
+        <template v-if="$props.type == 'home' || $props.type == 'project_landing'">
           <template v-if="projects.length">
             <h1>Projekt wählen:</h1>
             <div class="select-wrapper">
@@ -78,6 +78,8 @@ export default {
         projects: {
           get: '/api/projects',
           find: '/api/project',
+          getByCategory: '/api/projects/category',
+          getByState: '/api/projects/state',
         },
       },
     }
@@ -90,14 +92,30 @@ export default {
       default: 'home'
     },
 
+    view: {
+      type: String,
+      default: 'category'
+    },
+
+    viewId: {
+      type: [String, Number],
+    },
+
     projectId: {
       type: [String, Number],
     },
   },
 
   mounted() {
+    console.log(this.$props.view);
+    console.log(this.$props.viewId);
+
     if (this.$props.type == 'home') {
       this.fetchProjects();
+    }
+
+    if (this.$props.type == 'project_landing') {
+      this.fetchLandingProjects();
     }
 
     if (this.$props.type == 'project') {
@@ -120,6 +138,18 @@ export default {
       this.isLoading = true;
       this.axios.get(`${this.routes.projects.find}/${this.$props.projectId}`).then(response => {
         this.project = response.data.project;
+        this.isFetched = true;
+        this.isLoading = false;
+      });
+    },
+
+    fetchLandingProjects() {
+      const uri = this.$props.view == 'category' ? `${this.routes.projects.getByCategory}/${this.$props.viewId}` : `${this.routes.projects.getByState}/${this.$props.viewId}`;
+
+      this.isLoading = true;
+      this.axios.get(`${uri}`).then(response => {
+
+        this.projects = response.data.data;
         this.isFetched = true;
         this.isLoading = false;
       });

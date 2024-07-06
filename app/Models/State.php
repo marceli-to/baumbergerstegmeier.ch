@@ -16,7 +16,8 @@ class State extends Base
     'description',
     'order',
     'publish',
-    'show_in_menu'
+    'show_in_menu',
+    'has_landing'
   ];
 
   /**
@@ -26,6 +27,12 @@ class State extends Base
   public function projects()
   {
     return $this->hasMany(Project::class);
+  }
+
+  /* Scope for 'has_landing' */
+  public function scopeHasLanding($query)
+  {
+    return $query->where('has_landing', 1);
   }
 
   /**
