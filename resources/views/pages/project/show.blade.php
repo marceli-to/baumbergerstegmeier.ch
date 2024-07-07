@@ -3,7 +3,7 @@
 @section('content')
 <a 
   href="{{ request()->headers->get('referer') }}" 
-  class="hidden md:block mb-3x">
+  class="hidden !md:block mb-3x">
   <x-icons.cross-sm />
 </a>
 @if ($project->coverImage)
