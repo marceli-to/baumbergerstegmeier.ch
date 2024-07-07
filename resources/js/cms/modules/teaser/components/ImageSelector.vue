@@ -107,8 +107,6 @@ export default {
   },
 
   mounted() {
-    console.log(this.$props.view);
-    console.log(this.$props.viewId);
 
     if (this.$props.type == 'home') {
       this.fetchProjects();

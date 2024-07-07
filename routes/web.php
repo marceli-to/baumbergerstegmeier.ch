@@ -25,8 +25,13 @@ Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('/', [HomeController::class, 'index'])->name('page.home');
 
 Route::get('/projekte', [ProjectController::class, 'index'])->name('page.projects');
+
+Route::get('/projekte/uebersicht/{state:slug}', [ProjectController::class, 'showLandingByState'])->name('page.project.showLandingByState');
+Route::get('/projekte/uebersicht/{state:slug}/{category:slug}', [ProjectController::class, 'showLandingByCategory'])->name('page.project.showLandingByCategory');
+
 Route::get('/projekte/{state:slug}/{project:slug}', [ProjectController::class, 'showByState'])->name('page.project.showByState');
 Route::get('/projekte/{state:slug}/{category:slug}/{project:slug}', [ProjectController::class, 'showByStateAndCategory'])->name('page.project.showByStateAndCategory');
+
 Route::get('/projekt/vorschau/{project}', [ProjectController::class, 'preview'])->name('page.project.preview');
 
 Route::get('/werkliste/jahr', [WorklistController::class, 'byYear'])->name('page.worklist.year');

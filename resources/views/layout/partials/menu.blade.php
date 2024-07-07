@@ -8,7 +8,11 @@
               {{ $page['title'] }}
             </a>
           @else
-            <a href="javascript:;" title="{{ $page['title'] }}" class="{{ request()->routeIs('page.' . $key . '*') ? '' : '' }}" data-menu-parent>
+            <a 
+              href="javascript:;" 
+              title="{{ $page['title'] }}" 
+              class="{{ request()->routeIs('page.' . $key . '*') ? '' : '' }}" 
+              data-menu-parent>
               {{ $page['title'] }}
             </a>
             @if ($key == 'project')
@@ -17,26 +21,26 @@
                   @foreach($menuProjects as $menuProjectState)
                     <li>
                       <a 
-                        href="javascript:;" 
+                        href="{{ $menuProjectState['state']->has_landing ? route('page.project.showLandingByState', ['state' => $menuProjectState['state']->slug]) : 'javascript:;' }}" 
                         title="{{ $menuProjectState['state']->description }}" 
                         class="{{ isset($state) && $state->slug == $menuProjectState['state']->slug ? 'is-current' : '' }}" 
-                        data-menu-parent 
-                        data-menu-item-state>
+                        {{ !$menuProjectState['state']->has_landing ? 'data-menu-parent data-menu-item-state' : '' }}>
                         {{ $menuProjectState['state']->description }}
                       </a>
 
                       {{-- Projects by state and categories --}}
                       @if ($menuProjectState['hasCategories'])
                         @if ($menuProjectState['categories'])
-                          <ul class="{{ request()->routeIs('page.project.showByStateAndCategory') && isset($state) && $state->slug == $menuProjectState['state']->slug ? 'is-current' : '' }}">
+                          <ul class="{{ request()->routeIs('page.project.showLandingByCategory') && isset($state) && $state->slug == $menuProjectState['state']->slug ? 'is-current' : '' }}">
                             @foreach($menuProjectState['categories'] as $menuProjectCategory)
                               <li>
-                                <a href="javascript:;" 
+                                <a 
+                                  href="{{ route('page.project.showLandingByCategory', ['state' => $menuProjectState['state']->slug, 'category' => $menuProjectCategory->slug]) }}" 
                                   data-menu-parent 
                                   data-menu-item-category>
-                                  {{ $menuProjectCategory->description}}
+                                  {{ $menuProjectCategory->description }}
                                 </a>
-                                <ul class="{{ (isset($state) && $state->slug == $menuProjectState['state']->slug && isset($category) && $category->slug == $menuProjectCategory->slug) ? 'is-current' : '' }}">
+                                {{-- <ul class="{{ (isset($state) && $state->slug == $menuProjectState['state']->slug && isset($category) && $category->slug == $menuProjectCategory->slug) ? 'is-current' : '' }}">
                                   @foreach($menuProjectCategory->featuredProjects as $project)
                                     <li>
                                       <a 
@@ -46,7 +50,7 @@
                                       </a>
                                     </li>
                                   @endforeach
-                                </ul>
+                                </ul> --}}
                               </li>
                             @endforeach
                           </ul>
@@ -54,7 +58,7 @@
                       {{-- Projects by state without categories --}}
                       @else
                         @if ($menuProjectState['featuredProjects'])
-                          <ul class="{{ isset($state) && $state->slug == $menuProjectState['state']->slug ? 'is-current' : '' }}">
+                          {{-- <ul class="{{ isset($state) && $state->slug == $menuProjectState['state']->slug ? 'is-current' : '' }}">
                             <li>
                               <ul class="is-current">
                                 @foreach($menuProjectState['featuredProjects'] as $project)
@@ -68,7 +72,7 @@
                                 @endforeach
                               </ul>
                             </li>
-                          </ul>
+                          </ul> --}}
                         @endif
                       @endif
                     </li>

@@ -21,7 +21,6 @@
     const content = document.querySelector(selectors.content);
 
     // if content has class !hidden, remove the class and add active class to the button
-    console.log(content.classList.contains(classes.hidden));
     if (content.classList.contains(classes.hidden)) {
       content.classList.remove(classes.hidden);
       btn.classList.add(classes.active);

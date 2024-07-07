@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use App\Http\Controllers\BaseController;
 use App\Models\Project;
+use App\Models\ProjectLanding;
 use App\Models\Category;
 use App\Models\State;
 use App\Models\Teaser;
@@ -10,6 +11,51 @@ use Illuminate\Http\Request;
 class ProjectController extends BaseController
 {
   protected $viewPath = 'pages.project.';
+
+  /**
+   * Show project landing page by state
+   * 
+   * @param State $state
+   * @return \Illuminate\Http\Response
+   */
+  public function showLandingByState(State $state)
+  {
+    $items = ProjectLanding::with('project', 'project.coverImage')
+      ->where('state_id', $state->id)
+      ->orderBy('position')
+      ->get();
+
+    return view($this->viewPath . 'landing', [
+      'teasers' => $this->buildColumns($items),
+      'state' => $state,
+      'is_category' => false,
+    ]);
+  }
+
+  /**
+   * Show project landing page by state and category
+   * 
+   * @param State $state
+   * @param Category $category
+   * @return \Illuminate\Http\Response
+   */
+
+  public function showLandingByCategory(State $state, $category)
+  {
+    $category = Category::where('slug', $category)->first();
+    $items = ProjectLanding::with('project', 'project.coverImage')
+      ->where('category_id', $category->id)
+      ->orderBy('position')
+      ->get();
+
+    return view($this->viewPath . 'landing', [
+      'teasers' => $this->buildColumns($items),
+      'category' => $category,
+      'state' => $state,
+      'is_category' => true,
+    ]);
+
+  }
 
   /**
    * Show a project by state
@@ -75,24 +121,7 @@ class ProjectController extends BaseController
               ->where('project_id', $project->id)
               ->orderBy('position')
               ->get();
-    $data = [];
-    foreach($items as $item)
-    {
-      if ($item->column == 0)
-      {
-        $data[0][] = $item;
-      }
-      if ($item->column == 1)
-      {
-        $data[1][] = $item;
-      }
-      if ($item->column == 2)
-      {
-        $data[2][] = $item;
-      }
-    }
-    ksort($data);
-    return $data;
+    return $this->buildColumns($items);
   }
 
   /**
@@ -159,7 +188,6 @@ class ProjectController extends BaseController
 
     return $items;
   }
-
 
   /**
    * Get project browse navigation for state and category
@@ -249,5 +277,33 @@ class ProjectController extends BaseController
       ];
       return $items;
     }
+  }
+
+  /**
+   * Build columns for teaser and landing items
+   * 
+   * @param Array $items
+   * @return Array $data
+   */
+  private function buildColumns($items = []): Array
+  {
+    $data = [];
+    foreach($items as $item)
+    {
+      if ($item->column == 0)
+      {
+        $data[0][] = $item;
+      }
+      if ($item->column == 1)
+      {
+        $data[1][] = $item;
+      }
+      if ($item->column == 2)
+      {
+        $data[2][] = $item;
+      }
+    }
+    ksort($data);
+    return $data;
   }
 }

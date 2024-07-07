@@ -1,7 +1,11 @@
 @extends('layout.web')
 @section('seo_title', $project->title)
 @section('content')
-<x-page-title :class="'hidden !md:block'" :type="'h2'" />
+<a 
+  href="{{ request()->headers->get('referer') }}" 
+  class="hidden md:block mb-3x">
+  <x-icons.cross-sm />
+</a>
 @if ($project->coverImage)
   <x-hero class="hidden !md:block">
     <a 
@@ -21,8 +25,13 @@
   </x-hero>
 @endif
 <section class="content-project">
-  <header class="content-header md:items-end md:flex md:justify-between">
+  <header class="content-header items-end flex justify-between">
     <h3>{{ $has_category ? $category->description : $state->description }}</h3>
+    <a 
+      href="{{ request()->headers->get('referer') }}" 
+      class="block md:hidden">
+      <x-icons.cross-xs />
+    </a>
     @if (isset($browse['prev']) && isset($browse['next']))
       <nav class="project-browse">
         @if (isset($browse['prev']))

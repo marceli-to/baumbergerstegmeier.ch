@@ -55,6 +55,14 @@
     @extend %lg\:mb-28x;
   }
 
+  &.content-project--landing {
+    @extend %lg\:mt-28x;
+    h1 {
+      @extend %pt-4x;
+      border-top: 1px solid $color-black;
+    }
+  }
+
   .project-text {
     // @extend %mb-25x;
     // @extend %lg\:mt-40x;

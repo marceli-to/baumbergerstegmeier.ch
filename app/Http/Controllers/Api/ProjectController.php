@@ -29,9 +29,17 @@ class ProjectController extends Controller
    */
   public function getByCategory(Category $category)
   {
-    return new DataCollection(Project::with('publishedImages')->whereHas('categories', function($q) use ($category) {
-      $q->where('category_id', $category->id);
-    })->orderBy('title')->get());
+    return new DataCollection(
+      Project::featured()->with('publishedImages', 'state')
+        ->whereHas('categories', function($q) use ($category) {
+          $q->where('category_id', $category->id);
+        })
+        ->whereHas('state', function($q) {
+          $q->where('has_landing', false);
+        })
+        ->orderBy('title')
+        ->get()
+    );
   }
 
   /**
@@ -41,11 +49,11 @@ class ProjectController extends Controller
    */
   public function getByState(State $state)
   {
-    dd($state);
-    return new DataCollection(Project::with('publishedImages')->whereHas('states', function($q) use ($state) {
+    return new DataCollection(Project::featured()->with('publishedImages')->whereHas('state', function($q) use ($state) {
       $q->where('state_id', $state->id);
     })->orderBy('title')->get());
   }
+
   /**
    * Display the specified resource.
    *

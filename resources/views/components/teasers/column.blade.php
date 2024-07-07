@@ -1,7 +1,7 @@
-@props(['items', 'type'])
+@props(['items', 'type', 'hasArticles' => true])
 <div>
   @foreach($items as $item)
-    @if ($item->isArticle)
+    @if ($hasArticles && $item->isArticle)
       <x-teasers.article :article="$item" />
     @endif
     @if ($item->isProject)

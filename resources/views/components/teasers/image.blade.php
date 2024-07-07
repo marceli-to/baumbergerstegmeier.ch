@@ -15,9 +15,9 @@
     width="1200" 
     caption="{{ $image->type == 'home' ? $image->project->title : $image->image->caption }}"
     height="800">
-    @if ($image->type == 'home')
+    @if ($image->type == 'home' || $image->type == 'landing')
       <figcaption>
-        {{ $image->project->title }}@if ($image->project->location), {{ $image->project->location }}@endif
+        {{ $image->project->title }}@if ($image->project->location), <nobr>{{ $image->project->location }}</nobr>@endif
       </figcaption>
     @else
       <figcaption>

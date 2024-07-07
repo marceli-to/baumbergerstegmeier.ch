@@ -16,6 +16,11 @@ class ProjectLanding extends Model
     'category_id',
   ];
 
+  // append $type
+  protected $appends = [
+    'type',
+  ];
+
   public function image()
   {
     return $this->belongsTo(Image::class);
@@ -34,5 +39,10 @@ class ProjectLanding extends Model
   public function category()
   {
     return $this->belongsTo(Category::class);
+  }
+
+  public function getTypeAttribute()
+  {
+    return 'landing';
   }
 }

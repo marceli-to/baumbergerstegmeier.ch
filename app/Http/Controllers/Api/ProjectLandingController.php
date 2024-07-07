@@ -23,7 +23,11 @@ class ProjectLandingController extends Controller
   public function get()
   {
     return response()->json([
-      'categories' => Category::get(),
+      'categories' => Category::whereHas('projects', function($query) {
+        $query->whereHas('state', function($q) {
+          $q->where('has_landing', false);
+        });
+      })->get(),
       'states' => State::hasLanding()->get(),
     ]);
   }
@@ -98,7 +102,7 @@ class ProjectLandingController extends Controller
     return response()->json(['item' => $item->with('image', 'project')->find($item->id)]);
   }
 
-    /**
+  /**
    * Toggle the status a given teaser
    *
    * @param  ProjectLanding $projectLanding
@@ -110,7 +114,6 @@ class ProjectLandingController extends Controller
     $projectLanding->save();
     return response()->json($projectLanding->publish);
   }
-
 
   /**
    * Update the order the teasers

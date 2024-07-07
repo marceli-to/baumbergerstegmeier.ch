@@ -25,6 +25,7 @@ nav.site {
   }
 
   @include bp-lg() {
+    overflow-y: visible;
     width: calc(33.3333% - ((100% - 1366px)/2));
   }
 
