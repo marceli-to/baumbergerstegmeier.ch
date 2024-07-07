@@ -148,3 +148,19 @@
   text-underline-offset: 2px;
   text-decoration-thickness: 1px;
 }
+
+.tox-listboxfield button {
+  border: 2px solid #dddddd;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 8px;
+  width: 100% !important;
+}
+
+.tox-collection__item-checkmark {
+  display: none !important;
+}
+
+.tox-listbox__select-chevron {
+  margin-left: 12px !important;
+}

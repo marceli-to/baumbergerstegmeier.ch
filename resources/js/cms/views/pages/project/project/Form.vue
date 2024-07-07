@@ -37,7 +37,6 @@
         <div class="form-row">
           <label>Text</label>
           <tinymce-editor
-            :api-key="tinyApiKey"
             :init="tinyConfig"
             v-model="data.text"
           ></tinymce-editor>
@@ -45,7 +44,6 @@
         <div class="form-row">
           <label>Info</label>
           <tinymce-editor
-            :api-key="tinyApiKey"
             :init="tinyConfig"
             v-model="data.info"
           ></tinymce-editor>
@@ -66,7 +64,7 @@
         :allowRatioSwitch="true"
         :imageRatioW="3" 
         :imageRatioH="2"
-        :imageStates="[{ label: 'Werkliste', key: 'worklist'}, { label: 'Cover', key: 'cover'}]"
+        :imageStates="[{ label: 'Werkliste', key: 'worklist'}, { label: 'Cover', key: 'cover'}, { label: 'Lightbox', key: 'lightbox'}]"
         :ratioFormats="[{label: 'Quer', w: 3, h: 2}, {label: 'Hoch', w: 2, h: 3}]"
         :images="data.images">
       </images>
@@ -225,7 +223,6 @@ export default {
 
       // TinyMCE
       tinyConfig: tinyConfig,
-      tinyApiKey: 'vuaywur9klvlt3excnrd9xki1a5lj25v18b2j0d0nu5tbwro',
     };
   },
 

@@ -34,6 +34,7 @@ class Image extends Model
     'cover',
     'worklist',
     'locked',
+    'lightbox',
     'imageable_id',
     'imageable_type'
   ];

@@ -12,7 +12,6 @@
         <div :class="[this.errors.address ? 'has-error' : '', 'form-row']">
           <label>Adresse</label>
           <tinymce-editor
-            :api-key="tinyApiKey"
             :init="tinyConfig"
             v-model="data.address"
           ></tinymce-editor>
@@ -20,7 +19,6 @@
         <div class="form-row">
           <label>Beschreibung</label>
           <tinymce-editor
-            :api-key="tinyApiKey"
             :init="tinyConfig"
             v-model="data.description"
           ></tinymce-editor>
@@ -32,7 +30,6 @@
         <div class="form-row">
           <label>Impressum</label>
           <tinymce-editor
-            :api-key="tinyApiKey"
             :init="tinyConfig"
             v-model="data.imprint"
           ></tinymce-editor>
@@ -40,7 +37,6 @@
         <div class="form-row">
           <label>Datenschutz</label>
           <tinymce-editor
-            :api-key="tinyApiKey"
             :init="tinyConfig"
             v-model="data.privacy"
           ></tinymce-editor>
@@ -156,7 +152,6 @@ export default {
 
       // TinyMCE
       tinyConfig: tinyConfig,
-      tinyApiKey: 'vuaywur9klvlt3excnrd9xki1a5lj25v18b2j0d0nu5tbwro',
     };
   },
 
