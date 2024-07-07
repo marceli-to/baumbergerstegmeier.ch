@@ -4,7 +4,6 @@
 @section('content')
 <x-page-title />
 <section class="content-worklist">
-  {{-- @include('pages.worklist.filter', ['class' => 'is-mobile js-sticky-filter']) --}}
   @include('pages.worklist.filter')
   @if ($projects)
     @if ($filter == 'all')
@@ -19,6 +18,9 @@
     @if ($filter == 'category')
       @include('pages.worklist.category')
     @endif
+    @if ($filter == 'category-state')
+    @include('pages.worklist.category-state')
+  @endif
   @endif
 </section>
 @endsection

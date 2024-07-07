@@ -10,27 +10,35 @@
     </li>
     @if ($states)
       <li>
-        <a href="javascript:;" data-btn-worklist-filter class="{{ $filter == 'state' ? 'is-active' : '' }}" title="Status" {{ $filter == 'state' ? 'data-btn-worklist-current' : '' }}>Status</a>
+        <a href="javascript:;" data-btn-worklist-filter class="{{ $filter == 'state' || $filter == 'category-state' ? 'is-active' : '' }}" title="Status" {{ $filter == 'state' ? 'data-btn-worklist-current' : '' }}>Status</a>
         <ul class="hidden" data-worklist-items>
           @foreach($states as $state)
             <li>
+              @if ($filter == 'category')
+                <a href="{{ route('page.worklist.category.state', ['category' => $category->slug, 'state' => $state->slug]) }}" title="Status {{ $state->description }}">{{ $state->description }}</a>
+              @else
               <a href="{{ route('page.worklist.state', ['state' => $state->slug]) }}" title="Status {{ $state->description }}">{{ $state->description }}</a>
+              @endif
             </li>
           @endforeach
         </ul>
       </li>
     @endif
     @if ($categories)
-    <li>
-      <a href="javascript:;" data-btn-worklist-filter class="{{ $filter == 'category' ? 'is-active' : '' }}" title="Programm" {{ $filter == 'category' ? 'data-btn-worklist-current' : '' }}>Programm</a>
-      <ul class="hidden" data-worklist-items>
-        @foreach($categories as $category)
-          <li>
-            <a href="{{ route('page.worklist.category', ['category' => $category->slug]) }}" title="Programm {{ $category->description }}">{{ $category->description }}</a>
-          </li>
-        @endforeach
-      </ul>
-    </li>
+      <li>
+        <a href="javascript:;" data-btn-worklist-filter class="{{ $filter == 'category' || $filter == 'category-state' ? 'is-active' : '' }}" title="Programm" {{ $filter == 'category' ? 'data-btn-worklist-current' : '' }}>Programm</a>
+        <ul class="hidden" data-worklist-items>
+          @foreach($categories as $category)
+            <li>
+              @if ($filter == 'state')
+                <a href="{{ route('page.worklist.category.state', ['category' => $category->slug, 'state' => $state->slug]) }}" title="Programm {{ $category->description }}">{{ $category->description }}</a>
+              @else
+                <a href="{{ route('page.worklist.category', ['category' => $category->slug]) }}" title="Programm {{ $category->description }}">{{ $category->description }}</a>
+              @endif
+            </li>
+          @endforeach
+        </ul>
+      </li>
     @endif
     <li class="is-search">
       <a href="javascript:;" class="is-search !mb-0 flex justify-between items-start">

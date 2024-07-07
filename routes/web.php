@@ -38,6 +38,7 @@ Route::get('/werkliste/jahr', [WorklistController::class, 'byYear'])->name('page
 Route::get('/werkliste/{searchTerm?}', [WorklistController::class, 'index'])->name('page.worklist');
 Route::get('/werkliste/status/{state:slug}', [WorklistController::class, 'byState'])->name('page.worklist.state');
 Route::get('/werkliste/programm/{category:slug}', [WorklistController::class, 'byCategory'])->name('page.worklist.category');
+Route::get('/werkliste/programm/{category:slug}/status/{state:slug}', [WorklistController::class, 'byCategoryAndState'])->name('page.worklist.category.state');
 
 Route::get('/buero/profil', [OfficeController::class, 'profile'])->name('page.office.profile');
 Route::get('/buero/team', [OfficeController::class, 'team'])->name('page.office.team');

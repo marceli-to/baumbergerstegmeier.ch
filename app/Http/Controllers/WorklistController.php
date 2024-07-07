@@ -98,4 +98,31 @@ class WorklistController extends BaseController
       'category' => $category
     ]);
   }
+
+  /**
+   * Show entries by category and state
+   * 
+   * @param String $category
+   * @param State $state
+   * @return \Illuminate\Http\Response
+   */
+
+  public function byCategoryAndState($category, $state)
+  {
+    $category = Category::where('slug', $category)->first();
+    $state = State::where('slug', $state)->first();
+
+    $projects = Project::with('coverImage', 'state', 'categories')->published()->whereHas('categories', function($query) use ($category) {
+      $query->where('category_id', $category->id);
+    })->where('state_id', $state->id)->orderBy('year', 'DESC')->get();
+
+    return view($this->viewPath . 'index', [
+      'filter' => 'category-state',
+      'projects' => $projects,
+      'categories' => Category::with('publishedProjects')->orderBy('order')->get(),
+      'states' => State::with('publishedProjects')->orderBy('order')->get(),
+      'category' => $category,
+      'state' => $state
+    ]);
+  }
 }
