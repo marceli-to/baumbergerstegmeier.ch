@@ -32,6 +32,9 @@
               </template>
             </div>        
           </template>
+          <template v-else>
+            Es sind keine Projekte vorhanden.
+          </template>
         </template>
 
         <template v-if="$props.type == 'project'">
