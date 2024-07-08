@@ -13,7 +13,7 @@
       <div class="card">
         <router-link :to="{name: 'project-landing-index'}">
           <h2>Projekt Übersicht</h2>
-          <p>Verwaltung der Übersichtsseiten (Kategorie/Status)</p>
+          <p>Verwaltung der Übersichtsseiten</p>
         </router-link>
       </div>
       <div class="card">
