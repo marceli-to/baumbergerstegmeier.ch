@@ -19,10 +19,16 @@
       @foreach ($teaser_columns as $items)
         <div>
           @foreach($items as $item)
+            {{-- <a 
+              href="{{ $item->project->getShowRoute() }}" 
+              title="{{ $item->project->title }}">
+              <x-teasers.image :image="$item" />
+            </a> --}}
             <a 
               href="{{ $item->project->getShowRoute() }}" 
               title="{{ $item->project->title }}">
               <x-teasers.image :image="$item" />
+              {{ $is_category ? $category->slug : $state->slug }}
             </a>
           @endforeach
         </div>
