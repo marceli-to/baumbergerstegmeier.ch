@@ -23,10 +23,12 @@ class ProjectController extends BaseController
     $items = ProjectLanding::with('project', 'project.coverImage')
       ->where('state_id', $state->id)
       ->orderBy('position')
+      ->orderBy('column')
       ->get();
 
     return view($this->viewPath . 'landing', [
-      'teasers' => $this->buildColumns($items),
+      'teaser_columns' => $this->buildColumns($items),
+      'teasers' => $items,
       'state' => $state,
       'is_category' => false,
     ]);
@@ -49,7 +51,8 @@ class ProjectController extends BaseController
       ->get();
 
     return view($this->viewPath . 'landing', [
-      'teasers' => $this->buildColumns($items),
+      'teaser_columns' => $this->buildColumns($items),
+      'teasers' => $items,
       'category' => $category,
       'state' => $state,
       'is_category' => true,

@@ -1,11 +1,27 @@
 @extends('layout.web')
 @section('seo_title', $project->title)
 @section('content')
-<a 
+{{-- <a 
   href="{{ request()->headers->get('referer') }}" 
   class="hidden !md:block mb-3x">
   <x-icons.cross-sm />
+</a> --}}
+
+@if ($has_category)
+<a 
+  href="{{ route('page.project.showLandingByCategory', ['state' => $state->slug, 'category' => $category->slug]) }}" 
+  class="hidden !md:block mb-3x">
+  <x-icons.cross-sm />
 </a>
+@else
+<a 
+  href="{{ route('page.project.showLandingByState', ['state' => $state->slug]) }}" 
+  class="hidden !md:block mb-3x">
+  <x-icons.cross-sm />
+</a>
+@endif
+
+
 @if ($project->coverImage)
   <x-hero class="hidden !md:block">
     <a 

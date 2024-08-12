@@ -4,6 +4,20 @@
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 17px;
   }
+
+  &.is-desktop {
+    display: none;
+    @include bp-md() {
+      display: grid;
+    }
+  }
+
+  &.is-mobile {
+    display: block;
+    @include bp-md() {
+      display: none;
+    }
+  }
 }
 
 .content-columns {
