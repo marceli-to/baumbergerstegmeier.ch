@@ -140,22 +140,22 @@ class ProjectController extends BaseController
     // Get state
     $state = State::where('slug', $state)->first();
 
-    // Get all projects for this state, order the projects by year
-    $projectsByState = Project::featured()->where('state_id', $state->id)->publish()->orderBy('year', 'DESC')->get();
-    
+    // Get Landing projects for this state, order the by position and column
+    $projectsByState = ProjectLanding::where('state_id', $state->id)->orderBy('position')->orderBy('column')->get();
+
     $browseProjects = [
       'id' => $state->id,
       'state' => $state,
       'hasCategories' => false,
-      'featuredProjects' => $projectsByState,
+      'projects' => $projectsByState,
     ];
 
     $keys  = [];
     $items = [];
 
-    foreach($browseProjects['featuredProjects'] as $p)
+    foreach($browseProjects['projects'] as $p)
     {
-      $keys[] = $p->id;
+      $keys[] = $p->project_id;
     }
 
     // Get current key
@@ -205,48 +205,35 @@ class ProjectController extends BaseController
   {
     // Get state
     $state = State::where('slug', $state)->first();
-    
+
     // Get category
     $category = Category::where('slug', $category)->first();
-    $browseProjects = [];
 
-    if ($state->show_in_menu)
+    $projectsByStateAndCategory = ProjectLanding::where('category_id', $category->id)->orderBy('position')->orderBy('column')->get();
+
+    $browseProjects = [
+      'id' => $state->id,
+      'state' => $state,
+      'hasCategories' => true,
+      'projects' => $projectsByStateAndCategory,
+    ];
+
+    $keys  = [];
+    $items = [];
+
+    foreach($browseProjects['projects'] as $p)
     {
-      // get all categories with featuredProjects, the state_id on a project must equal the id of the state
-      $projectsByCategories = Category::with(['featuredProjects' => function ($query) use ($state) {
-        $query->where('state_id', '=', $state->id)->orderBy('year', 'DESC');
-      }])->publish()->orderBy('order')->get();
+      $keys[] = $p->project_id;
+    }
 
-      // filter out categories that don't have any featured projects
-      $projectsByCategories = $projectsByCategories->filter(function ($category) {
-        return $category->featuredProjects->count() > 0;
-      });
-
-      // if there are any categories left, add them to the browseProjects array
-      if ($projectsByCategories->count() > 0)
+      foreach($browseProjects['projects'] as $p)
       {
-        $browseProjects = [
-          'id' => $state->id,
-          'state' => $state,
-          'hasCategories' => true,
-          'categories' => $projectsByCategories,
-        ];
+        $keys[] = $p->project_id;
       }
-
-      $keys  = [];
-      $items = [];
   
-      foreach($browseProjects['categories'] as $cat)
-      {
-        foreach($cat->featuredProjects as $p)
-        {
-          $keys[] = $cat->id . '-' . $p->id;
-        }
-      }
-
       // Get current key
-      $key = array_search($category->id . '-' . $projectId, $keys);
-
+      $key = array_search($projectId, $keys);
+  
       if ($key == 0)
       {
         $prevId = end($keys);
@@ -263,23 +250,20 @@ class ProjectController extends BaseController
         $nextId = $keys[$key+1];
       }
 
-      // Get prev and next item
-      list($prevCategoryId, $prevId) = explode('-', $prevId);
-      list($nextCategoryId, $nextId) = explode('-', $nextId);
 
       // Get prev and next item by category, state and project
       $items = [
         'prev' => [
           'project' => Project::find($prevId),
-          'route' => route('page.project.showByStateAndCategory', ['state' => $state->slug, 'category' => Category::find($prevCategoryId)->slug, 'project' => Project::find($prevId)->slug])
+          'route' => route('page.project.showByStateAndCategory', ['state' => $state->slug, 'category' => $category, 'project' => Project::find($prevId)->slug])
         ],
         'next' => [
           'project' => Project::find($nextId),
-          'route' => route('page.project.showByStateAndCategory', ['state' => $state->slug, 'category' => Category::find($nextCategoryId)->slug, 'project' => Project::find($nextId)->slug])
+          'route' => route('page.project.showByStateAndCategory', ['state' => $state->slug, 'category' => $category, 'project' => Project::find($nextId)->slug])
         ],
       ];
       return $items;
-    }
+    
   }
 
   /**
