@@ -25,10 +25,9 @@
               <x-teasers.image :image="$item" />
             </a> --}}
             <a 
-              href="{{ $item->project->getShowRoute() }}" 
+              href="{{ $is_category ? route('page.project.showByStateAndCategory', ['category' => $category->slug, 'state' => $state->slug]) }}" 
               title="{{ $item->project->title }}">
               <x-teasers.image :image="$item" />
-              {{ $is_category ? $category->slug : $state->slug }}
             </a>
           @endforeach
         </div>
