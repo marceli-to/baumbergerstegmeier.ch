@@ -1,24 +1,29 @@
 @extends('layout.web')
 @section('seo_title', $project->title)
 @section('content')
-{{-- <a 
-  href="{{ request()->headers->get('referer') }}" 
-  class="hidden !md:block mb-3x">
-  <x-icons.cross-sm />
-</a> --}}
 
-@if ($has_category)
-<a 
-  href="{{ route('page.project.showLandingByCategory', ['state' => $state->slug, 'category' => $category->slug]) }}" 
-  class="hidden !md:block mb-3x">
-  <x-icons.cross-sm />
-</a>
+@if (rtrim(request()->headers->get('referer'), '/') == route('page.home'))
+  <a 
+    href="{{ route('page.home') }}" 
+    class="hidden !md:block mb-3x">
+    <x-icons.cross-sm />
+  </a>
 @else
-<a 
-  href="{{ route('page.project.showLandingByState', ['state' => $state->slug]) }}" 
-  class="hidden !md:block mb-3x">
-  <x-icons.cross-sm />
-</a>
+
+  @if ($has_category)
+  <a 
+    href="{{ route('page.project.showLandingByCategory', ['state' => $state->slug, 'category' => $category->slug]) }}" 
+    class="hidden !md:block mb-3x">
+    <x-icons.cross-sm />
+  </a>
+  @else
+  <a 
+    href="{{ route('page.project.showLandingByState', ['state' => $state->slug]) }}" 
+    class="hidden !md:block mb-3x">
+    <x-icons.cross-sm />
+  </a>
+  @endif
+
 @endif
 
 
@@ -48,23 +53,25 @@
       class="block md:hidden">
       <x-icons.cross-xs />
     </a>
-    @if (isset($browse['prev']) && isset($browse['next']))
-      <nav class="project-browse">
-        @if (isset($browse['prev']))
-          <a href="{{ $browse['prev']['route'] }}" 
-            class="block mr-8x lg:mr-9x" 
-            title="{{ $browse['prev']['project']->title }}">
-            <x-icons.chevron-prev-large />
-          </a>
-        @endif
-        @if (isset($browse['next']))
-          <a href="{{ $browse['next']['route'] }}" 
-            class="block ml-8x lg:ml-9x" 
-            title="{{ $browse['next']['project']->title }}">
-            <x-icons.chevron-next-large />
-          </a>
-        @endif
-      </nav>
+    @if (rtrim(request()->headers->get('referer'), '/') != route('page.home'))
+      @if (isset($browse['prev']) && isset($browse['next']))
+        <nav class="project-browse">
+          @if (isset($browse['prev']))
+            <a href="{{ $browse['prev']['route'] }}" 
+              class="block mr-8x lg:mr-9x" 
+              title="{{ $browse['prev']['project']->title }}">
+              <x-icons.chevron-prev-large />
+            </a>
+          @endif
+          @if (isset($browse['next']))
+            <a href="{{ $browse['next']['route'] }}" 
+              class="block ml-8x lg:ml-9x" 
+              title="{{ $browse['next']['project']->title }}">
+              <x-icons.chevron-next-large />
+            </a>
+          @endif
+        </nav>
+      @endif
     @endif
   </header>
   <div class="md:flex md:justify-between">
@@ -99,22 +106,24 @@
       @endforeach
     </x-teasers.index>
   @endif
-  @if (isset($browse['next']))
-    <a href="{{ $browse['next']['route'] }}" 
-      class="project-teaser" 
-      title="{{ $browse['next']['project']->title }}">
-      <span>Nächstes Projekt</span>
-      <h3>{{ $browse['next']['project']->title }}</h3>
-      <x-image 
-        :classes="'aspect-ratio-3/2'"
-        :maxSizes="[0 => 1200]" 
-        :image="$browse['next']['project']->coverImage" 
-        caption="{{ $browse['next']['project']->title }}"
-        width="1200" 
-        height="800"
-        ratio="3x2">
-      </x-image>
-    </a>
+  @if (rtrim(request()->headers->get('referer'), '/') != route('page.home'))
+    @if (isset($browse['next']))
+      <a href="{{ $browse['next']['route'] }}" 
+        class="project-teaser" 
+        title="{{ $browse['next']['project']->title }}">
+        <span>Nächstes Projekt</span>
+        <h3>{{ $browse['next']['project']->title }}</h3>
+        <x-image 
+          :classes="'aspect-ratio-3/2'"
+          :maxSizes="[0 => 1200]" 
+          :image="$browse['next']['project']->coverImage" 
+          caption="{{ $browse['next']['project']->title }}"
+          width="1200" 
+          height="800"
+          ratio="3x2">
+        </x-image>
+      </a>
+    @endif
   @endif
 </section>
 @endsection
