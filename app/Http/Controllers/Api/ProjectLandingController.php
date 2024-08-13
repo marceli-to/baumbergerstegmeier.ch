@@ -150,8 +150,39 @@ class ProjectLandingController extends Controller
    */
   public function destroy(ProjectLanding $projectLanding)
   {
+    $tempProjectLanding = $projectLanding;
     $projectLanding->delete();
+    // $this->reorder($tempProjectLanding);
     return response()->json('successfully deleted');
+  }
+
+  public function reorder(ProjectLanding $projectLanding)
+  {
+    $category = $projectLanding->category_id ? Category::find($projectLanding->category_id) : null;
+    $state = $projectLanding->state_id ? State::find($projectLanding->state_id) : null;
+    $column = $projectLanding->column;
+
+    // Get all project landings for this category and state and column
+    $query = ProjectLanding::where('column', $column);
+
+    if ($category)
+    {
+      $query->where('category_id', $category->id);
+    }
+    if ($state)
+    {
+      $query->where('state_id', $state->id);
+    }
+
+    $items = $query->orderBy('position')->get();
+    $key = 0;
+
+    foreach($items as $item)
+    {
+      $item->position = $key;
+      $item->save();
+      $key++;
+    }
   }
 
 }
