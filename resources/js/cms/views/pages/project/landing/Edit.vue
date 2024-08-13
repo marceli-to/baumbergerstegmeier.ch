@@ -179,7 +179,6 @@ export default {
 
     order(key) {
       let items = this.items[key].map(function(item, idx) {
-        console.log(idx);
         item.position = idx;
         return item;
       });
