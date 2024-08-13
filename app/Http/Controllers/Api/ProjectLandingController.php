@@ -152,7 +152,7 @@ class ProjectLandingController extends Controller
   {
     $tempProjectLanding = $projectLanding;
     $projectLanding->delete();
-    // $this->reorder($tempProjectLanding);
+    $this->reorder($tempProjectLanding);
     return response()->json('successfully deleted');
   }
 
