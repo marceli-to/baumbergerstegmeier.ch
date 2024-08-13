@@ -4,13 +4,6 @@ use App\Http\Controllers\Controller;
 use App\Models\State;
 use App\Models\Category;
 use App\Models\ProjectLanding;
-
-// use App\Models\Project;
-// use App\Models\Type;
-// use App\Models\Image;
-// use App\Http\Resources\DataCollection;
-// use App\Http\Requests\ProjectStoreRequest;
-
 use Illuminate\Http\Request;
 
 class ProjectLandingController extends Controller
@@ -90,9 +83,24 @@ class ProjectLandingController extends Controller
    */
   public function store(Request $request)
   {
+    $column = $request->get('column');
+    $category_id = $request->get('category_id');
+    $state_id = $request->get('state_id');
+
+    // Get the item with the highest position
+    $query = ProjectLanding::where('column', $column)->orderBy('position', 'desc');
+    if ($category_id)
+    {
+      $query->where('category_id', $category_id);
+    }
+    else if ($state_id)
+    {
+      $query->where('state_id', $state_id);
+    }
+    $item = $query->first();
     $item = ProjectLanding::create([
       'column' => $request->get('column'),
-      'position' => 999,
+      'position' => $item ? $item->position + 1 : 0,
       'publish' => 1,
       'project_id' => $request->get('project_id'),
       'image_id' => $request->get('image_id'),
