@@ -48,6 +48,7 @@ class ProjectController extends BaseController
     $items = ProjectLanding::with('project', 'project.coverImage')
       ->where('category_id', $category->id)
       ->orderBy('position')
+      ->orderBy('column')
       ->get();
 
     return view($this->viewPath . 'landing', [
