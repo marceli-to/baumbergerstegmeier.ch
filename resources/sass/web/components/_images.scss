@@ -56,7 +56,7 @@ picture {
       max-width: 70%;
     }
     
-    @include bp-lg() {
+    @include bp-md() {
       max-width: 100%;
     }
   }
