@@ -8,8 +8,13 @@
     class="hidden !md:block mb-3x">
     <x-icons.cross-sm />
   </a>
+@elseif (Str::startsWith(request()->headers->get('referer'), url('/werkliste')))
+  <a 
+    href="javascript:history.back()" 
+    class="hidden !md:block mb-3x">
+    <x-icons.cross-sm />
+  </a>
 @else
-
   @if ($has_category)
   <a 
     href="{{ route('page.project.showLandingByCategory', ['state' => $state->slug, 'category' => $category->slug]) }}" 
