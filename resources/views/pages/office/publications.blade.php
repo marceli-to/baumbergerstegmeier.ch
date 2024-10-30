@@ -42,13 +42,29 @@
                       </a>
                   </div>
                   @endif
-                  @if ($publication->link)
+
+                  @if ($publication->description)
+                    @if ($publication->link)
+                    <div>
+                      <a href="{{ $publication->link }}" target="{{ $publication->link_target }}" title="">
+                        {!! nl2br($publication->description) !!}<x-icons.arrow-right-up class="ml-8x" />
+                      </a>
+                    </div>
+                    @else
+                      {!! nl2br($publication->description) !!}
+                    @endif
+                  @endif
+
+                  {{-- @if ($publication->link)
                   <div>
                     <a href="{{ $publication->link }}" target="_blank" title="">
                       {{ $publication->link }}<x-icons.arrow-right-up class="ml-8x" />
                     </a>
                   </div>
-                  @endif
+                  @endif --}}
+
+
+
                 </article>
               @endforeach
             </div>
