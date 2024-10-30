@@ -2,46 +2,28 @@
 @section('seo_title', $project->title)
 @section('content')
 
-{{-- @if (rtrim(request()->headers->get('referer'), '/') == route('page.home'))
+@if (rtrim(request()->headers->get('referer'), '/') == route('page.home'))
   <a 
     href="{{ route('page.home') }}" 
     class="hidden !md:block mb-3x">
     <x-icons.cross-sm />
   </a>
 @else
-  @if ($has_category)
-    <a 
-      href="{{ route('page.project.showLandingByCategory', ['state' => $state->slug, 'category' => $category->slug]) }}" 
-      class="hidden !md:block mb-3x">
-      <x-icons.cross-sm />
-    </a>
-  @else
-    <a 
-      href="{{ route('page.project.showLandingByState', ['state' => $state->slug]) }}" 
-      class="hidden !md:block mb-3x">
-      <x-icons.cross-sm />
-    </a>
-  @endif
-@endif --}}
 
-@if (Str::startsWith(request()->headers->get('referer'), url('/werkliste')) || rtrim(request()->headers->get('referer'), '/') == route('page.home'))
-  <a 
-    href="javascript:history.back()" 
-    class="hidden !md:block mb-3x">
-    <x-icons.cross-sm />
-  </a>
-@elseif ($has_category)
+  @if ($has_category)
   <a 
     href="{{ route('page.project.showLandingByCategory', ['state' => $state->slug, 'category' => $category->slug]) }}" 
     class="hidden !md:block mb-3x">
     <x-icons.cross-sm />
   </a>
-@else
+  @else
   <a 
-    href="{{ route('page.worklist') }}" 
+    href="{{ route('page.project.showLandingByState', ['state' => $state->slug]) }}" 
     class="hidden !md:block mb-3x">
     <x-icons.cross-sm />
   </a>
+  @endif
+
 @endif
 
 
