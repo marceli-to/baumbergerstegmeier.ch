@@ -36,7 +36,6 @@
     class="hidden !md:block mb-3x">
     <x-icons.cross-sm />
   </a>
-  <a href="{{ route('page.worklist') }}" class="back-button">Back to Worklist</a>
 @endif
 
 
