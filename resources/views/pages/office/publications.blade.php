@@ -32,9 +32,9 @@
                       {{ $publication->subtitle }}
                     </h4>
                   @endif
-                  @if ($publication->description)
+                  {{-- @if ($publication->description)
                     {!! nl2br($publication->description) !!}
-                  @endif
+                  @endif --}}
                   @if ($publication->publishedFile)
                   <div>
                       <a href="/storage/uploads/{{ $publication->publishedFile->name }}" target="_blank" class="icon-file" title="Download {{ $publication->publishedFile->caption }}">
