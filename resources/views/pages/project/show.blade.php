@@ -30,6 +30,12 @@
     class="hidden !md:block mb-3x">
     <x-icons.cross-sm />
   </a>
+@elseif ($has_category)
+  <a 
+    href="{{ route('page.project.showLandingByCategory', ['state' => $state->slug, 'category' => $category->slug]) }}" 
+    class="hidden !md:block mb-3x">
+    <x-icons.cross-sm />
+  </a>
 @else
   <a 
     href="{{ route('page.worklist') }}" 
