@@ -4,12 +4,10 @@ mix.webpackConfig({
     resolve: {
         extensions: ['.js', '.vue', '.json'],
         alias: {
-          //'vue$': 'vue/dist/vue.esm.js',
           '@': __dirname + '/resources/js/cms/',
         },
     },
 });
-
 
 /*
  |--------------------------------------------------------------------------
@@ -27,6 +25,7 @@ mix.sass('resources/sass/web/app.scss', 'public/assets/css/app.css').options({pr
 mix.js('resources/js/web/app.js', 'public/assets/js/app.js').version();
 
 // App
-mix.js('resources/js/cms/app.js', 'public/assets/js/cms/app.js').version();
+mix.js('resources/js/cms/app.js', 'public/assets/js/cms/app.js')
+   .vue()
+   .version();
 mix.sass('resources/sass/cms/app.scss', 'public/assets/css/cms/app.css').options({processCssUrls: false}).version();
-
