@@ -35,7 +35,7 @@
 @if ($project->coverImage)
   <x-hero class="hidden !md:block">
     <a 
-      href="/img/cache/{{ $project->coverImage->name }}/2000/{{ $project->coverImage->coords }}" 
+      href="/img/crop/{{ $project->coverImage->name }}/2000/{{ $project->coverImage->coords }}" 
       data-fancybox="gallery-{{ $project->slug }}"
       data-caption="{{ $project->coverImage->caption }}">
       <x-image 

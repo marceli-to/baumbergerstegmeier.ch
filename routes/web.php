@@ -1,7 +1,7 @@
 <?php
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ImageController;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\OfficeController;
@@ -49,9 +49,6 @@ Route::get('/buero/jobs', [OfficeController::class, 'jobs'])->name('page.office.
 Route::get('/kontakt', [ContactController::class, 'index'])->name('page.contact');
 
 
-// Frontend - url based images
-Route::get('/img/{template}/{filename}/{maxSize?}/{coords?}/{ratio?}', [ImageController::class, 'getResponse']);
-
 // Testing
 Route::get('/test', [TestController::class, 'index']);
 
@@ -67,5 +64,3 @@ Route::middleware('auth:sanctum', 'verified')->group(function() {
     return view('layout.authenticated');
   })->where('any', '.*')->middleware('role:admin')->name('authenticated');
 });
-
-
