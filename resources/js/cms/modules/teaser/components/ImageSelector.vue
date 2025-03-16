@@ -21,7 +21,7 @@
               <template v-if="selectedProject.published_images.length">
                 <figure v-for="image in selectedProject.published_images" :key="image.id">
                   <img 
-                    :src="getSource(image, 'cache')" 
+                    :src="getSource(image, 'crop')" 
                     height="300" 
                     width="300" v-if="image"
                     @click="$emit('select', {image: image.id, project: selectedProject.id})" />
@@ -42,7 +42,7 @@
           <div class="teaser-asset-selector__images">
             <figure v-for="image in project.images" :key="image.id">
               <img 
-                :src="getSource(image, 'cache')" 
+                :src="getSource(image, 'crop')" 
                 height="300" 
                 width="300" v-if="image"
                 @click="$emit('select', {image: image.id, project: project.id})" />

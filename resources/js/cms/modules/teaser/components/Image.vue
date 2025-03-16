@@ -16,7 +16,7 @@
       </a>
     </div>
     <figure>
-      <img :src="getSource($props.item.image, 'cache')" height="300" width="300">
+      <img :src="getSource($props.item.image, 'crop')" height="300" width="300">
       <figcaption>
         <span>{{ $props.item.image.caption }}</span>
       </figcaption>

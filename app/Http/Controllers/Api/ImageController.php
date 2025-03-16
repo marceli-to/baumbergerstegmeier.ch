@@ -5,6 +5,7 @@ use App\Services\Media;
 use App\Http\Resources\DataCollection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Cache;
+use MarceliTo\ImageCache\Facades\ImageCache;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -207,7 +208,6 @@ class ImageController extends Controller
   
   public function destroy($image)
   {
-   
     // Delete from database
     $record = Image::where('name', '=', $image)->first();
    
@@ -253,21 +253,13 @@ class ImageController extends Controller
   }
 
   /**
-   * Remove cached version of the image
+   * Remove cached images
    *
-   * @param Image $image
-   * @param  \Illuminate\Http\Request $request
-   * @return \Illuminate\Http\Response
+   * @param  App\Models\Image $image
+   * @return void
    */
   private function removeCachedImage(Image $image)
   {
-    // Get an instance of the ImageCache class
-    $cache = new \Intervention\Image\ImageCache();
-
-    // Get a cached image from it and apply all of your templates / methods
-    $image = $cache->make(storage_path('app/public/uploads/') . $image->name)->filter(new \App\Filters\Image\Template\Cache);
-
-    // Remove the image from the cache by using its internal checksum
-    Cache::forget($image->checksum());
+    ImageCache::clearImageCache($image->name);
   }
 }

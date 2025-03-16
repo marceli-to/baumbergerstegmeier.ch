@@ -32,7 +32,7 @@
           v-for="image in images"
           :key="image.id"
         >
-          <a :href="getSource(image, 'cache')" target="_blank" class="upload__preview">
+          <a :href="getSource(image, 'crop')" target="_blank" class="upload__preview">
             <img :src="getSource(image, 'thumbnail')" height="300" width="300">
           </a>
           <span class="upload-item__labels" v-if="image.cover || image.worklist">
@@ -46,7 +46,7 @@
               :hasPreviewState="$props.hasPreviewState"
               :publish="image.publish" 
               :preview="image.preview"
-              :imagePreviewRoute="'cache'">
+              :imagePreviewRoute="'crop'">
             </image-actions>
           </div>
         </figure>
@@ -140,7 +140,7 @@
       <div class="upload-overlay__grid">
         <div>
           <figure v-if="hasOverlayEdit">
-            <img :src="getSource(overlayItem, 'cache')" height="300" width="300">
+            <img :src="getSource(overlayItem, 'crop')" height="300" width="300">
             <figcaption v-if="overlayItem.caption">
               <span v-if="overlayItem.caption">{{overlayItem.caption}}</span>
             </figcaption>
