@@ -9,7 +9,7 @@ class Awards
     // initialize the array of data
     $data = [];
 
-    for($i = 1; $i <= $columns; $i++)
+    for($i = 0; $i < $columns; $i++)
     {
       $data['col_' . $i] = [];
     }
@@ -30,8 +30,8 @@ class Awards
     $threshold = ceil($awards->count() / $columns);
 
     // loop over the years array and put the years into one of the colums. 
-    // start with col_3. if the threshold is reached, switch to col_2, then col_1
-    $col_index = $columns;
+    // start with the last column and fill backwards
+    $col_index = $columns - 1;
     $count = 0;
 
     foreach ($years as $year => $items)
@@ -52,11 +52,16 @@ class Awards
       {
         $data[$col][$year] = $awards->where('year', $year);
       }
+
       krsort($data[$col]);
     }
 
-    // remove keys col_1, col_2, col_3
+    // sort the columns in the correct order (col_0, col_1, col_2)
+    ksort($data);
+    
+    // remove keys col_0, col_1, col_2
     $data = array_values($data);
+    
     return $data;
   }
 }
