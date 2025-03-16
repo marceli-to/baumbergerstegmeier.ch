@@ -9,7 +9,7 @@ class HandleCors extends Middleware
     /**
      * The paths that should be excluded from CORS verification.
      *
-     * @var array<int, string>
+     * @var array<int, string>  
      */
     protected $except = [
         //
