@@ -84,6 +84,7 @@ class ProjectController extends Controller
       'title' => $request->input('title'),
       'title_menu' => $request->input('title_menu'),
       'title_worklist' => $request->input('title_worklist'),
+      'description' => $request->input('description') ?? null,
       'text' => $request->input('text'),
       'info' => $request->input('info'),
       'year' => $request->input('year'),
@@ -115,6 +116,7 @@ class ProjectController extends Controller
     $project->title = $request->input('title');
     $project->title_menu = $request->input('title_menu');
     $project->title_worklist = $request->input('title_worklist');
+    $project->description = $request->input('description') ?? null;
     $project->text = $request->input('text');
     $project->info = $request->input('info');
     $project->year = $request->input('year');

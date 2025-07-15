@@ -71,6 +71,12 @@
     </div>
 
     <div v-show="tabs.settings.active">
+
+      <div :class="[this.errors.description ? 'has-error' : '', 'form-row']">
+        <label>Beschreibung (SEO)</label>
+        <textarea v-model="data.description"></textarea>
+      </div>
+
       <div :class="[this.errors.category_ids ? 'has-error' : '', 'form-row']">
         <label>Kategorie</label>
         <div v-for="category in categories" :key="category.id" class="flex items-center mb-2x">
@@ -170,6 +176,7 @@ export default {
         title: null,
         title_menu: null,
         title_worklist: null,
+        description: null,
         text: null,
         info: null,
         year: null,

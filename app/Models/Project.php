@@ -13,6 +13,7 @@ class Project extends Base
    
   protected $fillable = [
     'slug',
+    'description',
     'title',
     'title_menu',
     'title_worklist',

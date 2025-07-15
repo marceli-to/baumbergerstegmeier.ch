@@ -1,5 +1,7 @@
 @extends('layout.web')
 @section('seo_title', $project->title)
+@section('seo_description', $project->description ?? null)
+@section('og_image', $project->coverImage ? url('/') . '/img/crop/'. $project->coverImage->name . '/2000/'. $project->coverImage->coords : null)
 @section('content')
 
 @if (rtrim(request()->headers->get('referer'), '/') == route('page.home'))
