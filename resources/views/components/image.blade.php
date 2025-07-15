@@ -11,7 +11,7 @@
     width="{{ $width }}" 
     height="{{ $height }}"
     title="{{ $caption }}"
-    alt="{{ $image->caption }}"
+    alt="{{ $image->caption ?? $caption }}"
     loading="lazy">
     {{ $slot }}
   </picture>
