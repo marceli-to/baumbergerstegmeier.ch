@@ -11,8 +11,8 @@
     width="{{ $width }}" 
     height="{{ $height }}"
     @if ($image->description)
-      aria-label="{{ $image->description . ' - ' . $caption ?? $image->caption ?? $caption }}"
-      alt="{{ $image->description . ' - ' . $caption ?? $image->caption ?? $caption }}"
+      aria-label="{{ $image->description . ' – ' . $caption ?? $image->caption ?? $caption }}"
+      alt="{{ $image->description . ' – ' . $caption ?? $image->caption ?? $caption }}"
     @else 
       aria-label="{{ $image->caption ?? $caption }}"
       alt="{{ $image->caption ?? $caption }}"
