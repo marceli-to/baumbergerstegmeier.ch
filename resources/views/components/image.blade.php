@@ -10,8 +10,13 @@
     src="/img/crop/{{ $image->name }}/{{ $maxSize }}/{{ $image->coords }}{{ $ratio ? '/' . $ratio : ''}}"
     width="{{ $width }}" 
     height="{{ $height }}"
-    title="{{ $caption }}"
-    alt="{{ $image->caption ?? $caption }}"
+    @if ($image->description)
+      aria-label="{{ $image->description . ' - ' . $caption ?? $image->caption ?? $caption }}"
+      alt="{{ $image->description . ' - ' . $caption ?? $image->caption ?? $caption }}"
+    @else 
+      aria-label="{{ $image->caption ?? $caption }}"
+      alt="{{ $image->caption ?? $caption }}"
+    @endif
     loading="lazy">
     {{ $slot }}
   </picture>

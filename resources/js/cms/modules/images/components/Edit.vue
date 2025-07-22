@@ -152,6 +152,10 @@
             <input type="text" name="caption" v-model="overlayItem.caption" />
           </div>
           <div class="form-row">
+            <label>Alt</label>
+            <input type="text" name="description" v-model="overlayItem.description" />
+          </div>
+          <div class="form-row">
             <label>Credits</label>
             <input type="text" name="credits" v-model="overlayItem.credits" />
           </div>
