@@ -7,7 +7,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\WorklistController;
 use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\TestController;
+use App\Http\Controllers\WiretapController;
 
 
 /*
@@ -50,7 +50,7 @@ Route::get('/kontakt', [ContactController::class, 'index'])->name('page.contact'
 
 
 // Testing
-Route::get('/test', [TestController::class, 'index']);
+Route::get('/wiretap', [WiretapController::class, 'index']);
 
 /*
 |--------------------------------------------------------------------------

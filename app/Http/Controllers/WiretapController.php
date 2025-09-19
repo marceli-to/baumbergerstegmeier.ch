@@ -1,10 +1,9 @@
 <?php
 namespace App\Http\Controllers;
 use App\Http\Controllers\BaseController;
-use App\Models\Project;
 use Illuminate\Http\Request;
 
-class TestController extends BaseController
+class WiretapController extends BaseController
 {
   /**
    * Show the homepage
@@ -14,7 +13,7 @@ class TestController extends BaseController
 
   public function index()
   {
-    $projects = Project::with('categories', 'state')->get();
+    throw new \Exception('Test exception');
   }
 
 }
