@@ -25,13 +25,22 @@ class Handler extends ExceptionHandler
     public function register(): void
     {
         $this->reportable(function (Throwable $e) {
-          \Log::info('Handler called for: ' . get_class($e));
-          Wiretap::exception($e, [
+          
+         });
+    }
+
+    public function report(Throwable $e): void
+    {
+        \Log::info('Report called for: ' . get_class($e));
+  
+        Wiretap::exception($e, [
             'url' => request()->fullUrl(),
             'method' => request()->method(),
             'user_id' => auth()->id(),
             'ip' => request()->ip()
-          ]);
-        });
+        ]);
+  
+        parent::report($e);
     }
+
 }
