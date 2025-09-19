@@ -153,16 +153,16 @@ return [
         */
 
         // 404 Not Found
-        'Symfony\Component\HttpKernel\Exception\NotFoundHttpException' => 'info',
+        'Symfony\Component\HttpKernel\Exception\NotFoundHttpException' => 'skip',
 
         // 403 Forbidden
-        'Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException' => 'warning',
+        'Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException' => 'skip',
 
         // 405 Method Not Allowed
         'Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException' => 'info',
 
         // 422 Unprocessable Entity
-        'Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException' => 'info',
+        'Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException' => 'skip',
 
         // 429 Too Many Requests
         'Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException' => 'warning',
