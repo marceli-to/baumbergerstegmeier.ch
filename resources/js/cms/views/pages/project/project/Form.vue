@@ -86,10 +86,10 @@
           </label>
         </div>
       </div>
-      <div :class="[this.errors.state_id ? 'has-error' : '', 'form-row']">
+      <div :class="[this.errors.state_ids ? 'has-error' : '', 'form-row']">
         <label>Status</label>
         <div v-for="(state, index) in states" :key="index" class="flex items-center mb-2x">
-          <input type="radio" :id="`state-${state.id}`" :name="`state-${state.id}`" :value="state.id" v-model="data.state_id">
+          <input type="checkbox" :id="`state-${state.id}`" :name="`state-${state.id}`" :value="state.id" v-model="data.state_ids">
           <label :for="`state-${state.id}`" class="ml-3x !mb-0">
             {{state.description}}
           </label>
@@ -184,7 +184,7 @@ export default {
         order: null,
         type: null,
         category_ids: [],
-        state_id: 1,
+        state_ids: [],
         publish: 1,
         feature: 0,
         landing: 0,

@@ -30,13 +30,9 @@ class ProjectController extends Controller
   public function getByCategory(Category $category)
   {
     return new DataCollection(
-      Project::featured()->with('publishedImages', 'state')
-        ->whereHas('categories', function($q) use ($category) {
-          $q->where('category_id', $category->id);
-        })
-        ->whereHas('state', function($q) {
-          $q->where('has_landing', false);
-        })
+      Project::featured()->with('publishedImages', 'states')
+        ->whereHas('categories', fn($q) => $q->where('category_id', $category->id))
+        ->whereHas('states', fn($q) => $q->where('has_landing', false))
         ->orderBy('title')
         ->get()
     );
@@ -49,9 +45,13 @@ class ProjectController extends Controller
    */
   public function getByState(State $state)
   {
-    return new DataCollection(Project::featured()->with('publishedImages')->whereHas('state', function($q) use ($state) {
-      $q->where('state_id', $state->id);
-    })->orderBy('title')->get());
+    return new DataCollection(
+      Project::featured()
+        ->with('publishedImages')
+        ->whereHas('states', fn($q) => $q->where('states.id', $state->id))
+        ->orderBy('title')
+        ->get()
+    );
   }
 
   /**
@@ -64,7 +64,7 @@ class ProjectController extends Controller
   {
     return response()->json(
       [
-        'project' => Project::with('images', 'categories', 'state')->find($project->id),
+        'project' => Project::with('images', 'categories', 'states')->find($project->id),
         'states' => State::orderBy('order')->get(),
         'categories' => Category::get(),
       ]
@@ -93,11 +93,11 @@ class ProjectController extends Controller
       'publish' => $request->input('publish'),
       'feature' => $request->input('feature'),
       'landing' => $request->input('landing'),
-      'state_id' => $request->input('state_id'),
     ]);
     $project->slug = \AppHelper::slug($request->input('title')) . '-' . $project->id;
     $project->save();
     $project->categories()->attach($request->input('category_ids'));
+    $project->states()->attach($request->input('state_ids'));
     $this->handleImages($project, $request->input('images'));
     return response()->json(['projectId' => $project->id]);
   }
@@ -125,9 +125,9 @@ class ProjectController extends Controller
     $project->publish = $request->input('publish');
     $project->feature = $request->input('feature');
     $project->landing = $request->input('landing');
-    $project->state_id = $request->input('state_id');
     $project->save();
     $project->categories()->sync($request->input('category_ids'));
+    $project->states()->sync($request->input('state_ids'));
     $this->handleImages($project, $request->input('images'));
     return response()->json('successfully updated');
   }
@@ -154,6 +154,7 @@ class ProjectController extends Controller
   public function destroy(Project $project)
   {
     $project->categories()->detach();
+    $project->states()->detach();
     $project->delete();
     return response()->json('successfully deleted');
   }

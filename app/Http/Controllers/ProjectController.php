@@ -108,13 +108,14 @@ class ProjectController extends BaseController
    */
   public function preview(Project $project)
   {
-    $project = Project::with('state', 'coverImage')->find($project->id);
+    $project = Project::with('states', 'coverImage')->find($project->id);
+    $state = $project->states->first();
     return view($this->viewPath . 'show', [
       'project' => $project,
       'teasers' => $this->getTeasers($project),
-      'has_category' => $project->state->hasCategories(),
-      'category' => $project->state->hasCategories() ? Category::first() : null,
-      'state' => State::first(),
+      'has_category' => $state ? $state->hasCategories() : false,
+      'category' => ($state && $state->hasCategories()) ? Category::first() : null,
+      'state' => $state ?? State::first(),
     ]);
   }
 

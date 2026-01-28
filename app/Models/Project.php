@@ -26,7 +26,6 @@ class Project extends Base
     'publish',
     'feature',
     'landing',
-    'state_id',
   ];
 
   /**
@@ -36,18 +35,19 @@ class Project extends Base
    */
 
   protected $appends = [
-    'category_ids', 
+    'category_ids',
+    'state_ids',
     'worklist_title_mobile',
     'worklist_title_desktop',
   ];
 
   /**
-   * The state that belong to this model.
+   * The states that belong to this project.
    */
 
-  public function state()
+  public function states()
   {
-    return $this->belongsTo(State::class);
+    return $this->belongsToMany(State::class);
   }
 
   /**
@@ -121,6 +121,16 @@ class Project extends Base
   }
 
   /**
+   * Get array of ids from the m:n states relationship
+   *
+   */
+
+  public function getStateIdsAttribute()
+  {
+    return $this->states->pluck('id');
+  }
+
+  /**
    * Get the worklist title for mobile, which consists of:
    * - title_worklist (if available, title if not)
    * - location (separated by a comma)
@@ -145,11 +155,27 @@ class Project extends Base
     return $this->title_worklist ? $this->title_worklist : $this->title;
   }
 
+  /**
+   * Get the show route for this project.
+   * Uses the first assigned state for URL generation.
+   */
   public function getShowRoute()
   {
-   return $this->state->hasCategories() ? 
-      route('page.project.showByStateAndCategory', ['state' => $this->state->slug, 'category' => $this->categories()->first()->slug, 'project' => $this->slug]) :
-      route('page.project.showByState', ['state' => $this->state->slug, 'project' => $this->slug]);
+    $state = $this->states->first();
+    if (!$state) {
+      return '#';
+    }
+
+    return $state->hasCategories() 
+      ? route('page.project.showByStateAndCategory', [
+          'state' => $state->slug, 
+          'category' => $this->categories()->first()->slug, 
+          'project' => $this->slug
+        ])
+      : route('page.project.showByState', [
+          'state' => $state->slug, 
+          'project' => $this->slug
+        ]);
   }
 
 }

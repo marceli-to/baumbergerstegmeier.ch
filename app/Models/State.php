@@ -26,7 +26,7 @@ class State extends Base
   
   public function projects()
   {
-    return $this->hasMany(Project::class);
+    return $this->belongsToMany(Project::class);
   }
 
   /* Scope for 'has_landing' */
@@ -41,12 +41,14 @@ class State extends Base
   
   public function publishedProjects()
   {
-    return $this->hasMany(Project::class)->where('publish', '=', '1');
+    return $this->belongsToMany(Project::class)->where('publish', '=', '1');
   }
 
   public function featuredProjects()
   {
-    return $this->hasMany(Project::class)->where('publish', '=', '1')->where('feature', '=', '1');
+    return $this->belongsToMany(Project::class)
+      ->where('publish', '=', '1')
+      ->where('feature', '=', '1');
   }
 
   public function hasCategories()

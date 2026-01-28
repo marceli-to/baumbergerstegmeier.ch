@@ -17,7 +17,7 @@ class ProjectLandingController extends Controller
   {
     return response()->json([
       'categories' => Category::whereHas('projects', function($query) {
-        $query->whereHas('state', function($q) {
+        $query->whereHas('states', function($q) {
           $q->where('has_landing', false);
         });
       })->get(),
