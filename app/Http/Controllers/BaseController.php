@@ -16,9 +16,9 @@ class BaseController extends Controller
     {
       if ($state->show_in_menu)
       {
-        // get all categories with featuredProjects, the state_id on a project must equal the id of the state
+        // get all categories with featuredProjects that have this state
         $projectsByCategories = Category::with(['featuredProjects' => function ($query) use ($state) {
-          $query->where('state_id', '=', $state->id)->orderBy('year', 'DESC');
+          $query->whereHas('states', fn($q) => $q->where('states.id', $state->id))->orderBy('year', 'DESC');
         }])->publish()->orderBy('order')->get();
 
         // filter out categories that don't have any featured projects
@@ -40,7 +40,11 @@ class BaseController extends Controller
       else
       {
         // get all projects for this state, order the projects by year
-        $projectsByState = Project::featured()->where('state_id', $state->id)->publish()->orderBy('year', 'DESC')->get();
+        $projectsByState = Project::featured()
+          ->whereHas('states', fn($q) => $q->where('states.id', $state->id))
+          ->publish()
+          ->orderBy('year', 'DESC')
+          ->get();
 
         $menuProjects[$state->order] = [
           'id' => $state->id,
