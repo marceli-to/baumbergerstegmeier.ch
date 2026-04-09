@@ -124,7 +124,7 @@
           </div>
         @endif
       </div>
-      <div class="md:span-6 md:start-7 mt-16x lg:mt-32x">* BS+EMI Architektenpartner</div>
+      <div class="md:span-6 md:start-7 mt-16x lg:mt-32x">* BS+EMI AG</div>
     </div>
   @endif
 
@@ -145,7 +145,7 @@
               {{ $employee->firstname}} {{ $employee->name}}, {{ $employee->title}}@if ($employee->team_id == 2)* @endif
             </div>
           @endforeach
-          @if ($loop->index == 1)<div class="mt-16x lg:mt-32x">* BS+EMI Architektenpartner</div>@endif
+          @if ($loop->index == 1)<div class="mt-16x lg:mt-32x">* BS+EMI AG</div>@endif
         </div>
       @endforeach
     </div>
