@@ -1,6 +1,7 @@
 @extends('layout.guest')
 @section('seo_title', 'Passwort zurücksetzen')
 @section('content')
+<x-auth-splash />
 <h1>Passwort zurücksetzen</h1>
 <p>{{__('messages.password_reset')}}</p>
 @if ($errors->any())

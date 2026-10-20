@@ -1,6 +1,7 @@
 @extends('layout.guest')
 @section('seo_title', 'Passwort vergessen')
 @section('content')
+<x-auth-splash />
 <h1>Passwort vergessen</h1>
 <div class="mb-6x">{{__('Halb so wild - alles was wir brauchen ist Ihre E-Mail und Sie erhalten einen Link um das Passwort zurücksetzen zu können.')}}</div>
 @if ($errors->any())

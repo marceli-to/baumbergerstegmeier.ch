@@ -1,6 +1,7 @@
 @extends('layout.guest')
 @section('seo_title', 'Login')
 @section('content')
+<x-auth-splash />
 @if ($errors->any())
   <x-alert type="danger" message="{{__('Bitte alle markierten Felder prüfen!')}}" />
 @endif

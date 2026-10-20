@@ -33,6 +33,20 @@ class AuthTest extends TestCase
         $this->get('/login')->assertOk()->assertSee('Anmelden')->assertSee('Passwort vergessen?');
     }
 
+    public function testLoginBackgroundIsAPublishedProjectCover()
+    {
+        $this->get('/login')->assertOk()->assertDontSee('background-image', false);
+
+        $project = \App\Models\Project::forceCreate(['slug' => 'p', 'title' => 'P', 'type' => 'Wettbewerb', 'order' => 1, 'publish' => 1]);
+        \App\Models\Image::forceCreate(['uuid' => 'u', 'name' => 'cover.jpg', 'original_name' => 'cover.jpg', 'extension' => 'jpg', 'size' => 1, 'publish' => 1, 'cover' => 1, 'imageable_type' => \App\Models\Project::class, 'imageable_id' => $project->id]);
+
+        $this->get('/login')->assertSee("url('/img/crop/cover.jpg/2000/0,0,0,0')", false);
+        $this->get('/password/reset')->assertSee("url('/img/crop/cover.jpg/1200/0,0,0,0')", false);
+
+        $project->forceFill(['publish' => 0])->save();
+        $this->get('/login')->assertDontSee('cover.jpg', false);
+    }
+
     public function testLoginLeadsToTheAdmin()
     {
         $user = $this->admin();
