@@ -27,8 +27,6 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-// The Vue 2 admin header links to GET /logout; goes with the Vue 3 port
-Route::get('/logout', [AuthController::class, 'logout']);
 
 // Images (former marceli-to/image-cache URLs, served through Glide)
 Route::get('/img/original/{filename}', [ImageController::class, 'original']);

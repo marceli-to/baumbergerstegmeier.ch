@@ -100,9 +100,12 @@ class AuthTest extends TestCase
         $this->get('/administration')->assertForbidden();
     }
 
-    public function testLogout()
+    public function testLogoutOnlyByPost()
     {
         $user = $this->admin();
+
+        $this->actingAs($user)->get('/logout')->assertStatus(405);
+        $this->assertAuthenticatedAs($user);
 
         $this->actingAs($user)->post('/logout')->assertRedirect('/');
         $this->assertGuest();
