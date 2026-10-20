@@ -5,6 +5,7 @@ use App\Models\EmployeeCategory;
 use App\Http\Resources\DataCollection;
 use App\Http\Requests\EmployeeCategoryStoreRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class EmployeeCategoryController extends Controller
 {

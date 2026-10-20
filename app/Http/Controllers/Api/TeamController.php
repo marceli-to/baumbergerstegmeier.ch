@@ -6,6 +6,7 @@ use App\Models\Image;
 use App\Http\Resources\DataCollection;
 use App\Http\Requests\TeamStoreRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class TeamController extends Controller
 {
