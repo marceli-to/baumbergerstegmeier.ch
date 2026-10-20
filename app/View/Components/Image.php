@@ -78,6 +78,26 @@ class Image extends Component
   }
 
   /**
+   * /img/crop URL of the image at $size, in $format (webp, avif) if given
+   */
+  public function url(int $size, ?string $format = null): string
+  {
+    $url = '/img/crop/' . $this->image->name . '/' . $size . '/' . $this->image->coords . ($this->ratio ? '/' . $this->ratio : '');
+    return $format ? $url . '?fm=' . $format : $url;
+  }
+
+  /**
+   * Breakpoints, widest first: the browser takes the first <source> that
+   * matches, so (min-width: 1000px) has to come before the rest
+   */
+  public function breakpoints(): array
+  {
+    $sizes = $this->maxSizes;
+    krsort($sizes);
+    return $sizes;
+  }
+
+  /**
    * Get the view / contents that represent the component.
    *
    * @return \Illuminate\View\View|string

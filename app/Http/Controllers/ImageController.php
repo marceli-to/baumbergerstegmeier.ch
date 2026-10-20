@@ -1,8 +1,8 @@
 <?php
 namespace App\Http\Controllers;
-use App\Support\Glide;
+use App\Actions\Image\RenderAction;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use League\Glide\Server;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 /**
@@ -12,6 +12,9 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
  *   /img/original/{file}
  *   /img/thumbnail/{file}                            admin, 300 × 300
  *   /img/crop/{file}/{maxSize?}/{coords?}/{ratio?}   coords = w,h,x,y
+ *
+ * Crops take ?fm=webp|avif (<x-image> emits them). A server that can't
+ * write the format answers with the upload's own.
  */
 class ImageController extends Controller
 {
@@ -25,19 +28,7 @@ class ImageController extends Controller
    */
   public const MAX_SIZE = 2400;
 
-  /**
-   * Intervention's default quality, which image-cache used
-   */
-  public const FORMAT_QUALITY = ['jpg' => 75, 'png' => 75];
-
   public const CACHE_SECONDS = 3600;
-
-  protected Server $server;
-
-  public function __construct()
-  {
-    $this->server = Glide::server();
-  }
 
   public function original(string $filename): BinaryFileResponse
   {
@@ -58,7 +49,7 @@ class ImageController extends Controller
    * Crop to the coords (or centre-crop to the ratio when there are none),
    * then scale the longer side down to maxSize. Never upscales.
    */
-  public function crop(string $filename, ?string $maxSize = null, ?string $coords = null, ?string $ratio = null): Response
+  public function crop(Request $request, string $filename, ?string $maxSize = null, ?string $coords = null, ?string $ratio = null): Response
   {
     $source = $this->source($filename);
     $maxSize = $this->size($maxSize);
@@ -73,7 +64,15 @@ class ImageController extends Controller
       [$width, $height] = $crop;
     }
 
-    return $this->respond($filename, $params + $this->bound($width, $height, $maxSize) + ['fit' => 'max']);
+    $params += $this->bound($width, $height, $maxSize) + ['fit' => 'max'];
+
+    if ($request->has('fm'))
+    {
+      abort_unless(in_array($request->query('fm'), ['webp', 'avif'], true), 404);
+      $params['fm'] = $request->query('fm');
+    }
+
+    return $this->respond($filename, $params);
   }
 
   /**
@@ -89,15 +88,14 @@ class ImageController extends Controller
 
   protected function respond(string $filename, array $params): Response
   {
-    $format = strtolower(pathinfo($filename, PATHINFO_EXTENSION)) === 'png' ? 'png' : 'jpg';
-    $params['fm'] = $format;
-    $params['q'] = self::FORMAT_QUALITY[$format];
+    [$image, $format, $fellBack] = (new RenderAction)->execute($filename, $params);
 
-    $cachedPath = $this->server->makeImage('uploads/' . $filename, $params);
+    abort_if($image === null, 500, 'Image could not be rendered');
 
-    return response($this->server->getCache()->read($cachedPath), 200, [
-      'Content-Type' => $format === 'png' ? 'image/png' : 'image/jpeg',
-    ] + $this->cacheHeaders());
+    // A fallback is cached briefly, so the requested format is tried again soon
+    return response($image, 200, [
+      'Content-Type' => 'image/' . ($format === 'jpg' ? 'jpeg' : $format),
+    ] + $this->cacheHeaders($fellBack ? 300 : self::CACHE_SECONDS));
   }
 
   /**
@@ -195,8 +193,8 @@ class ImageController extends Controller
     return $orientation >= 5 ? [$height, $width] : [$width, $height];
   }
 
-  protected function cacheHeaders(): array
+  protected function cacheHeaders(int $maxAge = self::CACHE_SECONDS): array
   {
-    return ['Cache-Control' => 'max-age=' . self::CACHE_SECONDS . ', public'];
+    return ['Cache-Control' => 'max-age=' . $maxAge . ', public'];
   }
 }

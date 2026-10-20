@@ -108,6 +108,18 @@ class ImageRenditionTest extends TestCase
         $this->get("/img/crop/{$name}/600/0,0,0,0")->assertOk()->assertHeader('Content-Type', 'image/png');
     }
 
+    public function testModernFormats()
+    {
+        $name = $this->upload(3000, 2000);
+
+        foreach (\App\Support\ImageSupport::modernFormats() as $format) {
+            $response = $this->get("/img/crop/{$name}/1200/0,0,0,0?fm={$format}")->assertOk()->assertHeader('Content-Type', "image/{$format}");
+            $this->assertSame([1200, 800], $this->dimensions($response));
+        }
+
+        $this->get("/img/crop/{$name}/1200/0,0,0,0?fm=gif")->assertNotFound();
+    }
+
     public function testCmykBecomesSrgb()
     {
         $name = $this->upload(800, 600);
