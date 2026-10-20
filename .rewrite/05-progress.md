@@ -34,7 +34,7 @@ Branch **`rework/laravel-13-vue-3`**, cut from `37011a5` on 2026-10-05.
 | Password reset kept, German mail, `failover` mailer (SMTP → sendmail → log) | ✅ | `987db82` (mailer in `8c2a6bc`) |
 | Validation messages (16 form requests) | ✅ | `845eb2f` |
 | Public page tests, API validation tests | ✅ 44 tests | `4a66081` |
-| Admin API CRUD tests | with the admin port | |
+| Admin API CRUD tests | ✅ 123 tests, 168 in total | `9ca304e` |
 | Smoke test all routes | ✅ snapshot after every step | |
 
 ## Admin
@@ -45,16 +45,16 @@ Branch **`rework/laravel-13-vue-3`**, cut from `37011a5` on 2026-10-05.
 | Public JS: ES modules, dead packages out (`06`) | ✅ | `7047390` |
 | Public JS: lightbox from cra, verified against the fancyBox 5 build | ✅ | `7047390` |
 | `lib/`, `composables/`, `components/ui/` from cra (oxid's shape) | ✅ in `resources/js/admin` | `2befdc8` |
-| Admin on Vite + Vue 3: `app.js`, router 4, `App.vue` | | |
+| Admin on Vite + Vue 3: `app.js`, router 4, `App.vue` | ✅ | `2befdc8` |
 | First entity end to end (award) | ✅ | `2befdc8` |
-| Remaining CRUD views | | |
-| Image + file modules | | |
-| galleries / links / videos | | |
-| Grid + teaser builders | | |
+| Remaining CRUD views | ✅ (four parallel agents, then checked) | `d4ac23b` |
+| Image + file modules | ✅ `ImageManager`, `FileManager` | `2befdc8` |
+| galleries / links / videos | not ported: unused | |
+| Grid + teaser builders | ✅ one `TeaserBuilder` (no grid builder here) | `d4ac23b` |
 | Tiptap round-trip, remove TinyMCE | round-trip ✅ 287/287; TinyMCE removed with the switch | `524d1ee` |
-| Light admin refresh (`07`) | | |
-| Drop dead npm packages, build committed | | |
-| Click-through QA | | |
+| Light admin refresh (`07`) | ✅ (cra's admin; login background `959b09b`) | `d4ac23b` |
+| Drop dead npm packages, build committed | ✅ | `d4ac23b` |
+| Click-through QA | ✅ Chromium, `.rewrite/tools/qa/admin-tour.js` | |
 
 ## Log
 
@@ -102,8 +102,8 @@ differs on every run; leave it out of the diff.
   `ProjectController::index`, which doesn't exist (500; nothing links
   to it). Award 22 has malformed UTF-8 in the DB, so `/api/award/22`
   500s (JSON encode). `StorageCleanup` task is never scheduled.
-- **Temporary QA user** `qa-temp@example.com` (id 8) in the local DB for
-  the HTTP checks; delete when the admin is done.
+- **Temporary QA user** `qa-temp@example.com` (id 8): removed again
+  2026-10-20 after the admin QA.
 
 ### 2026-10-20 — public site, admin base
 
@@ -131,6 +131,32 @@ differs on every run; leave it out of the diff.
   @tiptap/html in a scratch dir.
 - **Login background** (`07`): a random published project cover
   (`<x-auth-splash>`), on login and password screens only.
+
+### 2026-10-20 — admin
+
+- Views ported by four agents in parallel (teasers/home/landings,
+  projects, team, office pages) against a shared brief and the awards
+  reference, on one Vite dev server (`public/hot`) so nobody had to build;
+  a fifth wrote the API tests. Each tested its screens in Chromium with a
+  temporary admin and cleaned up. One agent deleted two real rows by
+  mistake (project teaser 309, landing item 180) and re-inserted them from
+  the snapshot; checked afterwards: every admin API response equals the
+  baseline apart from `updated_at` (`snapshot.php`).
+- API tests found `POST /api/team` and `/api/employee/category` 500ing
+  (`Str` not imported, already broken before the upgrade); fixed.
+- Differences from the old admin: dashboards → menu groups; required
+  fields marked and 422s shown (the old admin swallowed them); teasers
+  with a deleted image/article are labelled; the CV form reads
+  `/api/cvs/{id}` and writes `/api/cv/{id}`, so it doesn't use
+  `useResourceForm`; teaser/landing order uses `{items: [{id, position}]}`
+  with its own save, not `useOrder`.
+- **Found, not fixed (backend, already there):** projects list sorts by year
+  first, so dragging only reorders within a year; a new teaser gets
+  position 999; deleting an article/profile/contact/job/publication
+  leaves its images attached to the deleted id; most store/update
+  endpoints 500 if `images` or `publish` is missing from the payload (the
+  admin always sends them).
+- Bundle: the editor chunk is 415 KB (130 gzip), loaded only by forms.
 
 ## Deploy notes
 

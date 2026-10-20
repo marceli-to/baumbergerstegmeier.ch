@@ -1,5 +1,9 @@
 # Rewrite notes — Laravel 11→13, Vue 2→3
 
+**Status 2026-10-20: implemented on `rework/laravel-13-vue-3`** — backend,
+images, public site and admin done, 168 tests; left: deploy
+(`08-deploy.md`). Start at `05-progress.md`.
+
 Survey done **2026-10-05** against commit `37011a5` (branch `master`, clean
 tree). Branch: **`rework/laravel-13-vue-3`**, cut from `37011a5`.
 

@@ -75,6 +75,18 @@ mail account. `config/mail.php`:
 - `log` is the last resort: a reset request never ends in a 500, but the
   mail only lands in `storage/logs/laravel.log`.
 
+## What the pull changes on disk
+
+- `public/build/` (site and admin) is committed; nothing is built on the
+  server
+- Gone with the pull: `public/assets/js/cms` (Vue 2 admin + TinyMCE),
+  `public/assets/css/cms/app.css`, `public/assets/css/app.css`,
+  `public/assets/js/app.js`, `public/mix-manifest.json`. The admin fonts in
+  `public/assets/css/cms/fonts` stay (the new admin uses them)
+- Still there, to decide (`04` #6): `public/js/`, `public/assets/js/
+  {fancybox,modernizr}.js`, `composer.phar` — nothing in the repo uses them
+- `storage/app/.glide-cache/` is created on the first image request
+
 ## Order on the server
 
 1. Snapshot the production DB and `storage/`.
@@ -83,8 +95,9 @@ mail account. `config/mail.php`:
 4. `php artisan migrate --force`, if the rework adds migrations.
 5. `php artisan optimize:clear && php artisan optimize` (must work: both
    `config:cache` and `route:cache`).
-6. Warm the Glide cache if there is a command for it by then (cra:
-   `images:warm`).
+6. No warm-up command: each image renders on its first request (JPEG
+   ~0.1 s, WebP ~0.25 s, AVIF ~0.3 s at 1600 px locally), then comes from
+   the cache. Browse the main pages once after deploy if wanted.
 7. Delete `storage/app/public/cache/` (image-cache renditions, replaced by
    Glide in `storage/app/.glide-cache`).
 
@@ -94,12 +107,15 @@ mail account. `config/mail.php`:
       project page), office, team, contact, a 404. Images load, WebP/AVIF
       served where supported.
 - [ ] Lightbox on a project page and on a teaser column with two projects.
-- [ ] Login, wrong password message, logout (POST), `GET /logout` → 405.
+- [ ] Login (random project cover as background), wrong password message,
+      logout from the admin sidebar, `GET /logout` → 405.
 - [ ] Password reset over **SMTP**: request it for an admin address, the
       German mail arrives, the link resets and logs in.
 - [ ] Password reset over **sendmail**: break the SMTP password in
       `.env` for a moment (`php artisan config:clear` afterwards), request
       again, the mail arrives (and not in spam). Put the password back.
 - [ ] Admin: list, edit, save one of each entity; an image upload and
-      crop; reorder a list.
+      crop; reorder a list; the editor's link dialog (page list, Icon ↗).
+      `.rewrite/tools/qa/admin-tour.js` against production with a real
+      account visits every screen (read-only).
 - [ ] `storage/logs/laravel.log` free of new errors.
