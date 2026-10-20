@@ -121,7 +121,7 @@ class PublicPagesTest extends TestCase
         $this->get('/projekte/gebaut/wohnen/haus-a')
             ->assertSee('Haus A')
             ->assertSee('/img/crop/missing.jpg/2000/0,0,0,0', false)
-            ->assertSee('data-fancybox="gallery-haus-a"', false);
+            ->assertSee('data-lightbox="gallery-haus-a"', false);
     }
 
     public function testUnknownPagesAre404()

@@ -9,13 +9,10 @@
     },
     "devDependencies": {
         "axios": "^1.6.7",
-        "bootstrap": "^4.6.2",
         "cross-env": "^7.0",
-        "jquery": "^3.7.1",
         "laravel-mix": "^6.0.49",
         "laravel-vite-plugin": "^3.2.0",
         "lodash": "^4.17.21",
-        "popper.js": "^1.16.1",
         "postcss": "^8.4.35",
         "resolve-url-loader": "^5.0.0",
         "sass": "^1.49.0",
@@ -26,14 +23,12 @@
         "vue-template-compiler": "^2.7.16"
     },
     "dependencies": {
-        "@fancyapps/ui": "^5.0.14",
         "@tinymce/tinymce-vue": "^3.2.8",
         "cleave.js": "^1.6.0",
         "moment": "^2.29.4",
         "nth-check": "^2.1.1",
         "postcss-loader": "^6.2.1",
         "raw-loader": "^4.0.2",
-        "swiper": "^9.1.0",
         "vue-advanced-cropper": "^0.16.5",
         "vue-axios": "^2.1.5",
         "vue-axios-interceptors": "^0.3.1",

@@ -16,7 +16,7 @@
           @if ($item->image->lightbox)
             <a 
               href="/img/crop/{{ $item->image->name }}/2000/{{ $item->image->coords }}" 
-              data-fancybox="gallery-{{ $item->project->slug }}"
+              data-lightbox="gallery-{{ $item->project->slug }}"
               data-caption="{{ $item->image->caption }} {{ $item->image->credits}}">
               <x-teasers.image :image="$item" />
               <legend class="hidden">

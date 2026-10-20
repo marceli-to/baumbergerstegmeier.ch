@@ -1,0 +1,149 @@
+/**
+ * -----------------------------------------------------------------------------
+ * File: components/lightbox
+ * -----------------------------------------------------------------------------
+ *
+ * Gallery overlay, see js/web/modules/lightbox.js. Positions as fancyBox 5
+ * had them with the former overrides: below 578px (wide or high) the image
+ * fills the screen with 4px around it and the caption sits on top of it.
+ */
+
+$lightbox-wide: '(min-width: 578px) and (min-height: 578px)';
+
+html.has-lightbox {
+  overflow: hidden;
+}
+
+.lightbox {
+  background-color: $color-white;
+  inset: 0;
+  opacity: 0;
+  position: fixed;
+  touch-action: pan-y pinch-zoom;
+  transition: opacity .25s ease;
+  z-index: 99992;
+
+  &.is-open {
+    opacity: 1;
+  }
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+// Images are never scaled up
+.lightbox__stage {
+  inset: 4px;
+  position: absolute;
+
+  @media #{$lightbox-wide} {
+    inset: 44px 64px 87px 64px;
+  }
+
+  img {
+    inset: 0;
+    margin: auto;
+    max-height: 100%;
+    max-width: 100%;
+    opacity: 0;
+    position: absolute;
+    transition: opacity .4s ease;
+    user-select: none;
+    -webkit-user-drag: none;
+
+    &.is-current {
+      opacity: 1;
+    }
+  }
+}
+
+.lightbox__caption {
+  align-items: center;
+  bottom: 11px;
+  color: $color-black;
+  display: flex;
+  @extend %text-sm;
+  justify-content: center;
+  left: 0;
+  line-height: 1.4;
+  position: absolute;
+  right: 0;
+
+  @media #{$lightbox-wide} {
+    bottom: 46px;
+  }
+
+  @include bp-lg() {
+    left: 44px;
+    right: 44px;
+  }
+
+  > div {
+    @extend %text-sm;
+    color: $color-black;
+  }
+}
+
+.lightbox__close,
+.lightbox__prev,
+.lightbox__next {
+  @include background-default();
+  background-color: transparent;
+  background-size: cover;
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+  padding: 0;
+  position: absolute;
+  z-index: 1;
+}
+
+.lightbox__close {
+  background-image: url($url-icons + 'cross.svg');
+  height: 31px;
+  right: 11px;
+  top: 11px;
+  width: 31px;
+
+  @include bp-lg() {
+    right: 22px;
+    top: 22px;
+  }
+}
+
+// Centred on the image area and the caption above it
+.lightbox__prev,
+.lightbox__next {
+  height: 50px;
+  top: calc(50% - 25px);
+  width: 26px;
+
+  @media #{$lightbox-wide} {
+    top: calc(44px + (100% - 111px) / 2 - 25px);
+  }
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.lightbox__next {
+  background-image: url($url-icons + 'arrow-right.svg');
+  background-position: center right;
+  right: 11px;
+
+  @include bp-md() {
+    right: 22px;
+  }
+}
+
+.lightbox__prev {
+  background-image: url($url-icons + 'arrow-left.svg');
+  background-position: center left;
+  left: 11px;
+
+  @include bp-md() {
+    left: 22px;
+  }
+}

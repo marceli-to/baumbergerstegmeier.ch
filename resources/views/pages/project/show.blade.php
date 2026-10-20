@@ -38,7 +38,7 @@
   <x-hero class="hidden !md:block">
     <a 
       href="/img/crop/{{ $project->coverImage->name }}/2000/{{ $project->coverImage->coords }}" 
-      data-fancybox="gallery-{{ $project->slug }}"
+      data-lightbox="gallery-{{ $project->slug }}"
       data-caption="{{ $project->coverImage->caption }}">
       <x-image 
         :classes="'aspect-ratio-3/2'"
