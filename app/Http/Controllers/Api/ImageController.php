@@ -5,7 +5,7 @@ use App\Services\Media;
 use App\Http\Resources\DataCollection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Cache;
-use MarceliTo\ImageCache\Facades\ImageCache;
+use App\Support\Glide;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -222,6 +222,7 @@ class ImageController extends Controller
     {
       Storage::delete($d . '/'. $image);
     }
+    Glide::forget($image);
     
     return response()->json('successfully deleted');
   }
@@ -260,6 +261,6 @@ class ImageController extends Controller
    */
   private function removeCachedImage(Image $image)
   {
-    ImageCache::clearImageCache($image->name);
+    Glide::forget($image->name);
   }
 }

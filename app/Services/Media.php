@@ -79,7 +79,7 @@ class Media
     {
       // Create a new ImageManager instance with the GD driver
       $manager = new ImageManager(new Driver());
-      $img = $manager->read($this->upload_path . DIRECTORY_SEPARATOR . $filename);
+      $img = $manager->decodePath($this->upload_path . DIRECTORY_SEPARATOR . $filename);
       $orientation = $img->width() > $img->height() ? 'landscape' : 'portrait';
       $ratio = $img->width() . 'x' . $img->height();
     }

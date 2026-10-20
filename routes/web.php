@@ -3,6 +3,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\WorklistController;
@@ -18,6 +19,11 @@ use App\Http\Controllers\ProjectController;
 // Auth routes
 Auth::routes(['verify' => true, 'register' => false]);
 Route::get('/logout', 'Auth\LoginController@logout');
+
+// Images (former marceli-to/image-cache URLs, served through Glide)
+Route::get('/img/original/{filename}', [ImageController::class, 'original']);
+Route::get('/img/thumbnail/{filename}', [ImageController::class, 'thumbnail']);
+Route::get('/img/crop/{filename}/{maxSize?}/{coords?}/{ratio?}', [ImageController::class, 'crop']);
 
 // Frontend
 Route::get('/', [HomeController::class, 'index'])->name('page.home');

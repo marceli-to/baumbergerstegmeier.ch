@@ -3,6 +3,7 @@ namespace App\Tasks;
 use App\Models\File;
 use App\Models\Image;
 use App\Services\Media;
+use App\Support\Glide;
 
 class StorageCleanup
 {
@@ -14,6 +15,7 @@ class StorageCleanup
       foreach($images as $image)
       {
         (new Media())->remove($image->name);
+        Glide::forget($image->name);
         $image->forceDelete();
       }
     }
