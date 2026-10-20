@@ -37,10 +37,7 @@ class ContactStoreRequest extends FormRequest
   public function messages()
   {
     return [
-      'address.required' => [
-        'field' => 'address',
-        'error' => 'Adresse wird benötigt'
-      ],
+      'address.required' => 'Adresse wird benötigt',
     ];
   }
 }

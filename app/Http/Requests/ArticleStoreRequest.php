@@ -38,14 +38,8 @@ class ArticleStoreRequest extends FormRequest
   public function messages()
   {
     return [
-      'category.required' => [
-        'field' => 'category',
-        'error' => 'Text wird benötigt'
-      ],
-      'title.required' => [
-        'field' => 'title',
-        'error' => 'Text wird benötigt'
-      ],
+      'category.required' => 'Text wird benötigt',
+      'title.required' => 'Text wird benötigt',
     ];
   }
 }

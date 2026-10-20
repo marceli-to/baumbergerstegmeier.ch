@@ -38,14 +38,8 @@ class ProfileStoreRequest extends FormRequest
   public function messages()
   {
     return [
-      'title_bsa.required' => [
-        'field' => 'title_bsa',
-        'error' => 'Titel für BSA wird benötigt'
-      ],
-      'title_bsemi.required' => [
-        'field' => 'title_bsemi',
-        'error' => 'Titel für BS/EMI wird benötigt'
-      ],
+      'title_bsa.required' => 'Titel für BSA wird benötigt',
+      'title_bsemi.required' => 'Titel für BS/EMI wird benötigt',
     ];
   }
 }

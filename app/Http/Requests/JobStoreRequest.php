@@ -37,10 +37,7 @@ class JobStoreRequest extends FormRequest
   public function messages()
   {
     return [
-      'text.required' => [
-        'field' => 'text',
-        'error' => 'Text wird benötigt'
-      ],
+      'text.required' => 'Text wird benötigt',
     ];
   }
 }

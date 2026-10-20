@@ -38,14 +38,8 @@ class JobArticleStoreRequest extends FormRequest
   public function messages()
   {
     return [
-      'title.required' => [
-        'field' => 'title',
-        'error' => 'Text wird benötigt'
-      ],
-      'description.required' => [
-        'field' => 'description',
-        'error' => 'Text wird benötigt'
-      ],
+      'title.required' => 'Text wird benötigt',
+      'description.required' => 'Text wird benötigt',
     ];
   }
 }

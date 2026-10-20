@@ -37,10 +37,7 @@ class CvCategoryStoreRequest extends FormRequest
   public function messages()
   {
     return [
-      'description.required' => [
-        'field' => 'description',
-        'error' => 'Beschreibung wird benötigt'
-      ],
+      'description.required' => 'Beschreibung wird benötigt',
     ];
   }
 }

@@ -39,22 +39,10 @@ class CvStoreRequest extends FormRequest
   public function messages()
   {
     return [
-      'periode.required' => [
-        'field' => 'periode',
-        'error' => 'Beschreibung wird benötigt'
-      ],
-      'description.required' => [
-        'field' => 'description',
-        'error' => 'Beschreibung wird benötigt'
-      ],
-      'employee_id.required' => [
-        'field' => 'employee_id',
-        'error' => 'Mitarbeiter wird benötigt'
-      ],
-      'employee_id.exists' => [
-        'field' => 'employee_id',
-        'error' => 'Mitarbeiter existiert nicht'
-      ],
+      'periode.required' => 'Beschreibung wird benötigt',
+      'description.required' => 'Beschreibung wird benötigt',
+      'employee_id.required' => 'Mitarbeiter wird benötigt',
+      'employee_id.exists' => 'Mitarbeiter existiert nicht',
     ];
   }
 }

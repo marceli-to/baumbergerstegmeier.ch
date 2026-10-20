@@ -40,30 +40,12 @@ class EmployeeStoreRequest extends FormRequest
   public function messages()
   {
     return [
-      'firstname.required' => [
-        'field' => 'firstname',
-        'error' => 'Vorname wird benötigt'
-      ],
-      'name.required' => [
-        'field' => 'name',
-        'error' => 'Name wird benötigt'
-      ],
-      'team_id.required' => [
-        'field' => 'team_id',
-        'error' => 'Team wird benötigt'
-      ],
-      'team_id.exists' => [
-        'field' => 'team_id',
-        'error' => 'Team existiert nicht'
-      ],
-      'employee_category_id.required' => [
-        'field' => 'employee_category_id',
-        'error' => 'Mitarbeiterkategorie wird benötigt'
-      ],
-      'employee_category_id.exists' => [
-        'field' => 'employee_category_id',
-        'error' => 'Mitarbeiterkategorie existiert nicht'
-      ],
+      'firstname.required' => 'Vorname wird benötigt',
+      'name.required' => 'Name wird benötigt',
+      'team_id.required' => 'Team wird benötigt',
+      'team_id.exists' => 'Team existiert nicht',
+      'employee_category_id.required' => 'Mitarbeiterkategorie wird benötigt',
+      'employee_category_id.exists' => 'Mitarbeiterkategorie existiert nicht',
     ];
   }
 }

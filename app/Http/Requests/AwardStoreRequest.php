@@ -39,18 +39,9 @@ class AwardStoreRequest extends FormRequest
   public function messages()
   {
     return [
-      'year.required' => [
-        'field' => 'year',
-        'error' => 'Text wird benötigt'
-      ],
-      'year.integer' => [
-        'field' => 'year',
-        'error' => 'Jahr muss eine Zahl sein'
-      ],
-      'text.required' => [
-        'field' => 'text',
-        'error' => 'Text wird benötigt'
-      ],
+      'year.required' => 'Text wird benötigt',
+      'year.integer' => 'Jahr muss eine Zahl sein',
+      'text.required' => 'Text wird benötigt',
       // 'title.required' => [
       //   'field' => 'title',
       //   'error' => 'Titel wird benötigt'

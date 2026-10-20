@@ -37,10 +37,7 @@ class TeamStoreRequest extends FormRequest
   public function messages()
   {
     return [
-      'name.required' => [
-        'field' => 'name',
-        'error' => 'Name wird benötigt'
-      ],
+      'name.required' => 'Name wird benötigt',
     ];
   }
 }

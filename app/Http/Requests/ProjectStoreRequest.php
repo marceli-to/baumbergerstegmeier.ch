@@ -42,30 +42,12 @@ class ProjectStoreRequest extends FormRequest
   public function messages()
   {
     return [
-      'title.required' => [
-        'field' => 'title',
-        'error' => 'Name wird benötigt'
-      ],
-      'year.required' => [
-        'field' => 'year',
-        'error' => 'Jahr wird benötigt'
-      ],
-      'year.integer' => [
-        'field' => 'year',
-        'error' => 'Jahr muss eine Zahl sein'
-      ],
-      'type.required' => [
-        'field' => 'type',
-        'error' => 'Typ wird benötigt'
-      ],
-      'category_ids.required' => [
-        'field' => 'category_ids',
-        'error' => 'Kategorie wird benötigt'
-      ],
-      'state_ids.required' => [
-        'field' => 'state_ids',
-        'error' => 'Status wird benötigt'
-      ],
+      'title.required' => 'Name wird benötigt',
+      'year.required' => 'Jahr wird benötigt',
+      'year.integer' => 'Jahr muss eine Zahl sein',
+      'type.required' => 'Typ wird benötigt',
+      'category_ids.required' => 'Kategorie wird benötigt',
+      'state_ids.required' => 'Status wird benötigt',
     ];
   }
 }
