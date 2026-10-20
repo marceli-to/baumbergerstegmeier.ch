@@ -92,20 +92,20 @@
     });
   };
 
-  setCurrent = () => {
+  const setCurrent = () => {
     resetButtons();
     const btnCurrent = document.querySelector(selectors.btnCurrent);
     btnCurrent.classList.add('is-active');
   };
   
-  resetButtons = () => {
+  const resetButtons = () => {
     const btns = document.querySelectorAll(selectors.wrapper + ' a');
     btns.forEach((btn) => {
       btn.classList.remove('is-active');
     });
   };
 
-  reset = () => {
+  const reset = () => {
     hideAll();
     setCurrent();
     const worklist = document.querySelector(selectors.wrapper);

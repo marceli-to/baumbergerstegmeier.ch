@@ -20,9 +20,6 @@ mix.webpackConfig({
  |
  */
 
-// Web
-mix.sass('resources/sass/web/app.scss', 'public/assets/css/app.css').options({processCssUrls: false}).version();
-mix.js('resources/js/web/app.js', 'public/assets/js/app.js').version();
 
 // App
 mix.js('resources/js/cms/app.js', 'public/assets/js/cms/app.js')
