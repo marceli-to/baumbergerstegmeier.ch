@@ -2,6 +2,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ContactController;
@@ -18,7 +19,7 @@ use App\Http\Controllers\ProjectController;
 
 // Auth routes
 Auth::routes(['verify' => true, 'register' => false]);
-Route::get('/logout', 'Auth\LoginController@logout');
+Route::get('/logout', [LoginController::class, 'logout']);
 
 // Images (former marceli-to/image-cache URLs, served through Glide)
 Route::get('/img/original/{filename}', [ImageController::class, 'original']);
