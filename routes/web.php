@@ -1,8 +1,7 @@
 <?php
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ContactController;
@@ -17,9 +16,19 @@ use App\Http\Controllers\ProjectController;
 |
 */
 
-// Auth routes
-Auth::routes(['verify' => true, 'register' => false]);
-Route::get('/logout', [LoginController::class, 'logout']);
+// Auth
+Route::middleware('guest')->group(function () {
+  Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+  Route::post('/login', [AuthController::class, 'login']);
+  Route::get('/password/reset', [AuthController::class, 'showForgotPassword'])->name('password.request');
+  Route::post('/password/email', [AuthController::class, 'sendResetLink'])->middleware('throttle:6,1')->name('password.email');
+  Route::get('/password/reset/{token}', [AuthController::class, 'showResetPassword'])->name('password.reset');
+  Route::post('/password/reset', [AuthController::class, 'resetPassword'])->name('password.update');
+});
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+// The Vue 2 admin header links to GET /logout; goes with the Vue 3 port
+Route::get('/logout', [AuthController::class, 'logout']);
 
 // Images (former marceli-to/image-cache URLs, served through Glide)
 Route::get('/img/original/{filename}', [ImageController::class, 'original']);
@@ -61,7 +70,7 @@ Route::get('/kontakt', [ContactController::class, 'index'])->name('page.contact'
 |
 */
 
-Route::middleware('auth:sanctum', 'verified')->group(function() {
+Route::middleware('auth:sanctum')->group(function() {
   Route::get('administration/{any?}', function () {
     return view('layout.authenticated');
   })->where('any', '.*')->middleware('role:admin')->name('authenticated');
