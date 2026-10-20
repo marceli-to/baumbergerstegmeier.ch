@@ -1,0 +1,5 @@
+<template>
+  <div>
+    <p class="no-records">Noch nicht portiert: views/articles/Form.vue</p>
+  </div>
+</template>
