@@ -41,17 +41,17 @@ Branch **`rework/laravel-13-vue-3`**, cut from `37011a5` on 2026-10-05.
 
 | Step | Status | Commit |
 |---|---|---|
-| Public site on Vite | | |
-| Public JS: ES modules, dead packages out (`06`) | | |
-| Public JS: lightbox from cra, verified against the fancyBox 5 build | | |
-| `lib/`, `composables/`, `components/ui/` from oxid | | |
+| Public site on Vite | ✅ | `9770a2b` |
+| Public JS: ES modules, dead packages out (`06`) | ✅ | `7047390` |
+| Public JS: lightbox from cra, verified against the fancyBox 5 build | ✅ | `7047390` |
+| `lib/`, `composables/`, `components/ui/` from cra (oxid's shape) | ✅ in `resources/js/admin` | `2befdc8` |
 | Admin on Vite + Vue 3: `app.js`, router 4, `App.vue` | | |
-| First entity end to end (award) | | |
+| First entity end to end (award) | ✅ | `2befdc8` |
 | Remaining CRUD views | | |
 | Image + file modules | | |
 | galleries / links / videos | | |
 | Grid + teaser builders | | |
-| Tiptap round-trip, remove TinyMCE | | |
+| Tiptap round-trip, remove TinyMCE | round-trip ✅ 287/287; TinyMCE removed with the switch | `524d1ee` |
 | Light admin refresh (`07`) | | |
 | Drop dead npm packages, build committed | | |
 | Click-through QA | | |
@@ -104,6 +104,33 @@ differs on every run; leave it out of the diff.
   500s (JSON encode). `StorageCleanup` task is never scheduled.
 - **Temporary QA user** `qa-temp@example.com` (id 8) in the local DB for
   the HTTP checks; delete when the admin is done.
+
+### 2026-10-20 — public site, admin base
+
+- **Vite** (`9770a2b`): same steps as cra. Playwright QA in
+  `.rewrite/tools/qa/` (`pages.js` list, `shots.js` + `compare.sh`,
+  `styles.js` computed styles with a reference CSS, `interact.js` trace,
+  `lightbox-measure.js`); run with `NODE_TLS_REJECT_UNAUTHORIZED=0` (Herd's
+  certificate) and `NODE_PATH` to a playwright install. Noise between two
+  runs of the same build: the random home page, the worklist's sticky
+  filter (scroll timing).
+- **Public JS** (`7047390`): the modules were already jQuery-free; the
+  work was the lightbox. Measured against fancyBox 5 (geometry in
+  `components/_lightbox.scss`). fancyBox 5 loops and never disables its
+  arrows; the own lightbox does the same. WebKit's worklist click-outside
+  doesn't reset the filter, before and after (not chased).
+- **Admin, approach:** the Vue 3 admin is built next to the old one
+  (`resources/js/admin`, `resources/sass/admin`); the committed Vue 2 build
+  keeps serving the admin until the layout switches, so every commit
+  works. Vue 2 and 3 can't share package.json, so Mix is gone already.
+  cra's ported admin is the base: its pre-port admin was the same template
+  (75 shared files, most identical). Not ported because unused here:
+  `modules/grid`, `galleries`, `links`, `videos`.
+- **Editor:** `.rewrite/tools/tiptap-roundtrip.mjs` (from cra, H2–H4, link
+  classes): 287 values, no visible difference. Needs happy-dom and
+  @tiptap/html in a scratch dir.
+- **Login background** (`07`): a random published project cover
+  (`<x-auth-splash>`), on login and password screens only.
 
 ## Deploy notes
 
