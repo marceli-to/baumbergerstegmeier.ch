@@ -4,7 +4,7 @@
     :listing="listing"
     :columns="columns"
     :routes="{ create: 'article-create', edit: 'article-edit' }"
-    create-label="Artikel hinzufügen"
+    create-label="Hinzufügen"
     :searchable="row => [row.category, row.title]"
     search-placeholder="Kategorie oder Titel"
   />

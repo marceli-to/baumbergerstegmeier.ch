@@ -4,7 +4,7 @@
     :listing="listing"
     :columns="columns"
     :routes="{ create: 'user-create', edit: 'user-edit' }"
-    create-label="Benutzer hinzufügen"
+    create-label="Hinzufügen"
     :togglable="false"
     :row-label="row => `${row.firstname} ${row.name}`"
   />

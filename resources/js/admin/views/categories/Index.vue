@@ -4,7 +4,7 @@
     :listing="listing"
     :columns="columns"
     :routes="{ create: 'category-create', edit: 'category-edit' }"
-    create-label="Projekt-Kategorie hinzufügen"
+    create-label="Hinzufügen"
     :order="order"
     :row-label="row => row.description"
   />

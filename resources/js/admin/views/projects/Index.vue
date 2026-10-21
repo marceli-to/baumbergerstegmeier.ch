@@ -4,7 +4,7 @@
     :listing="listing"
     :columns="columns"
     :routes="{ create: 'project-create', edit: 'project-edit' }"
-    create-label="Projekt hinzufügen"
+    create-label="Hinzufügen"
     :order="order"
     :row-label="label"
     :searchable="row => [row.title, row.location, row.year]"

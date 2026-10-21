@@ -4,7 +4,7 @@
     :listing="listing"
     :columns="columns"
     :routes="{ create: 'employee-create', edit: 'employee-edit' }"
-    create-label="Mitarbeiter hinzufügen"
+    create-label="Hinzufügen"
     :order="order"
     :group-by="row => ({ key: row.group, label: labels[row.group] })"
     :draggable-group="group => group.key === 'leadership'"

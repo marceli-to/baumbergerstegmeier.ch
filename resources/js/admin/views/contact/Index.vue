@@ -5,7 +5,7 @@
     :listing="listing"
     :columns="columns"
     :routes="{ create: 'contact-create', edit: 'contact-edit' }"
-    :create-label="listing.isFetched && !listing.items.length ? 'Kontakt hinzufügen' : null"
+    :create-label="listing.isFetched && !listing.items.length ? 'Hinzufügen' : null"
     :row-label="() => 'Kontakt'"
   />
 </template>

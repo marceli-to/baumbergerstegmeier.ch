@@ -4,7 +4,7 @@
     :listing="listing"
     :columns="columns"
     :routes="{ create: 'award-create', edit: 'award-edit' }"
-    create-label="Auszeichnung hinzufügen"
+    create-label="Hinzufügen"
     :order="order"
     :row-label="row => truncate(row.text, 60)"
     :searchable="row => [row.year, truncate(row.text, 1000)]"
