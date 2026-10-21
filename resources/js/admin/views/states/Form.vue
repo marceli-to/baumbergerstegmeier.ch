@@ -3,9 +3,9 @@
     <FormField v-model="record.description" name="description" label="Bezeichnung" :errors="errors" required />
 
     <template #sidebar>
-      <FormField v-model="record.publish" name="publish" label="Publiziert" type="checkbox" />
-      <FormField v-model="record.show_in_menu" name="show_in_menu" label="Im Menü" type="checkbox" />
-      <FormField v-model="record.has_landing" name="has_landing" label="Übersichtsseite" type="checkbox" />
+      <FormField v-model="record.publish" name="publish" label="Publizieren?" type="checkbox" />
+      <FormField v-model="record.show_in_menu" name="show_in_menu" label="Im Menu anzeigen?" type="checkbox" />
+      <FormField v-model="record.has_landing" name="has_landing" label="Übersichtsseite?" type="checkbox" />
     </template>
   </ResourceForm>
 </template>
@@ -32,6 +32,6 @@ const { record, errors, isEdit, isLoading, isFetched, title, submit } = useResou
     has_landing: 1,
   }),
   redirect: { name: 'states' },
-  titles: { create: 'Neuer Projekt-Status', edit: 'Projekt-Status bearbeiten' },
+  titles: { create: 'Projekt-Status hinzufügen', edit: 'Projekt-Status bearbeiten' },
 });
 </script>

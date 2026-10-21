@@ -15,7 +15,7 @@
     </Tabs>
 
     <template #sidebar>
-      <FormField v-model="record.publish" name="publish" label="Publiziert" type="checkbox" />
+      <FormField v-model="record.publish" name="publish" label="Publizieren?" type="checkbox" />
       <FormField v-model="record.team_id" name="team_id" label="Team" type="select" :options="toOptions(teams, 'name')" placeholder="Bitte wählen" :errors="errors" required />
       <FormField v-model="record.employee_category_id" name="employee_category_id" label="Position" type="select" :options="toOptions(categories, 'name')" placeholder="Bitte wählen" :errors="errors" required />
     </template>
@@ -68,7 +68,7 @@ const { record, errors, isEdit, isLoading, isFetched, title, submit } = useResou
     publish: 1,
   }),
   redirect: { name: 'employees' },
-  titles: { create: 'Neue Person', edit: 'Person bearbeiten' },
+  titles: { create: 'Mitarbeiter hinzufügen', edit: 'Mitarbeiter bearbeiten' },
   load: props.type === 'create' ? options : [],
   loaded: data => {
     teams.value = data.teams;

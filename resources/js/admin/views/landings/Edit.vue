@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PageHeader :title="title ? `Übersicht «${title}»` : 'Übersicht'" />
+    <PageHeader :title="title ? `Projekt Landing «${title}»` : 'Projekt Landing'" />
     <FormActions>
       <FormButton variant="secondary" @click="router.push({ name: 'landings' })">Zurück</FormButton>
     </FormActions>

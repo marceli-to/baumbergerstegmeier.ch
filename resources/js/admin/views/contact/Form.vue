@@ -16,7 +16,7 @@
     </Tabs>
 
     <template #sidebar>
-      <FormField v-model="record.publish" name="publish" label="Publiziert" type="checkbox" />
+      <FormField v-model="record.publish" name="publish" label="Publizieren?" type="checkbox" />
     </template>
   </ResourceForm>
 </template>
@@ -56,6 +56,6 @@ const { record, errors, isEdit, isLoading, isFetched, title, submit } = useResou
     images: [],
   }),
   redirect: { name: 'contact' },
-  titles: { create: 'Neuer Kontakt', edit: 'Kontakt bearbeiten' },
+  titles: { create: 'Kontakt hinzufügen', edit: 'Kontakt bearbeiten' },
 });
 </script>

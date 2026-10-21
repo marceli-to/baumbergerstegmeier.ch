@@ -4,7 +4,7 @@
     :listing="listing"
     :columns="columns"
     :routes="{ create: 'job-article-create', edit: 'job-article-edit' }"
-    create-label="Neues Inserat"
+    create-label="Inserat hinzufügen"
     :order="order"
     :searchable="row => [row.title, truncate(row.description, 1000)]"
     search-placeholder="Titel oder Text"

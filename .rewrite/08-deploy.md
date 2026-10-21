@@ -136,4 +136,6 @@ Google Sans from Google Fonts.
       shows `<meta name="robots" content="index, follow">`; a project's
       og:image (`/img/og/…`) opens at 1200 × 630. Submit the sitemap in
       Google Search Console if the site is registered there.
+- [ ] Admin → System → Benutzer: list loads; deleting one's own account
+      is refused. `/projekt/vorschau/{id}` as a guest redirects to the login.
 - [ ] `storage/logs/laravel.log` free of new errors.

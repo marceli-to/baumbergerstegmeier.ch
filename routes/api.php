@@ -33,6 +33,15 @@ use App\Http\Controllers\Api\SettingsController;
 Route::middleware('auth:sanctum')->group(function() {
   Route::get('user', [UserController::class, 'find']);
 
+  // Users (admin logins)
+  Route::controller(UserController::class)->group(function () {
+    Route::get('users', 'get');
+    Route::get('user/{user}', 'show');
+    Route::post('user', 'store');
+    Route::put('user/{user}', 'update');
+    Route::delete('user/{user}', 'destroy');
+  });
+
   // Images
   Route::get('images', [ImageController::class, 'get']);
   Route::post('images/order', [ImageController::class, 'order']);

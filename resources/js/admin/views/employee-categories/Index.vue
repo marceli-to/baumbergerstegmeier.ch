@@ -2,7 +2,7 @@
   <!-- No create button and no ordering (as before): the employee list
        groups by exactly these three categories -->
   <ResourceIndex
-    title="Kategorien"
+    title="Mitarbeiter-Kategorien"
     :listing="listing"
     :columns="columns"
     :routes="{ edit: 'employee-category-edit' }"

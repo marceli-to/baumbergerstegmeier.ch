@@ -4,7 +4,7 @@
     :listing="listing"
     :columns="columns"
     :routes="{ create: 'state-create', edit: 'state-edit' }"
-    create-label="Neuer Status"
+    create-label="Projekt-Status hinzufügen"
     :order="order"
     :row-label="row => row.description"
   >

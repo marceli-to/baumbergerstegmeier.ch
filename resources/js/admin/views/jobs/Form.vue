@@ -5,9 +5,8 @@
         <FormField
           v-model="record.text"
           name="text"
-          label="Text"
+          label="Text (falls keine Inserate vorhanden sind)"
           type="editor"
-          hint="Wird angezeigt, wenn keine Inserate vorhanden sind."
           :errors="errors"
           tall
           required
@@ -19,7 +18,7 @@
     </Tabs>
 
     <template #sidebar>
-      <FormField v-model="record.publish" name="publish" label="Publiziert" type="checkbox" />
+      <FormField v-model="record.publish" name="publish" label="Publizieren?" type="checkbox" />
     </template>
   </ResourceForm>
 </template>
@@ -55,6 +54,6 @@ const { record, errors, isEdit, isLoading, isFetched, title, submit } = useResou
     images: [],
   }),
   redirect: { name: 'jobs' },
-  titles: { create: 'Neue Job-Seite', edit: 'Job-Seite bearbeiten' },
+  titles: { create: 'Job-Seite hinzufügen', edit: 'Job-Seite bearbeiten' },
 });
 </script>

@@ -1,10 +1,10 @@
 <template>
   <ResourceIndex
-    title="Mitarbeitende"
+    title="Mitarbeiter"
     :listing="listing"
     :columns="columns"
     :routes="{ create: 'employee-create', edit: 'employee-edit' }"
-    create-label="Neue Person"
+    create-label="Mitarbeiter hinzufügen"
     :order="order"
     :group-by="row => ({ key: row.group, label: labels[row.group] })"
     :draggable-group="group => group.key === 'leadership'"

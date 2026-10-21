@@ -50,7 +50,8 @@ Route::get('/projekte/uebersicht/{state:slug}/{category:slug}', [ProjectControll
 Route::get('/projekte/{state:slug}/{project:slug}', [ProjectController::class, 'showByState'])->name('page.project.showByState');
 Route::get('/projekte/{state:slug}/{category:slug}/{project:slug}', [ProjectController::class, 'showByStateAndCategory'])->name('page.project.showByStateAndCategory');
 
-Route::get('/projekt/vorschau/{project}', [ProjectController::class, 'preview'])->name('page.project.preview');
+// Any project, for the admin (logged in)
+Route::get('/projekt/vorschau/{project}', [ProjectController::class, 'preview'])->middleware('auth')->name('page.project.preview');
 
 Route::get('/werkliste/jahr', [WorklistController::class, 'byYear'])->name('page.worklist.year');
 Route::get('/werkliste/{searchTerm?}', [WorklistController::class, 'index'])->name('page.worklist');

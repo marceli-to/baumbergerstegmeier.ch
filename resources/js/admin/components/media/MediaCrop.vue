@@ -39,7 +39,7 @@
 
         <div class="flex items-center justify-between px-24 pb-16">
           <span class="text-xs text-gray-400 tabular-nums dark:text-warm-500">
-            <template v-if="size.w">Neue Grösse: {{ size.w }} × {{ size.h }} px</template>
+            <template v-if="size.w">{{ size.w }} x {{ size.h }}px</template>
           </span>
           <div class="flex gap-12">
             <FormButton variant="secondary" @click="close">Abbrechen</FormButton>

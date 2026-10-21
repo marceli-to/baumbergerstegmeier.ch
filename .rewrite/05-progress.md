@@ -203,6 +203,33 @@ ported; this site's data layer stays (endpoints, `useListing`,
   that, every admin API response equals `snap-7` apart from `updated_at`.
   Temporary QA user deleted. `php artisan test`: 179 passed.
 
+### 2026-10-21 — old wording, users, project pages
+
+- **Wording:** the user wanted the old admin's labels back: titles and
+  buttons "… hinzufügen", "Publizieren?", "Detailseite?", "Im Menu
+  anzeigen?", "Mitarbeiter", "Projekt Landing «…»", "Projekt «…»" (teasers),
+  "CV hinzufügen", "Kategorien Mitarbeitende" / "Kategorien CV", "Logout",
+  "Alt", crop formats "Quer 3 x 2".
+- **Users** (System → Benutzer, after oxid's `ba47951`): list, create,
+  edit, delete of the admin logins (`UserController`, `UserStoreRequest`;
+  `GET users`, `GET|PUT|DELETE user/{user}`, `POST user`). Every new user
+  is an admin (`role`). Vorname, Name, E-Mail unique, password min. 8 and
+  confirmed; empty on update keeps the current one. `User` casts
+  `password` to `hashed`. One's own account can't be deleted (403 with a
+  message, shown as a toast). A new password logs the user out elsewhere
+  (Sanctum's AuthenticateSession); one's own session stays. The API's
+  messages show in place of the labels (`useResourceForm({ messages })`).
+  Logout moved into the menu under System, so everything fits at 900px.
+- **Project pages:** `/projekte/{state}/…/{project}` 404 unless the project
+  is published and has a detail page (`feature`), as the menu and
+  overviews only link those. The prev/next navigation is one `browse()`:
+  among the overview's projects with a page, wrapping; none when the
+  project is the only one (was a 500) or not in the overview. The category
+  version collected its ids twice. `/projekt/vorschau/{id}` was public and
+  showed any project: now behind `auth` (the admin's Vorschau link works
+  as before). All 59 detail pages answer 200. Tests:
+  `ProjectPageTest`, `UserApiTest`; 190 passed.
+
 ## SEO (2026-10-21)
 
 After oxid `d70cb04`.

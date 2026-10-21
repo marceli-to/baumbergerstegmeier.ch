@@ -26,7 +26,7 @@ import http from '@/lib/http';
 
 // The categories (of projects without a landing state) and the states with
 // a landing; each has its own landing page
-const labels = { category: 'Kategorien', state: 'Status' };
+const labels = { category: 'Projekt Kategorien', state: 'Projekt Status' };
 const columns = [
   { key: 'description', label: 'Bezeichnung', primary: true },
   { key: 'actions', label: '', class: 'w-100', align: 'right' },

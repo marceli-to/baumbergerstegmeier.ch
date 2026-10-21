@@ -6,7 +6,7 @@
     </div>
 
     <template #sidebar>
-      <FormField v-model="record.publish" name="publish" label="Publiziert" type="checkbox" />
+      <FormField v-model="record.publish" name="publish" label="Publizieren?" type="checkbox" />
     </template>
   </ResourceForm>
 </template>
@@ -32,6 +32,6 @@ const { record, errors, isEdit, isLoading, isFetched, title, submit } = useResou
     publish: 1,
   }),
   redirect: { name: 'job-articles' },
-  titles: { create: 'Neues Inserat', edit: 'Inserat bearbeiten' },
+  titles: { create: 'Inserat hinzufügen', edit: 'Inserat bearbeiten' },
 });
 </script>

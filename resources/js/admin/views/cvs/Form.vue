@@ -13,21 +13,21 @@
       </Tabs>
 
       <template #sidebar>
-        <FormField v-model="record.publish" name="publish" label="Publiziert" type="checkbox" />
+        <FormField v-model="record.publish" name="publish" label="Publizieren?" type="checkbox" />
         <div>
-          <FormField v-model="record.cv_category_id" name="cv_category_id" label="Kategorie" type="select" :options="toOptions(categories)" placeholder="Keine" />
+          <FormField v-model="record.cv_category_id" name="cv_category_id" label="Kategorie (optional)" type="select" :options="toOptions(categories)" placeholder="Keine" />
           <button type="button" class="mt-8 inline-flex cursor-pointer items-center gap-4 text-xs text-gray-500 transition-colors hover:text-gray-900 dark:text-warm-400 dark:hover:text-warm-100" @click="openCategory">
             <PhPlus :size="12" weight="light" />
-            Neue Kategorie
+            Kategorie erstellen
           </button>
         </div>
       </template>
     </ResourceForm>
 
     <!-- A new category right from the entry (outside the form: no nested forms) -->
-    <AppDialog :open="isCategoryOpen" title="Neue Kategorie" @close="isCategoryOpen = false">
+    <AppDialog :open="isCategoryOpen" title="Kategorie erstellen" @close="isCategoryOpen = false">
       <form id="cv-category-create" @submit.prevent="storeCategory">
-        <FormField v-model="category.description" name="description" label="Bezeichnung" :errors="categoryErrors" required />
+        <FormField v-model="category.description" name="description" label="Name" :errors="categoryErrors" required />
       </form>
       <template #footer>
         <div class="flex justify-end gap-12">
@@ -69,7 +69,7 @@ const categories = ref([]);
 // Not useResourceForm: the API reads an entry from GET /api/cvs/{id}
 // (GET /api/cv/{id} is an employee's list) but saves to /api/cv
 const isEdit = props.type === 'edit';
-const title = isEdit ? 'Eintrag bearbeiten' : 'Neuer Eintrag';
+const title = isEdit ? 'CV bearbeiten' : 'CV hinzufügen';
 const record = ref({
   periode: null,
   description: null,

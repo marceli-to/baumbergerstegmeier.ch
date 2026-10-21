@@ -5,7 +5,7 @@
     :listing="listing"
     :columns="columns"
     :routes="{ create: 'profile-create', edit: 'profile-edit' }"
-    :create-label="listing.isFetched && !listing.items.length ? 'Neues Profil' : null"
+    :create-label="listing.isFetched && !listing.items.length ? 'Profil hinzufügen' : null"
     :row-label="() => 'Profil'"
   />
 </template>

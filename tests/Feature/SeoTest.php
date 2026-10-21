@@ -95,7 +95,8 @@ class SeoTest extends TestCase
         $this->get('/kontakt')->assertSee('<meta name="robots" content="index, follow">', false);
         $this->get('/werkliste?searchTerm=haus')->assertSee('<meta name="robots" content="noindex, follow">', false);
         $id = DB::table('projects')->where('slug', 'haus-a')->value('id');
-        $this->get('/projekt/vorschau/' . $id)->assertSee('<meta name="robots" content="noindex, nofollow">', false);
+        $this->actingAs(\App\Models\User::forceCreate(['firstname' => 'A', 'name' => 'Admin', 'email' => 'admin@example.invalid', 'password' => 'x', 'role' => 'admin']))
+            ->get('/projekt/vorschau/' . $id)->assertSee('<meta name="robots" content="noindex, nofollow">', false);
     }
 
     public function test_project_has_one_canonical_url_and_a_plain_description(): void

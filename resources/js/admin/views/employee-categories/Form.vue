@@ -7,7 +7,7 @@
     </Tabs>
 
     <template #sidebar>
-      <FormField v-model="record.publish" name="publish" label="Publiziert" type="checkbox" />
+      <FormField v-model="record.publish" name="publish" label="Publizieren?" type="checkbox" />
     </template>
   </ResourceForm>
 </template>
@@ -40,6 +40,6 @@ const { record, errors, isEdit, isLoading, isFetched, title, submit } = useResou
     publish: 1,
   }),
   redirect: { name: 'employee-categories' },
-  titles: { create: 'Neue Kategorie', edit: 'Kategorie bearbeiten' },
+  titles: { create: 'Mitarbeiter-Kategorie hinzufügen', edit: 'Mitarbeiter-Kategorie bearbeiten' },
 });
 </script>

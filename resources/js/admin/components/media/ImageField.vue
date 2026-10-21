@@ -41,7 +41,7 @@
           <FormInput id="image_caption" v-model="item.caption" />
         </FormGroup>
         <FormGroup>
-          <FormLabel for="image_description">Alt-Text</FormLabel>
+          <FormLabel for="image_description">Alt</FormLabel>
           <FormInput id="image_description" v-model="item.description" />
         </FormGroup>
         <FormGroup>
@@ -105,7 +105,7 @@ const exclusiveKeys = ['cover', 'worklist'];
 const exclusive = props.flags.filter(flag => exclusiveKeys.includes(flag.key));
 
 const formats = [
-  ...props.ratios.map(({ label, w, h }) => ({ label: `${label} ${w}:${h}`, ratio: w / h })),
+  ...props.ratios.map(({ label, w, h }) => ({ label: `${label} ${w} x ${h}`, ratio: w / h })),
   ...(props.freeCrop ? [{ label: 'Frei', ratio: null }] : []),
 ];
 

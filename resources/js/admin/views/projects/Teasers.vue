@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PageHeader :title="project ? `Teaser «${[project.title, project.location].filter(Boolean).join(', ')}»` : 'Teaser'" />
+    <PageHeader :title="project ? `Projekt «${[project.title, project.location].filter(Boolean).join(', ')}»` : 'Teaser'" />
     <FormActions>
       <FormButton variant="secondary" @click="router.push({ name: 'projects' })">Zurück</FormButton>
     </FormActions>

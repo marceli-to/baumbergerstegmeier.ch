@@ -4,7 +4,7 @@
     :listing="listing"
     :columns="columns"
     :routes="{ create: 'cv-category-create', edit: 'cv-category-edit' }"
-    create-label="Neue Kategorie"
+    create-label="CV-Kategorie hinzufügen"
     :order="order"
     :row-label="row => row.description"
   />

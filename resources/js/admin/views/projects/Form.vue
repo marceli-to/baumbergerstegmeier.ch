@@ -51,9 +51,9 @@
 
     <template #sidebar>
       <div class="flex flex-col gap-12">
-        <FormField v-model="record.publish" name="publish" label="Publiziert" type="checkbox" />
-        <FormField v-model="record.feature" name="feature" label="Detailseite" type="checkbox" />
-        <FormField v-model="record.landing" name="landing" label="Startseite" type="checkbox" />
+        <FormField v-model="record.publish" name="publish" label="Publizieren?" type="checkbox" />
+        <FormField v-model="record.feature" name="feature" label="Detailseite?" type="checkbox" />
+        <FormField v-model="record.landing" name="landing" label="Startseite?" type="checkbox" />
       </div>
       <!-- A project can have several categories and states -->
       <div v-for="group in groups" :key="group.key">
@@ -150,7 +150,7 @@ const { record, errors, isEdit, isLoading, isFetched, title, submit, clearError 
     images: [],
   }),
   redirect: { name: 'projects' },
-  titles: { create: 'Neues Projekt', edit: 'Projekt bearbeiten' },
+  titles: { create: 'Projekt hinzufügen', edit: 'Projekt bearbeiten' },
   load,
   loaded: data => {
     categories.value = data.categories;

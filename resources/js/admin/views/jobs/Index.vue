@@ -5,7 +5,7 @@
     :listing="listing"
     :columns="columns"
     :routes="{ create: 'job-create', edit: 'job-edit' }"
-    :create-label="listing.isFetched && !listing.items.length ? 'Neue Job-Seite' : null"
+    :create-label="listing.isFetched && !listing.items.length ? 'Job-Seite hinzufügen' : null"
     :row-label="() => 'Job-Seite'"
   />
 </template>

@@ -68,6 +68,11 @@ const routes = [
   { name: 'contact-create', path: '/administration/contact/create', component: () => import('@/views/contact/Form.vue'), props: create },
   { name: 'contact-edit', path: '/administration/contact/edit/:id', component: () => import('@/views/contact/Form.vue'), props: edit },
 
+  // Users (admin logins)
+  { name: 'users', path: '/administration/user/index', component: () => import('@/views/users/Index.vue') },
+  { name: 'user-create', path: '/administration/user/create', component: () => import('@/views/users/Form.vue'), props: create },
+  { name: 'user-edit', path: '/administration/user/edit/:id', component: () => import('@/views/users/Form.vue'), props: edit },
+
   { path: '/administration/:any(.*)', redirect: { name: 'projects' } },
 ];
 

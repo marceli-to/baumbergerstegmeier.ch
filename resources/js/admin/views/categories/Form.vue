@@ -3,7 +3,7 @@
     <FormField v-model="record.description" name="description" label="Bezeichnung" :errors="errors" required />
 
     <template #sidebar>
-      <FormField v-model="record.publish" name="publish" label="Publiziert" type="checkbox" />
+      <FormField v-model="record.publish" name="publish" label="Publizieren?" type="checkbox" />
     </template>
   </ResourceForm>
 </template>
@@ -28,6 +28,6 @@ const { record, errors, isEdit, isLoading, isFetched, title, submit } = useResou
     publish: 1,
   }),
   redirect: { name: 'categories' },
-  titles: { create: 'Neue Projekt-Kategorie', edit: 'Projekt-Kategorie bearbeiten' },
+  titles: { create: 'Projekt-Kategorie hinzufügen', edit: 'Projekt-Kategorie bearbeiten' },
 });
 </script>

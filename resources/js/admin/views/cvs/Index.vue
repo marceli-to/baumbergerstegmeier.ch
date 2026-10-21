@@ -10,7 +10,7 @@
   >
     <template #actions>
       <FormButton variant="secondary" @click="router.push({ name: 'employees' })">Zurück</FormButton>
-      <FormButton @click="router.push({ name: 'cv-create', params: { employeeId: route.params.id } })">Neuer Eintrag</FormButton>
+      <FormButton @click="router.push({ name: 'cv-create', params: { employeeId: route.params.id } })">CV hinzufügen</FormButton>
     </template>
   </ResourceIndex>
 </template>

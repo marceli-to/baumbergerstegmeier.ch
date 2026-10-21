@@ -71,12 +71,13 @@ class ProjectController extends BaseController
    */
   public function showByState($state, Project $project)
   {
+    $this->ensureDetailPage($project);
     return view($this->viewPath . 'show', [
       'project' => Project::with('coverImage')->find($project->id),
       'teasers' => $this->getTeasers($project),
       'state' => State::where('slug', $state)->first(),
       'has_category' => false,
-      'browse' => $this->getBrowseByState($project->id, $state),
+      'browse' => $this->getBrowseByState($project, $state),
     ]);
   }
 
@@ -90,13 +91,14 @@ class ProjectController extends BaseController
    */
   public function showByStateAndCategory($state, $category, Project $project)
   {
+    $this->ensureDetailPage($project);
     return view($this->viewPath . 'show', [
       'project' => Project::with('coverImage')->find($project->id),
       'teasers' => $this->getTeasers($project),
       'category' => Category::where('slug', $category)->first(),
       'has_category' => true,
       'state' => State::where('slug', $state)->first(),
-      'browse' => $this->getBrowseByStateAndCategory($project->id, $state, $category),
+      'browse' => $this->getBrowseByStateAndCategory($project, $state, $category),
     ]);
   }
 
@@ -119,6 +121,18 @@ class ProjectController extends BaseController
     ]);
   }
 
+  /**
+   * Only published projects with a detail page have a public page; the
+   * admin's preview (/projekt/vorschau) shows any
+   *
+   * @param Project $project
+   * @return void
+   */
+  private function ensureDetailPage(Project $project)
+  {
+    abort_unless($project->publish == 1 && $project->feature == 1, 404);
+  }
+
   private function getTeasers(Project $project)
   {
     $items = Teaser::projects()
@@ -130,142 +144,71 @@ class ProjectController extends BaseController
   }
 
   /**
-   * Get project browse navigatino for state only
-   * 
-   * @param Integer $projectId
-   * @param String $stateSlug
-   * @return Array $items
+   * Prev/next navigation within a state's overview
+   *
+   * @param Project $project
+   * @param String $state
+   * @return Array
    */
-  
-  private function getBrowseByState($projectId = NULL, $state = NULL)
+  private function getBrowseByState(Project $project, $state)
   {
-    // Get state
-    $state = State::where('slug', $state)->first();
+    $state = State::where('slug', $state)->firstOrFail();
+    $items = ProjectLanding::where('state_id', $state->id)->orderBy('position')->orderBy('column')->get();
 
-    // Get Landing projects for this state, order the by position and column
-    $projectsByState = ProjectLanding::where('state_id', $state->id)->orderBy('position')->orderBy('column')->get();
-
-    $browseProjects = [
-      'id' => $state->id,
-      'state' => $state,
-      'hasCategories' => false,
-      'projects' => $projectsByState,
-    ];
-
-    $keys  = [];
-    $items = [];
-
-    foreach($browseProjects['projects'] as $p)
-    {
-      $keys[] = $p->project_id;
-    }
-
-    // Get current key
-    $key = array_search($projectId, $keys);
-
-    if ($key == 0)
-    {
-      $prevId = end($keys);
-      $nextId = isset($keys[$key+1]) ? $keys[$key+1] : NULL;
-    }
-    else if ($key == count($keys) - 1)
-    {
-      $prevId = $keys[$key-1];
-      $nextId = $keys[0];
-    }
-    else
-    {
-      $prevId = $keys[$key-1];
-      $nextId = $keys[$key+1];
-    }
-
-    // Get prev and next item by category, state and project
-    $items = [
-      'prev' => [
-        'project' => Project::find($prevId),
-        'route' => route('page.project.showByState', ['state' => $state->slug, 'project' => Project::find($prevId)->slug])
-      ],
-      'next' => [
-        'project' => Project::find($nextId),
-        'route' => route('page.project.showByState', ['state' => $state->slug, 'project' => Project::find($nextId)->slug])
-      ],
-    ];
-
-    return $items;
+    return $this->browse($items, $project, fn (Project $other) => route('page.project.showByState', [
+      'state' => $state->slug,
+      'project' => $other->slug,
+    ]));
   }
 
   /**
-   * Get project browse navigation for state and category
-   * 
-   * @param Integer $projectId
-   * @param String $stateSlug
-   * @param String $categorySlug
-   * @return Array $items
+   * Prev/next navigation within a category's overview
+   *
+   * @param Project $project
+   * @param String $state
+   * @param String $category
+   * @return Array
    */
-
-  private function getBrowseByStateAndCategory($projectId = NULL, $state = NULL, $category = NULL)
+  private function getBrowseByStateAndCategory(Project $project, $state, $category)
   {
-    // Get state
-    $state = State::where('slug', $state)->first();
+    $state = State::where('slug', $state)->firstOrFail();
+    $category = Category::where('slug', $category)->firstOrFail();
+    $items = ProjectLanding::where('category_id', $category->id)->orderBy('position')->orderBy('column')->get();
 
-    // Get category
-    $category = Category::where('slug', $category)->first();
+    return $this->browse($items, $project, fn (Project $other) => route('page.project.showByStateAndCategory', [
+      'state' => $state->slug,
+      'category' => $category->slug,
+      'project' => $other->slug,
+    ]));
+  }
 
-    $projectsByStateAndCategory = ProjectLanding::where('category_id', $category->id)->orderBy('position')->orderBy('column')->get();
+  /**
+   * The projects before and after this one in an overview's order (wrapping
+   * around), among those with a detail page. Empty when the project isn't in
+   * the overview or is the only one there.
+   *
+   * @param \Illuminate\Support\Collection $items landing items
+   * @param Project $project
+   * @param \Closure $route (Project) => url
+   * @return Array
+   */
+  private function browse($items, Project $project, \Closure $route): Array
+  {
+    $projects = Project::featured()->whereIn('id', $items->pluck('project_id'))->get()->keyBy('id');
+    $ids = $items->pluck('project_id')->unique()->filter(fn ($id) => $projects->has($id))->values();
 
-    $browseProjects = [
-      'id' => $state->id,
-      'state' => $state,
-      'hasCategories' => true,
-      'projects' => $projectsByStateAndCategory,
-    ];
-
-    $keys  = [];
-    $items = [];
-
-    foreach($browseProjects['projects'] as $p)
-    {
-      $keys[] = $p->project_id;
+    $key = $ids->search($project->id);
+    if ($key === false || $ids->count() < 2) {
+      return [];
     }
 
-      foreach($browseProjects['projects'] as $p)
-      {
-        $keys[] = $p->project_id;
-      }
-  
-      // Get current key
-      $key = array_search($projectId, $keys);
-  
-      if ($key == 0)
-      {
-        $prevId = end($keys);
-        $nextId = isset($keys[$key+1]) ? $keys[$key+1] : NULL;
-      }
-      else if ($key == count($keys) - 1)
-      {
-        $prevId = $keys[$key-1];
-        $nextId = $keys[0];
-      }
-      else
-      {
-        $prevId = $keys[$key-1];
-        $nextId = $keys[$key+1];
-      }
+    $prev = $projects[$ids[($key - 1 + $ids->count()) % $ids->count()]];
+    $next = $projects[$ids[($key + 1) % $ids->count()]];
 
-
-      // Get prev and next item by category, state and project
-      $items = [
-        'prev' => [
-          'project' => Project::find($prevId),
-          'route' => route('page.project.showByStateAndCategory', ['state' => $state->slug, 'category' => $category, 'project' => Project::find($prevId)->slug])
-        ],
-        'next' => [
-          'project' => Project::find($nextId),
-          'route' => route('page.project.showByStateAndCategory', ['state' => $state->slug, 'category' => $category, 'project' => Project::find($nextId)->slug])
-        ],
-      ];
-      return $items;
-    
+    return [
+      'prev' => ['project' => $prev, 'route' => $route($prev)],
+      'next' => ['project' => $next, 'route' => $route($next)],
+    ];
   }
 
   /**
