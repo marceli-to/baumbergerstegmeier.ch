@@ -77,9 +77,8 @@ const navigation = [
   {
     title: 'Team',
     items: [
-      { name: 'Mitarbeitende', route: 'employees', match: /^(employees|employee-(create|edit)|cvs|cv-(create|edit))$/, icon: PhUsers },
+      { name: 'Mitarbeitende', route: 'employees', match: /^(employees|employee-(create|edit)|employee-categor.*|cvs|cv-(create|edit))$/, icon: PhUsers },
       { name: 'Teams', route: 'teams', match: /^teams?(-|$)/, icon: PhUsersThree },
-      { name: 'Kategorien Mitarbeitende', route: 'employee-categories', match: /^employee-categor/, icon: PhTag },
       { name: 'Kategorien CV', route: 'cv-categories', match: /^cv-categor/, icon: PhTag },
     ],
   },

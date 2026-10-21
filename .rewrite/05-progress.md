@@ -230,6 +230,12 @@ ported; this site's data layer stays (endpoints, `useListing`,
   as before). All 59 detail pages answer 200. Tests:
   `ProjectPageTest`, `UserApiTest`; 190 passed.
 
+- **Positions** (employee categories) are out of the menu (2026-10-21):
+  only ids 1–3 exist for the employee list and the team page, so they
+  can't be created; renaming one is rare. The page stays reachable at
+  `/administration/team/employeeCategory/index` (Mitarbeitende is active
+  there).
+
 ## SEO (2026-10-21)
 
 After oxid `d70cb04`.
