@@ -97,6 +97,12 @@ html.has-lightbox {
   padding: 0;
   position: absolute;
   z-index: 1;
+
+  // No hover state (the global button:hover darkens), as fancyBox had it
+  &:hover,
+  &:focus {
+    background-color: transparent;
+  }
 }
 
 .lightbox__close {
