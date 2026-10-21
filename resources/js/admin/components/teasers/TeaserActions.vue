@@ -1,7 +1,7 @@
 <template>
-  <!-- Publish and remove: a bar sliding down from the top on hover (as MediaCard) -->
-  <div class="absolute inset-x-8 top-8 z-10 -translate-y-[calc(100%+8px)] overflow-hidden rounded-md transition-transform duration-150 group-focus-within:translate-y-0 group-hover:translate-y-0">
-    <div class="flex items-center justify-around bg-black/80 px-10 py-8">
+  <!-- Publish and remove: a small bar top right, sliding down on hover -->
+  <div class="absolute top-8 right-8 z-10 -translate-y-[calc(100%+8px)] overflow-hidden rounded-md transition-transform duration-150 group-focus-within:translate-y-0 group-hover:translate-y-0">
+    <div class="flex items-center gap-14 bg-black/80 px-12 py-8">
       <button type="button" class="cursor-pointer text-white/70 hover:text-white" :title="hidden ? 'Veröffentlichen' : 'Verbergen'" @click.stop="emit('toggle', item)">
         <PhEyeSlash v-if="hidden" :size="15" weight="light" />
         <PhEye v-else :size="15" weight="light" />
