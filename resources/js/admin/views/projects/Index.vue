@@ -11,7 +11,14 @@
     search-placeholder="Titel, Ort oder Jahr"
   >
     <template #cell-feature="{ row }">
-      <Badge v-if="Number(row.feature) === 1">Detailseite</Badge>
+      <span
+        v-if="Number(row.feature) === 1"
+        class="inline-flex size-20 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/60 dark:text-emerald-300"
+        title="Hat eine Detailseite"
+      >
+        <PhCheck :size="12" weight="bold" />
+        <span class="sr-only">Detailseite</span>
+      </span>
       <!-- an empty slot would show the fallback (the raw 0) -->
       <span v-else />
     </template>
@@ -38,9 +45,8 @@
 </template>
 <script setup>
 import { reactive } from 'vue';
-import { PhArrowSquareOut, PhSquaresFour } from '@phosphor-icons/vue';
+import { PhArrowSquareOut, PhSquaresFour, PhCheck } from '@phosphor-icons/vue';
 import ResourceIndex from '@/components/resource/ResourceIndex.vue';
-import Badge from '@/components/ui/badge/Badge.vue';
 import { useListing } from '@/composables/useListing';
 import { useOrder } from '@/composables/useOrder';
 
