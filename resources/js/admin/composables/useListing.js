@@ -10,8 +10,11 @@ import { confirmDelete } from '@/lib/utils';
  * resource  resource path below /api, e.g. 'article'
  *           (toggle: GET /api/{resource}/state/{id},
  *            delete: DELETE /api/{resource}/{id})
+ * toggle    the toggle path below /api/{resource}, default 'state'
+ *           (projects: 'toggle')
+ * transform (response data) => items; default: data.data
  */
-export function useListing({ list, resource, isLoading = ref(false) }) {
+export function useListing({ list, resource, isLoading = ref(false), toggle: togglePath = 'state', transform = data => data.data }) {
   const items = ref([]);
   const isFetched = ref(false);
 
@@ -19,7 +22,7 @@ export function useListing({ list, resource, isLoading = ref(false) }) {
     isLoading.value = true;
     try {
       const { data } = await http.get(list);
-      items.value = data.data;
+      items.value = transform(data);
       isFetched.value = true;
     }
     catch {
@@ -33,7 +36,7 @@ export function useListing({ list, resource, isLoading = ref(false) }) {
   async function toggle(id) {
     isLoading.value = true;
     try {
-      const { data } = await http.get(`/api/${resource}/state/${id}`);
+      const { data } = await http.get(`/api/${resource}/${togglePath}/${id}`);
       items.value.find(item => item.id === id).publish = data;
       notify({ type: 'success', text: 'Status geändert' });
     }
@@ -45,8 +48,9 @@ export function useListing({ list, resource, isLoading = ref(false) }) {
     }
   }
 
-  async function destroy(id) {
-    if (!await confirmDelete()) {
+  // label: the entry's name in the confirm dialog
+  async function destroy(id, label = null) {
+    if (!await confirmDelete('Eintrag löschen', label ? { text: `«${label}» wirklich löschen?` } : {})) {
       return;
     }
     isLoading.value = true;

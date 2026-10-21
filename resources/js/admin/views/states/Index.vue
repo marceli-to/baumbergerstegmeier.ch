@@ -1,33 +1,34 @@
 <template>
-  <div>
-    <LoadingIndicator v-if="isLoading" />
-    <template v-if="listing.isFetched">
-      <ContentHeader>
-        <h1>Projekt-Status</h1>
-        <AddButton :to="{ name: 'state-create' }" />
-      </ContentHeader>
-      <SortableList v-model="listing.items" class="listing" @end="order" v-if="listing.items.length">
-        <div v-for="item in listing.items" :key="item.id" :class="['listing__item is-draggable', { 'is-disabled': item.publish == 0 }]">
-          <div class="listing__item-body">{{ item.description }}</div>
-          <ListActions :record="item" edit-route="state-edit" @toggle="listing.toggle" @destroy="listing.destroy" />
-        </div>
-      </SortableList>
-      <p class="no-records" v-else>Es sind noch keine Daten vorhanden...</p>
+  <ResourceIndex
+    title="Projekt-Status"
+    :listing="listing"
+    :columns="columns"
+    :routes="{ create: 'state-create', edit: 'state-edit' }"
+    create-label="Neuer Status"
+    :order="order"
+    :row-label="row => row.description"
+  >
+    <template #cell-flags="{ row }">
+      <div class="flex gap-6">
+        <Badge v-if="Number(row.show_in_menu) === 1">Im Menü</Badge>
+        <Badge v-if="Number(row.has_landing) === 1">Übersichtsseite</Badge>
+      </div>
     </template>
-  </div>
+  </ResourceIndex>
 </template>
 <script setup>
-import { ref, reactive } from 'vue';
-import LoadingIndicator from '@/components/ui/LoadingIndicator.vue';
-import ContentHeader from '@/components/ui/ContentHeader.vue';
-import AddButton from '@/components/ui/AddButton.vue';
-import ListActions from '@/components/ui/ListActions.vue';
-import SortableList from '@/components/ui/SortableList.vue';
+import { reactive } from 'vue';
+import ResourceIndex from '@/components/resource/ResourceIndex.vue';
+import Badge from '@/components/ui/badge/Badge.vue';
 import { useListing } from '@/composables/useListing';
 import { useOrder } from '@/composables/useOrder';
 
+const columns = [
+  { key: 'description', label: 'Bezeichnung', primary: true },
+  { key: 'flags', label: 'Optionen', class: 'w-240' },
+];
+
 // Toggle: GET /api/project/state/state/{id} (resource + '/state/')
-const isLoading = ref(false);
-const listing = reactive(useListing({ list: '/api/project/states', resource: 'project/state', isLoading }));
+const listing = reactive(useListing({ list: '/api/project/states', resource: 'project/state' }));
 const order = useOrder({ url: '/api/project/state/order', key: 'states' });
 </script>

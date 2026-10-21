@@ -158,6 +158,51 @@ differs on every run; leave it out of the diff.
   admin always sends them).
 - Bundle: the editor chunk is 415 KB (130 gzip), loaded only by forms.
 
+### 2026-10-21 — admin UI from oxid
+
+The user wanted oxid's admin theme (oxid.ch, `rework/laravel-13-vue-3`,
+`445566c` and `7d89265` there: strut.ch's admin UI). Its UI layer is
+ported; this site's data layer stays (endpoints, `useListing`,
+`useResourceForm`, `useOrder`, `useImages`, the teaser order payload).
+
+- **Tailwind 4** (`@tailwindcss/vite`), entry `resources/css/admin.css`
+  with oxid's `spacing.css` (p-24 = 24px), Google Sans, Tailwind grays,
+  the warm palette for dark mode (follows the OS). Scans only
+  `resources/js/admin` and the login Blade files. `resources/sass/admin`,
+  the old admin components, the ES Klarheit admin fonts and icons
+  (`public/assets/css/cms`, `public/assets/img/cms`) are gone;
+  `sortablejs` out, `vuedraggable` in (as oxid).
+- **Shell:** grey sidebar (groups Startseite / Projekte / Team / Büro,
+  light 18px icons, Abmelden at the bottom; the user's name is its title),
+  white rounded panel, actions fixed top right, toasts, `<dialog>` confirm.
+  Compact items so all 17 fit at 900px height.
+- **Lists:** `ResourceIndex`/`DataTable` (drag ordering, groups, floating
+  search kept per list in sessionStorage, publish eye, edit, delete with
+  the entry's name). `DataTable` got `draggableGroup`: employees drag only
+  within Geschäftsleitung; `ResourceIndex` calls `order(rows, all)` so the
+  CV list still saves every row in one request.
+- **Forms:** `ResourceForm` with uppercase tabs (red on errors), fields
+  whose error replaces the label, flags as checkboxes in the right-hand
+  aside (the "Einstellungen" tabs are gone). Project: Kategorie/Status as
+  checkbox groups in the aside, Vorschau and Teaser in the header.
+- **Images/files:** `ImageField`/`FileField` — upload zone, cards with a
+  hover action bar, edit drawer (Legende, Alt-Text, Credits, flags; Cover
+  and Werkliste still go through their own endpoint), crop dialog with the
+  format buttons (an image without coords starts with the full box, was
+  425 × 510 at 0,0). Everything is saved right away, as before.
+- **Teasers:** three columns of cards (vuedraggable within a column, the
+  `{items: [{id, position}]}` order), pickers in drawers.
+- **Login and password screens** (Blade, `layout/auth.blade.php`): oxid's
+  split screen, the random project cover on the left, the error in place
+  of the label. Error pages keep `layout/guest`.
+- Ported by three agents in parallel against `views/awards` as the
+  reference, then checked: tour of every list, edit form, tab and create
+  form on the build (no console errors, no 4xx/5xx), light and dark.
+  One agent deleted a real teaser (project 124, image 980) by mistake and
+  re-created it; restored to id 1195 with the snapshot's values. After
+  that, every admin API response equals `snap-7` apart from `updated_at`.
+  Temporary QA user deleted. `php artisan test`: 179 passed.
+
 ## SEO (2026-10-21)
 
 After oxid `d70cb04`.

@@ -1,82 +1,45 @@
 <template>
-  <div>
-    <LoadingIndicator v-if="isLoading" />
-    <form @submit.prevent="submit" v-if="isFetched">
-      <ContentHeader>
-        <h1>{{ title }}</h1>
-      </ContentHeader>
-      <Tabs :tabs="tabs" v-model="tab" :errors="Object.keys(errors).length ? ['data'] : []" />
-      <div v-show="tab === 'data'">
-        <div :class="['form-row', { 'has-error': errors.firstname }]">
-          <label>Vorname</label>
-          <input type="text" v-model="record.firstname" @focus="clearError('firstname')">
-          <LabelRequired />
-        </div>
-        <div :class="['form-row', { 'has-error': errors.name }]">
-          <label>Name</label>
-          <input type="text" v-model="record.name" @focus="clearError('name')">
-          <LabelRequired />
-        </div>
-        <div class="form-row">
-          <label>Titel</label>
-          <input type="text" v-model="record.title">
-        </div>
-        <div class="form-row">
-          <label>E-Mail</label>
-          <input type="text" v-model="record.email">
-        </div>
-        <div class="form-row">
-          <label>Telefon</label>
-          <input type="text" v-model="record.phone">
-        </div>
-        <div :class="['form-row', { 'has-error': errors.team_id }]">
-          <label>Team</label>
-          <div class="select-wrapper">
-            <select v-model="record.team_id" @focus="clearError('team_id')">
-              <option :value="null">Bitte wählen...</option>
-              <option v-for="team in teams" :key="team.id" :value="team.id">{{ team.name }}</option>
-            </select>
+  <ResourceForm :title="title" :is-edit="isEdit" :loading="!isFetched" :busy="isLoading" @submit="submit" @cancel="router.push({ name: 'employees' })">
+    <Tabs v-model="tab" :tabs="tabs" :errors="Object.keys(errors).length ? ['data'] : []">
+      <Tab name="data">
+        <div class="grid grid-cols-2 gap-24">
+          <FormField v-model="record.firstname" name="firstname" label="Vorname" :errors="errors" required />
+          <FormField v-model="record.name" name="name" label="Name" :errors="errors" required />
+          <div class="col-span-2">
+            <FormField v-model="record.title" name="title" label="Titel" :errors="errors" />
           </div>
-          <LabelRequired />
+          <FormField v-model="record.email" name="email" label="E-Mail" :errors="errors" />
+          <FormField v-model="record.phone" name="phone" label="Telefon" :errors="errors" />
         </div>
-        <div :class="['form-row', { 'has-error': errors.employee_category_id }]">
-          <label>Position</label>
-          <div class="select-wrapper">
-            <select v-model="record.employee_category_id" @focus="clearError('employee_category_id')">
-              <option :value="null">Bitte wählen...</option>
-              <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
-            </select>
-          </div>
-          <LabelRequired />
-        </div>
-      </div>
-      <div v-show="tab === 'settings'">
-        <div class="form-row">
-          <Toggle label="Publizieren?" name="publish" v-model="record.publish" />
-        </div>
-      </div>
-      <ContentFooter :back="{ name: 'employees' }" submit />
-    </form>
-  </div>
+      </Tab>
+    </Tabs>
+
+    <template #sidebar>
+      <FormField v-model="record.publish" name="publish" label="Publiziert" type="checkbox" />
+      <FormField v-model="record.team_id" name="team_id" label="Team" type="select" :options="toOptions(teams, 'name')" placeholder="Bitte wählen" :errors="errors" required />
+      <FormField v-model="record.employee_category_id" name="employee_category_id" label="Position" type="select" :options="toOptions(categories, 'name')" placeholder="Bitte wählen" :errors="errors" required />
+    </template>
+  </ResourceForm>
 </template>
 <script setup>
 import { ref } from 'vue';
-import LoadingIndicator from '@/components/ui/LoadingIndicator.vue';
-import ContentHeader from '@/components/ui/ContentHeader.vue';
-import ContentFooter from '@/components/ui/ContentFooter.vue';
-import Tabs from '@/components/ui/Tabs.vue';
-import LabelRequired from '@/components/ui/LabelRequired.vue';
-import Toggle from '@/components/ui/Toggle.vue';
+import { useRouter } from 'vue-router';
+import ResourceForm from '@/components/resource/ResourceForm.vue';
+import FormField from '@/components/ui/form/FormField.vue';
+import Tabs from '@/components/ui/tabs/Tabs.vue';
+import Tab from '@/components/ui/tabs/Tab.vue';
 import http from '@/lib/http';
+import { toOptions } from '@/lib/utils';
 import { useResourceForm } from '@/composables/useResourceForm';
 
 const props = defineProps({
   type: { type: String, required: true },
 });
 
+const router = useRouter();
+
 const tabs = [
   { key: 'data', label: 'Daten' },
-  { key: 'settings', label: 'Einstellungen' },
 ];
 const tab = ref('data');
 
@@ -90,7 +53,7 @@ const options = [
   async () => categories.value = (await http.get('/api/employee/categories')).data.data,
 ];
 
-const { record, errors, isLoading, isFetched, title, submit, clearError } = useResourceForm({
+const { record, errors, isEdit, isLoading, isFetched, title, submit } = useResourceForm({
   type: props.type,
   endpoint: 'employee',
   key: 'employee',
@@ -105,7 +68,7 @@ const { record, errors, isLoading, isFetched, title, submit, clearError } = useR
     publish: 1,
   }),
   redirect: { name: 'employees' },
-  titles: { create: 'Mitarbeiter hinzufügen', edit: 'Mitarbeiter bearbeiten' },
+  titles: { create: 'Neue Person', edit: 'Person bearbeiten' },
   load: props.type === 'create' ? options : [],
   loaded: data => {
     teams.value = data.teams;

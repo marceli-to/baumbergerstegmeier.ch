@@ -4,15 +4,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a Laravel 11 application for Baumberg & Stegmeier architecture firm, featuring a public website with project portfolio and a CMS backend. The application uses PHP 8.2+ with a Vue.js 2.x frontend for the CMS interface.
+This is a Laravel 13 application for Baumberger Stegmeier Architektur, featuring a public website with project portfolio and a CMS backend. The admin is a Vue 3 SPA built with Vite and styled with Tailwind 4 (the UI of the sister project oxid.ch). The 2026 rework is logged in `.rewrite/` (`05-progress.md`, deploy notes in `08-deploy.md`).
 
 ## Development Commands
 
 ### Frontend Build Commands
-- `npm run dev` - Development build using Laravel Mix
-- `npm run watch` - Watch files for changes and rebuild
-- `npm run hot` - Hot module replacement for development
-- `npm run prod` - Production build with optimization
+- `npm run dev` - Vite dev server (writes `public/hot`; remove it if the server dies)
+- `npm run build` - Production build into `public/build` (committed: build and commit the output with the change)
 
 ### PHP/Laravel Commands
 - `php artisan serve` - Start local development server
@@ -31,18 +29,15 @@ This is a Laravel 11 application for Baumberg & Stegmeier architecture firm, fea
 ### Frontend Structure
 The application has two distinct frontend builds:
 - **Web frontend** (`resources/js/web/`, `resources/sass/web/`) - Public website
-- **CMS frontend** (`resources/js/cms/`, `resources/sass/cms/`) - Admin interface using Vue.js 2.x
+- **Admin** (`resources/js/admin/`, `resources/css/admin.css`) - Vue 3 SPA under `/administration`; the login and password screens are Blade (`resources/views/auth`, `layout/auth.blade.php`) on the same Tailwind CSS
 
-The CMS uses Vue.js with:
-- Vue Router for navigation
-- Vuex for state management
-- Vue components for UI (TinyMCE editor, image cropping, drag & drop)
+The admin uses vue-router 4, Tiptap (editor), vue-advanced-cropper, vuedraggable and Phosphor icons. Lists are `components/resource/ResourceIndex.vue`, forms `ResourceForm.vue` with `components/ui/form/FormField.vue`, images `components/media/ImageField.vue`; the data layer is in `composables/` (`useListing`, `useResourceForm`, `useOrder`, `useImages`). Tailwind uses a pixel spacing scale (`resources/css/spacing.css`: `p-24` = 24px) and `dark:` variants with the `warm-*` palette.
 
 ### Backend Structure
 - **Controllers**: Standard Laravel structure with separate auth controllers
 - **Models**: Located in `app/Models/`
-- **Custom packages**: Uses `marceli-to/image-cache` and `marceli-to/wiretap` packages
-- **Image processing**: Custom image filters in `app/Filters/Image/Template/`
+- **Images**: served through Glide (`ImageController`, `<x-image>`, `config/images.php`)
+- **SEO**: `App\Support\Seo`, `SeoController` (`/sitemap.xml`, `/llms.txt`), `php artisan seo:robots` writes `public/robots.txt` per environment
 - **Mail**: Email templates in `app/Mail/`
 
 ### Key Features

@@ -1,0 +1,1 @@
+<button type="submit" class="inline-flex cursor-pointer items-center justify-center gap-8 rounded-md bg-gray-900 px-16 py-8 text-sm text-white transition-colors hover:bg-gray-800 focus-visible:ring-2 focus-visible:ring-gray-200 focus-visible:outline-none dark:bg-warm-100 dark:text-warm-900 dark:hover:bg-warm-200 dark:focus-visible:ring-warm-700">{{ $slot }}</button>

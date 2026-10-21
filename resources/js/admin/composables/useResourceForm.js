@@ -17,8 +17,11 @@ import http, { validationErrors } from '@/lib/http';
  * titles    { create, edit }
  * load      extra requests (() => Promise) the form waits for
  * loaded    (data) => void, with the whole GET response
+ * validate  (record) => { field: true } for checks the API doesn't do
+ * messages  show the API's validation messages instead of marking the
+ *           fields only
  */
-export function useResourceForm({ type, endpoint, key = null, model, redirect, titles, load = [], loaded = () => {} }) {
+export function useResourceForm({ type, endpoint, key = null, model, redirect, titles, load = [], loaded = () => {}, validate = () => ({}), messages = false }) {
   const route = useRoute();
   const router = useRouter();
 
@@ -56,6 +59,14 @@ export function useResourceForm({ type, endpoint, key = null, model, redirect, t
   }
 
   async function submit() {
+    const invalid = validate(record.value);
+    if (Object.keys(invalid).length) {
+      errors.value = invalid;
+      notify({ type: 'error', text: 'Bitte markierte Felder prüfen!' });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
     isLoading.value = true;
     try {
       if (isEdit) {
@@ -69,7 +80,7 @@ export function useResourceForm({ type, endpoint, key = null, model, redirect, t
       notify({ type: 'success', text: isEdit ? 'Änderungen gespeichert!' : 'Daten erfasst!' });
     }
     catch (error) {
-      errors.value = validationErrors(error) ?? errors.value;
+      errors.value = validationErrors(error, { messages }) ?? errors.value;
     }
     finally {
       isLoading.value = false;

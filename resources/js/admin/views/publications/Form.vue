@@ -1,78 +1,64 @@
 <template>
-  <div>
-    <LoadingIndicator v-if="isLoading" />
-    <form @submit.prevent="submit" v-if="isFetched">
-      <ContentHeader>
-        <h1>{{ title }}</h1>
-      </ContentHeader>
-      <Tabs :tabs="tabs" v-model="tab" :errors="Object.keys(errors).length ? ['data'] : []" />
-      <div v-show="tab === 'data'">
-        <div :class="['form-row', { 'has-error': errors.year }]">
-          <label>Jahr</label>
-          <input type="text" v-model="record.year" maxlength="4" @focus="clearError('year')">
-          <LabelRequired />
-        </div>
-        <div :class="['form-row', { 'has-error': errors.title }]">
-          <label>Titel</label>
-          <textarea v-model="record.title" @focus="clearError('title')"></textarea>
-          <LabelRequired />
-        </div>
-        <div class="form-row">
-          <label>Subtitel</label>
-          <input type="text" v-model="record.subtitle">
-        </div>
-        <div class="form-row">
-          <label>Beschreibung</label>
-          <textarea v-model="record.description"></textarea>
-        </div>
-        <div class="form-row">
-          <div class="flex justify-between">
-            <label>Link</label>
+  <ResourceForm :title="title" :is-edit="isEdit" :loading="!isFetched" :busy="isLoading" @submit="submit" @cancel="router.push({ name: 'publications' })">
+    <Tabs v-model="tab" :tabs="tabs" :errors="Object.keys(errors).length ? ['data'] : []">
+      <Tab name="data">
+        <div class="flex flex-col gap-24">
+          <div class="w-160">
+            <FormField v-model="record.year" name="year" label="Jahr" maxlength="4" :errors="errors" required />
+          </div>
+          <FormField v-model="record.title" name="title" label="Titel" type="textarea" :errors="errors" required />
+          <FormField v-model="record.subtitle" name="subtitle" label="Subtitel" :errors="errors" />
+          <FormField v-model="record.description" name="description" label="Beschreibung" type="textarea" :errors="errors" />
+          <div class="relative">
+            <FormField v-model="record.link" name="link" label="Link" :errors="errors" />
             <!-- Opens the link to check it, once it looks like a URL -->
-            <a :href="record.link" target="_blank" class="feather-icon" title="Link öffnen" v-if="isUrl(record.link)">
-              <PhLink :size="18" weight="light" />
+            <a
+              v-if="isUrl(record.link)"
+              :href="record.link"
+              target="_blank"
+              class="absolute top-0 right-0 rounded text-gray-400 transition-colors hover:text-gray-900 dark:text-warm-500 dark:hover:text-warm-100"
+              title="Link öffnen"
+            >
+              <PhArrowSquareOut :size="16" weight="light" />
             </a>
           </div>
-          <input type="text" v-model="record.link">
         </div>
-      </div>
-      <div v-show="tab === 'images'">
-        <ImageManager v-model:images="record.images" />
-      </div>
-      <div v-show="tab === 'files'">
-        <FileManager v-model:files="record.files" />
-      </div>
-      <div v-show="tab === 'settings'">
-        <div class="form-row">
-          <Toggle label="Publizieren?" name="publish" v-model="record.publish" />
-        </div>
-      </div>
-      <ContentFooter :back="{ name: 'publications' }" submit />
-    </form>
-  </div>
+      </Tab>
+      <Tab name="images">
+        <ImageField v-model:images="record.images" :label="null" />
+      </Tab>
+      <Tab name="files">
+        <FileField v-model:files="record.files" :label="null" />
+      </Tab>
+    </Tabs>
+
+    <template #sidebar>
+      <FormField v-model="record.publish" name="publish" label="Publiziert" type="checkbox" />
+    </template>
+  </ResourceForm>
 </template>
 <script setup>
 import { ref } from 'vue';
-import { PhLink } from '@phosphor-icons/vue';
-import LoadingIndicator from '@/components/ui/LoadingIndicator.vue';
-import ContentHeader from '@/components/ui/ContentHeader.vue';
-import ContentFooter from '@/components/ui/ContentFooter.vue';
-import Tabs from '@/components/ui/Tabs.vue';
-import LabelRequired from '@/components/ui/LabelRequired.vue';
-import Toggle from '@/components/ui/Toggle.vue';
-import ImageManager from '@/components/images/ImageManager.vue';
-import FileManager from '@/components/files/FileManager.vue';
+import { useRouter } from 'vue-router';
+import { PhArrowSquareOut } from '@phosphor-icons/vue';
+import ResourceForm from '@/components/resource/ResourceForm.vue';
+import FormField from '@/components/ui/form/FormField.vue';
+import Tabs from '@/components/ui/tabs/Tabs.vue';
+import Tab from '@/components/ui/tabs/Tab.vue';
+import ImageField from '@/components/media/ImageField.vue';
+import FileField from '@/components/media/FileField.vue';
 import { useResourceForm } from '@/composables/useResourceForm';
 
 const props = defineProps({
   type: { type: String, required: true },
 });
 
+const router = useRouter();
+
 const tabs = [
   { key: 'data', label: 'Inhalt' },
   { key: 'images', label: 'Bilder' },
   { key: 'files', label: 'Dateien' },
-  { key: 'settings', label: 'Einstellungen' },
 ];
 const tab = ref('data');
 
@@ -80,7 +66,7 @@ function isUrl(value) {
   return /^https?:\/\/[^\s.]+\.[^\s]+$/i.test(value ?? '');
 }
 
-const { record, errors, isLoading, isFetched, title, submit, clearError } = useResourceForm({
+const { record, errors, isEdit, isLoading, isFetched, title, submit } = useResourceForm({
   type: props.type,
   endpoint: 'publication',
   key: 'publication',
@@ -95,6 +81,6 @@ const { record, errors, isLoading, isFetched, title, submit, clearError } = useR
     files: [],
   }),
   redirect: { name: 'publications' },
-  titles: { create: 'Publikation hinzufügen', edit: 'Publikation bearbeiten' },
+  titles: { create: 'Neue Publikation', edit: 'Publikation bearbeiten' },
 });
 </script>

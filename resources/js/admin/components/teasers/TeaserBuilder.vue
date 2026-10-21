@@ -1,42 +1,53 @@
 <template>
   <div>
-    <LoadingIndicator v-if="isLoading" />
-    <div class="teasers" v-if="isFetched">
-      <div v-for="(column, index) in columns" :key="index" class="teasers__column">
-        <SortableList v-model="columns[index]" class="teasers__items" @end="items => order(index, items)">
-          <div v-for="item in column" :key="item.id" class="teasers__item is-draggable">
-            <h2 class="teasers__project" v-if="type === 'landing' && item.project">{{ item.project.title }}</h2>
-            <TeaserArticle v-if="item.article_id" :item="item" @toggle="toggle" @destroy="destroy" />
-            <TeaserImage v-else :item="item" @toggle="toggle" @destroy="destroy" />
-          </div>
-        </SortableList>
-        <div class="teasers__actions">
-          <a href="javascript:;" class="btn-select has-icon" @click.prevent="picker = { type: 'image', column: index }">
+    <div v-if="!isFetched" class="text-sm text-gray-400 dark:text-warm-500">Laden...</div>
+    <div v-else class="grid grid-cols-3 items-start gap-24">
+      <div v-for="(column, index) in columns" :key="index" class="flex flex-col gap-16">
+        <div class="flex items-center justify-between border-b border-gray-900/10 pb-8 text-xs text-gray-400 dark:border-warm-700/50 dark:text-warm-500">
+          <span>Spalte {{ index + 1 }}</span>
+          <span>{{ column.length }}</span>
+        </div>
+        <draggable
+          v-model="columns[index]"
+          item-key="id"
+          class="flex flex-col gap-16"
+          ghost-class="opacity-30"
+          :animation="150"
+          @end="event => event.oldIndex !== event.newIndex && order(index, columns[index])"
+        >
+          <template #item="{ element: item }">
+            <div class="cursor-grab active:cursor-grabbing">
+              <TeaserArticle v-if="item.article_id" :item="item" @toggle="toggle" @destroy="destroy" />
+              <TeaserImage v-else :item="item" :project="type === 'landing' ? item.project?.title : null" @toggle="toggle" @destroy="destroy" />
+            </div>
+          </template>
+        </draggable>
+        <div class="flex gap-8">
+          <button type="button" :class="addClass" @click="picker = { type: 'image', column: index }">
             <PhImage :size="16" weight="light" />
-            <span>{{ type === 'project' ? 'Bild auswählen' : 'Projekt' }}</span>
-          </a>
-          <a href="javascript:;" class="btn-select has-icon" @click.prevent="picker = { type: 'article', column: index }" v-if="type === 'home'">
+            <span>{{ type === 'project' ? 'Bild' : 'Projekt' }}</span>
+          </button>
+          <button v-if="type === 'home'" type="button" :class="addClass" @click="picker = { type: 'article', column: index }">
             <PhTextAlignLeft :size="16" weight="light" />
             <span>Artikel</span>
-          </a>
+          </button>
         </div>
       </div>
     </div>
 
-    <Lightbox :open="picker?.type === 'image'" :title="type === 'project' ? 'Bild wählen' : 'Projekt wählen'" @close="picker = null">
+    <Drawer :open="picker?.type === 'image'" :title="type === 'project' ? 'Bild wählen' : 'Projektbild wählen'" size="lg" @close="picker = null">
       <ImagePicker v-if="picker?.type === 'image'" :type="type" :project-id="projectId" :landing="landing" @select="store" />
-    </Lightbox>
-    <Lightbox :open="picker?.type === 'article'" title="Artikel wählen" size="small" @close="picker = null">
+    </Drawer>
+    <Drawer :open="picker?.type === 'article'" title="Artikel wählen" size="md" @close="picker = null">
       <ArticlePicker v-if="picker?.type === 'article'" @select="store" />
-    </Lightbox>
+    </Drawer>
   </div>
 </template>
 <script setup>
 import { ref, computed, onBeforeUnmount } from 'vue';
+import draggable from 'vuedraggable';
 import { PhImage, PhTextAlignLeft } from '@phosphor-icons/vue';
-import LoadingIndicator from '@/components/ui/LoadingIndicator.vue';
-import Lightbox from '@/components/ui/Lightbox.vue';
-import SortableList from '@/components/ui/SortableList.vue';
+import Drawer from '@/components/ui/drawer/Drawer.vue';
 import TeaserImage from '@/components/teasers/TeaserImage.vue';
 import TeaserArticle from '@/components/teasers/TeaserArticle.vue';
 import ImagePicker from '@/components/teasers/ImagePicker.vue';
@@ -56,6 +67,8 @@ const props = defineProps({
   landing: { type: Object, default: null },
 });
 
+const addClass = 'flex flex-1 cursor-pointer items-center justify-center gap-8 rounded-md border border-dashed border-gray-300 px-12 py-10 text-xs text-gray-500 transition-colors hover:border-gray-400 hover:bg-gray-50 hover:text-gray-900 dark:border-warm-600 dark:text-warm-400 dark:hover:border-warm-500 dark:hover:bg-warm-800 dark:hover:text-warm-100';
+
 // Landings have their own table and routes; home and project share the teasers
 const api = computed(() => {
   if (props.type === 'landing') {
@@ -72,7 +85,6 @@ const api = computed(() => {
   };
 });
 
-const isLoading = ref(false);
 const isFetched = ref(false);
 const columns = ref([[], [], []]);
 
@@ -80,7 +92,6 @@ const columns = ref([[], [], []]);
 const picker = ref(null);
 
 async function request(call, success) {
-  isLoading.value = true;
   try {
     const response = await call();
     if (success) {
@@ -90,9 +101,6 @@ async function request(call, success) {
   }
   catch {
     // Notified by the http error handler
-  }
-  finally {
-    isLoading.value = false;
   }
 }
 
@@ -136,12 +144,7 @@ async function destroy(item) {
     return;
   }
   if (await request(() => http.delete(`${api.value.item}/${item.id}`), 'Daten gelöscht')) {
-    columns.value.forEach(column => {
-      const index = column.indexOf(item);
-      if (index !== -1) {
-        column.splice(index, 1);
-      }
-    });
+    columns.value = columns.value.map(column => column.filter(other => other.id !== item.id));
   }
 }
 

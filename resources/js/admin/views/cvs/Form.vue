@@ -1,74 +1,56 @@
 <template>
   <div>
-    <LoadingIndicator v-if="isLoading || isSavingCategory" />
-    <form @submit.prevent="submit" v-if="isFetched">
-      <ContentHeader>
-        <h1>{{ title }}</h1>
-      </ContentHeader>
-      <Tabs :tabs="tabs" v-model="tab" :errors="Object.keys(errors).length ? ['data'] : []" />
-      <div v-show="tab === 'data'">
-        <div :class="['form-row', { 'has-error': errors.periode }]">
-          <label>Zeitraum</label>
-          <input type="text" v-model="record.periode" @focus="clearError('periode')">
-          <LabelRequired />
-        </div>
-        <div :class="['form-row', { 'has-error': errors.description }]">
-          <label>Beschreibung</label>
-          <textarea v-model="record.description" @focus="clearError('description')"></textarea>
-          <LabelRequired />
-        </div>
-        <div class="form-row">
-          <div class="cv-category-label">
-            <label>Kategorie (optional)</label>
-            <a href="javascript:;" class="feather-icon" title="Kategorie erstellen" @click.prevent="openCategory()">
-              <PhPlus :size="18" weight="light" />
-            </a>
+    <ResourceForm :title="title" :is-edit="isEdit" :loading="!isFetched" :busy="isLoading" @submit="submit" @cancel="back">
+      <Tabs v-model="tab" :tabs="tabs" :errors="Object.keys(errors).length ? ['data'] : []">
+        <Tab name="data">
+          <div class="flex flex-col gap-24">
+            <div class="w-240">
+              <FormField v-model="record.periode" name="periode" label="Zeitraum" :errors="errors" required />
+            </div>
+            <FormField v-model="record.description" name="description" label="Beschreibung" type="textarea" :errors="errors" required />
           </div>
-          <div class="select-wrapper">
-            <select v-model="record.cv_category_id">
-              <option :value="null">Bitte wählen...</option>
-              <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.description }}</option>
-            </select>
-          </div>
+        </Tab>
+      </Tabs>
+
+      <template #sidebar>
+        <FormField v-model="record.publish" name="publish" label="Publiziert" type="checkbox" />
+        <div>
+          <FormField v-model="record.cv_category_id" name="cv_category_id" label="Kategorie" type="select" :options="toOptions(categories)" placeholder="Keine" />
+          <button type="button" class="mt-8 inline-flex cursor-pointer items-center gap-4 text-xs text-gray-500 transition-colors hover:text-gray-900 dark:text-warm-400 dark:hover:text-warm-100" @click="openCategory">
+            <PhPlus :size="12" weight="light" />
+            Neue Kategorie
+          </button>
         </div>
-      </div>
-      <div v-show="tab === 'settings'">
-        <div class="form-row">
-          <Toggle label="Publizieren?" name="publish" v-model="record.publish" />
-        </div>
-      </div>
-      <ContentFooter :back="{ name: 'cvs', params: { id: record.employee_id } }" submit />
-    </form>
+      </template>
+    </ResourceForm>
 
     <!-- A new category right from the entry (outside the form: no nested forms) -->
-    <Lightbox :open="isCategoryOpen" title="Kategorie erstellen" size="small" @close="isCategoryOpen = false">
-      <form id="cv-category-create" @submit.prevent="storeCategory()">
-        <div :class="['form-row', { 'has-error': categoryError }]">
-          <label>Name</label>
-          <input type="text" v-model="category.description" @focus="categoryError = false">
-          <LabelRequired />
-        </div>
+    <AppDialog :open="isCategoryOpen" title="Neue Kategorie" @close="isCategoryOpen = false">
+      <form id="cv-category-create" @submit.prevent="storeCategory">
+        <FormField v-model="category.description" name="description" label="Bezeichnung" :errors="categoryErrors" required />
       </form>
       <template #footer>
-        <button type="submit" class="btn-primary" form="cv-category-create">Speichern</button>
-        <a href="javascript:;" @click.prevent="isCategoryOpen = false">Abbrechen</a>
+        <div class="flex justify-end gap-12">
+          <FormButton variant="secondary" @click="isCategoryOpen = false">Abbrechen</FormButton>
+          <FormButton type="submit" form="cv-category-create" :disabled="isSavingCategory">Erstellen</FormButton>
+        </div>
       </template>
-    </Lightbox>
+    </AppDialog>
   </div>
 </template>
 <script setup>
 import { ref, reactive } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { PhPlus } from '@phosphor-icons/vue';
-import LoadingIndicator from '@/components/ui/LoadingIndicator.vue';
-import ContentHeader from '@/components/ui/ContentHeader.vue';
-import ContentFooter from '@/components/ui/ContentFooter.vue';
-import Tabs from '@/components/ui/Tabs.vue';
-import LabelRequired from '@/components/ui/LabelRequired.vue';
-import Toggle from '@/components/ui/Toggle.vue';
-import Lightbox from '@/components/ui/Lightbox.vue';
+import ResourceForm from '@/components/resource/ResourceForm.vue';
+import FormField from '@/components/ui/form/FormField.vue';
+import FormButton from '@/components/ui/form/FormButton.vue';
+import Tabs from '@/components/ui/tabs/Tabs.vue';
+import Tab from '@/components/ui/tabs/Tab.vue';
+import AppDialog from '@/components/ui/dialog/AppDialog.vue';
 import http, { validationErrors } from '@/lib/http';
 import { notify } from '@/lib/notify';
+import { toOptions } from '@/lib/utils';
 
 const props = defineProps({
   type: { type: String, required: true },
@@ -79,7 +61,6 @@ const router = useRouter();
 
 const tabs = [
   { key: 'data', label: 'Daten' },
-  { key: 'settings', label: 'Einstellungen' },
 ];
 const tab = ref('data');
 
@@ -88,7 +69,7 @@ const categories = ref([]);
 // Not useResourceForm: the API reads an entry from GET /api/cvs/{id}
 // (GET /api/cv/{id} is an employee's list) but saves to /api/cv
 const isEdit = props.type === 'edit';
-const title = isEdit ? 'CV bearbeiten' : 'CV hinzufügen';
+const title = isEdit ? 'Eintrag bearbeiten' : 'Neuer Eintrag';
 const record = ref({
   periode: null,
   description: null,
@@ -99,6 +80,10 @@ const record = ref({
 const errors = ref({});
 const isLoading = ref(false);
 const isFetched = ref(false);
+
+function back() {
+  router.push({ name: 'cvs', params: { id: record.value.employee_id } });
+}
 
 async function init() {
   isLoading.value = true;
@@ -131,7 +116,7 @@ async function submit() {
       await http.post('/api/cv', record.value);
     }
     errors.value = {};
-    router.push({ name: 'cvs', params: { id: record.value.employee_id } });
+    back();
     notify({ type: 'success', text: isEdit ? 'Änderungen gespeichert!' : 'Daten erfasst!' });
   }
   catch (error) {
@@ -142,21 +127,16 @@ async function submit() {
   }
 }
 
-// A field's error goes away once it gets focus
-function clearError(field) {
-  delete errors.value[field];
-}
-
 init();
 
 const isCategoryOpen = ref(false);
 const isSavingCategory = ref(false);
-const categoryError = ref(false);
+const categoryErrors = ref({});
 const category = reactive({ description: null, publish: 1 });
 
 function openCategory() {
   category.description = null;
-  categoryError.value = false;
+  categoryErrors.value = {};
   isCategoryOpen.value = true;
 }
 
@@ -171,7 +151,7 @@ async function storeCategory() {
     notify({ type: 'success', text: 'Daten erfasst!' });
   }
   catch (error) {
-    categoryError.value = !!validationErrors(error)?.description;
+    categoryErrors.value = validationErrors(error) ?? categoryErrors.value;
   }
   finally {
     isSavingCategory.value = false;

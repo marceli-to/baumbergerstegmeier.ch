@@ -26,8 +26,9 @@ export function handleErrors() {
       case 419:
         window.location.href = '/login';
         break;
+      // Refused, with a reason when the API gives one
       case 403:
-        notify({ type: 'error', text: '403 Zugriff verweigert' });
+        notify({ type: 'error', text: response.data?.message ?? '403 Zugriff verweigert' });
         break;
       case 404:
         notify({ type: 'error', text: '404 Nicht gefunden' });
@@ -47,13 +48,15 @@ export function handleErrors() {
 /**
  * Fields that failed validation, as { title: true }. The API returns
  * Laravel's default errors: { title: ['Titel wird benötigt'] }.
+ * messages: keep the API's messages instead (FormField shows the first).
  */
-export function validationErrors(error) {
+export function validationErrors(error, { messages = false } = {}) {
   if (error.response?.status !== 422) {
     return null;
   }
+  const errors = error.response.data.errors ?? {};
   const fields = {};
-  Object.keys(error.response.data.errors ?? {}).forEach(field => fields[field] = true);
+  Object.keys(errors).forEach(field => fields[field] = messages ? errors[field] : true);
   return fields;
 }
 

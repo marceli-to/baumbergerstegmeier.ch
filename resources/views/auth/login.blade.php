@@ -1,19 +1,17 @@
-@extends('layout.guest')
-@section('seo_title', 'Login')
+@extends('layout.auth')
+@section('title', 'Anmelden')
 @section('content')
-<x-auth-splash />
-@if ($errors->any())
-  <x-alert type="danger" message="{{__('Bitte alle markierten Felder prüfen!')}}" />
-@endif
-<form method="POST" action="{{ route('login') }}">
+<h1 class="mb-4 text-lg font-medium text-gray-900 dark:text-warm-100">Anmelden</h1>
+<p class="mb-24 text-sm text-gray-400 dark:text-warm-500">Melden Sie sich mit Ihrem Konto an.</p>
+<form method="POST" action="{{ route('login') }}" class="space-y-16">
   @csrf
-  <x-text-field type="email" name="email" required autocomplete="false" aria-autocomplete="false" label="E-Mail" />
-  <x-text-field type="password" name="password" required autocomplete="false" label="Passwort" />
-  <div class="form-action">
-    <x-button label="Anmelden" name="register" btnClass="btn-primary" type="submit" />
+  <x-auth-field type="email" name="email" label="E-Mail" autocomplete="username" autofocus />
+  <x-auth-field type="password" name="password" label="Passwort" autocomplete="current-password" />
+  <div class="mt-24 flex items-center justify-between">
     @if (Route::has('password.request'))
-      <a href="{{ route('password.request') }}" class="form-helper">Passwort vergessen?</a>
+      <a href="{{ route('password.request') }}" class="text-xs text-gray-400 underline decoration-gray-300 underline-offset-4 hover:text-gray-900 dark:text-warm-500 dark:hover:text-warm-100">Passwort vergessen?</a>
     @endif
+    <x-auth-button>Anmelden</x-auth-button>
   </div>
 </form>
 @endsection

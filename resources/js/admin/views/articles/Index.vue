@@ -1,30 +1,24 @@
 <template>
-  <div>
-    <LoadingIndicator v-if="isLoading" />
-    <template v-if="listing.isFetched">
-      <ContentHeader>
-        <h1>Artikel</h1>
-        <AddButton :to="{ name: 'article-create' }" />
-      </ContentHeader>
-      <div class="listing" v-if="listing.items.length">
-        <div v-for="item in listing.items" :key="item.id" :class="['listing__item', { 'is-disabled': item.publish == 0 }]">
-          <div class="listing__item-body">{{ item.category }} · {{ item.title }}</div>
-          <ListActions :record="item" edit-route="article-edit" @toggle="listing.toggle" @destroy="listing.destroy" />
-        </div>
-      </div>
-      <p class="no-records" v-else>Es sind noch keine Daten vorhanden...</p>
-    </template>
-  </div>
+  <ResourceIndex
+    title="Artikel"
+    :listing="listing"
+    :columns="columns"
+    :routes="{ create: 'article-create', edit: 'article-edit' }"
+    create-label="Neuer Artikel"
+    :searchable="row => [row.category, row.title]"
+    search-placeholder="Kategorie oder Titel"
+  />
 </template>
 <script setup>
-import { ref, reactive } from 'vue';
-import LoadingIndicator from '@/components/ui/LoadingIndicator.vue';
-import ContentHeader from '@/components/ui/ContentHeader.vue';
-import AddButton from '@/components/ui/AddButton.vue';
-import ListActions from '@/components/ui/ListActions.vue';
+import { reactive } from 'vue';
+import ResourceIndex from '@/components/resource/ResourceIndex.vue';
 import { useListing } from '@/composables/useListing';
 
 // The homepage articles (teasers of the home)
-const isLoading = ref(false);
-const listing = reactive(useListing({ list: '/api/articles', resource: 'article', isLoading }));
+const columns = [
+  { key: 'title', label: 'Titel', primary: true },
+  { key: 'category', label: 'Kategorie', class: 'w-240' },
+];
+
+const listing = reactive(useListing({ list: '/api/articles', resource: 'article' }));
 </script>

@@ -1,6 +1,6 @@
 import { notify } from '@/lib/notify';
 import http from '@/lib/http';
-import { confirmDelete } from '@/lib/utils';
+import { confirmDelete, displayName } from '@/lib/utils';
 
 /**
  * Image actions of a form whose record has an images array (images: its
@@ -51,7 +51,7 @@ export function useImages({ images, isLoading }) {
   }
 
   async function destroy(image) {
-    if (!await confirmDelete('Bild löschen?')) {
+    if (!await confirmDelete('Bild löschen', { text: `«${image.original_name || displayName(image.name)}» wirklich löschen?` })) {
       return;
     }
     if (await request(() => http.delete(`/api/image/${image.name}`))) {

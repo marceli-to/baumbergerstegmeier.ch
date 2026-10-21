@@ -1,32 +1,26 @@
 <template>
-  <div>
-    <LoadingIndicator v-if="isLoading" />
-    <template v-if="listing.isFetched">
-      <ContentHeader>
-        <h1>Jobs – Inserate</h1>
-        <AddButton :to="{ name: 'job-article-create' }" />
-      </ContentHeader>
-      <SortableList v-model="listing.items" class="listing" @end="order" v-if="listing.items.length">
-        <div v-for="item in listing.items" :key="item.id" :class="['listing__item is-draggable', { 'is-disabled': item.publish == 0 }]">
-          <div class="listing__item-body">{{ item.title }}</div>
-          <ListActions :record="item" edit-route="job-article-edit" @toggle="listing.toggle" @destroy="listing.destroy" />
-        </div>
-      </SortableList>
-      <p class="no-records" v-else>Es sind noch keine Daten vorhanden...</p>
-    </template>
-  </div>
+  <ResourceIndex
+    title="Jobs – Inserate"
+    :listing="listing"
+    :columns="columns"
+    :routes="{ create: 'job-article-create', edit: 'job-article-edit' }"
+    create-label="Neues Inserat"
+    :order="order"
+    :searchable="row => [row.title, truncate(row.description, 1000)]"
+    search-placeholder="Titel oder Text"
+  />
 </template>
 <script setup>
-import { ref, reactive } from 'vue';
-import LoadingIndicator from '@/components/ui/LoadingIndicator.vue';
-import ContentHeader from '@/components/ui/ContentHeader.vue';
-import AddButton from '@/components/ui/AddButton.vue';
-import ListActions from '@/components/ui/ListActions.vue';
-import SortableList from '@/components/ui/SortableList.vue';
+import { reactive } from 'vue';
+import ResourceIndex from '@/components/resource/ResourceIndex.vue';
+import { truncate } from '@/lib/utils';
 import { useListing } from '@/composables/useListing';
 import { useOrder } from '@/composables/useOrder';
 
-const isLoading = ref(false);
-const listing = reactive(useListing({ list: '/api/job-articles', resource: 'job-article', isLoading }));
+const columns = [
+  { key: 'title', label: 'Titel', primary: true },
+];
+
+const listing = reactive(useListing({ list: '/api/job-articles', resource: 'job-article' }));
 const order = useOrder({ url: '/api/job-article/order', key: 'jobArticles' });
 </script>

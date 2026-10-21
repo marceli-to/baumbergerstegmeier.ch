@@ -91,6 +91,13 @@ mail account. `config/mail.php`:
   per `APP_ENV`). Production gets the crawl rules and the `Sitemap:` line
   from `APP_URL`, every other environment `Disallow: /`
 
+## Removed with the admin UI from oxid (2026-10-21)
+
+`public/assets/css/cms/` (admin fonts) and `public/assets/img/cms/`
+(admin icons, placeholder) are deleted from git; delete them on the server
+too if the deploy doesn't (rsync without `--delete`). The admin loads
+Google Sans from Google Fonts.
+
 ## Order on the server
 
 1. Snapshot the production DB and `storage/`.

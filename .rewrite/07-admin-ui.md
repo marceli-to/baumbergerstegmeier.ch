@@ -1,5 +1,9 @@
 # Admin UI refresh — light, as in cra
 
+*Replaced on 2026-10-21 by oxid's admin UI (strut.ch's, on Tailwind 4):
+see `05-progress.md`, "Admin UI from oxid". This file describes the
+light Sass refresh of 2026-10-20.*
+
 Decided 2026-10-20 (D7): a light refresh, like cra (`08-admin-ui.md` on
 `rework/laravel-13-vue-3`), not more. It rides along with the port,
 because every component gets rewritten anyway.

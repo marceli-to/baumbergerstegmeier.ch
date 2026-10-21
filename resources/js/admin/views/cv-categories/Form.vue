@@ -1,48 +1,37 @@
 <template>
-  <div>
-    <LoadingIndicator v-if="isLoading" />
-    <form @submit.prevent="submit" v-if="isFetched">
-      <ContentHeader>
-        <h1>{{ title }}</h1>
-      </ContentHeader>
-      <Tabs :tabs="tabs" v-model="tab" :errors="Object.keys(errors).length ? ['data'] : []" />
-      <div v-show="tab === 'data'">
-        <div :class="['form-row', { 'has-error': errors.description }]">
-          <label>Bezeichnung</label>
-          <input type="text" v-model="record.description" @focus="clearError('description')">
-          <LabelRequired />
-        </div>
-      </div>
-      <div v-show="tab === 'settings'">
-        <div class="form-row">
-          <Toggle label="Publizieren?" name="publish" v-model="record.publish" />
-        </div>
-      </div>
-      <ContentFooter :back="{ name: 'cv-categories' }" submit />
-    </form>
-  </div>
+  <ResourceForm :title="title" :is-edit="isEdit" :loading="!isFetched" :busy="isLoading" @submit="submit" @cancel="router.push({ name: 'cv-categories' })">
+    <Tabs v-model="tab" :tabs="tabs" :errors="Object.keys(errors).length ? ['data'] : []">
+      <Tab name="data">
+        <FormField v-model="record.description" name="description" label="Bezeichnung" :errors="errors" required />
+      </Tab>
+    </Tabs>
+
+    <template #sidebar>
+      <FormField v-model="record.publish" name="publish" label="Publiziert" type="checkbox" />
+    </template>
+  </ResourceForm>
 </template>
 <script setup>
 import { ref } from 'vue';
-import LoadingIndicator from '@/components/ui/LoadingIndicator.vue';
-import ContentHeader from '@/components/ui/ContentHeader.vue';
-import ContentFooter from '@/components/ui/ContentFooter.vue';
-import Tabs from '@/components/ui/Tabs.vue';
-import LabelRequired from '@/components/ui/LabelRequired.vue';
-import Toggle from '@/components/ui/Toggle.vue';
+import { useRouter } from 'vue-router';
+import ResourceForm from '@/components/resource/ResourceForm.vue';
+import FormField from '@/components/ui/form/FormField.vue';
+import Tabs from '@/components/ui/tabs/Tabs.vue';
+import Tab from '@/components/ui/tabs/Tab.vue';
 import { useResourceForm } from '@/composables/useResourceForm';
 
 const props = defineProps({
   type: { type: String, required: true },
 });
 
+const router = useRouter();
+
 const tabs = [
   { key: 'data', label: 'Daten' },
-  { key: 'settings', label: 'Einstellungen' },
 ];
 const tab = ref('data');
 
-const { record, errors, isLoading, isFetched, title, submit, clearError } = useResourceForm({
+const { record, errors, isEdit, isLoading, isFetched, title, submit } = useResourceForm({
   type: props.type,
   endpoint: 'cv/category',
   key: 'cvCategory',
@@ -51,6 +40,6 @@ const { record, errors, isLoading, isFetched, title, submit, clearError } = useR
     publish: 1,
   }),
   redirect: { name: 'cv-categories' },
-  titles: { create: 'CV-Kategorie hinzufügen', edit: 'CV-Kategorie bearbeiten' },
+  titles: { create: 'Neue Kategorie', edit: 'Kategorie bearbeiten' },
 });
 </script>

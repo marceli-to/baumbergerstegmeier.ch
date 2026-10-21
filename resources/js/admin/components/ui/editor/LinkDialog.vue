@@ -1,76 +1,63 @@
 <template>
-  <Lightbox :open="isOpen" title="Link" size="small" @close="onClose()">
-    <form :id="formId" @submit.prevent="apply()">
-      <div class="form-row">
-        <label>Typ</label>
-        <div class="select-wrapper">
-          <select v-model="link.type">
-            <option v-for="(label, type) in types" :key="type" :value="type">{{ label }}</option>
-          </select>
-        </div>
-      </div>
+  <AppDialog :open="isOpen" title="Link" size="md" :dismissible="false" @close="onClose()">
+    <form :id="formId" class="flex flex-col gap-16" @submit.prevent="apply()">
+      <FormGroup>
+        <FormLabel :for="`${formId}-type`">Typ</FormLabel>
+        <FormSelect :id="`${formId}-type`" v-model="link.type" :options="typeOptions" />
+      </FormGroup>
 
-      <div class="form-row" v-if="link.type === 'page'">
-        <label>Seite</label>
-        <div class="select-wrapper">
-          <select v-model="link.value">
-            <option v-for="page in pages" :key="page.value" :value="page.value">{{ page.title }}</option>
-          </select>
-        </div>
-      </div>
+      <FormGroup v-if="link.type === 'page'">
+        <FormLabel :for="`${formId}-value`">Seite</FormLabel>
+        <FormSelect :id="`${formId}-value`" v-model="link.value" :options="pages.map(page => ({ value: page.value, label: page.title }))" />
+      </FormGroup>
 
-      <div class="form-row" v-if="link.type === 'url'">
-        <label>URL</label>
-        <div class="editor-dialog__url">
-          <div class="select-wrapper">
-            <select v-model="link.protocol">
-              <option value="https://">https://</option>
-              <option value="http://">http://</option>
-            </select>
+      <FormGroup v-else-if="link.type === 'url'">
+        <FormLabel :for="`${formId}-value`">URL</FormLabel>
+        <div class="flex gap-8">
+          <div class="w-110 shrink-0">
+            <FormSelect :id="`${formId}-protocol`" v-model="link.protocol" :options="protocolOptions" />
           </div>
-          <input type="text" v-model="link.value" placeholder="www.example.com">
+          <FormInput :id="`${formId}-value`" v-model="link.value" class="min-w-0 flex-1" placeholder="www.example.com" />
         </div>
-      </div>
+      </FormGroup>
 
-      <div class="form-row" v-if="link.type === 'email'">
-        <label>E-Mail-Adresse</label>
-        <input type="text" v-model="link.value" placeholder="name@baumbergerstegmeier.ch">
-      </div>
+      <FormGroup v-else>
+        <FormLabel :for="`${formId}-value`">{{ link.type === 'email' ? 'E-Mail-Adresse' : 'Telefonnummer' }}</FormLabel>
+        <FormInput :id="`${formId}-value`" v-model="link.value" :placeholder="link.type === 'email' ? 'name@baumbergerstegmeier.ch' : '+41 44 000 00 00'" />
+      </FormGroup>
 
-      <div class="form-row" v-if="link.type === 'tel'">
-        <label>Telefonnummer</label>
-        <input type="text" v-model="link.value" placeholder="+41 44 000 00 00">
-      </div>
+      <FormGroup>
+        <FormLabel :for="`${formId}-title`">Titel (optional)</FormLabel>
+        <FormInput :id="`${formId}-title`" v-model="link.title" />
+      </FormGroup>
 
-      <div class="form-row">
-        <label>Titel (optional)</label>
-        <input type="text" v-model="link.title">
-      </div>
-
-      <div class="form-row" v-if="link.type === 'url'">
-        <label class="editor-dialog__checkbox">
-          <input type="checkbox" v-model="link.blank">
-          <span>In neuem Fenster öffnen</span>
-        </label>
-      </div>
-
-      <div class="form-row">
-        <label class="editor-dialog__checkbox">
-          <input type="checkbox" v-model="link.icon">
-          <span>Mit Icon ↗</span>
-        </label>
+      <div class="flex flex-col gap-12">
+        <FormCheckbox v-if="link.type === 'url'" :id="`${formId}-blank`" v-model="blank">In neuem Fenster öffnen</FormCheckbox>
+        <FormCheckbox :id="`${formId}-icon`" v-model="icon">Mit Icon ↗</FormCheckbox>
       </div>
     </form>
     <template #footer>
-      <button type="submit" class="btn-secondary" :form="formId">Übernehmen</button>
-      <a href="javascript:;" v-if="isEditing" @click.prevent="remove()">Entfernen</a>
-      <a href="javascript:;" @click.prevent="close()">Abbrechen</a>
+      <div class="flex items-center justify-between gap-16">
+        <div>
+          <FormButton v-if="isEditing" variant="secondary" @click="remove()">Entfernen</FormButton>
+        </div>
+        <div class="flex gap-16">
+          <FormButton variant="secondary" @click="close()">Abbrechen</FormButton>
+          <FormButton type="submit" :form="formId">Übernehmen</FormButton>
+        </div>
+      </div>
     </template>
-  </Lightbox>
+  </AppDialog>
 </template>
 <script setup>
-import { ref, reactive } from 'vue';
-import Lightbox from '@/components/ui/Lightbox.vue';
+import { ref, reactive, computed } from 'vue';
+import AppDialog from '@/components/ui/dialog/AppDialog.vue';
+import FormGroup from '@/components/ui/form/FormGroup.vue';
+import FormLabel from '@/components/ui/form/FormLabel.vue';
+import FormInput from '@/components/ui/form/FormInput.vue';
+import FormSelect from '@/components/ui/form/FormSelect.vue';
+import FormCheckbox from '@/components/ui/form/FormCheckbox.vue';
+import FormButton from '@/components/ui/form/FormButton.vue';
 import http from '@/lib/http';
 
 const props = defineProps({
@@ -78,6 +65,8 @@ const props = defineProps({
 });
 
 const types = { page: 'Seite', url: 'URL', email: 'E-Mail', tel: 'Telefon' };
+const typeOptions = Object.entries(types).map(([value, label]) => ({ value, label }));
+const protocolOptions = ['https://', 'http://'].map(value => ({ value, label: value }));
 
 // The site's pages ({ title, value: '/werkliste' }), loaded once
 const iconClass = 'icon-arrow-right-up';
@@ -174,6 +163,10 @@ function onClose() {
     props.editor.commands.focus();
   }
 }
+
+// The checkboxes store 1/0
+const blank = computed({ get: () => link.blank ? 1 : 0, set: value => link.blank = !!value });
+const icon = computed({ get: () => link.icon ? 1 : 0, set: value => link.icon = !!value });
 
 defineExpose({ open });
 </script>

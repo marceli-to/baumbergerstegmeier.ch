@@ -1,1 +1,0 @@
-import{A as e,U as t,f as n,h as r,v as i}from"./_plugin-vue_export-helper-C2cNJvT1.js";import{t as a}from"./ContentHeader-BsC2SBkR.js";import{t as o}from"./TeaserBuilder-B8WOW0kQ.js";var s={__name:`Teasers`,setup(s){return(s,c)=>(e(),r(`div`,null,[i(a,null,{default:t(()=>[...c[0]||=[n(`h1`,null,`Startseite`,-1)]]),_:1}),i(o,{type:`home`})]))}};export{s as default};

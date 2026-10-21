@@ -1,15 +1,17 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
+import tailwindcss from '@tailwindcss/vite';
 import { fileURLToPath, URL } from 'node:url';
 
 export default defineConfig(({ command }) => ({
   plugins: [
+    tailwindcss(),
     laravel({
       input: [
         'resources/sass/web/app.scss',
         'resources/js/web/app.js',
-        'resources/sass/admin/app.scss',
+        'resources/css/admin.css',
         'resources/js/admin/app.js',
       ],
       refresh: true,

@@ -1,108 +1,88 @@
 <template>
-  <div>
-    <LoadingIndicator v-if="isLoading" />
-    <form @submit.prevent="submit" v-if="isFetched">
-      <ContentHeader>
-        <h1>{{ title }}</h1>
-      </ContentHeader>
-      <Tabs :tabs="tabs" v-model="tab" :errors="tabErrors" />
-      <div v-show="tab === 'data'">
-        <div :class="['form-row', { 'has-error': errors.title }]">
-          <label>Titel</label>
-          <input type="text" v-model="record.title" @focus="clearError('title')">
-          <LabelRequired />
+  <ResourceForm :title="title" :is-edit="isEdit" :loading="!isFetched" :busy="isLoading" @submit="submit" @cancel="router.push({ name: 'projects' })">
+    <Tabs v-model="tab" :tabs="tabs" :errors="tabErrors">
+      <Tab name="data">
+        <div class="flex flex-col gap-24">
+          <FormField v-model="record.title" name="title" label="Titel" :errors="errors" required />
+          <div class="grid grid-cols-2 gap-24">
+            <FormField v-model="record.title_menu" name="title_menu" label="Titel Menü" hint="Optional" />
+            <FormField v-model="record.title_worklist" name="title_worklist" label="Titel Werkliste" hint="Optional" />
+          </div>
+          <div class="grid grid-cols-[1fr_160px] gap-24">
+            <FormField v-model="record.location" name="location" label="Ort" />
+            <FormField v-model="record.year" name="year" label="Jahr" maxlength="4" :errors="errors" required />
+          </div>
+          <FormField v-model="record.text" name="text" label="Text" type="editor" />
+          <FormField v-model="record.info" name="info" label="Info" type="editor" />
         </div>
-        <div class="form-row">
-          <label>Titel Menü</label>
-          <input type="text" v-model="record.title_menu">
-          <div class="is-info">Optional</div>
-        </div>
-        <div class="form-row">
-          <label>Titel Werkliste</label>
-          <input type="text" v-model="record.title_worklist">
-          <div class="is-info">Optional</div>
-        </div>
-        <div class="form-row">
-          <label>Ort</label>
-          <input type="text" v-model="record.location">
-        </div>
-        <div :class="['form-row', { 'has-error': errors.year }]">
-          <label>Jahr</label>
-          <input type="text" v-model="record.year" maxlength="4" @focus="clearError('year')">
-          <LabelRequired />
-        </div>
-        <div class="form-row">
-          <label>Text</label>
-          <Editor v-model="record.text" />
-        </div>
-        <div class="form-row">
-          <label>Info</label>
-          <Editor v-model="record.info" />
-        </div>
-      </div>
-      <div v-show="tab === 'worklist'">
-        <div :class="['form-row', { 'has-error': errors.type }]">
-          <label>Typ</label>
-          <input type="text" v-model="record.type" @focus="clearError('type')">
-          <LabelRequired />
-        </div>
-      </div>
-      <div v-show="tab === 'images'">
-        <ImageManager
+      </Tab>
+      <Tab name="worklist">
+        <FormField v-model="record.type" name="type" label="Typ" :errors="errors" required />
+      </Tab>
+      <Tab name="images">
+        <ImageField
           v-model:images="record.images"
+          :label="null"
           :flags="[{ key: 'worklist', label: 'Werkliste' }, { key: 'cover', label: 'Cover' }, { key: 'lightbox', label: 'Lightbox' }]"
+          owner="Projekt"
         />
+      </Tab>
+    </Tabs>
+
+    <template v-if="isEdit" #actions>
+      <!-- Only projects with a detail page have a preview -->
+      <a
+        v-if="Number(record.feature) === 1"
+        :href="`/projekt/vorschau/${route.params.id}`"
+        target="_blank"
+        class="inline-flex items-center gap-8 rounded-md bg-gray-100 px-16 py-8 text-sm text-gray-700 transition-colors hover:bg-gray-200 dark:bg-warm-800 dark:text-warm-300 dark:hover:bg-warm-700"
+      >
+        <PhArrowSquareOut :size="16" weight="light" />
+        Vorschau
+      </a>
+      <router-link
+        :to="{ name: 'project-teasers', params: { id: route.params.id } }"
+        class="inline-flex items-center gap-8 rounded-md bg-gray-100 px-16 py-8 text-sm text-gray-700 transition-colors hover:bg-gray-200 dark:bg-warm-800 dark:text-warm-300 dark:hover:bg-warm-700"
+      >
+        <PhSquaresFour :size="16" weight="light" />
+        Teaser
+      </router-link>
+    </template>
+
+    <template #sidebar>
+      <div class="flex flex-col gap-12">
+        <FormField v-model="record.publish" name="publish" label="Publiziert" type="checkbox" />
+        <FormField v-model="record.feature" name="feature" label="Detailseite" type="checkbox" />
+        <FormField v-model="record.landing" name="landing" label="Startseite" type="checkbox" />
       </div>
-      <div v-show="tab === 'settings'">
-        <div class="form-row">
-          <label>Beschreibung (SEO)</label>
-          <textarea v-model="record.description"></textarea>
-        </div>
-        <div :class="['form-row', { 'has-error': errors.category_ids }]">
-          <label>Kategorie</label>
-          <div class="checkbox-list">
-            <label v-for="category in categories" :key="category.id" class="checkbox">
-              <input type="checkbox" :value="category.id" v-model="record.category_ids" @change="clearError('category_ids')">
-              <span>{{ category.description }}</span>
-            </label>
-          </div>
-          <LabelRequired />
-        </div>
-        <!-- A project can have several states -->
-        <div :class="['form-row', { 'has-error': errors.state_ids }]">
-          <label>Status</label>
-          <div class="checkbox-list">
-            <label v-for="state in states" :key="state.id" class="checkbox">
-              <input type="checkbox" :value="state.id" v-model="record.state_ids" @change="clearError('state_ids')">
-              <span>{{ state.description }}</span>
-            </label>
-          </div>
-          <LabelRequired />
-        </div>
-        <div class="form-row">
-          <Toggle label="Publizieren?" name="publish" v-model="record.publish" />
-        </div>
-        <div class="form-row">
-          <Toggle label="Detailseite?" name="feature" v-model="record.feature" />
-        </div>
-        <div class="form-row">
-          <Toggle label="Startseite?" name="landing" v-model="record.landing" />
+      <!-- A project can have several categories and states -->
+      <div v-for="group in groups" :key="group.key">
+        <FormLabel :error="errors[group.key] ? `${group.label}: Pflichtfeld` : null">{{ group.label }} *</FormLabel>
+        <div class="flex flex-col gap-12">
+          <FormCheckbox
+            v-for="item in group.items"
+            :id="`${group.key}_${item.id}`"
+            :key="item.id"
+            :model-value="record[group.key].includes(item.id) ? 1 : 0"
+            @update:model-value="checked => select(group.key, item.id, checked)"
+          >{{ item.description }}</FormCheckbox>
         </div>
       </div>
-      <ContentFooter :back="{ name: 'projects' }" submit />
-    </form>
-  </div>
+      <FormField v-model="record.description" name="description" label="Beschreibung (SEO)" type="textarea" />
+    </template>
+  </ResourceForm>
 </template>
 <script setup>
 import { ref, computed } from 'vue';
-import LoadingIndicator from '@/components/ui/LoadingIndicator.vue';
-import ContentHeader from '@/components/ui/ContentHeader.vue';
-import ContentFooter from '@/components/ui/ContentFooter.vue';
-import Tabs from '@/components/ui/Tabs.vue';
-import LabelRequired from '@/components/ui/LabelRequired.vue';
-import Toggle from '@/components/ui/Toggle.vue';
-import Editor from '@/components/ui/editor/Editor.vue';
-import ImageManager from '@/components/images/ImageManager.vue';
+import { useRoute, useRouter } from 'vue-router';
+import { PhArrowSquareOut, PhSquaresFour } from '@phosphor-icons/vue';
+import ResourceForm from '@/components/resource/ResourceForm.vue';
+import FormField from '@/components/ui/form/FormField.vue';
+import FormLabel from '@/components/ui/form/FormLabel.vue';
+import FormCheckbox from '@/components/ui/form/FormCheckbox.vue';
+import Tabs from '@/components/ui/tabs/Tabs.vue';
+import Tab from '@/components/ui/tabs/Tab.vue';
+import ImageField from '@/components/media/ImageField.vue';
 import { useResourceForm } from '@/composables/useResourceForm';
 import http from '@/lib/http';
 
@@ -110,20 +90,35 @@ const props = defineProps({
   type: { type: String, required: true },
 });
 
+const route = useRoute();
+const router = useRouter();
+
 const tabs = [
   { key: 'data', label: 'Projekt' },
   { key: 'worklist', label: 'Werkliste' },
   { key: 'images', label: 'Bilder' },
-  { key: 'settings', label: 'Einstellungen' },
 ];
 const tab = ref('data');
 
-// Which tab holds which validated field
-const fieldTabs = { title: 'data', year: 'data', type: 'worklist', category_ids: 'settings', state_ids: 'settings' };
-const tabErrors = computed(() => Object.keys(errors.value).map(field => fieldTabs[field] ?? 'data'));
+// Which tab holds which validated field; categories and states are in the
+// sidebar (no tab)
+const fieldTabs = { title: 'data', year: 'data', type: 'worklist' };
+const tabErrors = computed(() => Object.keys(errors.value).map(field => fieldTabs[field]).filter(Boolean));
 
 const categories = ref([]);
 const states = ref([]);
+
+const groups = computed(() => [
+  { key: 'category_ids', label: 'Kategorie', items: categories.value },
+  { key: 'state_ids', label: 'Status', items: states.value },
+]);
+
+// The checkboxes store 1/0; the record holds the checked ids
+function select(key, id, checked) {
+  const ids = record.value[key].filter(value => value !== id);
+  record.value[key] = checked ? [...ids, id] : ids;
+  clearError(key);
+}
 
 // The edit response brings categories and states along
 const load = props.type === 'create'
@@ -133,7 +128,7 @@ const load = props.type === 'create'
   ]
   : [];
 
-const { record, errors, isLoading, isFetched, title, submit, clearError } = useResourceForm({
+const { record, errors, isEdit, isLoading, isFetched, title, submit, clearError } = useResourceForm({
   type: props.type,
   endpoint: 'project',
   key: 'project',
@@ -155,7 +150,7 @@ const { record, errors, isLoading, isFetched, title, submit, clearError } = useR
     images: [],
   }),
   redirect: { name: 'projects' },
-  titles: { create: 'Projekt hinzufügen', edit: 'Projekt bearbeiten' },
+  titles: { create: 'Neues Projekt', edit: 'Projekt bearbeiten' },
   load,
   loaded: data => {
     categories.value = data.categories;

@@ -5,10 +5,12 @@
         "build": "vite build"
     },
     "devDependencies": {
+        "@tailwindcss/vite": "^4.3.3",
         "@vitejs/plugin-vue": "^6.0.9",
         "axios": "^1.12.0",
         "laravel-vite-plugin": "^3.2.0",
         "sass": "^1.49.0",
+        "tailwindcss": "^4.3.3",
         "vite": "^8.3.4"
     },
     "dependencies": {
@@ -18,10 +20,10 @@
         "@tiptap/pm": "^3.31.4",
         "@tiptap/starter-kit": "^3.31.4",
         "@tiptap/vue-3": "^3.31.4",
-        "sortablejs": "^1.15.7",
         "vue": "^3.5.43",
         "vue-advanced-cropper": "^2.8.9",
-        "vue-router": "^4.6.4"
+        "vue-router": "^4.6.4",
+        "vuedraggable": "^4.1.0"
     },
     "type": "module"
 }

@@ -1,21 +1,23 @@
 <template>
   <div>
-    <ContentHeader>
-      <h1 v-if="project">Projekt «{{ [project.title, project.location].filter(Boolean).join(', ') }}»</h1>
-    </ContentHeader>
+    <PageHeader :title="project ? `Teaser «${[project.title, project.location].filter(Boolean).join(', ')}»` : 'Teaser'" />
+    <FormActions>
+      <FormButton variant="secondary" @click="router.push({ name: 'projects' })">Zurück</FormButton>
+    </FormActions>
     <TeaserBuilder type="project" :project-id="route.params.id" />
-    <ContentFooter :back="{ name: 'projects' }" />
   </div>
 </template>
 <script setup>
 import { ref } from 'vue';
-import { useRoute } from 'vue-router';
-import ContentHeader from '@/components/ui/ContentHeader.vue';
-import ContentFooter from '@/components/ui/ContentFooter.vue';
+import { useRoute, useRouter } from 'vue-router';
+import PageHeader from '@/components/layout/PageHeader.vue';
+import FormActions from '@/components/ui/form/FormActions.vue';
+import FormButton from '@/components/ui/form/FormButton.vue';
 import TeaserBuilder from '@/components/teasers/TeaserBuilder.vue';
 import http from '@/lib/http';
 
 const route = useRoute();
+const router = useRouter();
 const project = ref(null);
 
 // Only for the title

@@ -1,22 +1,24 @@
 <template>
   <div>
-    <ContentHeader>
-      <h1 v-if="title">Projekt Landing «{{ title }}»</h1>
-    </ContentHeader>
+    <PageHeader :title="title ? `Übersicht «${title}»` : 'Übersicht'" />
+    <FormActions>
+      <FormButton variant="secondary" @click="router.push({ name: 'landings' })">Zurück</FormButton>
+    </FormActions>
     <TeaserBuilder type="landing" :landing="landing" />
-    <ContentFooter :back="{ name: 'landings' }" />
   </div>
 </template>
 <script setup>
 import { ref } from 'vue';
-import { useRoute } from 'vue-router';
-import ContentHeader from '@/components/ui/ContentHeader.vue';
-import ContentFooter from '@/components/ui/ContentFooter.vue';
+import { useRoute, useRouter } from 'vue-router';
+import PageHeader from '@/components/layout/PageHeader.vue';
+import FormActions from '@/components/ui/form/FormActions.vue';
+import FormButton from '@/components/ui/form/FormButton.vue';
 import TeaserBuilder from '@/components/teasers/TeaserBuilder.vue';
 import http from '@/lib/http';
 
 // The landing of a project category or state (view)
 const route = useRoute();
+const router = useRouter();
 const landing = { view: route.params.view, id: route.params.id };
 const title = ref(null);
 
