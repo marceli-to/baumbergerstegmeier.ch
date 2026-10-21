@@ -7,7 +7,7 @@
         v-if="images.length"
         v-model="images"
         :item-key="image => image.id ?? image.name"
-        :class="['grid gap-20', wide ? 'grid-cols-3 lg:grid-cols-5' : 'grid-cols-2 sm:grid-cols-3']"
+        :class="['grid gap-20', wide ? 'grid-cols-3 lg:grid-cols-4' : 'grid-cols-2 sm:grid-cols-3']"
         ghost-class="opacity-30"
         :animation="150"
         @end="order(images)"

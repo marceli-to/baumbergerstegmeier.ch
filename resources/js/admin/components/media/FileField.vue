@@ -7,7 +7,7 @@
         v-if="files.length"
         v-model="files"
         item-key="id"
-        class="grid grid-cols-3 gap-20 lg:grid-cols-5"
+        class="grid grid-cols-3 gap-20 lg:grid-cols-4"
         ghost-class="opacity-30"
         :animation="150"
         @end="order(files)"
