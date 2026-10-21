@@ -1,15 +1,15 @@
 <template>
   <aside class="fixed top-0 bottom-0 left-0 z-30 flex w-240 flex-col bg-gray-100 dark:bg-warm-950">
-    <div class="px-24 pt-24 pb-12 text-gray-900 dark:text-warm-100">
+    <div class="px-24 pt-24 pb-32 text-gray-900 dark:text-warm-100">
       <router-link :to="{ name: 'projects' }" aria-label="Baumberger Stegmeier Administration" class="block w-128">
         <Logo />
       </router-link>
     </div>
 
     <nav class="min-h-0 flex-1 overflow-y-auto px-12 py-8" aria-label="Hauptmenü">
-      <div class="space-y-16">
+      <div class="space-y-32">
         <div v-for="(group, index) in navigation" :key="index">
-          <p v-if="group.title" class="mb-4 px-12 text-[0.6875rem] tracking-[0.08em] text-gray-400 uppercase dark:text-warm-500">{{ group.title }}</p>
+          <p v-if="group.title" class="mb-8 px-12 text-[0.6875rem] tracking-[0.08em] text-gray-400 uppercase dark:text-warm-500">{{ group.title }}</p>
           <ul role="list">
             <li v-for="item in group.items" :key="item.route">
               <router-link
