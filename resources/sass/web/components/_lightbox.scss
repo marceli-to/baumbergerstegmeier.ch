@@ -10,8 +10,13 @@
 
 $lightbox-wide: '(min-width: 578px) and (min-height: 578px)';
 
-html.has-lightbox {
-  overflow: hidden;
+// The page keeps its scrollbar while the lightbox is open (as fancyBox with
+// hideScrollbar: false), so nothing shifts; lightbox.js stops the wheel.
+// Touch screens have no scrollbar width to keep: lock the page there.
+@media (pointer: coarse) {
+  html.has-lightbox {
+    overflow: hidden;
+  }
 }
 
 .lightbox {

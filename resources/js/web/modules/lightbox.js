@@ -53,6 +53,9 @@ const build = () => {
   el.querySelector('.lightbox__prev').addEventListener('click', () => show(index - 1));
   el.querySelector('.lightbox__next').addEventListener('click', () => show(index + 1));
 
+  // The page behind keeps its scrollbar (no shift), but doesn't scroll
+  el.addEventListener('wheel', (event) => event.preventDefault(), { passive: false });
+
   // A click beside the image closes
   el.addEventListener('click', (event) => {
     const beside = event.target === el || event.target.matches('.lightbox__stage');
@@ -161,6 +164,11 @@ const onKeydown = (event) => {
     const at = buttons.indexOf(document.activeElement);
     const next = (at + (event.shiftKey ? -1 : 1) + buttons.length) % buttons.length;
     buttons[next].focus();
+    event.preventDefault();
+  }
+  // Nor do the scroll keys move the page behind (it keeps its scrollbar)
+  // (space still presses a focused button)
+  else if (['PageUp', 'PageDown', 'Home', 'End', 'ArrowUp', 'ArrowDown'].includes(event.key) || (event.key === ' ' && !event.target.matches('button'))) {
     event.preventDefault();
   }
 };
