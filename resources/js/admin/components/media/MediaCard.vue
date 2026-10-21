@@ -1,19 +1,22 @@
 <template>
   <div class="group relative overflow-hidden rounded-md border border-gray-200 bg-white dark:border-warm-700 dark:bg-warm-800">
-    <div class="flex aspect-square items-center justify-center overflow-hidden" :class="hidden ? 'opacity-40' : ''">
-      <div v-if="file" class="flex flex-col items-center gap-8 text-gray-400 dark:text-warm-500">
-        <component :is="extension.toLowerCase() === 'pdf' ? PhFilePdf : PhFile" :size="32" weight="light" />
-        <span class="text-xs uppercase">{{ extension }}</span>
+    <div class="relative">
+      <div class="flex aspect-square items-center justify-center overflow-hidden" :class="hidden ? 'opacity-40' : ''">
+        <div v-if="file" class="flex flex-col items-center gap-8 text-gray-400 dark:text-warm-500">
+          <component :is="extension.toLowerCase() === 'pdf' ? PhFilePdf : PhFile" :size="32" weight="light" />
+          <span class="text-xs uppercase">{{ extension }}</span>
+        </div>
+        <img v-else :src="src" alt="" loading="lazy" class="h-full w-full object-cover">
       </div>
-      <img v-else :src="src" alt="" loading="lazy" class="h-full w-full object-cover">
+      <!-- Flags (Werkliste, Cover) on the image, bottom right -->
+      <div v-if="$slots.badges" class="absolute right-8 bottom-8 flex flex-wrap justify-end gap-4 [&>span]:bg-white/90 [&>span]:shadow-sm dark:[&>span]:bg-warm-900/90">
+        <slot name="badges" />
+      </div>
     </div>
 
     <div class="border-t border-gray-100 px-10 py-8 dark:border-warm-700">
       <div class="truncate text-xs text-gray-900 dark:text-warm-100" :title="label">{{ label }}</div>
       <div v-if="meta" class="mt-2 truncate text-xs text-gray-400 dark:text-warm-500" :title="meta">{{ meta }}</div>
-      <div v-if="$slots.badges" class="mt-6 flex flex-wrap items-center gap-4">
-        <slot name="badges" />
-      </div>
     </div>
 
     <!-- Hidden: an eye in the corner, out of the way of the action bar -->
