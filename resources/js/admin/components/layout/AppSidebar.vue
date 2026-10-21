@@ -15,7 +15,7 @@
               <router-link
                 :to="{ name: item.route }"
                 :aria-current="isActive(item) ? 'page' : undefined"
-                class="flex w-full items-center gap-10 rounded-md px-12 py-5 text-sm whitespace-nowrap transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-gray-200 focus-visible:outline-none dark:focus-visible:ring-warm-700"
+                class="flex w-full items-center gap-10 rounded-md px-12 py-6 text-sm whitespace-nowrap transition-colors duration-150 focus-visible:ring-2 focus-visible:ring-gray-200 focus-visible:outline-none dark:focus-visible:ring-warm-700"
                 :class="isActive(item)
                   ? 'text-gray-900 dark:text-warm-100'
                   : 'text-gray-400 hover:text-gray-900 dark:text-warm-500 dark:hover:text-warm-100'"
@@ -31,7 +31,7 @@
                 <button
                   type="submit"
                   :title="user ? `${user} abmelden` : null"
-                  class="flex w-full cursor-pointer items-center gap-10 rounded-md px-12 py-5 text-sm whitespace-nowrap text-gray-400 transition-colors duration-150 hover:text-gray-900 focus-visible:ring-2 focus-visible:ring-gray-200 focus-visible:outline-none dark:text-warm-500 dark:hover:text-warm-100 dark:focus-visible:ring-warm-700"
+                  class="flex w-full cursor-pointer items-center gap-10 rounded-md px-12 py-6 text-sm whitespace-nowrap text-gray-400 transition-colors duration-150 hover:text-gray-900 focus-visible:ring-2 focus-visible:ring-gray-200 focus-visible:outline-none dark:text-warm-500 dark:hover:text-warm-100 dark:focus-visible:ring-warm-700"
                 >
                   <PhSignOut :size="18" weight="light" class="shrink-0" />
                   <span>Logout</span>
