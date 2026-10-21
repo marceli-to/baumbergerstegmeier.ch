@@ -13,9 +13,9 @@ assets committed (`public/build`), nothing built on the server.
 - [ ] The site's PHP is ≥ 8.3 for web **and** CLI (Hostpoint panel + the
       `php` on the SSH path). Record Imagick/GD, WebP/AVIF,
       `upload_max_filesize`, `post_max_size`, `memory_limit` (`04` #1).
-- [ ] Every user has `email_verified_at` set. Email verification is
-      removed with the own login (D5), so an unverified user would lose
-      nothing, but check that nothing relied on it.
+- [x] Every user has `email_verified_at` set (production dump of
+      2026-10-21: 7 users, none unverified). Email verification is
+      removed with the own login (D5).
 - [ ] Mail sender: a mailbox on the site's domain, e.g.
       `noreply@baumbergerstegmeier.ch`, so SPF covers Hostpoint (D11).
 - [ ] SMTP account for that address, if there is one. Without one,
@@ -29,6 +29,15 @@ assets committed (`public/build`), nothing built on the server.
       its stored HTML (`04` #3). The visible text does not change.
 - [ ] Tell them: login, logout and password reset look slightly different
       (own login with a background image); URLs stay the same.
+
+## Dry run with production data (2026-10-21)
+
+The production dump (`sisecufi_bsa`, MariaDB 10.11) and
+`storage/app/public` were loaded locally. Production has run the same
+migrations as the branch, so the deploy has nothing to migrate. All 94
+sitemap URLs answer 200, and so do the 230 image URLs on home, a project,
+team and publications. Nothing new in the log. 177 image rows have no file,
+all of them soft-deleted (127 on projects), so nothing visible is missing.
 
 ## Production `.env`
 
