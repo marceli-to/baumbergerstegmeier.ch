@@ -1,4 +1,7 @@
 @extends('layout.web')
+@push('head')
+<script type="application/ld+json">{!! \App\Support\Seo::organization() !!}</script>
+@endpush
 @section('content')
 @if ($coverProject)
   <x-hero :class="'lg:mt-25x'">

@@ -1,7 +1,13 @@
 @extends('layout.web')
 @section('seo_title', $project->title)
-@section('seo_description', $project->description ?? '')
-@section('og_image', $project->coverImage ? url('/') . '/img/crop/'. $project->coverImage->name . '/2000/'. $project->coverImage->coords : '')
+@section('seo_description', $project->description ?: $project->text)
+@section('canonical', $project->getShowRoute())
+@if ($project->coverImage)
+  @section('og_image', $project->coverImage->ogUrl())
+@endif
+@if (request()->routeIs('page.project.preview'))
+  @section('robots', 'noindex, nofollow')
+@endif
 @section('content')
 
 @if (rtrim(request()->headers->get('referer'), '/') == route('page.home'))

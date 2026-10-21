@@ -8,6 +8,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\OfficeController;
 use App\Http\Controllers\WorklistController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\SeoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,11 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/img/original/{filename}', [ImageController::class, 'original']);
 Route::get('/img/thumbnail/{filename}', [ImageController::class, 'thumbnail']);
 Route::get('/img/crop/{filename}/{maxSize?}/{coords?}/{ratio?}', [ImageController::class, 'crop']);
+Route::get('/img/og/{filename}/{coords?}', [ImageController::class, 'og']);
+
+// Sitemap and llms.txt (robots.txt: php artisan seo:robots)
+Route::get('sitemap.xml', [SeoController::class, 'sitemap']);
+Route::get('llms.txt', [SeoController::class, 'llms']);
 
 // Frontend
 Route::get('/', [HomeController::class, 'index'])->name('page.home');

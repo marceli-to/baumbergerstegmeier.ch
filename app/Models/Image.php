@@ -105,6 +105,14 @@ class Image extends Model
   }
 
   /**
+   * Absolute 1200 x 630 URL for og:image, on top of the crop
+   */
+  public function ogUrl(): string
+  {
+    return url('/img/og/' . $this->name . ($this->has_coords ? '/' . $this->coords : ''));
+  }
+
+  /**
    * Check for cropping coordinates
    * @return Boolean
    */

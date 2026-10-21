@@ -1,6 +1,6 @@
 @extends('layout.web')
 @section('seo_title', 'Auszeichnungen')
-@section('seo_description', 'Zahlreiche Auszeichnungen wie Gute Bauten Kanton Basel, Arc-Award oder best architects.')
+@section('seo_description', 'Auszeichnungen für Bauten von Baumberger Stegmeier, nach Jahr: best architects, Arc-Award, AIT-Award, Prix Lignum, Gute Bauten Kanton Basel u. a.')
 @section('content')
 <x-page-title />
 <section class="content-awards">

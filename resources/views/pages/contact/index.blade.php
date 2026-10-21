@@ -1,6 +1,6 @@
 @extends('layout.web')
 @section('seo_title', 'Kontakt')
-@section('seo_description', 'Hier finden Sie unsere Adresse sowie E-Mail-Adressen für Medienanfragen und Bewerbungen.')
+@section('seo_description', 'Baumberger Stegmeier Architektur AG, Weststrasse 70, 8003 Zürich: Telefon, E-Mail, Kontakte für Presseanfragen und Bewerbungen, Impressum und Datenschutz.')
 @section('content')
 <x-page-title />
 <section class="content-contact md:grid md:grid-cols-12 md:grid-column-gap">

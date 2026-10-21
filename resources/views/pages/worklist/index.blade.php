@@ -1,6 +1,20 @@
 @extends('layout.web')
-@section('seo_title', 'Werkliste')
-@section('seo_description', 'Schwerpunkte bilden neben dem Wohnungsbau Schul- und Gesundheitsbauten wie auch Gewerbebauten. Darüber hinaus gilt unser Interesse dem Umbau und der Sanierung denkmalpflegerisch geschützter Gebäude.')
+@section('seo_title', match ($filter) {
+  'state' => 'Werkliste: ' . $state->description,
+  'category' => 'Werkliste: ' . $category->description,
+  'category-state' => 'Werkliste: ' . $category->description . ', ' . $state->description,
+  default => 'Werkliste',
+})
+@section('seo_description', match ($filter) {
+  'year' => 'Alle Projekte von Baumberger Stegmeier Architektur nach Jahr: Neubauten, Umbauten, Projekte in Planung und Wettbewerbe.',
+  'state' => 'Projekte von Baumberger Stegmeier Architektur mit dem Status «' . $state->description . '», nach Jahr geordnet.',
+  'category' => 'Projekte von Baumberger Stegmeier Architektur im Programm «' . $category->description . '»: gebaut, in Planung und Wettbewerbe, nach Jahr geordnet.',
+  'category-state' => 'Projekte von Baumberger Stegmeier Architektur im Programm «' . $category->description . '» mit dem Status «' . $state->description . '», nach Jahr geordnet.',
+  default => 'Alle Projekte von Baumberger Stegmeier Architektur: gebaut, in Planung und Wettbewerbe; filterbar nach Jahr, Status und Programm.',
+})
+@if (!empty($searchTerm))
+  @section('robots', 'noindex, follow')
+@endif
 @section('content')
 <x-page-title />
 <section class="content-worklist">

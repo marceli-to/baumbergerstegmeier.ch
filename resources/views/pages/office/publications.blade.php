@@ -1,6 +1,6 @@
 @extends('layout.web')
 @section('seo_title', 'Publikationen')
-@section('seo_description', 'Zahlreiche Veröffentlichungen in der Fach- und Tagespresse, wie Hochparterre, werk, bauen+wohnen, TEC21, NZZ, Tagesanzeige u. v. m. ')
+@section('seo_description', 'Publikationen über Projekte von Baumberger Stegmeier seit 2007, nach Jahr: Fach- und Tagespresse wie Hochparterre, werk, bauen+wohnen, TEC21 und NZZ.')
 @section('content')
 <x-page-title />
 <section class="content-publications">

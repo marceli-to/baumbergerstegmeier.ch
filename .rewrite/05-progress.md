@@ -158,6 +158,50 @@ differs on every run; leave it out of the diff.
   admin always sends them).
 - Bundle: the editor chunk is 415 KB (130 gzip), loaded only by forms.
 
+## SEO (2026-10-21)
+
+After oxid `d70cb04`.
+
+- **Head** (`layout/partials/head.blade.php`): pages set
+  `seo_title`/`seo_description`, optionally `og_image`, `og_type`,
+  `canonical`, `robots`. Inline `@section` values arrive escaped, so the
+  partial decodes each once; descriptions go through `App\Support\Seo::text`
+  (tags stripped, entities decoded, 160 chars at a word). Adds meta robots
+  (`noindex, nofollow` outside production; `noindex, follow` on the
+  worklist search `?searchTerm=`; `noindex, nofollow` on
+  `/projekt/vorschau/`), `og:type`/`og:locale`/`twitter:card`. The admin's
+  login screens have their own layout (`layout/auth`, already noindex).
+- **Projects**: canonical is `getShowRoute()` (a project is reachable by
+  state and by state/category). Description: the SEO `description` from the
+  admin, else the text (only 3 of 59 detail pages have one).
+- **og:image**: new `/img/og/{file}/{coords?}` (`ImageController::og`,
+  `Image::ogUrl()`): the admin crop, then `fit=crop` to 1200 × 630.
+  Unsigned like the other `/img` URLs; the size is fixed. The default
+  `assets/img/og.jpg` existed but was 1800 × 1200: recropped to 1200 × 630
+  (same rendering, centre band). Path now in `config('seo.image')`.
+- **Organization JSON-LD** on the homepage (`Seo::organization()`, data in
+  `config/seo.php` from the footer/contact page; Instagram as `sameAs`).
+- **`/sitemap.xml`, `/llms.txt`** (`SeoController`): the fixed pages, the
+  project overviews as in the menu (landing by state, by state/category with
+  featured projects), the worklist by status and programme, and every
+  published + featured project (the ones the worklist links).
+- **robots.txt** is no longer committed: `php artisan seo:robots` writes it
+  per environment (production: disallow `/administration`, `/api/`,
+  `/login`, `/password/`, `/projekt/vorschau/`, plus the sitemap), run by
+  composer's `post-autoload-dump`.
+- **Descriptions** rewritten: default, profile, team, publications, awards,
+  jobs, contact, worklist (per filter), project overviews.
+- Verified: `tests/Feature/SeoTest.php`, `tests/Unit/SeoTextTest.php` (new
+  Unit suite in `phpunit.xml`), 179 tests pass; curl of home, a project,
+  contact, overviews; `xmllint` on the sitemap (83 URLs); og:image 1200 × 630.
+- **Found, not fixed (already there):** a project page 500s when its
+  landing grid has a single project (`getBrowseByState`: next id is null).
+  Project routes don't check `publish`/`feature`, so unpublished projects
+  are reachable by URL. `getShowRoute()` 500s for a project in a state with
+  categories but without a category (none today). Three projects' SEO
+  descriptions read like marketing copy ("Innovative Wohnsiedlung …
+  harmonische Quartiersintegration"): DB content, for the editors.
+
 ## Deploy notes
 
 Moved to `08-deploy.md` (2026-10-20). Add to it as the work lands.

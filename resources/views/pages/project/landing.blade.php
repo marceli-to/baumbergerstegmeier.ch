@@ -1,5 +1,6 @@
 @extends('layout.web')
-@section('seo_title', $state->description ?? $category->description)
+@section('seo_title', $is_category ? $state->description . ': ' . $category->description : $state->description)
+@section('seo_description', 'Projekte von Baumberger Stegmeier Architektur: ' . ($is_category ? $state->description . ', ' . $category->description : $state->description) . '. Übersicht mit Bildern, verlinkt auf die einzelnen Projekte.')
 @section('content')
 <section class="content-project content-project--landing">
   <h1>{{ $is_category ? $category->description : $state->description }}</h1>

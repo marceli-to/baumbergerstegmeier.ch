@@ -86,12 +86,18 @@ mail account. `config/mail.php`:
 - Still there, to decide (`04` #6): `public/js/`, `public/assets/js/
   {fancybox,modernizr}.js`, `composer.phar` — nothing in the repo uses them
 - `storage/app/.glide-cache/` is created on the first image request
+- `public/robots.txt` is no longer in git (SEO, 2026-10-21): the pull
+  deletes it, `composer install` writes it again (`php artisan seo:robots`,
+  per `APP_ENV`). Production gets the crawl rules and the `Sitemap:` line
+  from `APP_URL`, every other environment `Disallow: /`
 
 ## Order on the server
 
 1. Snapshot the production DB and `storage/`.
 2. Prepare `.env` (above). Check the PHP version and upload limits.
-3. `git pull`, `composer install --no-dev --optimize-autoloader`.
+3. `git pull`, `composer install --no-dev --optimize-autoloader` (also
+   writes `public/robots.txt`; without composer: `php artisan seo:robots`).
+   `APP_ENV=production` and `APP_URL` must be set before.
 4. `php artisan migrate --force`, if the rework adds migrations.
 5. `php artisan optimize:clear && php artisan optimize` (must work: both
    `config:cache` and `route:cache`).
@@ -118,4 +124,9 @@ mail account. `config/mail.php`:
       crop; reorder a list; the editor's link dialog (page list, Icon ↗).
       `.rewrite/tools/qa/admin-tour.js` against production with a real
       account visits every screen (read-only).
+- [ ] SEO: `/robots.txt` has the production rules and the `Sitemap:` line;
+      `/sitemap.xml` and `/llms.txt` list production URLs; a page's source
+      shows `<meta name="robots" content="index, follow">`; a project's
+      og:image (`/img/og/…`) opens at 1200 × 630. Submit the sitemap in
+      Google Search Console if the site is registered there.
 - [ ] `storage/logs/laravel.log` free of new errors.

@@ -1,6 +1,6 @@
 @extends('layout.web')
 @section('seo_title', 'Team')
-@section('seo_description', 'In unserem Team arbeiten rund 40 Architekt*innen, Bauleiter*innen, Praktikant*innen und Lehrlinge.')
+@section('seo_description', 'Geschäftsleitung, Mitarbeitende und ehemalige Mitarbeitende von Baumberger Stegmeier Architektur in Zürich, mit Lebensläufen der Partner*innen.')
 @section('content')
 <x-page-title />
 <section class="content-teams">

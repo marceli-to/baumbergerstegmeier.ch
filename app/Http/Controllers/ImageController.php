@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
  *   /img/original/{file}
  *   /img/thumbnail/{file}                            admin, 300 × 300
  *   /img/crop/{file}/{maxSize?}/{coords?}/{ratio?}   coords = w,h,x,y
+ *   /img/og/{file}/{coords?}                         og:image, 1200 × 630
  *
  * Crops take ?fm=webp|avif (<x-image> emits them). A server that can't
  * write the format answers with the upload's own.
@@ -70,6 +71,22 @@ class ImageController extends Controller
     {
       abort_unless(in_array($request->query('fm'), ['webp', 'avif'], true), 404);
       $params['fm'] = $request->query('fm');
+    }
+
+    return $this->respond($filename, $params);
+  }
+
+  /**
+   * og:image: crop to the coords (if any), then crop to fill 1200 × 630
+   */
+  public function og(string $filename, ?string $coords = null): Response
+  {
+    [$width, $height] = $this->orientedSize($this->source($filename));
+    $params = ['w' => 1200, 'h' => 630, 'fit' => 'crop'];
+
+    if ($crop = $this->coords($coords, $width, $height))
+    {
+      $params['crop'] = implode(',', $crop);
     }
 
     return $this->respond($filename, $params);
