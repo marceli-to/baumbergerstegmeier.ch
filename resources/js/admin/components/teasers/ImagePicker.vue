@@ -12,24 +12,19 @@
   <!-- Home and landings: projects on the left, the chosen one's images on the right -->
   <div v-else-if="projects.length" class="flex h-full min-h-0">
     <nav class="w-300 shrink-0 overflow-y-auto border-r border-gray-200 p-8 dark:border-warm-800" aria-label="Projekte">
-      <ul role="list">
+      <ul role="list" class="flex flex-col gap-4">
         <li v-for="item in visibleProjects" :key="item.id">
           <button
             type="button"
-            class="flex w-full cursor-pointer items-center gap-10 rounded-md px-8 py-6 text-left transition-colors"
+            class="block w-full cursor-pointer rounded-md px-10 py-8 text-left transition-colors"
             :class="item === current
               ? 'bg-gray-100 dark:bg-warm-800'
               : 'hover:bg-gray-50 dark:hover:bg-warm-800/50'"
             :aria-current="item === current ? 'true' : undefined"
             @click="current = item"
           >
-            <span class="size-36 shrink-0 overflow-hidden rounded-sm bg-gray-100 dark:bg-warm-800">
-              <img v-if="item.published_images[0]" :src="imageUrl(item.published_images[0], 'thumbnail')" alt="" loading="lazy" class="size-full object-cover">
-            </span>
-            <span class="min-w-0">
-              <span class="block truncate text-sm" :class="item === current ? 'text-gray-900 dark:text-warm-100' : 'text-gray-700 dark:text-warm-300'">{{ item.title }}</span>
-              <span class="block truncate text-xs text-gray-400 dark:text-warm-500">{{ meta(item) }}</span>
-            </span>
+            <span class="block truncate text-sm" :class="item === current ? 'text-gray-900 dark:text-warm-100' : 'text-gray-700 dark:text-warm-300'">{{ item.title }}</span>
+            <span class="mt-2 block truncate text-xs text-gray-400 dark:text-warm-500">{{ meta(item) }}</span>
           </button>
         </li>
         <li v-if="!visibleProjects.length" class="px-8 py-6 text-sm text-gray-400 dark:text-warm-500">Keine Treffer.</li>

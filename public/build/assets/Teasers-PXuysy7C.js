@@ -1,1 +1,0 @@
-import{B as e,D as t,M as n,w as r}from"./http-DIteVjfr.js";import{t as i}from"./TeaserBuilder-BR7usSQk.js";import{t as a}from"./PageHeader-CKzgqUnl.js";n();var o={__name:`Teasers`,setup(n){return(n,o)=>(e(),r(`div`,null,[t(a,{title:`Startseite`}),t(i,{type:`home`})]))}};export{o as default};
