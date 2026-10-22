@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed right-32 bottom-32 z-50 flex w-full max-w-280 flex-col gap-6" aria-live="polite">
+  <div class="fixed right-[max(2rem,calc(100%-95rem))] bottom-32 z-50 flex w-full max-w-280 flex-col gap-6" aria-live="polite">
     <TransitionGroup
       enter-active-class="transition-all duration-200 ease-out"
       enter-from-class="opacity-0 translate-y-[-8px]"
