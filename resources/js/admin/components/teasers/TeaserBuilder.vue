@@ -38,11 +38,9 @@
 
     <Drawer :open="picker?.type === 'image'" :title="type === 'project' ? 'Bild wählen' : 'Projektbild wählen'" size="xl" @close="picker = null">
       <template v-if="type !== 'project'" #header>
-        <div class="mr-24 flex flex-1 items-center gap-24">
-          <h3 class="shrink-0 text-sm font-medium text-gray-900 dark:text-warm-100">Projektbild wählen</h3>
-          <div class="w-300">
-            <FormInput v-model="search" name="picker_search" placeholder="Projekt suchen" />
-          </div>
+        <h3 class="text-sm font-medium text-gray-900 dark:text-warm-100">Projektbild wählen</h3>
+        <div class="absolute top-1/2 left-1/2 w-300 -translate-1/2">
+          <FormInput v-model="search" name="picker_search" placeholder="Projekt suchen" />
         </div>
       </template>
       <ImagePicker v-if="picker?.type === 'image'" :type="type" :project-id="projectId" :landing="landing" :used="usedImages" :search="search" @select="store" />

@@ -12,7 +12,7 @@
         aria-modal="true"
         :aria-label="title"
       >
-        <div class="flex items-center justify-between border-b border-neutral-200 px-24 py-20 dark:border-warm-800">
+        <div class="relative flex items-center justify-between border-b border-neutral-200 px-24 py-20 dark:border-warm-800">
           <slot name="header">
             <h3 class="text-sm font-medium text-gray-900 dark:text-warm-100">{{ title }}</h3>
           </slot>
@@ -56,7 +56,7 @@ const sizes = {
   sm: 'max-w-[420px]',
   md: 'max-w-[560px]',
   lg: 'max-w-[720px]',
-  xl: 'max-w-[1120px]',
+  xl: 'max-w-[960px]',
 };
 
 // Pending unmount; cancelled when the drawer opens again within 200 ms

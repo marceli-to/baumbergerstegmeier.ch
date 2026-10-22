@@ -3,7 +3,7 @@
 
   <!-- Project teasers: the project's own images -->
   <div v-else-if="type === 'project'" class="px-24 py-16">
-    <div v-if="project?.images.length" class="grid grid-cols-5 gap-8">
+    <div v-if="project?.images.length" class="grid grid-cols-4 gap-8">
       <ImageTile v-for="image in project.images" :key="image.id" :image="image" @click="emit('select', { image_id: image.id, project_id: project.id })" />
     </div>
     <div v-else class="text-sm text-gray-400 dark:text-warm-500">Es sind noch keine Bilder vorhanden.</div>
@@ -38,7 +38,7 @@
     <div class="min-w-0 flex-1 overflow-y-auto px-24 py-16">
       <template v-if="current">
         <h4 class="mb-16 text-sm font-medium text-gray-900 dark:text-warm-100">{{ label(current) }}</h4>
-        <div v-if="current.published_images.length" class="grid grid-cols-4 gap-8">
+        <div v-if="current.published_images.length" class="grid grid-cols-3 gap-8">
           <ImageTile v-for="image in current.published_images" :key="image.id" :image="image" @click="emit('select', { image_id: image.id, project_id: current.id })" />
         </div>
         <div v-else class="text-sm text-gray-400 dark:text-warm-500">Es sind keine Bilder für dieses Projekt vorhanden.</div>
