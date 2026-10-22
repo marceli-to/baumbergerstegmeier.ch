@@ -3,9 +3,8 @@
     <div v-if="!isFetched" class="text-sm text-gray-400 dark:text-warm-500">Laden...</div>
     <div v-else class="grid grid-cols-3 items-start gap-24">
       <div v-for="(column, index) in columns" :key="index" class="flex flex-col gap-16">
-        <div class="flex items-center justify-between border-b border-gray-900/10 pb-8 text-xs text-gray-400 dark:border-warm-700/50 dark:text-warm-500">
-          <span>Spalte {{ index + 1 }}</span>
-          <span>{{ column.length }}</span>
+        <div class="border-b border-gray-900/10 pb-8 text-xs text-gray-400 dark:border-warm-700/50 dark:text-warm-500">
+          Spalte {{ index + 1 }}
         </div>
         <draggable
           v-model="columns[index]"
