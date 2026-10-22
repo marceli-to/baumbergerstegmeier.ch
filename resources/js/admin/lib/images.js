@@ -3,15 +3,15 @@
  *
  * 'thumbnail'  300 × 300, cropped to fill
  * 'original'   the upload (the cropper's source)
- * 'crop'       the stored crop, longer side 1500. The coords are part of
- *              the URL, so a re-crop gets a new one.
+ * 'crop'       the stored crop, longer side maxSize (1500). The coords are
+ *              part of the URL, so a re-crop gets a new one.
  */
-export function imageUrl(image, template = 'crop') {
+export function imageUrl(image, template = 'crop', maxSize = 1500) {
   if (template !== 'crop') {
     return `/img/${template}/${image.name}`;
   }
   const coords = [image.coords_w, image.coords_h, image.coords_x, image.coords_y].map(value => Math.floor(value || 0));
-  return `/img/crop/${image.name}/1500/${coords.join(',')}`;
+  return `/img/crop/${image.name}/${maxSize}/${coords.join(',')}`;
 }
 
 /**

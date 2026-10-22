@@ -3,7 +3,7 @@
 
   <!-- Project teasers: the project's own images -->
   <div v-else-if="type === 'project'" class="px-24 py-16">
-    <div v-if="project?.images.length" class="grid grid-cols-4 gap-8">
+    <div v-if="project?.images.length" class="grid grid-cols-5 gap-8">
       <ImageTile v-for="image in project.images" :key="image.id" :image="image" @click="emit('select', { image_id: image.id, project_id: project.id })" />
     </div>
     <div v-else class="text-sm text-gray-400 dark:text-warm-500">Es sind noch keine Bilder vorhanden.</div>
@@ -11,21 +11,26 @@
 
   <!-- Home and landings: projects on the left, the chosen one's images on the right -->
   <div v-else-if="projects.length" class="flex h-full min-h-0">
-    <nav class="flex w-240 shrink-0 flex-col border-r border-gray-200 dark:border-warm-800" aria-label="Projekte">
-      <div class="p-16 pb-8">
-        <FormInput v-model="search" name="picker_search" placeholder="Projekt suchen" />
-      </div>
-      <ul role="list" class="flex-1 overflow-y-auto px-8 pb-16">
+    <nav class="w-300 shrink-0 overflow-y-auto border-r border-gray-200 p-8 dark:border-warm-800" aria-label="Projekte">
+      <ul role="list">
         <li v-for="item in visibleProjects" :key="item.id">
           <button
             type="button"
-            class="w-full cursor-pointer rounded-md px-8 py-6 text-left text-sm transition-colors"
+            class="flex w-full cursor-pointer items-center gap-10 rounded-md px-8 py-6 text-left transition-colors"
             :class="item === current
-              ? 'bg-gray-100 text-gray-900 dark:bg-warm-800 dark:text-warm-100'
-              : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900 dark:text-warm-400 dark:hover:bg-warm-800/50 dark:hover:text-warm-100'"
+              ? 'bg-gray-100 dark:bg-warm-800'
+              : 'hover:bg-gray-50 dark:hover:bg-warm-800/50'"
             :aria-current="item === current ? 'true' : undefined"
             @click="current = item"
-          >{{ label(item) }}</button>
+          >
+            <span class="size-36 shrink-0 overflow-hidden rounded-sm bg-gray-100 dark:bg-warm-800">
+              <img v-if="item.published_images[0]" :src="imageUrl(item.published_images[0], 'thumbnail')" alt="" loading="lazy" class="size-full object-cover">
+            </span>
+            <span class="min-w-0">
+              <span class="block truncate text-sm" :class="item === current ? 'text-gray-900 dark:text-warm-100' : 'text-gray-700 dark:text-warm-300'">{{ item.title }}</span>
+              <span class="block truncate text-xs text-gray-400 dark:text-warm-500">{{ meta(item) }}</span>
+            </span>
+          </button>
         </li>
         <li v-if="!visibleProjects.length" class="px-8 py-6 text-sm text-gray-400 dark:text-warm-500">Keine Treffer.</li>
       </ul>
@@ -33,7 +38,7 @@
     <div class="min-w-0 flex-1 overflow-y-auto px-24 py-16">
       <template v-if="current">
         <h4 class="mb-16 text-sm font-medium text-gray-900 dark:text-warm-100">{{ label(current) }}</h4>
-        <div v-if="current.published_images.length" class="grid grid-cols-3 gap-8">
+        <div v-if="current.published_images.length" class="grid grid-cols-4 gap-8">
           <ImageTile v-for="image in current.published_images" :key="image.id" :image="image" @click="emit('select', { image_id: image.id, project_id: current.id })" />
         </div>
         <div v-else class="text-sm text-gray-400 dark:text-warm-500">Es sind keine Bilder für dieses Projekt vorhanden.</div>
@@ -44,7 +49,7 @@
 </template>
 <script setup>
 import { ref, computed, h } from 'vue';
-import FormInput from '@/components/ui/form/FormInput.vue';
+import { PhCheck } from '@phosphor-icons/vue';
 import http from '@/lib/http';
 import { imageUrl } from '@/lib/images';
 import { displayName } from '@/lib/utils';
@@ -58,22 +63,31 @@ const props = defineProps({
   projectId: { type: [String, Number], default: null },
   // { view: 'category' | 'state', id }
   landing: { type: Object, default: null },
+  // ids of the images already shown as a teaser
+  used: { type: Set, default: () => new Set() },
+  // filters the projects (the field is in the drawer's header)
+  search: { type: String, default: '' },
 });
 
 // ({ image_id, project_id })
 const emit = defineEmits(['select']);
 
-// A square thumbnail button, the caption (or file name) as title
+// A square tile showing the whole image (as cropped for the teasers),
+// with the caption (or file name) on hover. Images already used are marked.
 const ImageTile = (tileProps, { attrs }) => {
-  const name = tileProps.image.caption || tileProps.image.original_name || displayName(tileProps.image.name);
+  const image = tileProps.image;
+  const name = image.caption || image.original_name || displayName(image.name);
+  const isUsed = props.used.has(image.id);
   return h('button', {
     type: 'button',
-    title: name,
-    class: 'relative aspect-square cursor-pointer overflow-hidden rounded-sm bg-gray-100 hover:ring-2 hover:ring-gray-900 focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:outline-none dark:bg-warm-800 dark:hover:ring-warm-100 dark:focus-visible:ring-warm-100',
+    title: isUsed ? `${name} (bereits verwendet)` : name,
+    class: 'group relative flex aspect-square cursor-pointer items-center justify-center overflow-hidden rounded-sm bg-gray-100 p-8 hover:ring-2 hover:ring-gray-900 focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:outline-none dark:bg-warm-800 dark:hover:ring-warm-100 dark:focus-visible:ring-warm-100',
     onClick: attrs.onClick,
   }, [
-    // unpublished images (a project's own) are dimmed
-    h('img', { src: imageUrl(tileProps.image, 'thumbnail'), alt: name, loading: 'lazy', class: ['h-full w-full object-cover', Number(tileProps.image.publish) === 0 ? 'opacity-40' : ''] }),
+    // unpublished images (a project's own) and used ones are dimmed
+    h('img', { src: imageUrl(image, 'crop', 400), alt: name, loading: 'lazy', class: ['max-h-full max-w-full object-contain', Number(image.publish) === 0 || isUsed ? 'opacity-40' : ''] }),
+    isUsed && h('span', { class: 'absolute top-6 left-6 flex items-center gap-4 rounded-sm bg-gray-900 px-6 py-2 text-[11px] text-white dark:bg-warm-100 dark:text-warm-900' }, [h(PhCheck, { size: 12 }), 'Verwendet']),
+    h('span', { class: 'absolute inset-x-0 bottom-0 truncate bg-gray-900/80 px-8 py-4 text-left text-[11px] text-white opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100' }, name),
   ]);
 };
 ImageTile.props = ['image'];
@@ -82,12 +96,14 @@ const isFetched = ref(false);
 const project = ref(null);
 const projects = ref([]);
 const current = ref(null);
-const search = ref('');
 
 const label = item => [item.title, item.location].filter(Boolean).join(', ');
 
+// Location and year; some locations already end in a period (2026–2031)
+const meta = item => (/\d{4}/.test(item.location ?? '') ? [item.location] : [item.location, item.year]).filter(Boolean).join(', ');
+
 const visibleProjects = computed(() => {
-  const terms = search.value.toLowerCase().split(/\s+/).filter(Boolean);
+  const terms = props.search.toLowerCase().split(/\s+/).filter(Boolean);
   return projects.value.filter(item => {
     const text = `${label(item)} ${item.year ?? ''}`.toLowerCase();
     return terms.every(term => text.includes(term));

@@ -40,7 +40,7 @@ import { PhX } from '@phosphor-icons/vue';
 const props = defineProps({
   open: { type: Boolean, default: false },
   title: { type: String, default: null },
-  // sm | md | lg
+  // sm | md | lg | xl
   size: { type: String, default: 'sm' },
   // closes on a click on the backdrop
   dismissible: { type: Boolean, default: true },
@@ -56,6 +56,7 @@ const sizes = {
   sm: 'max-w-[420px]',
   md: 'max-w-[560px]',
   lg: 'max-w-[720px]',
+  xl: 'max-w-[1120px]',
 };
 
 // Pending unmount; cancelled when the drawer opens again within 200 ms
