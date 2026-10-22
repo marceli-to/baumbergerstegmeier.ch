@@ -89,7 +89,7 @@ const navigation = [
       { name: 'Publikationen', route: 'publications', match: /^publications?(-|$)/, icon: PhBooks },
       { name: 'Auszeichnungen', route: 'awards', match: /^awards?(-|$)/, icon: PhTrophy },
       { name: 'Jobs', route: 'jobs', match: /^jobs?(-(create|edit)|$)/, icon: PhBriefcase },
-      { name: 'Inserate', route: 'job-articles', match: /^job-articles?(-|$)/, icon: PhMegaphone },
+      { name: 'Jobinserate', route: 'job-articles', match: /^job-articles?(-|$)/, icon: PhMegaphone },
       { name: 'Kontakt', route: 'contact', match: /^contact(-|$)/, icon: PhAddressBook },
     ],
   },
