@@ -44,7 +44,6 @@
 </template>
 <script setup>
 import { ref, computed, h } from 'vue';
-import { PhCheck } from '@phosphor-icons/vue';
 import http from '@/lib/http';
 import { imageUrl } from '@/lib/images';
 import { displayName } from '@/lib/utils';
@@ -81,7 +80,7 @@ const ImageTile = (tileProps, { attrs }) => {
   }, [
     // unpublished images (a project's own) and used ones are dimmed
     h('img', { src: imageUrl(image, 'crop', 400), alt: name, loading: 'lazy', class: ['max-h-full max-w-full object-contain', Number(image.publish) === 0 || isUsed ? 'opacity-40' : ''] }),
-    isUsed && h('span', { class: 'absolute top-6 left-6 flex items-center gap-4 rounded-sm bg-gray-900 px-6 py-2 text-[11px] text-white dark:bg-warm-100 dark:text-warm-900' }, [h(PhCheck, { size: 12 }), 'Verwendet']),
+    isUsed && h('span', { class: 'absolute top-6 left-6 rounded-sm bg-white/90 px-6 py-2 text-[11px] text-gray-500 ring-1 ring-gray-900/5 dark:bg-warm-900/90 dark:text-warm-400 dark:ring-warm-100/10' }, 'Verwendet'),
     h('span', { class: 'absolute inset-x-0 bottom-0 truncate bg-gray-900/80 px-8 py-4 text-left text-[11px] text-white opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100' }, name),
   ]);
 };
