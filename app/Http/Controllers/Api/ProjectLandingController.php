@@ -137,6 +137,9 @@ class ProjectLandingController extends Controller
      {
        $t = ProjectLanding::find($item['id']);
        $t->position = $item['position'];
+       if (isset($item['column'])) {
+         $t->column = $item['column'];
+       }
        $t->save(); 
      }
      return response()->json('successfully updated');

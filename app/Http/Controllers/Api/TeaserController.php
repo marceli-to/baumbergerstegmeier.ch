@@ -91,6 +91,9 @@ class TeaserController extends Controller
      {
        $t = Teaser::find($item['id']);
        $t->position = $item['position'];
+       if (isset($item['column'])) {
+         $t->column = $item['column'];
+       }
        $t->save(); 
      }
      return response()->json('successfully updated');

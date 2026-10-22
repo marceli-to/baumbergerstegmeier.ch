@@ -10,10 +10,12 @@
         <draggable
           v-model="columns[index]"
           item-key="id"
-          class="flex flex-col gap-16"
+          group="teasers"
+          class="flex min-h-80 flex-col gap-16"
           ghost-class="opacity-30"
+          :data-column="index"
           :animation="150"
-          @end="event => event.oldIndex !== event.newIndex && order(index, columns[index])"
+          @end="moved"
         >
           <template #item="{ element: item }">
             <div class="cursor-grab active:cursor-grabbing">
@@ -57,8 +59,8 @@ import http from '@/lib/http';
 import { confirmDelete } from '@/lib/utils';
 
 // Three columns of teasers (project images, on the home also articles),
-// for the home, a project or a project landing. Each column is ordered on
-// its own by dragging; every change is saved right away.
+// for the home, a project or a project landing. Teasers are ordered by
+// dragging, also into another column; every change is saved right away.
 const props = defineProps({
   // 'home' | 'project' | 'landing'
   type: { type: String, required: true },
@@ -148,16 +150,33 @@ async function destroy(item) {
   }
 }
 
-// The order API takes { items: [{ id, position }] } (not useOrder's
-// { id, order }). Several drags in a column are sent once.
-const timers = {};
+// A teaser can be dragged within its column or into another one; both
+// columns are then saved
+function moved({ from, to, oldIndex, newIndex }) {
+  if (from === to && oldIndex === newIndex) {
+    return;
+  }
+  order(Number(from.dataset.column));
+  order(Number(to.dataset.column));
+}
 
-function order(column, items) {
-  items.forEach((item, index) => item.position = index);
-  clearTimeout(timers[column]);
-  timers[column] = setTimeout(async () => {
+// The order API takes { items: [{ id, position, column }] } (not useOrder's
+// { id, order }). Several drags are sent at once.
+const changed = new Set();
+let timer = null;
+
+function order(column) {
+  changed.add(column);
+  clearTimeout(timer);
+  timer = setTimeout(async () => {
+    const items = [...changed].flatMap(index => columns.value[index].map((item, position) => {
+      item.position = position;
+      item.column = index;
+      return { id: item.id, position, column: index };
+    }));
+    changed.clear();
     try {
-      await http.post(`${api.value.item}/order`, { items: items.map(({ id, position }) => ({ id, position })) });
+      await http.post(`${api.value.item}/order`, { items });
       notify({ type: 'success', text: 'Reihenfolge angepasst' });
     }
     catch {
@@ -166,7 +185,7 @@ function order(column, items) {
   }, 500);
 }
 
-onBeforeUnmount(() => Object.values(timers).forEach(clearTimeout));
+onBeforeUnmount(() => clearTimeout(timer));
 
 fetch();
 </script>
