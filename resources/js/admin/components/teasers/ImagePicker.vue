@@ -75,13 +75,13 @@ const ImageTile = (tileProps, { attrs }) => {
   return h('button', {
     type: 'button',
     title: isUsed ? `${name} (bereits verwendet)` : name,
-    class: 'group relative flex aspect-square cursor-pointer items-center justify-center overflow-hidden rounded-sm bg-gray-100 p-8 hover:ring-2 hover:ring-gray-900 focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:outline-none dark:bg-warm-800 dark:hover:ring-warm-100 dark:focus-visible:ring-warm-100',
+    class: 'group relative flex aspect-square cursor-pointer items-center justify-center overflow-hidden rounded-sm bg-gray-100 p-8 transition-colors hover:bg-gray-200 focus-visible:ring-2 focus-visible:ring-gray-300 focus-visible:outline-none dark:bg-warm-800 dark:hover:bg-warm-700 dark:focus-visible:ring-warm-600',
     onClick: attrs.onClick,
   }, [
     // unpublished images (a project's own) and used ones are dimmed
     h('img', { src: imageUrl(image, 'crop', 400), alt: name, loading: 'lazy', class: ['max-h-full max-w-full object-contain', Number(image.publish) === 0 || isUsed ? 'opacity-40' : ''] }),
     isUsed && h('span', { class: 'absolute top-6 left-6 rounded-sm bg-white/90 px-6 py-2 text-[11px] text-gray-500 ring-1 ring-gray-900/5 dark:bg-warm-900/90 dark:text-warm-400 dark:ring-warm-100/10' }, 'Verwendet'),
-    h('span', { class: 'absolute inset-x-0 bottom-0 truncate bg-gray-900/80 px-8 py-4 text-left text-[11px] text-white opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100' }, name),
+    h('span', { class: 'absolute inset-x-0 bottom-0 truncate bg-white/90 px-8 py-4 text-left text-[11px] text-gray-500 opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100 dark:bg-warm-900/90 dark:text-warm-400' }, name),
   ]);
 };
 ImageTile.props = ['image'];
