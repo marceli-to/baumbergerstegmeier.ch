@@ -1,5 +1,28 @@
 # Estimate
 
+## Quoted to the client (2026-11-16)
+
+**10–12 hours**, by email. The days below are the internal estimate; the
+quote is well under it. The mail named: the old technology
+replaced (no more security updates), a new admin interface, no change to
+the site's look, and frontend changes for load times, SEO and «Agentic
+Browsing»:
+
+- WebP/AVIF images
+- leaner JS (jQuery, Bootstrap removed)
+- page titles and descriptions
+- link previews (og:image)
+- sitemap
+- structured data (Organization JSON-LD)
+- `llms.txt`
+- (suggested, may not be in the mail) project page errors fixed;
+  unpublished projects only after login
+
+**Approved by the client (2026-11-26).**
+
+Next: the open items in `05-progress.md` and `08-deploy.md`, and a date
+for the switch with a content freeze.
+
 ## In scope
 
 - Laravel 11 → 13, PHP `^8.2` → `^8.3`, Carbon 2 → 3
