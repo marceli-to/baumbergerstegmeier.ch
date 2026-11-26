@@ -16,10 +16,11 @@ assets committed (`public/build`), nothing built on the server.
 - [x] Every user has `email_verified_at` set (production dump of
       2026-10-21: 7 users, none unverified). Email verification is
       removed with the own login (D5).
-- [ ] Mail sender: a mailbox on the site's domain, e.g.
-      `noreply@baumbergerstegmeier.ch`, so SPF covers Hostpoint (D11).
-- [ ] SMTP account for that address, if there is one. Without one,
-      sendmail takes over (below).
+- [ ] Mail sender `noreply@baumbergerstegmeier.ch` (already the local
+      `MAIL_FROM_ADDRESS`), so SPF covers Hostpoint (D11). Only the
+      admin password reset sends mail (below).
+- [ ] Optional: an SMTP account for that address. Without one,
+      sendmail takes over.
 - [ ] `/usr/sbin/sendmail` exists on the server (`ls -l /usr/sbin/sendmail`).
 - [ ] Leftovers confirmed unused outside the repo (`04` #6):
       `public/js/`, root `public/mix-manifest.json`,
@@ -59,7 +60,7 @@ of those changed. Set explicitly:
 | `SESSION_SECURE_COOKIE` | `true` | |
 | `LOG_STACK` / `LOG_LEVEL` | what the old `logging.php` hard-coded | |
 
-Remove: `MAIL_DRIVER` (dead since L7), `CACHE_DRIVER`,
+Remove: `BS_*` (`config/client.php` is gone), `MAIL_DRIVER` (dead since L7), `CACHE_DRIVER`,
 `FILESYSTEM_DRIVER`, `WIRETAP_*` (D1), `BROADCAST_DRIVER`, `PUSHER_*`,
 `MIX_*`, unused `REDIS_*`.
 
@@ -67,6 +68,13 @@ The local `.env` currently sends via a `hundekot.ch` SMTP account as
 `marcel@jamon.digital`. **Don't carry that over.**
 
 ## Mail: SMTP, then sendmail (D11)
+
+The only mail the application sends is the **admin password reset**
+(`AuthController::sendResetLink`, Laravel's `ResetPassword`
+notification), to the 7 admin logins. The public site sends nothing (no
+contact form). The newsletter leftover `App\Mail\SubscriberVerifyEmail`
+and `config/client.php` (read only by it) were removed on 2026-11-26.
+Remove the `BS_*` keys from the production `.env`.
 
 Password reset stays (D11), so mail must work even if nobody sets up a
 mail account. `config/mail.php`:

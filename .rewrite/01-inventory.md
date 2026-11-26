@@ -58,7 +58,7 @@ Nothing to migrate; carry the `role` alias and the `verified` middleware into
 | `public/js/`, root `public/mix-manifest.json` | check: Mix output lives in `public/assets/` |
 | `composer.phar` in the repo root | 1.9 MB; drop unless the server needs it |
 
-Kept, in use: `client.php` (`Mail/SubscriberVerifyEmail`), `pages.php`
+Kept, in use: `pages.php` (`client.php` and `Mail/SubscriberVerifyEmail` were dead: removed 2026-11-26)
 (menu + `AppHelper`), `linklist.php` (`Api/SettingsController`), `seo.php`.
 
 **Unused npm packages:** `cleave.js`, `vue-the-mask`, `vuejs-datepicker`,
