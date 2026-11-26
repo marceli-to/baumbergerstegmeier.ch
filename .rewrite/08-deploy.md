@@ -40,6 +40,35 @@ sitemap URLs answer 200, and so do the 230 image URLs on home, a project,
 team and publications. Nothing new in the log. 177 image rows have no file,
 all of them soft-deleted (127 on projects), so nothing visible is missing.
 
+## Staging for the client (planned 2026-11-26)
+
+Sequence: fresh production dump + `storage/app/public` locally, full
+check there, then a staging site with that data for the client to go
+through, then the production deploy. Staging data need not match
+production exactly: production stays the live data, nothing moves from
+staging to production.
+
+- **Not indexed:** anything but `APP_ENV=production` gets `Disallow: /`
+  in `robots.txt` (`php artisan seo:robots`) and `noindex, nofollow` on
+  every page (`Seo`, `app()->isProduction()`). Use `APP_ENV=staging`;
+  HTTP basic auth on top if it shouldn't be public at all.
+- **Mail:** the users table holds the real admin addresses, so a reset
+  request would mail the editors a staging link. `MAIL_MAILER=log`
+  unless delivery is being tested on purpose.
+- **Logins:** the client logs in with their usual accounts (the hashes
+  come with the dump).
+- **Edits are thrown away:** tell the client staging is a copy; nothing
+  done there reaches production.
+- **Server rehearsal:** on the same Hostpoint account, staging is where
+  to settle the server items before the real deploy: PHP ≥ 8.3 for web
+  and CLI, Imagick/GD and WebP/AVIF, upload limits (`04` #1), the `.env`
+  table below (`APP_URL`, `SANCTUM_STATEFUL_DOMAINS`, …), write access to
+  `storage/app/.glide-cache`, `optimize` passing, `ls -l /usr/sbin/sendmail`.
+- **Local check before staging:** the "After deploy: check" list below
+  (all but the mail tests), plus
+  `BASE=… QA_EMAIL=… QA_PASSWORD=… node .rewrite/tools/qa/admin-tour.js`
+  for every admin screen.
+
 ## Production `.env`
 
 Laravel 13's config files fall back to the framework's defaults, and some
