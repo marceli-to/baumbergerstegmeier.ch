@@ -40,6 +40,20 @@ sitemap URLs answer 200, and so do the 230 image URLs on home, a project,
 team and publications. Nothing new in the log. 177 image rows have no file,
 all of them soft-deleted (127 on projects), so nothing visible is missing.
 
+## Second dry run (2026-11-27)
+
+Fresh dump (`sisecufi_bsa`, phpMyAdmin, 27 Nov 2026 09:28) and
+`storage/app/public` loaded locally, deploy order followed: 43 migrations,
+all already run (nothing pending); `optimize` passes; deploy step 7 done
+(old `storage/app/public/cache`, 805 MB, removed; Glide cache started empty).
+137 projects, 1228 image rows, 7 users (all verified). 177 image rows have no
+file, all soft-deleted, the same as in October. All 96 sitemap URLs answer
+200; all 4973 `/img/…` URLs on those pages answer 200 (every size, JPEG/WebP/
+AVIF), rendering ~635 MB of Glide cache from cold. Nothing new in the log;
+190 tests pass. The `files` table is empty, so no publication links to
+`/storage/uploads/…` yet; the server still needs the `public/storage`
+symlink for when one is uploaded.
+
 ## Staging for the client (planned 2026-11-26)
 
 Sequence: fresh production dump + `storage/app/public` locally, full
