@@ -71,6 +71,22 @@ AVIF), rendering ~635 MB of Glide cache from cold. Nothing new in the log;
 `/storage/uploads/…` yet; the server still needs the `public/storage`
 symlink for when one is uploaded.
 
+Compared with production on the same data (`qa/content.js`: body text and
+upload file names of all 96 sitemap pages, both sides; `qa/shots.js` +
+`compare.sh` at 1440/390): 85 pages identical, every page 200 on both
+sides, no console errors, page heights equal (±2 px). The rest is known:
+home is random; the Werkliste orders by `year` only, so projects of the same
+year come in the database's tie order (MySQL 5.7 locally, MariaDB on
+production; same entries); two projects not in the Wohnen landing
+(`gemeindezentrum-38`, `alterswohnungen-rosenau-116`) get no "Nächstes
+Projekt" under `/projekte/gebaut/wohnen/…` where production linked an
+arbitrary one (the browsing fix of 2026-10-21); the login is the new one.
+Pixel differences otherwise are image encoding (Glide vs the old cache).
+For go-live: run `content.js <production> <local> /tmp/before` right
+before the deploy and `content.js <production> <local> /tmp/after` right
+after; `diff -r /tmp/before/a /tmp/after/a` is what the deploy changed in
+what the site says (expected: the same differences as above).
+
 ## Staging for the client (planned 2026-11-26)
 
 Sequence: fresh production dump + `storage/app/public` locally, full
