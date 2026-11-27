@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Process;
 
 /**
- * Loads a production dump and production's storage/app/public into this
+ * Loads a production dump and production's storage/app/public from the
+ * gitignored _import/ folder (one .sql file and public/) into this
  * (non-production) install, following the deploy order in
  * .rewrite/08-deploy.md: migrate if anything is pending, drop the old
  * image-cache renditions, start Glide from an empty cache. With --check it
@@ -21,8 +22,6 @@ use Illuminate\Support\Facades\Process;
 class ImportProduction extends Command
 {
   protected $signature = 'data:import-production
-    {dump : The SQL dump (phpMyAdmin export of the production database)}
-    {--files=.data/public : Production\'s storage/app/public; moved into place, so it is gone from here afterwards}
     {--check : Request every sitemap URL and every image on those pages afterwards}
     {--force : Don\'t ask for confirmation}';
 
@@ -35,18 +34,19 @@ class ImportProduction extends Command
       return self::FAILURE;
     }
 
-    $dump = $this->argument('dump');
-    $files = $this->option('files');
-    $files = str_starts_with($files, '/') ? $files : base_path($files);
+    $dir = base_path('_import');
+    $dumps = glob("{$dir}/*.sql");
+    $files = "{$dir}/public";
     $target = storage_path('app/public');
     $db = config('database.connections.mysql');
 
-    if (!is_file($dump)) {
-      $this->error("No dump at {$dump}.");
+    if (count($dumps) !== 1) {
+      $this->error('_import/ needs exactly one .sql file (the production dump), found ' . count($dumps) . '.');
       return self::FAILURE;
     }
+    $dump = $dumps[0];
     if (!is_dir("{$files}/uploads")) {
-      $this->error("No uploads/ in {$files}: point --files at production's storage/app/public.");
+      $this->error("No _import/public/uploads: copy production's storage/app/public to _import/public.");
       return self::FAILURE;
     }
     if (config('database.default') !== 'mysql') {
@@ -83,11 +83,6 @@ class ImportProduction extends Command
       if (!@rename($files, $target)) {
         File::copyDirectory($files, $target);
         File::deleteDirectory($files);
-      }
-      $leftover = dirname($files);
-      if (basename($leftover) === '.data') {
-        File::delete("{$leftover}/.DS_Store");
-        @rmdir($leftover);
       }
     });
 

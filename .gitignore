@@ -16,4 +16,4 @@ INSTALL.TXT
 /INSTALL.TXT
 # Rewrite: local snapshots, baselines
 /.rewrite/data
-/.data
+/_import
