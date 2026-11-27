@@ -40,6 +40,23 @@ sitemap URLs answer 200, and so do the 230 image URLs on home, a project,
 team and publications. Nothing new in the log. 177 image rows have no file,
 all of them soft-deleted (127 on projects), so nothing visible is missing.
 
+## Loading production data locally
+
+Put production's `storage/app/public` at `.data/public` (gitignored), then:
+
+```
+php artisan data:import-production path/to/dump.sql --check
+```
+
+It drops and reloads the local database, moves `.data/public` to
+`storage/app/public`, runs pending migrations, deletes the old image cache
+and the Glide cache (deploy step 7), relinks `public/storage`, and reports the
+counts and any live image without a file. `--check` then requests every
+sitemap URL and every `/img/…` URL on those pages and fails on anything but
+200 or a new log entry. No backup is made; refused under
+`APP_ENV=production`. `--files=` for another source folder, `--force` to
+skip the prompt.
+
 ## Second dry run (2026-11-27)
 
 Fresh dump (`sisecufi_bsa`, phpMyAdmin, 27 Nov 2026 09:28) and
