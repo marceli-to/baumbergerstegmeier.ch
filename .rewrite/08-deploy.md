@@ -166,6 +166,9 @@ Google Sans from Google Fonts.
    writes `public/robots.txt`; without composer: `php artisan seo:robots`).
    `APP_ENV=production` and `APP_URL` must be set before.
 4. `php artisan migrate --force`, if the rework adds migrations.
+   Check `ls -l public/storage` points at this site's `storage/app/public`
+   (not in git; publication PDFs are served from `/storage/uploads/…`);
+   if not, `php artisan storage:link --force`.
 5. `php artisan optimize:clear && php artisan optimize` (must work: both
    `config:cache` and `route:cache`).
 6. No warm-up command: each image renders on its first request (JPEG
