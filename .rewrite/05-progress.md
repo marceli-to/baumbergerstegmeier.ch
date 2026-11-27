@@ -280,6 +280,27 @@ After oxid `d70cb04`.
   descriptions read like marketing copy ("Innovative Wohnsiedlung …
   harmonische Quartiersintegration"): DB content, for the editors.
 
+## Go-live rehearsal (2026-11-27)
+
+- **Production data locally:** `php artisan data:import-production` (from
+  `_import/`, see `08-deploy.md`); public site compared with production
+  (`qa/content.js`, `shots.js`): same pages, same information.
+- **Admin, writing, through the UI** (`qa/admin-write.js`, 31 checks, on the
+  production copy): project with text + link, two uploads, caption, cover,
+  crop, hide, drag order; unpublish/publish from the list; project teaser;
+  place in the Wohnen overview; publication with a PDF (download through
+  `/storage`); delete both. Public site checked after each step.
+  `qa/admin-tour.js` updated to the new admin's markup (it counted no rows
+  and opened no edit screen): every list, edit, create screen and tab with
+  production data, no errors; logout works.
+- **Fixed (already in production's code):** deleting a project left its
+  place in an overview and its teasers (own and home page); the overview
+  then 500'd (`getShowRoute()` on null), and the home page would have too.
+  `Api\ProjectController::destroy` removes them; the overviews skip entries
+  without a project. Production's data has no such orphans today.
+- Deleting a project still leaves its image rows and files (as every
+  module always has); nothing shows them.
+
 ## Deploy notes
 
 Moved to `08-deploy.md` (2026-10-20). Add to it as the work lands.

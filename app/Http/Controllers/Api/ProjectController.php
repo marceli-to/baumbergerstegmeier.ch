@@ -6,6 +6,8 @@ use App\Models\Type;
 use App\Models\State;
 use App\Models\Category;
 use App\Models\Image;
+use App\Models\ProjectLanding;
+use App\Models\Teaser;
 use App\Http\Resources\DataCollection;
 use App\Http\Requests\ProjectStoreRequest;
 use Illuminate\Http\Request;
@@ -146,7 +148,9 @@ class ProjectController extends Controller
   }
 
   /**
-   * Remove the specified resource from storage.
+   * Remove the specified resource from storage, with its places in the
+   * overviews and its teasers (its own and those on the home page): the
+   * public pages render them through the project and failed without it
    *
    * @param  Project $project
    * @return \Illuminate\Http\Response
@@ -155,6 +159,8 @@ class ProjectController extends Controller
   {
     $project->categories()->detach();
     $project->states()->detach();
+    ProjectLanding::where('project_id', $project->id)->delete();
+    Teaser::where('project_id', $project->id)->delete();
     $project->delete();
     return response()->json('successfully deleted');
   }

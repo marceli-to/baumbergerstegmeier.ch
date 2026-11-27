@@ -20,7 +20,9 @@ class ProjectController extends BaseController
    */
   public function showLandingByState(State $state)
   {
+    // Skips entries whose project was deleted
     $items = ProjectLanding::with('project', 'project.coverImage')
+      ->whereHas('project')
       ->where('state_id', $state->id)
       ->orderBy('position')
       ->orderBy('column')
@@ -45,7 +47,9 @@ class ProjectController extends BaseController
   public function showLandingByCategory(State $state, $category)
   {
     $category = Category::where('slug', $category)->first();
+    // Skips entries whose project was deleted
     $items = ProjectLanding::with('project', 'project.coverImage')
+      ->whereHas('project')
       ->where('category_id', $category->id)
       ->orderBy('position')
       ->orderBy('column')

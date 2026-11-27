@@ -6,21 +6,21 @@ const creates = ['article/create','project/create','project/category/create','pr
   const report = async (label) => {
     const h1 = await page.locator('h1').first().innerText().catch(() => '-');
     const stub = await page.locator('text=Noch nicht portiert').count();
-    console.log(`${label.padEnd(42)} h1="${h1}" rows=${await page.locator('.listing__item').count()}${stub ? ' STUB' : ''} errors=${errors.length}`);
+    console.log(`${label.padEnd(42)} h1="${h1}" rows=${await page.locator('tbody tr').count()}${stub ? ' STUB' : ''} errors=${errors.length}`);
     errors.splice(0).forEach(e => console.log('   ' + e));
   };
   for (const l of lists) {
     await page.goto(`${base}/administration/${l}`, { waitUntil: 'networkidle' });
     await report(l);
     await page.screenshot({ path: `/tmp/tour-${l.replace(/\//g, '_')}.png` });
-    const edit = page.locator('a[title=Bearbeiten]').first();
+    const edit = page.locator('[title=Bearbeiten]').first();
     if (await edit.count()) {
       await edit.click();
       await page.waitForLoadState('networkidle');
       await page.waitForTimeout(500);
       await report('  → edit ' + page.url().replace(base, ''));
       await page.screenshot({ path: `/tmp/tour-${l.replace(/\//g, '_')}-edit.png` });
-      for (const tab of await page.locator('.tabs a').all()) { await tab.click(); await page.waitForTimeout(150); }
+      for (const tab of await page.locator('form .mb-32 > button').all()) { await tab.click(); await page.waitForTimeout(150); }
       if (errors.length) await report('  → tabs');
     }
   }
@@ -34,7 +34,7 @@ const creates = ['article/create','project/create','project/category/create','pr
     await report(u);
     await page.screenshot({ path: `/tmp/tour-${u.replace(/\//g, '_')}.png` });
   }
-  await page.locator('.sidebar__logout').click();
+  await page.getByRole('button', { name: 'Logout' }).click();
   await page.waitForLoadState('networkidle');
   console.log('after logout:', page.url().replace(base, ''));
   await page.goto(`${base}/administration/award/index`);

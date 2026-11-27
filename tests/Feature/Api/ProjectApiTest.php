@@ -196,12 +196,21 @@ class ProjectApiTest extends ApiTestCase
         $state = $this->state('gebaut');
         $category = $this->category('wohnen');
         $project = $this->project([], [$state->id], [$category->id]);
+        $other = $this->project([], [$state->id], [$category->id]);
+        // In an overview, with a teaser on its page and one on the home page
+        foreach ([$project, $other] as $p) {
+            DB::table('project_landing')->insert(['project_id' => $p->id, 'image_id' => 1, 'category_id' => $category->id, 'position' => 0, 'column' => 0, 'publish' => 1]);
+            DB::table('teasers')->insert([['type' => 'project', 'project_id' => $p->id, 'image_id' => 1], ['type' => 'home', 'project_id' => $p->id, 'image_id' => 1]]);
+        }
 
         $this->deleteJson("/api/project/{$project->id}")->assertOk()->assertExactJson(['successfully deleted']);
 
         $this->assertNull(Project::find($project->id));
-        $this->assertSame(0, DB::table('project_state')->count());
-        $this->assertSame(0, DB::table('category_project')->count());
+        $this->assertSame(1, DB::table('project_state')->count());
+        $this->assertSame(1, DB::table('category_project')->count());
         $this->assertNotNull(State::find($state->id));
+        // The public pages render these through the project
+        $this->assertSame([$other->id], DB::table('project_landing')->pluck('project_id')->all());
+        $this->assertSame([$other->id, $other->id], DB::table('teasers')->pluck('project_id')->all());
     }
 }
